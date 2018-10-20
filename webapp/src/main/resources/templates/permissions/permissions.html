@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <title>ONE Platform - Permissions</title>
+    <!-- Theme JS files -->
+    <script type="text/javascript" src="/ump/permissions.controller.js"></script>
+    <!-- /theme JS files -->
+
+    <style>
+        .tableLabel tr td:first-child {
+            white-space: nowrap;
+            padding-right: 100px;
+        }
+    </style>
+</head>
+<body ng-controller="PermissionsController">
+<th:block layout:fragment="content">
+
+    <!-- Page header -->
+    <div th:replace="permissions/fragments/page-header::page-header"></div>
+    <!-- /page header-->
+
+    <!-- Page container -->
+    <div class="page-container">
+
+        <!-- Page content -->
+        <div class="page-content">
+
+            <!-- Main content -->
+            <div class="content-wrapper">
+
+                <!-- Panel search -->
+                <div th:replace="permissions/fragments/panel-search::panel-search"></div>
+                <!-- /panel search -->
+
+                <!-- Panel content -->
+                <div class="panel panel-flat">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover"
+                               style="margin-top: 20px">
+                            <!--HEADER-->
+                            <thead>
+                            <tr>
+                                <th nowrap style="padding-right: 0px; width: 80px">
+                                    <div class="btn-group">
+                                        <input type="checkbox" class="checkAllTable" ng-change="onCheckbox()" ng-model="checklistTable.checkAll">
+                                    </div>
+                                    <div class="btn-group">
+                                        <a class="btn btn-xs btn-link dropdown-toggle" data-toggle="dropdown" th:title="#{common.search.btn.more}"><span class="caret"></span></a>
+                                        <ul class="dropdown-menu dropdown-menu-left">
+                                            <li>
+                                                <button class="btn btn-link btn-icon" ng-click="onPermissionsDelete()" ng-disabled="checklistTable.permission.length == 0">
+                                                    <i class="icon-trash position-left"></i> <span th:text="#{common.btn.delete}"></span></button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </th>
+                                <th th:text="#{permissions.name}"> </th>
+                                <th th:text="#{permissions.description}"> </th>
+                                <th style="width: 100px;" class ="text-right" th:text="#{user.search.action}"></th>
+                            </tr>
+                            </thead>
+
+                            <!--BODY-->
+                            <tbody>
+                            <tr ng-repeat="per in permissionsList">
+                                <td><input type="checkbox" checklist-model="checklistTable.permission" checklist-value="per.id"></td>
+                                <td>{{per.name}}</td>
+                                <td style="max-width:150px;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word">{{per.description}}</td>
+                                <td class="text-right text-nowrap">
+                                    <ul class="icons-list">
+                                        <li>
+                                            <a href="/permissions/permission-edit/{{per.id}}" th:title="#{subscriber.btn.edit}">
+                                                <span class="icon-pencil7"></span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a ng-show="per.name != 'SuperAdmin'" ng-click="onPermissionDelete(per.id)" th:title="#{common.btn.delete}">
+                                                <span class="icon-trash"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="panel-footer text-right">
+
+                        <!-- Paging elements -->
+                        <form class="form-inline formPaging formValidate">
+                            <div class="form-group">
+                                {{totalElements | number}} <span class="text-lowercase" th:text="#{items}"></span>
+                            </div>
+                            <div class="form-group" style="border-left: 1px solid #ddd">
+                                <ul class="pagination-flat pagination-rounded"
+                                    uib-pagination
+                                    total-items="totalElements"
+                                    items-per-page="params.limit"
+                                    max-size="4"
+                                    ng-model="params.page"
+                                    boundary-links="true" force-ellipses="true" rotate="true"
+                                    previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
+                            </div>
+                            <div class="form-group">
+                                <input type="number" name="page" th:placeholder="#{common.page}" class="form-control validatePositiveInteger"
+                                       min="1" max="{{(totalElements / params.limit) | ceil}}"
+                                       style="width: 55px">
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-default" th:text="#{common.paging.btn.go}"></button>
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control" ng-model="params.limit">
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                </select>
+                                <span th:text="#{common.paging.label.limit}"></span>
+                            </div>
+                        </form>
+                        <!-- /paging element -->
+
+                    </div>
+                </div>
+                <!-- /panel content -->
+
+                <!-- Modal replace-->
+                <div th:replace="permissions/fragments/modal-delete::modal-delete"></div>
+                <!-- /modal replace-->
+
+            </div>
+            <!-- /main content -->
+
+        </div>
+        <!-- /page content -->
+
+    </div>
+    <!-- /page container -->
+</th:block>
+</body>
+</html>

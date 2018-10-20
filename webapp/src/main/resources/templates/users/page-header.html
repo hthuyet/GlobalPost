@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <!-- Add js,css here -->
+</head>
+<body>
+<!-- Page header -->
+<div th:fragment="page-header" class="page-header page-header-xs">
+  <div class="page-header-content">
+    <div class="page-title">
+      <h4><a href="/" class="btn-link"><i class="icon-arrow-left52 position-left"></i>
+      </a> <span class="text-semibold" th:text="#{user.header.title}"></span></h4>
+
+      <ul class="breadcrumb breadcrumb-caret position-right" ng-show="{{header}}">
+        <li><a href="/" th:text="#{breadcrumb.home}"></a></li>
+        <li class="active" th:text="#{user.header.title}"></li>
+      </ul>
+
+      <ul class="breadcrumb breadcrumb-caret position-right" ng-show="{{headerAddEdit}}">
+        <li><a href="/" th:text="#{breadcrumb.home}"></a></li>
+        <li><a href="/users" th:text="#{user.header.title}"></a></li>
+        <li class="active" th:text="#{user.header.title.user.header}"></li>
+      </ul>
+
+      <ul class="breadcrumb breadcrumb-caret position-right" ng-show="{{headerInfo}}">
+        <li><a href="/" th:text="#{breadcrumb.home}"></a></li>
+        <li class="active" th:text="#{user.info.title}"></li>
+      </ul>
+    </div>
+
+    <div class="heading-elements" ng-show="{{header}}">
+      <div class="heading-btn-group">
+
+        <a href="/users/user-add" class="btn btn-link btn-float has-text text-size-small">
+          <i class="icon-plus3 text-indigo-400"></i><span th:text="#{user.header.title.user.add}"></span>
+        </a>
+
+        <a ng-disabled="checklistTable.user.length == 0" ng-click="onUserDelete()" class="btn btn-link btn-float has-text text-size-small">
+          <i class="icon-cross2 text-indigo-400"></i><span th:text="#{common.btn.delete}"></span>
+        </a>
+
+        <a class="btn btn-link btn-float has-text text-size-small btnRefresh" ng-click="onUserRefresh()">
+          <i class="icon-sync text-indigo-400"></i><span th:text="#{common.btn.refresh}"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /page header -->
+</body>
+</html>

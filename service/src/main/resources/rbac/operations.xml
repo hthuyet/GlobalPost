@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdbc>
+    <group name="Users">
+        <operation id="ONE:USER:READ" name="Read"></operation>
+        <operation id="ONE:USER:CREATE" name="Create"></operation>
+        <operation id="ONE:USER:UPDATE" name="Update"></operation>
+        <operation id="ONE:USER:DELETE" name="Delete"></operation>
+        <operation id="ONE:USER:RESET_PASSWORD" name="Password"></operation>
+        <operation id="ONE:USER:FORGOT_PASSWORD" name="Forgot password"></operation>
+    </group>
+    <group name="Roles">
+        <operation id="ONE:ROLE:READ" name="Read"></operation>
+        <operation id="ONE:ROLE:CREATE" name="Create"></operation>
+        <operation id="ONE:ROLE:UPDATE" name="Update"></operation>
+        <operation id="ONE:ROLE:DELETE" name="Delete"></operation>
+    </group>
+    <group name="Permissions">
+        <operation id="ONE:PERMISSION:READ" name="Read"></operation>
+        <operation id="ONE:PERMISSION:CREATE" name="Create"></operation>
+        <operation id="ONE:PERMISSION:UPDATE" name="Update"></operation>
+        <operation id="ONE:PERMISSION:DELETE" name="Delete"></operation>
+    </group>
+    <group name="Devices">
+        <operation id="OLT:DEVICE:READ" name="Read"></operation>
+        <operation id="OLT:DEVICE:CREATE" name="Create"></operation>
+        <operation id="OLT:DEVICE:UPDATE" name="Update"></operation>
+        <operation id="OLT:DEVICE:DELETE" name="Delete"></operation>
+        <operation id="OLT:DEVICE:SWITCH" name="SWITCH Manager"></operation>
+    </group>
+    <group name="Device Group">
+        <operation id="OLT:GROUP:READ" name="Read"></operation>
+        <operation id="OLT:GROUP:CREATE" name="Create"></operation>
+        <operation id="OLT:GROUP:UPDATE" name="Update"></operation>
+        <operation id="OLT:GROUP:DELETE" name="Delete"></operation>
+        <operation id="OLT:GROUP:CHECK_USE" name="Check Use"></operation>
+    </group>
+    <group name="Label">
+        <operation id="OLT:LABEL:READ" name="Read"></operation>
+        <operation id="OLT:LABEL:CREATE" name="Create"></operation>
+        <operation id="OLT:LABEL:UPDATE" name="Update"></operation>
+        <operation id="OLT:LABEL:DELETE" name="Delete"></operation>
+        <operation id="OLT:LABEL:CHECK_USE" name="Check Use"></operation>
+        <operation id="OLT:LABEL:TESST" name="Tesst Use"></operation>
+    </group>
+</rdbc>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <!-- Add js,css here -->
+</head>
+<body>
+<!-- Panel search -->
+<div th:fragment="panel-search" class="panel panel-flat">
+  <div class="panel-heading">
+    <h5 class="panel-title"><span th:text="#{user.content.title.search}"></span></h5>
+    <div class="heading-elements">
+      <ul class="icons-list">
+        <li><a data-action="collapse"></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel-body">
+    <form ng-submit="onUserSearch()" class="form-horizontal form-search row">
+
+      <div class="col-md-3">
+        <div class="form-group">
+          <label class="control-label col-md-4"> <span th:text="#{user.search.user.name}"></span>:</label>
+          <div class="col-md-8">
+            <input type="text" class="form-control" ng-model="params.userName" th:placeholder="#{placeholder.text}">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="form-group">
+          <label class="control-label col-md-4"> <span th:text="#{user.search.role}"></span>:</label>
+          <div class="col-md-8">
+            <select class="select2 form-control" ng-model="params.role">
+              <option value=""></option>
+              <option ng-repeat="r in roles" value="{{r.id}}"> {{r.name}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="btn-group">
+          <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown"> <span th:text="#{common.search.btn.more}"></span>
+            <span class="caret"></span></button>
+          <ul class="dropdown-menu dropdown-menu-right dropdownMoreInputSearch">
+            <li> <input type="checkbox" ng-model="checklistSearch.fullName"> <span th:text="#{user.search.full.name}"></span></li>
+            <li> <input type="checkbox" ng-model="checklistSearch.email"> <span th:text="#{user.search.email}"></span></li>
+            <li> <input type="checkbox" ng-model="checklistSearch.phoneNumber"> <span th:text="#{user.search.phone.number}"></span></li>
+          </ul>
+        </div>
+        <button type="submit" class="btn btn-icon btn-default"><i class="icon-search4"></i></button>
+      </div>
+
+      <div class="clearfix"></div>
+
+      <div class="col-md-3" ng-if="checklistSearch.fullName">
+        <div class="form-group">
+          <label class="control-label col-md-4"> <span th:text="#{user.search.full.name}"></span>:</label>
+          <div class="col-md-8">
+            <input type="text" class="form-control" ng-model="params.fullName" th:placeholder="#{placeholder.text}">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3" ng-if="checklistSearch.email">
+        <div class="form-group">
+          <label class="control-label col-md-4"> <span th:text="#{user.search.email}"></span>:</label>
+          <div class="col-md-8">
+            <input type="text" class="form-control" ng-model="params.email" th:placeholder="#{placeholder.text}">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3" ng-if="checklistSearch.phoneNumber">
+        <div class="form-group">
+          <label class="control-label col-md-4"> <span th:text="#{user.search.phone.number}"></span>:</label>
+          <div class="col-md-8">
+            <input type="tel" class="form-control" ng-model="params.phoneNumber" th:placeholder="#{placeholder.text}">
+          </div>
+        </div>
+      </div>
+
+
+
+    </form>
+  </div>
+</div>
+<!-- /panel search -->
+</body>
+</html>

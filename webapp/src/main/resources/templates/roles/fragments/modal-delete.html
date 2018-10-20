@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<!-- Modal delete -->
+<div th:fragment="modal-delete" class="modal fade modalDelete">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content text-center">
+      <div class="modal-body">
+        <h1><i class="icon-warning text-warning" style="font-size: 100px;"></i></h1>
+        <p class="message" th:text="#{confirmDelete.role}"></p>
+      </div>
+
+      <div class="modal-footer text-center">
+        <button type="button" class="btn btn-primary btn-icon btnSubmit" ng-click="onDeleteConfirm()"><i class="icon-checkmark3 position-left"></i> <span th:text="#{btn.ok}"></span></button>
+        <a class="btn btn-link" data-dismiss="modal" th:text="#{btn.cancel}"></a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /modal delete -->
+
+</body>
+</html>

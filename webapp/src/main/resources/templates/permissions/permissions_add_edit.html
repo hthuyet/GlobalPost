@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <title>ONE Platform - Permissions</title>
+    <!-- Theme JS files -->
+
+    <script type="text/javascript" src="/assets/js/plugins/trees/fancytree_all.min.js"></script>
+    <script type="text/javascript" src="/assets/js/plugins/trees/fancytree_childcounter.js"></script>
+    <script type="text/javascript" src="/ump/permissions-add.controller.js"></script>
+    <!-- /theme JS files -->
+</head>
+<body ng-controller="PermissionAddController">
+<th:block layout:fragment="content">
+
+    <!-- Page header -->
+    <div th:replace="permissions/fragments/page-header-add-edit::page-header-add-edit"></div>
+    <!-- /page header-->
+
+    <!-- Page container -->
+    <div class="page-container">
+
+        <div class="displayNone dataResponse"
+             th:data-getId="${getId}" th:data-getName="${getName}"
+             th:data-getOperationIds="${getOperationIds}"
+             th:data-getDescription="${getDescription}"></div>
+
+        <!-- Page content -->
+        <div class="page-content">
+
+            <!-- Main content -->
+            <div class="content-wrapper">
+
+                <!-- Panel content -->
+                <div class="panel panel-flat">
+
+                    <div class="panel-heading">
+                        <h5 class="panel-title"><span th:text="#{breadcrumb.permissions.add}"></span></h5>
+                        <div class="heading-elements">
+                            <ul class="icons-list">
+                                <li><a data-action="collapse"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <form ng-submit="onPermissionAdd()" class="form-horizontal formCreatePermission"
+                          name="permissionForm">
+                        <div class="panel-body">
+                            <input style="display: none" type="text" class="form-control" ng-model="params.perId">
+                            <div class="col-md-6">
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">
+                                            <span th:text="#{permissions.name}"></span>
+                                        </label>
+                                        <div class="col-md-8">
+                                            <input type="text" class="form-control" id="permissionName"
+                                                   pattern="[A-Za-z0-9]+" th:placeholder="#{permissions.writeName}"
+                                                   ng-model="params.permissionName"
+                                                   minlength="5"
+                                                   maxlength="20"
+                                                   required="required"
+                                                   name="permissionName">
+                                            <span class="help-block text-danger" ng-show="permissionForm.permissionName.$dirty && permissionForm.permissionName.$error.required">
+                                                    <label lass="has-error" th:text="#{groups.label.error}"></label>
+                                                </span>
+                                            <span class="help-block text-danger" ng-show="permissionForm.permissionName.$dirty && permissionForm.permissionName.$error.minlength">
+                                                    <label lass="has-error" th:text="#{user.label.minlengthError}"></label>
+                                                </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">
+                                                <span th:text="#{permissions.description}"></span>
+                                            </label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" id="permissionDes"
+                                                       pattern="[A-Za-z0-9]+" th:placeholder="#{permissions.writeName}"
+                                                       ng-model="params.permissionDes"
+                                                       minlength="5"
+                                                       maxlength="20"
+                                                       name="permissionDes">
+                                                <span class="help-block text-danger" ng-show="permissionForm.permissionDes.$dirty && permissionForm.permissionDes.$error.minlength">
+                                                    <label lass="has-error" th:text="#{user.label.minlengthError}"></label>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="col-md-3 control-label">
+                                    <span th:text="#{permissions.add.operation.object}"></span>
+                                </label>
+                                <!--<counter model="count"></counter>{{count}}-->
+                                <!--{{operationsList}}-->
+                                <div class="col-md-6" ng-if="operationsList != ''">
+                                    <!--<counter model="count"></counter>{{count}}-->
+                                    <!--<datan-type chart-id="tree"-->
+                                                <!--chart-operations="{{operationsList}}"-->
+                                                <!--model="listParameterObjectChecked"></datan-type>-->
+                                    <postprocess my-parameter="myParameter.value"
+                                                 my-class="myClass.value"
+                                                 edit-value="editValue"
+                                                 chart-id="tree" chart-operations="{{operationsList}}"
+                                                 style="padding-top: 10px;" />
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="panel-footer text-center">
+                            <button type="submit" class="btn btn-primary"
+                                    th:text="#{subscriber.header.title.subscriber.ok}"></button>
+                            <a class="btn btn-default" href="/permissions"
+                               th:text="#{subscriber.header.title.subscriber.cancel}"></a>
+                        </div>
+
+                    </form>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <!-- /page container -->
+</th:block>
+</body>
+</html>

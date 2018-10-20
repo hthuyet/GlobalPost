@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <title>ONE Platform - Users</title>
+    <!-- Theme JS files -->
+    <script type="text/javascript" src="/ump/user-edit.controller.js"></script>
+    <!-- /theme JS files -->
+</head>
+<body ng-controller="UserEditController">
+<th:block layout:fragment="content">
+
+    <!-- Page header -->
+    <div th:replace="users/page-header::page-header"></div>
+    <!-- /page header-->
+
+    <!-- Page container -->
+    <div class="page-container">
+        <div class="displayNone dataResponse" th:data-userId="${id}"
+             th:data-userName="${userName}"
+             th:data-fullName="${fullName}" th:data-email="${email}"
+             th:data-role="${role}" th:data-group="${group}"
+             th:data-phoneNumber="${phoneNumber}"
+             th:data-description="${description}"></div>
+        <!-- Page content -->
+        <div class="page-content">
+
+            <!-- Main content -->
+            <div class="content-wrapper">
+
+                <!-- Panel content -->
+                <div class="panel panel-flat">
+
+                    <div class="panel-heading">
+                        <h5 class="panel-title"> <span th:text="#{user.header.title.user.header.add}"></span></h5>
+                        <div class="heading-elements">
+                            <ul class="icons-list">
+                                <li><a data-action="collapse"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                        <form ng-submit="onUserEdit()" class="form-horizontal" name="userForm">
+                            <div class="panel-body">
+                                <input style="display: none" type="text" class="form-control" ng-model="params.userId">
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">
+                                                <span th:text="#{user.username}"></span>
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" id="userName"
+                                                       pattern="[A-Za-z0-9]+" th:placeholder="#{user.writeUserName}"
+                                                       title="UserName does not contain special characters"
+                                                       ng-model="params.userName" minlength="5"
+                                                       maxlength="20" required="required"
+                                                       name="userName">
+                                                <span class="help-block text-danger" ng-show="userForm.userName.$dirty && userForm.userName.$error.required">
+                                                    <label lass="has-error" th:text="#{groups.label.error}"></label>
+                                                </span>
+                                                    <span class="help-block text-danger" ng-show="userForm.userName.$dirty && userForm.userName.$error.minlength">
+                                                    <label lass="has-error" th:text="#{user.label.minlengthError}"></label>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Phone number <span class="text-danger">*</span>
+                                            </label>
+                                            <div class="col-md-8 ">
+                                                <input type="text" class="form-control"
+                                                       ng-model="params.phoneNumber"
+                                                       th:placeholder="#{user.writePhoneNumber}"
+                                                       maxlength="20" required="required"
+                                                       name="phoneNumber">
+                                                <span class="help-block text-danger" ng-show="userForm.phoneNumber.$dirty && userForm.phoneNumber.$error.required">
+                                                    <label lass="has-error" th:text="#{groups.label.error}"></label>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">
+                                                <span th:text="#{user.fullname}"></span>
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <div class="col-md-8 ">
+                                                <input type="text" class="form-control"
+                                                       ng-model="params.fullName" minlength="5"
+                                                       th:placeholder="#{user.writeFullName}"
+                                                       maxlength="50" required="required"
+                                                       name="fullName">
+                                                <span class="help-block text-danger" ng-show="userForm.fullName.$dirty && userForm.fullName.$error.required">
+                                                        <label lass="has-error" th:text="#{groups.label.error}"></label>
+                                                </span>
+                                                    <span class="help-block text-danger" ng-show="userForm.fullName.$dirty && userForm.fullName.$error.minlength">
+                                                    <label lass="has-error" th:text="#{user.label.minlengthError}"></label>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3"> <span th:text="#{user.search.role}"></span>
+                                                <span class="text-danger">*</span></label>
+                                            <div class="multi-select-full col-md-8">
+                                                <select class="multiselect-filtering selectRole"
+                                                        required="required" multiple="multiple">
+                                                    <option ng-repeat="r in roles" value="{{r.id}}~{{r.name}}" on-finish-render="ngRepeatOptionLabels" ng-if="r.name != 'SuperAdmin'"> {{r.name}}</option>
+                                                    <input type="text" ng-model="params.deviceGroup.role" style="display: none">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">
+                                                <span th:text="#{user.email}"></span>
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <div class="col-md-8">
+                                                <input type="email" class="form-control"
+                                                       ng-model="params.email" minlength="5"
+                                                       th:placeholder="#{user.writeEmail}"
+                                                       maxlength="50" required="required"
+                                                       name="email">
+                                                <span class="help-block text-danger" ng-show="userForm.email.$dirty && userForm.email.$error.required">
+                                                        <label lass="has-error" th:text="#{groups.label.error}"></label>
+                                                </span>
+                                                <span class="help-block text-danger" ng-show="userForm.email.$error.email && userForm.email.$dirty"
+                                                      th:text="#{user.label.emailError}">
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">
+                                                <span th:text="#{user.description}"></span>
+                                            </label>
+                                            <div class="col-md-8 ">
+                                                <input type="text" class="form-control"
+                                                       ng-model="params.description" maxlength="1500"
+                                                       th:placeholder="#{user.writeDescription}">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                            <div class="panel-footer text-center">
+                                <button type="submit" class="btn btn-primary"
+                                        th:text="#{subscriber.header.title.subscriber.ok}"
+                                        ng-disabled="!userForm.$valid"></button>
+                                <a class="btn btn-default" href="/users" th:text="#{subscriber.header.title.subscriber.cancel}"></a>
+                            </div>
+
+                        </form>
+
+
+
+                </div>
+                <!-- /panel content -->
+
+                <!-- Modal replace-->
+                <!--<div th:replace="devices/fragments/modal-delete::modal-delete"></div>-->
+                <!-- /modal replace-->
+
+            </div>
+            <!-- /main content -->
+
+        </div>
+        <!-- /page content -->
+
+    </div>
+    <!-- /page container -->
+</th:block>
+</body>
+</html>

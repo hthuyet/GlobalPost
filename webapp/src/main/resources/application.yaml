@@ -1,0 +1,19 @@
+server:
+  port: 8081
+spring:
+  thymeleaf:
+    cache: false
+  redis:
+    host: master-ump-server
+    port: 6379
+    password: ump@2018
+  http:
+    multipart:
+      max-file-size: 1024MB
+      max-request-size: 1024MB
+  messages:
+      basename: messages/messages
+      cache-seconds: -1
+      encoding: UTF-8
+apiEndpointUrl: http://localhost:8091/api
+identityServiceEndpointUrl: http://localhost:8091/api

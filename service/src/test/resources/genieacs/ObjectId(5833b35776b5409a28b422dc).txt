@@ -1,0 +1,16 @@
+{
+    "_id" : ObjectId("5833b35776b5409a28b422dc"),
+    "filename" : "file_data_model_v1.csv",
+    "contentType" : "binary/octet-stream",
+    "length" : "4357",
+    "chunkSize" : "261120",
+    "uploadDate" : "2016-11-22T02:54:15.342Z",
+    "aliases" : "",
+    "metadata" : {
+        "fileType" : "1 Firmware Upgrade Image",
+        "oui" : "a06518",
+        "productClass" : "968380GERG",
+        "version" : "G4.16A.03RC3"
+    },
+    "md5" : "7e5424f81ee48c0880bcc7b090700768"
+}

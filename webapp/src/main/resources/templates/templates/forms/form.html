@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+  <!-- Theme JS files -->
+  <script type="text/javascript" src="/ump/templates/form.controller.js"></script>
+  <!-- /theme JS files -->
+</head>
+<body ng-controller="TemplateFormController">
+<th:block layout:fragment="content">
+
+  <!-- Page header -->
+  <div th:replace="templates/forms/fragments/page-header::page-header"></div>
+  <!-- /page header-->
+
+  <!-- Page container -->
+  <div class="page-container">
+
+    <!-- Page content -->
+    <div class="page-content">
+
+      <!-- Main sidebar -->
+      <!--Add fragment sidebar here-->
+      <!-- /main sidebar -->
+
+      <!-- Main content -->
+      <div class="content-wrapper">
+
+        <!-- Panel content -->
+        <div class="panel panel-flat">
+          <div class="panel-heading">
+            <h5 class="panel-title">{{title}}</h5>
+            <div class="heading-elements">
+              <ul class="icons-list">
+                <li><a data-action="collapse"></a></li>
+                <li><a data-action="reload"></a></li>
+                <li><a data-action="close"></a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="panel-body">
+            form elements
+          </div>
+        </div>
+        <!-- /panel cont -->
+
+      </div>
+      <!-- /main content -->
+
+    </div>
+    <!-- /page content -->
+
+  </div>
+  <!-- /page container -->
+</th:block>
+</body>
+</html>

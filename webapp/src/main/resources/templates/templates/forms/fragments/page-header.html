@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <!-- Add js,css here -->
+</head>
+<body>
+<!-- Page header -->
+<div th:fragment="page-header" class="page-header page-header-xs">
+  <div class="page-header-content">
+    <div class="page-title">
+      <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Templates</span> - forms</h4>
+
+      <ul class="breadcrumb breadcrumb-caret position-right">
+        <li><a href="/">home</a></li>
+        <li><a href="/">templates</a></li>
+        <li class="active">forms</li>
+      </ul>
+    </div>
+
+    <div class="heading-elements">
+      <div class="heading-btn-group">
+        <button class="btn btn-link btn-float has-text text-size-small">
+          <i class="icon-plus3 text-indigo-400"></i><span>ADD</span>
+        </button>
+
+        <button disabled="true" class="btn btn-link btn-float has-text text-size-small">
+          <i class="icon-cross2 text-indigo-400"></i><span>DELETE</span>
+        </button>
+
+        <button class="btn btn-link btn-float has-text text-size-small">
+          <i class="icon-sync text-indigo-400"></i><span>REFRESH</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /page header -->
+</body>
+</html>
