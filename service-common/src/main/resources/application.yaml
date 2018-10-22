@@ -6,9 +6,11 @@ security:
     enabled: false
 spring:
   datasource:
-    jdbcUrl: jdbc:mysql://localhost:3306/global_common?useSSL=false&useUnicode=yes&characterEncoding=UTF-8
-    username: root
-    password: admin@123
+    jdbcUrl: jdbc:mysql://206.189.41.190:3306/global?useSSL=false&useUnicode=yes&characterEncoding=UTF-8
+#    username: root
+#    password: admin@123
+    username: global
+    password: global@2018
     driverClassName: com.mysql.jdbc.Driver
 #  redis:
 #    hostName: master-ump-server
