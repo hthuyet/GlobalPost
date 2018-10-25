@@ -6,25 +6,9 @@ security:
     enabled: false
 spring:
   datasource:
-    jdbcUrl: jdbc:mysql://olt-nms:3306/one?useSSL=false&useUnicode=yes&characterEncoding=UTF-8
-    username: root
-    password: olt@2018
+    jdbcUrl: jdbc:mysql://206.189.41.190:3306/global?useSSL=false&useUnicode=yes&characterEncoding=UTF-8
+    username: global
+    password: global@2018
     driverClassName: com.mysql.jdbc.Driver
-#  redis:
-#    hostName: master-ump-server
-#    port: 6379
-#    password: ump@2018
-#  rabbitmq:
-#    host: master-ump-server
-#    port: 5672
-#    username: admin
-#    password: ump@2018
   jersey:
     application-path: /api
-  mail:
-    host: mail.vnpt-technology.vn
-    port: 25
-    username: ump@vnpt-technology.vn
-    password: Ump@123
-tmpDir: /tmp/ump
-#elasticSearchUrl: http://master-ump-server23:9200
