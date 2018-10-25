@@ -5,6 +5,6 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 /**
  * Created by ThuyetLV
  */
-@EnableRedisHttpSession
+//@EnableRedisHttpSession
 public class HttpSessionConfig {
 }

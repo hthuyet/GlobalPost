@@ -1,12 +1,14 @@
 server:
   port: 8081
 spring:
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.session.SessionAutoConfiguration
   thymeleaf:
     cache: false
-  redis:
-    host: master-ump-server
-    port: 6379
-    password: ump@2018
+#  redis:
+#    host: master-ump-server
+#    port: 6379
+#    password: ump@2018
   http:
     multipart:
       max-file-size: 1024MB
