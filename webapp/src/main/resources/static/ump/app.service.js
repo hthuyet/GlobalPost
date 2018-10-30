@@ -15,13 +15,13 @@ UserWebApp
             common.spinner(false);
 
           } else {
-            deferred.reject();
+            deferred.reject(response);
             common.spinner(false);
             common.notifyError(response.data.error, response.status);
           }
 
         }, function errorCallback(response) {
-          deferred.reject();
+          deferred.reject(response);
           common.spinner(false);
             if (response.status === 405) {
                 common.notifyError($translate.instant('accessDenied'), '403');
@@ -47,7 +47,7 @@ UserWebApp
           if (response.status === 200) {
             deferred.resolve(response.data);
           } else {
-            deferred.reject();
+            deferred.reject(response);
             common.notifyError(response.data.error, response.status);
           }
           if (typeof _btnElement !== 'undefined') {
@@ -55,7 +55,7 @@ UserWebApp
           }
 
         }, function errorCallback(response) {
-          deferred.reject();
+          deferred.reject(response);
           if (response.status === 405) {
               common.notifyError($translate.instant('accessDenied'), '403');
           } else {

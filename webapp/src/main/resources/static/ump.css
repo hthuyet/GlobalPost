@@ -113,7 +113,7 @@ table.table-basic-info td {
 }
 
 .breadcrumb li {
-    text-transform: lowercase;
+    /*text-transform: lowercase;*/
 }
 /*</editor-fold>*/
 

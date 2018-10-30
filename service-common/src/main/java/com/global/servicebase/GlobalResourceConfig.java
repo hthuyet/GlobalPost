@@ -36,7 +36,7 @@ public class GlobalResourceConfig extends ResourceConfig {
     //find all class annotated with javax.ws.rs.Path and register
     private void registerEndpoints() {
         Reflections reflections = new Reflections(new ConfigurationBuilder()
-                .setUrls(ClasspathHelper.forPackage("com.global.servicecommon"))
+                .setUrls(ClasspathHelper.forPackage("com.global.servicebase"))
                 .setScanners(new TypeAnnotationsScanner()));
 
         Set<Class<?>> endpoints = reflections.getTypesAnnotatedWith(Path.class, true);
@@ -66,7 +66,7 @@ public class GlobalResourceConfig extends ResourceConfig {
         config.setContact("GLOBAL");
         config.setSchemes(new String[]{"http", "https"});
         config.setBasePath(this.apiPath);
-        config.setResourcePackage("com.global.servicecommon");
+        config.setResourcePackage("com.global.servicebase");
         config.setPrettyPrint(true);
         config.setScan(true);
     }

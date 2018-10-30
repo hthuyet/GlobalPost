@@ -1,18 +1,18 @@
-package com.global.servicebase;
+package com.global.service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Created by thuyetlv
+ * Created by vietnq on 10/21/16.
  */
 @SpringBootApplication(
-        scanBasePackages = {"com.global.servicebase"},
+        scanBasePackages = {"com.global.service"},
         exclude = {}
 )
-public class Application {
+public class ServiceApi {
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(ServiceApi.class, args);
     }
 }

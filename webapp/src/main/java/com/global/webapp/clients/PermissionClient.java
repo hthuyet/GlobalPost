@@ -15,7 +15,7 @@ public class PermissionClient {
     private RestTemplate restTemplate;
     private String endpointUrl;
 
-    public PermissionClient(RestTemplate restTemplate, @Value("${apiEndpointUrl}") String apiEndpointUrl) {
+    public PermissionClient(RestTemplate restTemplate, @Value("${commondEndpointUrl}") String apiEndpointUrl) {
         this.restTemplate = restTemplate;
         this.endpointUrl = apiEndpointUrl + "/permissions";
     }

@@ -142,7 +142,7 @@ public class UserService extends SsdcCrudService<Long, User> {
             throw new UserNotFoundException("No user with id " + id);
         }
 
-        String randomPassword = "admin";
+        String randomPassword = "global!@#123";
         user.setEncryptedPassword(randomPassword);
 
         update(id, user);
@@ -284,7 +284,7 @@ public class UserService extends SsdcCrudService<Long, User> {
             parameters.add("(" + String.join(" OR ", tmpParameters) + ")");
         }
 
-        parameters.add(" user_name <> 'ump'");
+        parameters.add(" id > 0 ");
         String query = String.join(" AND ", parameters);
         return query;
     }

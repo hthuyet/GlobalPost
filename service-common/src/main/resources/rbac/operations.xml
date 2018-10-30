@@ -20,4 +20,22 @@
         <operation id="ONE:PERMISSION:UPDATE" name="Update"></operation>
         <operation id="ONE:PERMISSION:DELETE" name="Delete"></operation>
     </group>
+    <group name="Part">
+        <operation id="GLOBAL:PART:READ" name="Read"></operation>
+        <operation id="GLOBAL:PART:CREATE" name="Create"></operation>
+        <operation id="GLOBAL:PART:UPDATE" name="Update"></operation>
+        <operation id="GLOBAL:PART:DELETE" name="Delete"></operation>
+    </group>
+    <group name="Partner">
+        <operation id="GLOBAL:PARTNER:READ" name="Read"></operation>
+        <operation id="GLOBAL:PARTNER:CREATE" name="Create"></operation>
+        <operation id="GLOBAL:PARTNER:UPDATE" name="Update"></operation>
+        <operation id="GLOBAL:PARTNER:DELETE" name="Delete"></operation>
+    </group>
+    <group name="Customer">
+        <operation id="GLOBAL:CUSTOMER:READ" name="Read"></operation>
+        <operation id="GLOBAL:CUSTOMER:CREATE" name="Create"></operation>
+        <operation id="GLOBAL:CUSTOMER:UPDATE" name="Update"></operation>
+        <operation id="GLOBAL:CUSTOMER:DELETE" name="Delete"></operation>
+    </group>
 </rdbc>

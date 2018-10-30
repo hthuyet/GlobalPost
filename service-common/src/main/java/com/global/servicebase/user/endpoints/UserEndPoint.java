@@ -147,7 +147,7 @@ public class UserEndPoint {
     @Path("/thuyetlv")
     @ApiOperation(value = "change pass with token")
     public User thuyetlv() throws Exception {
-        return userService.createPassword(-2L);
+        return userService.createPassword(-1L);
     }
 
 }

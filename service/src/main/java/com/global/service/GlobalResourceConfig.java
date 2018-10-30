@@ -36,7 +36,7 @@ public class GlobalResourceConfig extends ResourceConfig {
     //find all class annotated with javax.ws.rs.Path and register
     private void registerEndpoints() {
         Reflections reflections = new Reflections(new ConfigurationBuilder()
-                .setUrls(ClasspathHelper.forPackage("vn.vnpt.ssdc"))
+                .setUrls(ClasspathHelper.forPackage("com.global.service"))
                 .setScanners(new TypeAnnotationsScanner()));
 
         Set<Class<?>> endpoints = reflections.getTypesAnnotatedWith(Path.class, true);
@@ -59,14 +59,14 @@ public class GlobalResourceConfig extends ResourceConfig {
         this.register(SwaggerSerializers.class);
 
         BeanConfig config = new BeanConfig();
-        config.setConfigId("ump-jersey");
-        config.setTitle("UMP Rest API");
-        config.setDescription("Rest API for Unified Device Management");
+        config.setConfigId("Global-jersey");
+        config.setTitle("GLOBAL Rest API");
+        config.setDescription("Rest API for Global");
         config.setVersion("v1");
-        config.setContact("SSDC");
+        config.setContact("Global");
         config.setSchemes(new String[]{"http", "https"});
         config.setBasePath(this.apiPath);
-        config.setResourcePackage("vn.vnpt.ssdc");
+        config.setResourcePackage("com.global.service");
         config.setPrettyPrint(true);
         config.setScan(true);
     }

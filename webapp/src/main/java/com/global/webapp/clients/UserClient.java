@@ -21,7 +21,7 @@ public class UserClient {
 
     @Autowired
     public UserClient(RestTemplate restTemplate,
-            @Value("${apiEndpointUrl}") String identityServiceEndpointUrl) {
+            @Value("${commondEndpointUrl}") String identityServiceEndpointUrl) {
         this.restTemplate = restTemplate;
         this.endpointUrl = identityServiceEndpointUrl + "/users";
     }

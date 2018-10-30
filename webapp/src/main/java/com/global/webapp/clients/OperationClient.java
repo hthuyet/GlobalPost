@@ -14,7 +14,7 @@ public class OperationClient {
     private RestTemplate restTemplate;
     private String endpointUrl;
 
-    public OperationClient(RestTemplate restTemplate, @Value("${apiEndpointUrl}") String apiEndpointUrl) {
+    public OperationClient(RestTemplate restTemplate, @Value("${commondEndpointUrl}") String apiEndpointUrl) {
         this.restTemplate = restTemplate;
         this.endpointUrl = apiEndpointUrl + "/operations";
     }

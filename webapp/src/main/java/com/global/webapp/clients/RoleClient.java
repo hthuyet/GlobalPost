@@ -12,7 +12,7 @@ public class RoleClient {
     private RestTemplate restTemplate;
     private String endpointUrl;
 
-    public RoleClient(RestTemplate restTemplate, @Value("${apiEndpointUrl}") String apiEndpointUrl) {
+    public RoleClient(RestTemplate restTemplate, @Value("${commondEndpointUrl}") String apiEndpointUrl) {
         this.restTemplate = restTemplate;
         this.endpointUrl = apiEndpointUrl + "/roles";
     }

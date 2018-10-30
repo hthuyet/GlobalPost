@@ -14,7 +14,7 @@ import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHand
 //@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
-    private static final String RESOURCE_ID = "ump_api";
+    private static final String RESOURCE_ID = "global_api";
 
     @Value("${spring.jersey.application-path:/}")
     private String apiPath;

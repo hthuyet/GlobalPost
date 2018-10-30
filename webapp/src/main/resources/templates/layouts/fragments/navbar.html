@@ -19,6 +19,15 @@
   <div class="navbar-collapse collapse" id="navbar-mobile">
     <ul class="nav navbar-nav navUmp">
       <li class="dropdown">
+        <a href="" class="dropdown-toggle navLv1" data-toggle="dropdown" ><span th:text="#{layout.navbar.systemManager}"></span> <span class="caret" ></span></a>
+        <ul class="dropdown-menu width-250">
+          <li><a href="/branch" class="navLv1" th:text="#{layout.navbar.systemManager.part}"></a></li>
+          <li><a href="/partner" class="navLv1" th:text="#{layout.navbar.systemManager.partner}"></a></li>
+          <li><a href="/customer" class="navLv1"><span th:text="#{layout.navbar.systemManager.customer}"></span></a></li>
+        </ul>
+      </li>
+
+      <li class="dropdown">
         <a href="" class="dropdown-toggle navLv1" data-toggle="dropdown" ><span th:text="#{layout.navbar.users}"></span> <span class="caret" ></span></a>
         <ul class="dropdown-menu width-250">
           <li><a href="/users" class="navLv1" th:text="#{layout.navbar.users}"></a></li>

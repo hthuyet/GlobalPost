@@ -41,8 +41,10 @@ public class UmpAuthSuccessHandler extends SavedRequestAwareAuthenticationSucces
             roles.add(authority.getAuthority());
         }
         session.setAttribute("roles", roles);
-        session.setAttribute("username", authentication.getName());
-        User user = userClient.getByUsername(authentication.getName());
+        org.springframework.security.core.userdetails.User springUser = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
+        System.out.println("----------getPrincipal: " + springUser.getUsername());
+        session.setAttribute("username", springUser.getUsername());
+        User user = userClient.getByUsername(springUser.getUsername());
         session.setAttribute("userId", user.userId);
 
         HttpSession session = httpServletRequest.getSession();
