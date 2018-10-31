@@ -37,7 +37,7 @@ public class PartnerController extends BaseController {
   @PostMapping("/partner/search")
   @PreAuthorize("hasAuthority('GLOBAL:PARTNER:READ')")
   @ResponseBody
-  public ResponseEntity search(@RequestParam Map<String, String> params) {
+  public ResponseEntity search(@RequestBody Map<String, String> params) {
     try {
       logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "search partner on list partner page", "", "");
       String rtn = partnerClient.search(params);
@@ -50,22 +50,24 @@ public class PartnerController extends BaseController {
   @PostMapping("/partner/count")
   @PreAuthorize("hasAuthority('GLOBAL:PARTNER:READ')")
   @ResponseBody
-  public int countDevices(@RequestParam Map<String, String> params) {
+  public int countDevices(@RequestBody Map<String, String> params) {
     logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "count partner on list partner page", "", "");
     return partnerClient.count(params);
   }
 
   @GetMapping("/partner/add")
   @PreAuthorize("hasAuthority('GLOBAL:PARTNER:CREATE')")
-  public String add() {
+  public String add(Model model) {
     logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "go to add partner page", "", "");
+    model.addAttribute("data", "");
     return PARTNER_PAGE_FORM;
   }
 
   @GetMapping("partner/edit/{id}")
   @PreAuthorize("hasAuthority('GLOBAL:PARTNER:UPDATE')")
   public String edit(Model model, @PathVariable("id") String id) {
-    model.addAttribute("role", partnerClient.get(Long.parseLong(id)));
+    String data = partnerClient.get(Long.parseLong(id));
+    model.addAttribute("data", data);
     logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "go to edit partner page", "", "");
     return PARTNER_PAGE_FORM;
   }

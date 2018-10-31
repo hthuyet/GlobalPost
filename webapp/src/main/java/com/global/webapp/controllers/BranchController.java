@@ -1,6 +1,6 @@
 package com.global.webapp.controllers;
 
-import com.global.webapp.clients.PartClient;
+import com.global.webapp.clients.BranchClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class BranchController extends BaseController {
   private Logger logger = LoggerFactory.getLogger(BranchController.class);
 
   @Autowired
-  protected PartClient partClient;
+  protected BranchClient branchClient;
 
   @Autowired
   protected HttpSession session;
@@ -37,10 +37,10 @@ public class BranchController extends BaseController {
   @PostMapping("/branch/search")
   @PreAuthorize("hasAuthority('GLOBAL:BRANCH:READ')")
   @ResponseBody
-  public ResponseEntity search(@RequestParam Map<String, String> params) {
+  public ResponseEntity search(@RequestBody Map<String, String> params) {
     try {
       logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "search part on list branch page", "", "");
-      String rtn = partClient.search(params);
+      String rtn = branchClient.search(params);
       return new ResponseEntity<>(rtn, HttpStatus.OK);
     } catch (Exception ex) {
       return parseException(ex);
@@ -50,23 +50,25 @@ public class BranchController extends BaseController {
   @PostMapping("/branch/count")
   @PreAuthorize("hasAuthority('GLOBAL:BRANCH:READ')")
   @ResponseBody
-  public int countDevices(@RequestParam Map<String, String> params) {
+  public int countDevices(@RequestBody Map<String, String> params) {
     logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "count part on list branch page", "", "");
-    return partClient.count(params);
+    return branchClient.count(params);
   }
 
   @GetMapping("/branch/add")
   @PreAuthorize("hasAuthority('GLOBAL:BRANCH:CREATE')")
-  public String add() {
+  public String add(Model model) {
     logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "go to add branch page", "", "");
+    model.addAttribute("data", "");
     return BRANCH_PAGE_FORM;
   }
 
   @GetMapping("branch/edit/{id}")
   @PreAuthorize("hasAuthority('GLOBAL:BRANCH:UPDATE')")
   public String edit(Model model, @PathVariable("id") String id) {
-    model.addAttribute("role", partClient.get(Long.parseLong(id)));
     logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "go to edit branch page", "", "");
+    String data = branchClient.get(Long.parseLong(id));
+    model.addAttribute("data", data);
     return BRANCH_PAGE_FORM;
   }
 
@@ -76,7 +78,7 @@ public class BranchController extends BaseController {
   public ResponseEntity save(@RequestBody Map<String, String> params) {
     try {
       logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "execute save branch", "", "");
-      String rtn = partClient.save(params);
+      String rtn = branchClient.save(params);
       return new ResponseEntity<>(rtn,HttpStatus.OK);
     } catch (Exception ex) {
       return parseException(ex);

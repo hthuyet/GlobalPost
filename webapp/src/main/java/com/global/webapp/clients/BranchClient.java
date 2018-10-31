@@ -4,27 +4,31 @@ import com.global.webapp.models.User;
 import com.global.webapp.models.searchForm.UserSearchForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpSession;
+import java.nio.charset.Charset;
 import java.util.Map;
 
 /**
  * Created by ThuyetLV
  */
 @Component
-public class PartClient {
+public class BranchClient {
 
     private RestTemplate restTemplate;
     private String endpointUrl;
     private HttpSession session;
 
     @Autowired
-    public PartClient(RestTemplate restTemplate,
-                      @Value("${apiEndpointUrl}") String identityServiceEndpointUrl) {
+    public BranchClient(RestTemplate restTemplate,
+                        @Value("${apiEndpointUrl}") String identityServiceEndpointUrl) {
         this.restTemplate = restTemplate;
-        this.endpointUrl = identityServiceEndpointUrl + "/part";
+        this.restTemplate.getMessageConverters()
+            .add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+        this.endpointUrl = identityServiceEndpointUrl + "/branch";
     }
 
     public String delete(String userName) {
@@ -49,6 +53,7 @@ public class PartClient {
     }
 
     public String save(Map<String,String> maps) {
-        return this.restTemplate.postForObject(this.endpointUrl, maps, String.class);
+        String url = String.format("%s/save", this.endpointUrl);
+        return this.restTemplate.postForObject(url, maps, String.class);
     }
 }

@@ -13,7 +13,8 @@
       <ul class="breadcrumb breadcrumb-caret position-right">
         <li><a href="/" th:text="#{breadcrumb.home}"></a></li>
         <li><a href="/branch" th:text="#{breadcrumb.part}"></a></li>
-        <li class="active" th:text="#{breadcrumb.part.add}"></li>
+        <li ng-if="!item.id" class="active" th:text="#{breadcrumb.part.add}"></li>
+        <li ng-if="item.id" class="active" th:text="#{breadcrumb.part.edit}"></li>
       </ul>
     </div>
 

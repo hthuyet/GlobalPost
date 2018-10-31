@@ -1,10 +1,13 @@
 package com.global.webapp.clients;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import com.global.webapp.models.Role;
 import com.global.webapp.models.searchForm.RoleSearchForm;
+
+import java.nio.charset.Charset;
 
 @Component
 public class RoleClient {
@@ -14,6 +17,8 @@ public class RoleClient {
 
     public RoleClient(RestTemplate restTemplate, @Value("${commondEndpointUrl}") String apiEndpointUrl) {
         this.restTemplate = restTemplate;
+        this.restTemplate.getMessageConverters()
+            .add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
         this.endpointUrl = apiEndpointUrl + "/roles";
     }
 

@@ -126,6 +126,8 @@ public class PartnerEndPoint {
     }
     obj.setId(Utils.getAsLong(object, "id", null));
     obj.setName(Utils.getAsString(object, "name", ""));
+    obj.setAddress(Utils.getAsString(object, "address", ""));
+    obj.setHotline(Utils.getAsString(object, "hotline", ""));
     return obj;
   }//</editor-fold>
 

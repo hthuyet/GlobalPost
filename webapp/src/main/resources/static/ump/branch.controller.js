@@ -2,6 +2,11 @@ UserWebApp.controller('BranchController', function ($scope, $rootScope, HttpServ
 
   $scope.lstData = [];
   $scope.totalElements = 0;
+
+  $scope.limit = 20;
+  $scope.page = 1;
+
+
   $scope.params = [];
   $scope.params.name = '';
   $scope.checklistTable = {
@@ -10,11 +15,19 @@ UserWebApp.controller('BranchController', function ($scope, $rootScope, HttpServ
   };
 
   function loadData() {
-    HttpService.postData('/branch/search', $scope.params).then(function (response) {
+
+    var params = {
+      "limit": "" + $scope.limit,
+      "page": "" + $scope.page,
+      "name": "" + $scope.params.name
+    };
+
+
+    HttpService.postData('/branch/search', params).then(function (response) {
       $scope.lstData = response;
     });
 
-    HttpService.postData('/branch/count', $scope.params).then(function (response) {
+    HttpService.postData('/branch/count', params).then(function (response) {
       $scope.totalElements = response;
     });
   }
@@ -59,6 +72,7 @@ UserWebApp.controller('BranchController', function ($scope, $rootScope, HttpServ
     $scope.params = {};
     $scope.params.limit = '20';
     $scope.params.page = '1';
+    $scope.params.name = '';
     loadData();
     common.btnLoading($('.btnRefresh'), true);
     setTimeout(function () {

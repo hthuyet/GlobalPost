@@ -45,9 +45,9 @@ public class BranchEndPoint {
   @Autowired
   public BranchRepo branchRepo;
 
-  //<editor-fold defaultstate="collapsed" desc="search part">
+  //<editor-fold defaultstate="collapsed" desc="search branch">
   @POST
-  @ApiOperation(value = "Search part")
+  @ApiOperation(value = "Search branch")
   @ApiResponse(code = 200, message = "Success")
   @Path("/search")
   public Response search(@ApiParam(value = "Form data",
@@ -64,9 +64,9 @@ public class BranchEndPoint {
   }//</editor-fold>
 
 
-  //<editor-fold defaultstate="collapsed" desc="Count part">
+  //<editor-fold defaultstate="collapsed" desc="Count branch">
   @POST
-  @ApiOperation(value = "Count part")
+  @ApiOperation(value = "Count branch")
   @ApiResponse(code = 200, message = "Success")
   @Path("/count")
   public Response count(@ApiParam(value = "Form data", examples
@@ -127,13 +127,15 @@ public class BranchEndPoint {
     }
     obj.setId(Utils.getAsLong(object, "id", null));
     obj.setName(Utils.getAsString(object, "name", ""));
+    obj.setAddress(Utils.getAsString(object, "address", ""));
+    obj.setHotline(Utils.getAsString(object, "hotline", ""));
     return obj;
   }//</editor-fold>
 
   //<editor-fold defaultstate="collapsed" desc="get by id">
   @GET
   @Path("/{id}")
-  @ApiOperation(value = "Read Branch")
+  @ApiOperation(value = "Read branch")
   @ApiResponse(code = 200, message = "Success", response = Branch.class)
   public Response getById(@PathParam("id") Long id) {
     logger.info(String.format("getById : %s", id));

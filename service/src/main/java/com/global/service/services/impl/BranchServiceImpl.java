@@ -28,7 +28,7 @@ public class BranchServiceImpl implements BranchService {
   @Autowired
   public BranchRepo partRepo;
 
-  private static final String SQL_GET = "SELECT `id`,`name` FROM branch d WHERE 1=1 ";
+  private static final String SQL_GET = "SELECT `id`,`branch_name`,`branch_address`,`branch_hotline` FROM branch d WHERE 1=1 ";
   private static final String SQL_COUNT = "SELECT count(id) FROM branch d WHERE 1=1 ";
 
   @Override
@@ -36,7 +36,7 @@ public class BranchServiceImpl implements BranchService {
     List rtn = null;
     String sql = SQL_GET;
     if (StringUtils.isNoneBlank(name)) {
-      sql += " AND d.name LIKE ? ";
+      sql += " AND d.branch_name LIKE ? ";
     }
 
     sql += " ORDER BY d.id DESC LIMIT ?,?";
@@ -65,6 +65,8 @@ public class BranchServiceImpl implements BranchService {
     int i = 0;
     obj.setId(Long.parseLong(String.valueOf(objects[i++])));
     obj.setName(String.valueOf(objects[i++]));
+    obj.setAddress(String.valueOf(objects[i++]));
+    obj.setHotline(String.valueOf(objects[i++]));
     return obj;
   }//</editor-fold>
 
@@ -73,7 +75,7 @@ public class BranchServiceImpl implements BranchService {
   public BigInteger countByQuery(String name) {
     String sql = SQL_COUNT;
     if (StringUtils.isNoneBlank(name)) {
-      sql += " AND d.name LIKE ? ";
+      sql += " AND d.branch_name LIKE ? ";
     }
 
     Query query = em.createNativeQuery(sql);

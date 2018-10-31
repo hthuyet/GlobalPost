@@ -10,8 +10,14 @@ public class Branch extends SsdcEntity<Long> {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
-  @Column(name = "name")
+  @Column(name = "branch_name")
   public String name;
+
+  @Column(name = "branch_address")
+  public String address;
+
+  @Column(name = "branch_hotline")
+  public String hotline;
 
   public Long getId() {
     return id;
@@ -27,5 +33,21 @@ public class Branch extends SsdcEntity<Long> {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public String getAddress() {
+    return address;
+  }
+
+  public void setAddress(String address) {
+    this.address = address;
+  }
+
+  public String getHotline() {
+    return hotline;
+  }
+
+  public void setHotline(String hotline) {
+    this.hotline = hotline;
   }
 }

@@ -28,7 +28,7 @@ public class PartnerServiceImpl implements PartnerService {
   @Autowired
   public PartnerRepo partnerRepo;
 
-  private static final String SQL_GET = "SELECT `id`,`name` FROM partner p WHERE 1=1 ";
+  private static final String SQL_GET = "SELECT `id`,`part_name`,`part_address`,`part_hotline` FROM partner p WHERE 1=1 ";
   private static final String SQL_COUNT = "SELECT count(id) FROM partner p WHERE 1=1 ";
 
   @Override
@@ -36,7 +36,7 @@ public class PartnerServiceImpl implements PartnerService {
     List rtn = null;
     String sql = SQL_GET;
     if (StringUtils.isNoneBlank(name)) {
-      sql += " AND p.name LIKE ? ";
+      sql += " AND p.part_name LIKE ? ";
     }
 
     sql += " ORDER BY p.id DESC LIMIT ?,?";
@@ -65,6 +65,8 @@ public class PartnerServiceImpl implements PartnerService {
     int i = 0;
     obj.setId(Long.parseLong(String.valueOf(objects[i++])));
     obj.setName(String.valueOf(objects[i++]));
+    obj.setAddress(String.valueOf(objects[i++]));
+    obj.setHotline(String.valueOf(objects[i++]));
     return obj;
   }//</editor-fold>
 
@@ -73,7 +75,7 @@ public class PartnerServiceImpl implements PartnerService {
   public BigInteger countByQuery(String name) {
     String sql = SQL_COUNT;
     if (StringUtils.isNoneBlank(name)) {
-      sql += " AND p.name LIKE ? ";
+      sql += " AND p.part_name LIKE ? ";
     }
 
     Query query = em.createNativeQuery(sql);

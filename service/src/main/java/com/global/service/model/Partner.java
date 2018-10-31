@@ -10,8 +10,13 @@ public class Partner extends SsdcEntity<Long> {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
-  @Column(name = "name")
+  @Column(name = "part_name")
   public String name;
+
+  @Column(name = "part_hotline")
+  public String hotline;
+  @Column(name = "part_address")
+  public String address;
 
   public Long getId() {
     return id;
@@ -27,5 +32,22 @@ public class Partner extends SsdcEntity<Long> {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+
+  public String getHotline() {
+    return hotline;
+  }
+
+  public void setHotline(String hotline) {
+    this.hotline = hotline;
+  }
+
+  public String getAddress() {
+    return address;
+  }
+
+  public void setAddress(String address) {
+    this.address = address;
   }
 }

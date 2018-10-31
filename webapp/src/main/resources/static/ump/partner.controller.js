@@ -2,6 +2,10 @@ UserWebApp.controller('PartnerController', function ($scope, $rootScope, HttpSer
 
   $scope.lstData = [];
   $scope.totalElements = 0;
+
+  $scope.limit = 20;
+  $scope.page = 1;
+
   $scope.params = [];
   $scope.params.name = '';
   $scope.checklistTable = {
@@ -10,11 +14,18 @@ UserWebApp.controller('PartnerController', function ($scope, $rootScope, HttpSer
   };
 
   function loadData() {
-    HttpService.postData('/partner/search', $scope.params).then(function (response) {
+    console.log($scope.params);
+
+    var params = {
+      "limit": "" + $scope.limit,
+      "page": "" + $scope.page,
+      "name": "" + $scope.params.name
+    };
+    HttpService.postData('/partner/search', params).then(function (response) {
       $scope.lstData = response;
     });
 
-    HttpService.postData('/partner/count', $scope.params).then(function (response) {
+    HttpService.postData('/partner/count', params).then(function (response) {
       $scope.totalElements = response;
     });
   }
@@ -59,6 +70,7 @@ UserWebApp.controller('PartnerController', function ($scope, $rootScope, HttpSer
     $scope.params = {};
     $scope.params.limit = '20';
     $scope.params.page = '1';
+    $scope.params.name = '';
     loadData();
     common.btnLoading($('.btnRefresh'), true);
     setTimeout(function () {

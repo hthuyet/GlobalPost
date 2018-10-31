@@ -105,5 +105,11 @@
 
 <div th:replace="layouts/fragments/footer::footer"></div>
 
+<script type="text/javascript">
+  $( document ).ready(function() {
+    console.log( "ready!" );
+    $(".formValidate").validate(common.formValidate);
+  });
+</script>
 </body>
 </html>

@@ -58,7 +58,8 @@
                                     </div>
                                 </th>
                                 <th th:text="#{partner.name}"> </th>
-                                <th th:text="#{permissions.description}"> </th>
+                                <th th:text="#{partner.address}"> </th>
+                                <th th:text="#{partner.hotline}"> </th>
                                 <th style="width: 100px;" class ="text-right" th:text="#{user.search.action}"></th>
                             </tr>
                             </thead>
@@ -68,7 +69,8 @@
                             <tr ng-repeat="item in lstData">
                                 <td><input type="checkbox" checklist-model="checklistTable.selected" checklist-value="item.id"></td>
                                 <td>{{item.name}}</td>
-                                <td style="max-width:150px;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word">{{item.name}}</td>
+                                <td style="max-width:150px;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word">{{item.address}}</td>
+                                <td style="max-width:150px;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word">{{item.hotline}}</td>
                                 <td class="text-right text-nowrap">
                                     <ul class="icons-list">
                                         <li>

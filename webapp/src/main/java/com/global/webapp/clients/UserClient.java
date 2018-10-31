@@ -2,12 +2,14 @@ package com.global.webapp.clients;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import com.global.webapp.models.User;
 import com.global.webapp.models.searchForm.UserSearchForm;
 
 import javax.servlet.http.HttpSession;
+import java.nio.charset.Charset;
 
 /**
  * Created by ThuyetLV
@@ -23,6 +25,8 @@ public class UserClient {
     public UserClient(RestTemplate restTemplate,
             @Value("${commondEndpointUrl}") String identityServiceEndpointUrl) {
         this.restTemplate = restTemplate;
+        this.restTemplate.getMessageConverters()
+            .add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
         this.endpointUrl = identityServiceEndpointUrl + "/users";
     }
 

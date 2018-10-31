@@ -2,10 +2,12 @@ package com.global.webapp.clients;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpSession;
+import java.nio.charset.Charset;
 import java.util.Map;
 
 /**
@@ -22,6 +24,8 @@ public class PartnerClient {
     public PartnerClient(RestTemplate restTemplate,
                          @Value("${apiEndpointUrl}") String identityServiceEndpointUrl) {
         this.restTemplate = restTemplate;
+        this.restTemplate.getMessageConverters()
+            .add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
         this.endpointUrl = identityServiceEndpointUrl + "/partner";
     }
 
@@ -47,6 +51,7 @@ public class PartnerClient {
     }
 
     public String save(Map<String,String> maps) {
-        return this.restTemplate.postForObject(this.endpointUrl, maps, String.class);
+        String url = String.format("%s/save", this.endpointUrl);
+        return this.restTemplate.postForObject(url, maps, String.class);
     }
 }

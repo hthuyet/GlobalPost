@@ -3,28 +3,21 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
 <head>
-    <title>ONE Platform - Roles</title>
+    <title>Global - Quản lý chi nhánh</title>
     <!-- Theme JS files -->
-
-    <script type="text/javascript" src="/assets/js/plugins/trees/fancytree_all.min.js"></script>
-    <script type="text/javascript" src="/assets/js/plugins/trees/fancytree_childcounter.js"></script>
-    <script type="text/javascript" src="/ump/roles-add.controller.js"></script>
+    <script type="text/javascript" src="/ump/branch-add.controller.js"></script>
     <!-- /theme JS files -->
 </head>
-<body ng-controller="RoleAddController">
+<body ng-controller="BranchAddController">
 <th:block layout:fragment="content">
 
     <!-- Page header -->
-    <div th:replace="roles/fragments/page-header-add-edit::page-header-add-edit"></div>
+    <div th:replace="branch/fragments/page-header-add-edit::page-header-add-edit"></div>
     <!-- /page header-->
 
     <!-- Page container -->
     <div class="page-container">
-
-        <div class="displayNone dataResponse"
-             th:data-name="${name}" th:data-operationIds="${operationIds}"
-             th:data-id="${id}" th:data-permissionsIds="${permissionsIds}"
-             th:data-description="${description}"></div>
+        <div class="displayNone dataResponse" th:data-data="${data}"></div>
         <!-- Page content -->
         <div class="page-content">
 
@@ -35,7 +28,8 @@
                 <div class="panel panel-flat">
 
                     <div class="panel-heading">
-                        <h5 class="panel-title"><span th:text="#{breadcrumb.role.add}"></span></h5>
+                        <h5 ng-if="!item.id" class="panel-title"><span th:text="#{breadcrumb.part.add}"></span></h5>
+                        <h5 ng-if="item.id" class="panel-title"><span th:text="#{breadcrumb.part.edit}"></span></h5>
                         <div class="heading-elements">
                             <ul class="icons-list">
                                 <li><a data-action="collapse"></a></li>
@@ -43,82 +37,64 @@
                         </div>
                     </div>
 
-                    <form ng-submit="onRoleAdd()" class="form-horizontal formCreateRole"
-                          name="roleForm">
+                    <form class="form-horizontal formValidate" name="branchFrm" id="branchFrm">
                         <div class="panel-body">
-                            <input style="display: none" type="text" class="form-control" ng-model="params.roleId">
-                            <div class="col-md-6">
 
-                                <div class="col-md-12">
+                            <!--Row 1-->
+                            <div class="row">
+                                <!--Name-->
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label">
-                                            <span th:text="#{role.name}"></span>
-                                        </label>
+                                        <label class="col-md-3 control-label"><span
+                                                th:text="#{partner.name}"></span></label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" id="roleName"
-                                                   pattern="[A-Za-z0-9]+" th:placeholder="#{permissions.writeName}"
-                                                   ng-model="params.roleName"
-                                                   minlength="5"
-                                                   maxlength="20"
-                                                   required="required"
-                                                   name="roleName">
-                                            <span class="help-block text-danger" ng-show="roleForm.roleName.$dirty && roleForm.roleName.$error.required">
-                                                    <label lass="has-error" th:text="#{groups.label.error}"></label>
-                                                </span>
-                                            <span class="help-block text-danger" ng-show="roleForm.roleName.$dirty && roleForm.roleName.$error.minlength">
-                                                    <label lass="has-error" th:text="#{user.label.minlengthError}"></label>
-                                                </span>
+                                            <input type="text" class="form-control" id="name" ng-model="item.name"
+                                                   th:placeholder="#{partner.name}" minlength="5" maxlength="128" required="required" name="name">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                <!--End Name-->
 
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label">
-                                                <span th:text="#{permissions.description}"></span>
-                                            </label>
-                                            <div class="col-md-8">
-                                                <input type="text" class="form-control" id="roleDes"
-                                                       pattern="[A-Za-z0-9]+" th:placeholder="#{permissions.writeName}"
-                                                       ng-model="params.roleDes"
-                                                       minlength="5"
-                                                       maxlength="20"
-                                                       name="roleDes">
-                                                <span class="help-block text-danger" ng-show="roleForm.roleDes.$dirty && roleForm.roleDes.$error.minlength">
-                                                    <label lass="has-error" th:text="#{user.label.minlengthError}"></label>
-                                                </span>
-                                            </div>
+                                <!--address-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label"><span
+                                                th:text="#{partner.address}"></span></label>
+                                        <div class="col-md-8">
+                                            <input type="text" class="form-control" id="address" ng-model="item.address"
+                                                   th:placeholder="#{partner.address}" name="address">
                                         </div>
                                     </div>
-
                                 </div>
-
+                                <!--End address-->
                             </div>
+                            <!--End row 1-->
 
-                            <div class="col-md-6">
-                                <label class="col-md-3 control-label">
-                                    <span th:text="#{roles.add.permissions}"></span>
-                                </label>
 
-                                <div class="col-md-6" ng-if="permissionsList != ''">
-                                    <postprocess my-parameter="myParameter.value"
-                                                 my-class="myClass.value"
-                                                 edit-value="editValue"
-                                                 chart-id="tree" chart-permission="{{permissionsList}}"
-                                                 style="padding-top: 10px;" />
-
+                            <!--Row 2-->
+                            <div class="row">
+                                <!--hotline-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label"><span
+                                                th:text="#{partner.hotline}"></span></label>
+                                        <div class="col-md-8">
+                                            <input type="text" class="form-control" id="hotline" ng-model="item.hotline" th:placeholder="#{partner.hotline}" name="hotline">
+                                        </div>
+                                    </div>
                                 </div>
-
+                                <!--End hotline-->
                             </div>
+                            <!--End row 2-->
 
 
                         </div>
 
                         <div class="panel-footer text-center">
-                            <button type="submit" class="btn btn-primary"
+                            <button type="button" ng-disabled="branchFrm.$invalid" id="btnSubmit"
+                                    ng-click="onSubmitFrm()" class="btn btn-primary"
                                     th:text="#{subscriber.header.title.subscriber.ok}"></button>
-                            <a class="btn btn-default" href="/permissions"
+                            <a class="btn btn-default" href="/branch"
                                th:text="#{subscriber.header.title.subscriber.cancel}"></a>
                         </div>
 
@@ -132,6 +108,7 @@
         </div>
 
     </div>
+
     <!-- /page container -->
 </th:block>
 </body>
