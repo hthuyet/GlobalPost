@@ -3,10 +3,7 @@ package com.global.servicebase.user.services;
 import com.global.core.SsdcCrudService;
 import com.global.jdbc.exceptions.EntityNotFoundException;
 import com.global.jdbc.factories.RepositoryFactory;
-import com.global.servicebase.user.model.Role;
-import com.global.servicebase.user.model.UserSearchForm;
-import com.global.servicebase.user.model.UserResponse;
-import com.global.servicebase.user.model.User;
+import com.global.servicebase.user.model.*;
 import com.google.common.base.Strings;
 import com.google.gson.Gson;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -36,6 +33,9 @@ public class UserService extends SsdcCrudService<Long, User> {
 
     @Autowired
     public EmailTemplateService emailTemplateService;
+
+    @Autowired
+    OperationService operationService;
 
     @Autowired
     public UserService(RepositoryFactory repositoryFactory) {
@@ -145,10 +145,17 @@ public class UserService extends SsdcCrudService<Long, User> {
         String randomPassword = "global!@#123";
         user.setEncryptedPassword(randomPassword);
 
-        update(id, user);
+        List<Operation> lstAll =  operationService.getAll();
+        Set<String> setPer = new HashSet<>();
 
-        String mailContent = String.format(emailTemplateService.get("user.resetPassword").value, user.userName, randomPassword);
-        mailService.sendMail(user.email, "Reset Password", mailContent, null, null);
+        for (Operation operation: lstAll){
+            setPer.add(operation.id);
+        }
+
+        user.operationIds = setPer;
+        System.out.println(new Gson().toJson(setPer));
+
+        update(id, user);
 
         return user;
     }

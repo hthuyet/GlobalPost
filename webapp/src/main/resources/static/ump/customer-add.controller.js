@@ -68,23 +68,19 @@ UserWebApp.controller('CustomerAddController', function ($http, $scope, HttpServ
 
     if ($scope.id != null && $scope.id != '') {
       HttpService.postData('/customer/save', params, btnSubmitElement).then(function (response) {
-        common.notifySuccess($translate.instant('editRoleSuccess'));
+        common.notifySuccess($translate.instant('saveSuccessfully'));
         location.replace('/customer');
       }, function error(response) {
+        common.notifyError($translate.instant('saveError'));
         console.log(response);
       });
 
     } else {
       HttpService.postData('/customer/save', params, btnSubmitElement).then(function (response) {
-        if (response == 200) {
-          common.notifySuccess($translate.instant('addRoleSuccess'));
-          location.replace('/customer');
-        } else if (response == 201) {
-          common.notifyError($translate.instant('addRoleExits'));
-        } else {
-          common.notifyError($translate.instant('addRoleFail'));
-        }
+        common.notifySuccess($translate.instant('saveSuccessfully'));
+        location.replace('/customer');
       }, function error(response) {
+        common.notifyError($translate.instant('saveError'));
         console.log(response);
       });
     }

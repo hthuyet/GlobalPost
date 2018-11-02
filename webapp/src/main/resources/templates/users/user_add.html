@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
 <head>
-    <title>ONE Platform - Users</title>
+    <title>Global - Thêm mới người dùng</title>
     <!-- Theme JS files -->
     <script type="text/javascript" src="/ump/user-add.controller.js"></script>
     <!-- /theme JS files -->
@@ -108,16 +108,14 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label col-md-3"> <span th:text="#{user.search.role}"></span>
                                             <span class="text-danger">*</span></label>
                                         <div class="multi-select-full col-md-8">
-                                            <select class="multiselect-filtering selectRole"
-                                                    required="required" multiple="multiple"
-                                                    name="role">
-                                                <option ng-repeat="r in roles" value="{{r.id}}~{{r.name}}" on-finish-render="ngRepeatOptionLabels" ng-if="r.name != 'SuperAdmin'"> {{r.name}}</option>
-                                                <input type="text" ng-model="params.deviceGroup.role" style="display: none">
+                                            <select ui-select2 ng-model="params.deviceGroup.role" required="required" multiple="multiple" name="role">
+                                                <option ng-repeat="r in roles" value="{{r.id}}~{{r.name}}"> {{r.name}}</option>
                                             </select>
 
                                         </div>

@@ -2,20 +2,40 @@ UserWebApp.controller('CustomerController', function ($scope, $rootScope, HttpSe
 
   $scope.lstData = [];
   $scope.totalElements = 0;
+
   $scope.params = [];
   $scope.params.name = '';
+  $scope.params.limit = 20;
+  $scope.params.page = 1;
+
   $scope.checklistTable = {
     selected: [],
     checkAll: false
   };
 
   function loadData() {
-    HttpService.postData('/customer/search', $scope.params).then(function (response) {
+    common.spinner(true);
+
+    var params = {
+      "limit": "" + $scope.params.limit,
+      "page": "" + $scope.params.page,
+      "name": "" + $scope.params.name
+    };
+
+    HttpService.postData('/customer/search', params).then(function (response) {
       $scope.lstData = response;
+      common.spinner(false);
+    },function error(response) {
+      console.log(response);
+      common.spinner(false);
     });
 
-    HttpService.postData('/customer/count', $scope.params).then(function (response) {
+    HttpService.postData('/customer/count', params).then(function (response) {
       $scope.totalElements = response;
+      common.spinner(false);
+    },function error(response) {
+      console.log(response);
+      common.spinner(false);
     });
   }
 
@@ -59,6 +79,14 @@ UserWebApp.controller('CustomerController', function ($scope, $rootScope, HttpSe
     $scope.params = {};
     $scope.params.limit = '20';
     $scope.params.page = '1';
+    $scope.params.name = '';
+
+    $scope.checklistTable = {
+      selected: [],
+      checkAll: false
+    };
+
+
     loadData();
     common.btnLoading($('.btnRefresh'), true);
     setTimeout(function () {
@@ -66,19 +94,23 @@ UserWebApp.controller('CustomerController', function ($scope, $rootScope, HttpSe
     }, 1000);
   };
 
+  $scope.multi = false;
   $scope.onDeletes = function () {
+    $scope.multi = true;
     $scope.deleteList = [];
     $scope.deleteList = $scope.checklistTable.selected;
     $('.modalDelete').modal('show');
   };
 
   $scope.onDelete = function (id) {
+    $scope.multi = false;
     $scope.deleteList = [];
     $scope.deleteList.push(id);
     $('.modalDelete').modal('show');
   };
 
   $scope.onDeleteConfirm = function () {
+    common.spinner(true);
     var param = {
       "ids": $scope.deleteList.join(",")
     };
@@ -87,9 +119,12 @@ UserWebApp.controller('CustomerController', function ($scope, $rootScope, HttpSe
       $('.modalDelete').modal('hide');
         $scope.checklistTable.selected = [];
         loadData();
-        common.notifySuccess($translate.instant('deletePermissionSuccessfully'));
+        common.notifySuccess($translate.instant('deleteSuccessfully'));
+      common.spinner(false);
     },function error(response){
       console.log(response);
+      common.spinner(false);
+      common.notifyError($translate.instant('deleteError'));
     });
   };
 

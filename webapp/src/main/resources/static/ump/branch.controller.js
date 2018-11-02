@@ -9,26 +9,36 @@ UserWebApp.controller('BranchController', function ($scope, $rootScope, HttpServ
 
   $scope.params = [];
   $scope.params.name = '';
+  $scope.params.limit = 20;
+  $scope.params.page = 1;
   $scope.checklistTable = {
     selected: [],
     checkAll: false
   };
 
   function loadData() {
-
+    common.spinner(true);
     var params = {
-      "limit": "" + $scope.limit,
-      "page": "" + $scope.page,
+      "limit": "" + $scope.params.limit,
+      "page": "" + $scope.params.page,
       "name": "" + $scope.params.name
     };
 
 
     HttpService.postData('/branch/search', params).then(function (response) {
       $scope.lstData = response;
+      common.spinner(false);
+    },function error(response) {
+      console.log(response);
+      common.spinner(false);
     });
 
     HttpService.postData('/branch/count', params).then(function (response) {
       $scope.totalElements = response;
+      common.spinner(false);
+    },function error(response) {
+      console.log(response);
+      common.spinner(false);
     });
   }
 
@@ -73,6 +83,12 @@ UserWebApp.controller('BranchController', function ($scope, $rootScope, HttpServ
     $scope.params.limit = '20';
     $scope.params.page = '1';
     $scope.params.name = '';
+
+    $scope.checklistTable = {
+      selected: [],
+      checkAll: false
+    };
+
     loadData();
     common.btnLoading($('.btnRefresh'), true);
     setTimeout(function () {
@@ -80,19 +96,23 @@ UserWebApp.controller('BranchController', function ($scope, $rootScope, HttpServ
     }, 1000);
   };
 
+  $scope.multi = false;
   $scope.onDeletes = function () {
+    $scope.multi = true;
     $scope.deleteList = [];
     $scope.deleteList = $scope.checklistTable.selected;
     $('.modalDelete').modal('show');
   };
 
   $scope.onDelete = function (id) {
+    $scope.multi = false;
     $scope.deleteList = [];
     $scope.deleteList.push(id);
     $('.modalDelete').modal('show');
   };
 
   $scope.onDeleteConfirm = function () {
+    common.spinner(true);
     $scope.param1 = [];
     $scope.param1.id = JSON.stringify($scope.deleteList);
     HttpService.getData('/deleteRole', $scope.param1).then(function (data1) {
@@ -100,10 +120,15 @@ UserWebApp.controller('BranchController', function ($scope, $rootScope, HttpServ
       if (data1 == 200) {
         $scope.checklistTable.selected = [];
         loadData();
-        common.notifySuccess($translate.instant('deletePermissionSuccessfully'));
+        common.notifySuccess($translate.instant('deleteSuccessfully'));
       } else {
-        common.notifyError($translate.instant('deletePermissionFail'));
+        common.notifyError($translate.instant('deleteError'));
       }
+      common.spinner(false);
+    },function error(response) {
+      console.log(response);
+      common.spinner(false);
+      common.notifyError($translate.instant('deleteError'));
     });
   };
 
@@ -117,7 +142,7 @@ UserWebApp.controller('BranchController', function ($scope, $rootScope, HttpServ
     }
   };
 
-  $scope.$watch('checklistTable.role', function (_newValue, _oldValue) {
+  $scope.$watch('checklistTable.selected', function (_newValue, _oldValue) {
     if (_newValue !== _oldValue) {
       // Update check box all status
       var element = $('.checkAllTable');

@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
 <head>
-    <title>ONE Platform - Permissions</title>
+    <title>Global - Thêm mới hoặc cập nhật cho phép</title>
     <!-- Theme JS files -->
 
     <script type="text/javascript" src="/assets/js/plugins/trees/fancytree_all.min.js"></script>
@@ -44,8 +44,7 @@
                         </div>
                     </div>
 
-                    <form ng-submit="onPermissionAdd()" class="form-horizontal formCreatePermission"
-                          name="permissionForm">
+                    <form class="form-horizontal" name="permissionForm" id="permissionForm">
                         <div class="panel-body">
                             <input style="display: none" type="text" class="form-control" ng-model="params.perId">
                             <div class="col-md-6">
@@ -80,8 +79,7 @@
                                                 <span th:text="#{permissions.description}"></span>
                                             </label>
                                             <div class="col-md-8">
-                                                <input type="text" class="form-control" id="permissionDes"
-                                                       pattern="[A-Za-z0-9]+" th:placeholder="#{permissions.writeName}"
+                                                <input type="text" class="form-control" id="permissionDes" th:placeholder="#{permissions.writeName}"
                                                        ng-model="params.permissionDes"
                                                        minlength="5"
                                                        maxlength="20"
@@ -122,7 +120,7 @@
                         </div>
 
                         <div class="panel-footer text-center">
-                            <button type="submit" class="btn btn-primary"
+                            <button type="button" id="btnSubmit" ng-disabled="permissionForm.$invalid" ng-click="onPermissionAdd()"  class="btn btn-primary"
                                     th:text="#{subscriber.header.title.subscriber.ok}"></button>
                             <a class="btn btn-default" href="/permissions"
                                th:text="#{subscriber.header.title.subscriber.cancel}"></a>

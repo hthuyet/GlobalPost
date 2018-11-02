@@ -40,7 +40,7 @@ public class CustomerController extends BaseController {
   @PostMapping("/customer/search")
   @PreAuthorize("hasAuthority('GLOBAL:CUSTOMER:READ')")
   @ResponseBody
-  public ResponseEntity search(@RequestParam Map<String, String> params) {
+  public ResponseEntity search(@RequestBody Map<String, String> params) {
     try {
       logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "search customer on list customer page", "", "");
       String rtn = customerClient.search(params);
@@ -53,7 +53,7 @@ public class CustomerController extends BaseController {
   @PostMapping("/customer/count")
   @PreAuthorize("hasAuthority('GLOBAL:CUSTOMER:READ')")
   @ResponseBody
-  public int countDevices(@RequestParam Map<String, String> params) {
+  public int countDevices(@RequestBody Map<String, String> params) {
     logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "count customer on list customer page", "", "");
     return customerClient.count(params);
   }
