@@ -12,8 +12,12 @@ public abstract interface BranchService {
     public abstract List findByQuery(String name, int offset, int limit);
 
     public abstract BigInteger countByQuery(String name);
+    
+    public abstract BigInteger countUserByBranch(Long id);
 
     public abstract Branch save(Branch entity);
 
     public abstract Boolean delete(Long id);
+    
+    public abstract int saveBranchOfUser(String name, long id);
 }

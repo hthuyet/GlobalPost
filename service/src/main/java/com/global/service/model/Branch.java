@@ -1,7 +1,6 @@
 package com.global.service.model;
 
 import com.global.jdbc.SsdcEntity;
-
 import javax.persistence.*;
 
 @Entity

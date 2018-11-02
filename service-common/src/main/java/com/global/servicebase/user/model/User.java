@@ -19,6 +19,8 @@ public class User extends SsdcEntity<Long> {
     public String description;
     public String forgotPwdToken;
     public Long forgotPwdTokenRequested;
+    public Long branchId;
+    public String branchName;
 
     public User() {
         this.roleIds = new LinkedHashSet<String>();

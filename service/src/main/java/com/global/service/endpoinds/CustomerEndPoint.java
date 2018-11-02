@@ -6,7 +6,6 @@
 package com.global.service.endpoinds;
 
 import com.global.exception.ObjNotFoundException;
-import com.global.service.model.Branch;
 import com.global.service.model.Customer;
 import com.global.service.repository.CustomerRepo;
 import com.global.service.services.CustomerService;
@@ -21,12 +20,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.math.BigInteger;
 import java.util.List;
-
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 /**
@@ -92,7 +89,6 @@ public class CustomerEndPoint {
             logger.info(String.format("add : %s", formData));
             JsonObject object = gson.fromJson(formData, JsonObject.class);
             Customer entity = convertToObj(object);
-
             entity = this.customerService.save(entity);
 
             if (entity != null && entity.getId() > 0) {
@@ -154,9 +150,8 @@ public class CustomerEndPoint {
     @ApiOperation(value = "Delete")
     @ApiResponse(code = 200, message = "Success")
     @Path("/delete")
-    public Response Deletes(@ApiParam(value = "Form data", examples
+    public Response delete(@ApiParam(value = "Form data", examples
             = @Example(value
-                    //      = @ExampleProperty("[{\"id\": 1},{\"id\": 2}]"))) String formData) {
                     = @ExampleProperty("[1,2]"))) String formData) {
         JsonObject json = new JsonObject();
         int count = 0;
@@ -182,5 +177,4 @@ public class CustomerEndPoint {
         json.addProperty("error", countError);
         return Response.ok().entity(json.toString()).build();
     }//</editor-fold>
-
 }

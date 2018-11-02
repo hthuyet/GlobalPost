@@ -88,13 +88,19 @@ public class BranchEndPoint {
             logger.info(String.format("add : %s", formData));
             JsonObject object = new Gson().fromJson(formData, JsonObject.class);
             Branch entity = convertToObj(object);
-
             entity = this.branchService.save(entity);
-
             if (entity != null && entity.getId() > 0) {
-                json.addProperty("status", ActionResult.SUCCESS_CODE);
-                json.addProperty("message", ActionResult.SUCCESS);
-                return Response.ok().entity(json.toString()).build();
+                //Update Branch ok ==> Update User
+                int result = branchService.saveBranchOfUser(entity.getName(), entity.getId());
+                if (result > 0) {
+                    json.addProperty("status", ActionResult.SUCCESS_CODE);
+                    json.addProperty("message", ActionResult.SUCCESS);
+                    return Response.ok().entity(json.toString()).build();
+                } else {
+                    json.addProperty("status", ActionResult.FAILURE1_CODE);
+                    json.addProperty("message", "ERRROR");
+                    return Response.ok().entity(json.toString()).build();
+                }
             } else {
                 json.addProperty("status", ActionResult.FAILURE1_CODE);
                 json.addProperty("message", "ERRROR");
@@ -151,26 +157,40 @@ public class BranchEndPoint {
     @POST
     @ApiOperation(value = "Delete")
     @ApiResponse(code = 200, message = "Success")
-    @Path("/{id}")
-    public Response Deletes(@ApiParam(value = "Form data", examples
+    @Path("/delete")
+    public Response delete(@ApiParam(value = "Form data", examples
             = @Example(value
-                    = @ExampleProperty("[{\"id\": 1},{\"id\": 2}]"))) String formData) {
-        int count = 0;
-        JsonArray array = new Gson().fromJson(formData, JsonArray.class);
-        if (array != null && array.size() > 0) {
-            long id = 0L;
-            for (JsonElement ele : array) {
-                try {
-                    id = ele.getAsLong();
-                    if (branchService.delete(id)) {
-                        count++;
+                    = @ExampleProperty("[1,2]"))) String formData) {
+        JsonObject json = new JsonObject();
+        try {
+            int count = 0;
+            JsonArray array = new Gson().fromJson(formData, JsonArray.class);
+            if (array != null && array.size() > 0) {
+                long id = 0L;
+                for (JsonElement ele : array) {
+                    try {
+                        id = ele.getAsLong();
+                        BigInteger numOfUsers = branchService.countUserByBranch(id);
+                        if (numOfUsers.intValue() > 0) {
+                        } else {
+                            if (branchService.delete(id)) {
+                                count++;
+                            }
+                        }
+                    } catch (Exception ex) {
+                        logger.error(String.format("ERROR delete {%d}", id), ex);
                     }
-                } catch (Exception ex) {
-                    logger.error(String.format("ERROR delete {%d}", id), ex);
                 }
             }
+            json.addProperty("status", ActionResult.SUCCESS_CODE);
+            json.addProperty("deleteok", count);
+            json.addProperty("deletefail", array.size() - count);
+            return Response.ok().entity(json.toString()).build();
+        } catch (Exception ex) {
+            logger.error(String.format("ERROR Exception {%s}", formData), ex);
+            json.addProperty("status", ActionResult.FAILURE1_CODE);
+            json.addProperty("message", "ERRROR");
+            return Response.serverError().entity(json.toString()).build();
         }
-        return Response.ok().entity(count == array.size()).build();
     }//</editor-fold>
-
 }

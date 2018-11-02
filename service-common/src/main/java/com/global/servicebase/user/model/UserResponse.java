@@ -22,4 +22,6 @@ public class UserResponse {
     public String description;
     public Set<String> operationIds;
     public Long userId;
+    public Long branchId;
+    public String branchName;
 }

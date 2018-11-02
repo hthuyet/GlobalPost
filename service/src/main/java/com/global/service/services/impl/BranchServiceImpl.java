@@ -4,11 +4,8 @@ import com.global.service.model.Branch;
 import com.global.service.repository.BranchRepo;
 import com.global.service.services.BranchService;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -21,16 +18,16 @@ import java.util.List;
 @Transactional
 public class BranchServiceImpl implements BranchService {
 
-    private static final Logger logger = LoggerFactory.getLogger(BranchServiceImpl.class);
-
     @PersistenceContext
     private EntityManager em;
 
     @Autowired
-    public BranchRepo partRepo;
+    public BranchRepo branchRepo;
 
     private static final String SQL_GET = "SELECT `id`,`branch_name`,`branch_address`,`branch_hotline` FROM branch d WHERE 1=1 ";
     private static final String SQL_COUNT = "SELECT count(id) FROM branch d WHERE 1=1 ";
+    private static final String SQL_UPDATE_USER_WHEN_UPDATE_BRANCH = "UPDATE user set branch_name = ? where branch_id = ?";
+    private static final String SQL_COUNT_USER_BY_BRANCH = "SELECT count(id) FROM user d WHERE 1 = 1 ";
 
     @Override
     public List findByQuery(String name, int offset, int limit) {
@@ -71,6 +68,24 @@ public class BranchServiceImpl implements BranchService {
         return obj;
     }//</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="countUserByBranch">
+    @Override
+    public BigInteger countUserByBranch(Long id) {
+        String sql = SQL_COUNT_USER_BY_BRANCH;
+        if (id != 0) {
+            sql += " AND d.branch_id = ? ";
+        }
+        Query query = em.createNativeQuery(sql);
+
+        int i = 1;
+        if (id != 0) {
+            query.setParameter(i++, id);
+        }
+
+        BigInteger count = (BigInteger) query.getSingleResult();
+        return count;
+    }//</editor-fold>
+
     //<editor-fold defaultstate="collapsed" desc="countByQuery">
     @Override
     public BigInteger countByQuery(String name) {
@@ -90,17 +105,29 @@ public class BranchServiceImpl implements BranchService {
         return count;
     }//</editor-fold>
 
-    //<editor-fold defaultstate="collapsed" desc="saveDeviceGroup">
+    //<editor-fold defaultstate="collapsed" desc="save">
     @Override
     public Branch save(Branch entity) {
-        entity = partRepo.save(entity);
+        entity = branchRepo.save(entity);
+
         return entity;
     }//</editor-fold>
 
-    //<editor-fold defaultstate="collapsed" desc="Delete">
+    //<editor-fold defaultstate="collapsed" desc="delete">
     @Override
     public Boolean delete(Long id) {
-        partRepo.delete(id);
+        branchRepo.delete(id);
         return true;
+    }//</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="saveBranchOfUser">
+    @Override
+    public int saveBranchOfUser(String name, long id) {
+        String sql = SQL_UPDATE_USER_WHEN_UPDATE_BRANCH;
+        Query query = em.createNativeQuery(sql);
+        int i = 1;
+        query.setParameter(i++, name);
+        query.setParameter(i++, id);
+        return query.executeUpdate();
     }//</editor-fold>
 }

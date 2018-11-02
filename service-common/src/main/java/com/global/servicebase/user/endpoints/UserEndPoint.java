@@ -149,5 +149,4 @@ public class UserEndPoint {
     public User thuyetlv() throws Exception {
         return userService.createPassword(-1L);
     }
-
 }

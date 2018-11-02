@@ -321,6 +321,8 @@ public class UserService extends SsdcCrudService<Long, User> {
         user.fullName = userResponse.fullName;
         user.description = userResponse.description;
         user.id = userResponse.userId;
+        user.branchId = userResponse.branchId;
+        user.branchName = userResponse.branchName;
 
         // Set role data
         for (Role role : userResponse.roles) {
@@ -342,6 +344,8 @@ public class UserService extends SsdcCrudService<Long, User> {
         userResponse.password = user.password;
         userResponse.fullName = user.fullName;
         userResponse.operationIds = user.operationIds;
+        userResponse.branchId = user.branchId;
+        userResponse.branchName = user.branchName;
         try {
             userResponse.userId = user.id;
         } catch (Exception ex) {

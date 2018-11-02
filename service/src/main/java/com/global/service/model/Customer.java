@@ -1,7 +1,6 @@
 package com.global.service.model;
 
 import com.global.jdbc.SsdcEntity;
-
 import javax.persistence.*;
 
 @Entity
@@ -31,8 +30,6 @@ public class Customer extends SsdcEntity<Long> {
     public String email;
     @Column(name = "note")
     public String note;
-    @Column(name = "user_id")
-    public Long userId;
 
     public Long getId() {
         return id;
@@ -104,13 +101,5 @@ public class Customer extends SsdcEntity<Long> {
 
     public void setNote(String note) {
         this.note = note;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 }

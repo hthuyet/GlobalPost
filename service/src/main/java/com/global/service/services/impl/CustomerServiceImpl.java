@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -29,7 +28,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     public CustomerRepo customerRepo;
 
-    private static final String SQL_GET = "SELECT `id`,`code`,`name`,`tax_code`,`address`,`tax_address`,`mobile`,`email`,`note`,`user_id`,`created`,`updated` FROM customer c WHERE 1=1 ";
+    private static final String SQL_GET = "SELECT `id`,`code`,`name`,`tax_code`,`address`,`tax_address`,`mobile`,`email`,`note`,`created`,`updated` FROM customer c WHERE 1=1 ";
     private static final String SQL_COUNT = "SELECT count(id) FROM customer c WHERE 1=1 ";
 
     @Override
@@ -73,10 +72,6 @@ public class CustomerServiceImpl implements CustomerService {
         obj.setMobile(String.valueOf(objects[i++]));
         obj.setEmail(String.valueOf(objects[i++]));
         obj.setNote(String.valueOf(objects[i++]));
-        String tmp = String.valueOf(objects[i++]);
-        if (tmp != null && StringUtils.isNotBlank(tmp) && StringUtils.isNumeric(tmp)) {
-            obj.setUserId(Long.parseLong(tmp));
-        }
         return obj;
     }//</editor-fold>
 

@@ -20,12 +20,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.math.BigInteger;
 import java.util.List;
-
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 /**
@@ -146,7 +144,6 @@ public class PartnerEndPoint {
             json.addProperty("message", "Branch not found.");
             return Response.serverError().entity(json.toString()).build();
         }
-
     }//</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Delete">
@@ -174,5 +171,4 @@ public class PartnerEndPoint {
         }
         return Response.ok().entity(count == array.size()).build();
     }//</editor-fold>
-
 }
