@@ -6,48 +6,49 @@ import javax.persistence.*;
 
 @Entity
 public class Branch extends SsdcEntity<Long> {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
 
-  @Column(name = "branch_name")
-  public String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-  @Column(name = "branch_address")
-  public String address;
+    @Column(name = "branch_name")
+    public String name;
 
-  @Column(name = "branch_hotline")
-  public String hotline;
+    @Column(name = "branch_address")
+    public String address;
 
-  public Long getId() {
-    return id;
-  }
+    @Column(name = "branch_hotline")
+    public String hotline;
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+    public Long getId() {
+        return id;
+    }
 
-  public String getName() {
-    return name;
-  }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    public String getName() {
+        return name;
+    }
 
-  public String getAddress() {
-    return address;
-  }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-  public void setAddress(String address) {
-    this.address = address;
-  }
+    public String getAddress() {
+        return address;
+    }
 
-  public String getHotline() {
-    return hotline;
-  }
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-  public void setHotline(String hotline) {
-    this.hotline = hotline;
-  }
+    public String getHotline() {
+        return hotline;
+    }
+
+    public void setHotline(String hotline) {
+        this.hotline = hotline;
+    }
 }

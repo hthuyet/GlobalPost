@@ -6,110 +6,111 @@ import javax.persistence.*;
 
 @Entity
 public class Customer extends SsdcEntity<Long> {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  public Long id;
 
-  @Column(name = "code")
-  public String code;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public Long id;
 
-  @Column(name = "name")
-  public String name;
+    @Column(name = "code")
+    public String code;
 
-  @Column(name = "tax_code")
-  public String taxCode;
+    @Column(name = "name")
+    public String name;
 
-  @Column(name = "address")
-  public String address;
-  @Column(name = "tax_address")
-  public String taxAddress;
+    @Column(name = "tax_code")
+    public String taxCode;
 
-  @Column(name = "mobile")
-  public String mobile;
-  @Column(name = "email")
-  public String email;
-  @Column(name = "note")
-  public String note;
-  @Column(name = "user_id")
-  public Long userId;
+    @Column(name = "address")
+    public String address;
+    @Column(name = "tax_address")
+    public String taxAddress;
 
-  public Long getId() {
-    return id;
-  }
+    @Column(name = "mobile")
+    public String mobile;
+    @Column(name = "email")
+    public String email;
+    @Column(name = "note")
+    public String note;
+    @Column(name = "user_id")
+    public Long userId;
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+    public Long getId() {
+        return id;
+    }
 
-  public String getName() {
-    return name;
-  }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    public String getName() {
+        return name;
+    }
 
-  public String getCode() {
-    return code;
-  }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-  public void setCode(String code) {
-    this.code = code;
-  }
+    public String getCode() {
+        return code;
+    }
 
-  public String getTaxCode() {
-    return taxCode;
-  }
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-  public void setTaxCode(String taxCode) {
-    this.taxCode = taxCode;
-  }
+    public String getTaxCode() {
+        return taxCode;
+    }
 
-  public String getAddress() {
-    return address;
-  }
+    public void setTaxCode(String taxCode) {
+        this.taxCode = taxCode;
+    }
 
-  public void setAddress(String address) {
-    this.address = address;
-  }
+    public String getAddress() {
+        return address;
+    }
 
-  public String getTaxAddress() {
-    return taxAddress;
-  }
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-  public void setTaxAddress(String taxAddress) {
-    this.taxAddress = taxAddress;
-  }
+    public String getTaxAddress() {
+        return taxAddress;
+    }
 
-  public String getMobile() {
-    return mobile;
-  }
+    public void setTaxAddress(String taxAddress) {
+        this.taxAddress = taxAddress;
+    }
 
-  public void setMobile(String mobile) {
-    this.mobile = mobile;
-  }
+    public String getMobile() {
+        return mobile;
+    }
 
-  public String getEmail() {
-    return email;
-  }
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
+    public String getEmail() {
+        return email;
+    }
 
-  public String getNote() {
-    return note;
-  }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-  public void setNote(String note) {
-    this.note = note;
-  }
+    public String getNote() {
+        return note;
+    }
 
-  public Long getUserId() {
-    return userId;
-  }
+    public void setNote(String note) {
+        this.note = note;
+    }
 
-  public void setUserId(Long userId) {
-    this.userId = userId;
-  }
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 }

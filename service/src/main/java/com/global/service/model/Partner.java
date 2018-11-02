@@ -6,48 +6,48 @@ import javax.persistence.*;
 
 @Entity
 public class Partner extends SsdcEntity<Long> {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
 
-  @Column(name = "part_name")
-  public String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-  @Column(name = "part_hotline")
-  public String hotline;
-  @Column(name = "part_address")
-  public String address;
+    @Column(name = "part_name")
+    public String name;
 
-  public Long getId() {
-    return id;
-  }
+    @Column(name = "part_hotline")
+    public String hotline;
+    @Column(name = "part_address")
+    public String address;
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+    public Long getId() {
+        return id;
+    }
 
-  public String getName() {
-    return name;
-  }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
-  public String getHotline() {
-    return hotline;
-  }
+    public String getHotline() {
+        return hotline;
+    }
 
-  public void setHotline(String hotline) {
-    this.hotline = hotline;
-  }
+    public void setHotline(String hotline) {
+        this.hotline = hotline;
+    }
 
-  public String getAddress() {
-    return address;
-  }
+    public String getAddress() {
+        return address;
+    }
 
-  public void setAddress(String address) {
-    this.address = address;
-  }
+    public void setAddress(String address) {
+        this.address = address;
+    }
 }

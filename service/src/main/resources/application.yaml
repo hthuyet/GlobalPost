@@ -10,8 +10,11 @@ spring:
     jdbcUrl: jdbc:mysql://206.189.41.190:3306/global?useSSL=false&useUnicode=yes&characterEncoding=UTF-8
     username: global
     password: global@2018
-    driverClassName: com.mysql.jdbc.Driver
-
+    driverClassName: com.mysql.cj.jdbc.Driver
+    testOnBorrow: true
+    validationQuery: SELECT 1
+    testWhileIdle: true
+    timeBetweenEvictionRunsMillis: 3600000
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
     show-sql: true

@@ -5,7 +5,6 @@
  */
 package com.global.service.endpoinds;
 
-
 import com.global.exception.ObjNotFoundException;
 import com.global.service.model.Branch;
 import com.global.service.model.Customer;
@@ -38,151 +37,150 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 @Api("CustomerEndPoint")
 @Produces(APPLICATION_JSON)
 public class CustomerEndPoint {
-  private static final Logger logger = LoggerFactory.getLogger(CustomerEndPoint.class);
 
-  @Autowired
-  public CustomerService customerService;
+    private static final Logger logger = LoggerFactory.getLogger(CustomerEndPoint.class);
 
-  @Autowired
-  public CustomerRepo customerRepo;
+    @Autowired
+    public CustomerService customerService;
 
-  //<editor-fold defaultstate="collapsed" desc="search customer">
-  @POST
-  @ApiOperation(value = "Search customer")
-  @ApiResponse(code = 200, message = "Success")
-  @Path("/search")
-  public Response search(@ApiParam(value = "Form data",
-      examples =
-      @Example(
-          value = @ExampleProperty("{\"name\": \"\",\"limit\": 20,\"page\": 1}"))) String formData) {
-    JsonObject object = new Gson().fromJson(formData, JsonObject.class);
-    String name = Utils.getAsString(object, "name", "");
-    Integer limit = Utils.getAsInt(object, "limit", 20);
-    Integer page = Utils.getAsInt(object, "page", 1);
-    page = (page <= 1) ? 0 : (page - 1);
-    List<Customer> list = customerService.findByQuery(name, page * limit, limit);
-    return Response.ok().entity(list).build();
-  }//</editor-fold>
+    @Autowired
+    public CustomerRepo customerRepo;
 
+    //<editor-fold defaultstate="collapsed" desc="search customer">
+    @POST
+    @ApiOperation(value = "Search customer")
+    @ApiResponse(code = 200, message = "Success")
+    @Path("/search")
+    public Response search(@ApiParam(value = "Form data",
+            examples
+            = @Example(
+                    value = @ExampleProperty("{\"name\": \"\",\"limit\": 20,\"page\": 1}"))) String formData) {
+        JsonObject object = new Gson().fromJson(formData, JsonObject.class);
+        String name = Utils.getAsString(object, "name", "");
+        Integer limit = Utils.getAsInt(object, "limit", 20);
+        Integer page = Utils.getAsInt(object, "page", 1);
+        page = (page <= 1) ? 0 : (page - 1);
+        List<Customer> list = customerService.findByQuery(name, page * limit, limit);
+        return Response.ok().entity(list).build();
+    }//</editor-fold>
 
-  //<editor-fold defaultstate="collapsed" desc="Count customer">
-  @POST
-  @ApiOperation(value = "Count customer")
-  @ApiResponse(code = 200, message = "Success")
-  @Path("/count")
-  public Response count(@ApiParam(value = "Form data", examples
-      = @Example(value
-      = @ExampleProperty("{\"name\": \"\"}"))) String formData) {
-    JsonObject object = new Gson().fromJson(formData, JsonObject.class);
-    String name = Utils.getAsString(object, "name", "");
-    BigInteger count = customerService.countByQuery(name);
-    return Response.ok().entity(count.intValue()).build();
-  }//</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Count customer">
+    @POST
+    @ApiOperation(value = "Count customer")
+    @ApiResponse(code = 200, message = "Success")
+    @Path("/count")
+    public Response count(@ApiParam(value = "Form data", examples
+            = @Example(value
+                    = @ExampleProperty("{\"name\": \"\"}"))) String formData) {
+        JsonObject object = new Gson().fromJson(formData, JsonObject.class);
+        String name = Utils.getAsString(object, "name", "");
+        BigInteger count = customerService.countByQuery(name);
+        return Response.ok().entity(count.intValue()).build();
+    }//</editor-fold>
 
-  //<editor-fold defaultstate="collapsed" desc="save customer">
-  @POST
-  @Path("/save")
-  @ApiOperation(value = "save customer")
-  @ApiResponse(code = 200, message = "success")
-  public Response add(@ApiParam(value = "Form data", examples
-      = @Example(value
-      = @ExampleProperty("{\"id\": 2,\"name\": \"\"}"))) String formData) {
-    JsonObject json = new JsonObject();
-    try {
-      Gson gson = new Gson();
-      logger.info(String.format("add : %s", formData));
-      JsonObject object = gson.fromJson(formData, JsonObject.class);
-      Customer entity = convertToObj(object);
-
-      entity = this.customerService.save(entity);
-
-      if (entity != null && entity.getId() > 0) {
-        json.addProperty("status", ActionResult.SUCCESS_CODE);
-        json.addProperty("message", ActionResult.SUCCESS);
-        return Response.ok().entity(json.toString()).build();
-      } else {
-        json.addProperty("status", ActionResult.FAILURE1_CODE);
-        json.addProperty("message", "ERRROR");
-        return Response.serverError().entity(json.toString()).build();
-      }
-    } catch (ObjNotFoundException ex) {
-      logger.error(String.format("ERROR ObjNotFoundException {%s}", formData), ex);
-      json.addProperty("status", ActionResult.FAILURE1_CODE);
-      json.addProperty("message", "ERRROR");
-      return Response.serverError().entity(json.toString()).build();
-    }
-
-  }//</editor-fold>
-
-
-  //<editor-fold defaultstate="collapsed" desc="convertToObj">
-  private Customer convertToObj(JsonObject object) throws ObjNotFoundException {
-    Long id = Utils.getAsLong(object, "id", null);
-    Customer obj = null;
-    if (id != null && id > 0) {
-      obj = this.customerRepo.findOne(id);
-      if (obj == null) {
-        throw new ObjNotFoundException(ObjNotFoundException.MESSAGE);
-      }
-    } else {
-      obj = new Customer();
-    }
-    obj.setId(Utils.getAsLong(object, "id", null));
-    obj.setName(Utils.getAsString(object, "name", ""));
-    return obj;
-  }//</editor-fold>
-
-  //<editor-fold defaultstate="collapsed" desc="get by id">
-  @GET
-  @Path("/{id}")
-  @ApiOperation(value = "Read customer")
-  @ApiResponse(code = 200, message = "Success", response = Customer.class)
-  public Response getById(@PathParam("id") Long id) {
-    logger.info(String.format("getById : %s", id));
-    Customer entity = this.customerRepo.findOne(id);
-    if (entity != null && entity.getId() > 0) {
-      return Response.ok().entity(entity).build();
-    } else {
-      JsonObject json = new JsonObject();
-      json.addProperty("status", ActionResult.FAILURE1_CODE);
-      json.addProperty("message", "Branch not found.");
-      return Response.serverError().entity(json.toString()).build();
-    }
-
-  }//</editor-fold>
-
-  //<editor-fold defaultstate="collapsed" desc="Delete">
-  @POST
-  @ApiOperation(value = "Delete")
-  @ApiResponse(code = 200, message = "Success")
-  @Path("/delete")
-  public Response Deletes(@ApiParam(value = "Form data", examples
-      = @Example(value
-//      = @ExampleProperty("[{\"id\": 1},{\"id\": 2}]"))) String formData) {
-      = @ExampleProperty("[1,2]"))) String formData) {
-    JsonObject json = new JsonObject();
-    int count = 0;
-    int countError = 0;
-    JsonArray array = new Gson().fromJson(formData, JsonArray.class);
-    if (array != null && array.size() > 0) {
-      long id = 0L;
-      for (JsonElement ele : array) {
+    //<editor-fold defaultstate="collapsed" desc="save customer">
+    @POST
+    @Path("/save")
+    @ApiOperation(value = "save customer")
+    @ApiResponse(code = 200, message = "success")
+    public Response add(@ApiParam(value = "Form data", examples
+            = @Example(value
+                    = @ExampleProperty("{\"id\": 2,\"name\": \"\"}"))) String formData) {
+        JsonObject json = new JsonObject();
         try {
-          id = ele.getAsLong();
-          if (customerService.delete(id)) {
-            count++;
-          }else{
-            countError++;
-          }
-        } catch (Exception ex) {
-          logger.error(String.format("ERROR delete {%d}", id), ex);
-          countError++;
+            Gson gson = new Gson();
+            logger.info(String.format("add : %s", formData));
+            JsonObject object = gson.fromJson(formData, JsonObject.class);
+            Customer entity = convertToObj(object);
+
+            entity = this.customerService.save(entity);
+
+            if (entity != null && entity.getId() > 0) {
+                json.addProperty("status", ActionResult.SUCCESS_CODE);
+                json.addProperty("message", ActionResult.SUCCESS);
+                return Response.ok().entity(json.toString()).build();
+            } else {
+                json.addProperty("status", ActionResult.FAILURE1_CODE);
+                json.addProperty("message", "ERRROR");
+                return Response.serverError().entity(json.toString()).build();
+            }
+        } catch (ObjNotFoundException ex) {
+            logger.error(String.format("ERROR ObjNotFoundException {%s}", formData), ex);
+            json.addProperty("status", ActionResult.FAILURE1_CODE);
+            json.addProperty("message", "ERRROR");
+            return Response.serverError().entity(json.toString()).build();
         }
-      }
-    }
-    json.addProperty("success",count);
-    json.addProperty("error",countError);
-    return Response.ok().entity(json.toString()).build();
-  }//</editor-fold>
+
+    }//</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="convertToObj">
+    private Customer convertToObj(JsonObject object) throws ObjNotFoundException {
+        Long id = Utils.getAsLong(object, "id", null);
+        Customer obj = null;
+        if (id != null && id > 0) {
+            obj = this.customerRepo.findOne(id);
+            if (obj == null) {
+                throw new ObjNotFoundException(ObjNotFoundException.MESSAGE);
+            }
+        } else {
+            obj = new Customer();
+        }
+        obj.setId(Utils.getAsLong(object, "id", null));
+        obj.setName(Utils.getAsString(object, "name", ""));
+        return obj;
+    }//</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="get by id">
+    @GET
+    @Path("/{id}")
+    @ApiOperation(value = "Read customer")
+    @ApiResponse(code = 200, message = "Success", response = Customer.class)
+    public Response getById(@PathParam("id") Long id) {
+        logger.info(String.format("getById : %s", id));
+        Customer entity = this.customerRepo.findOne(id);
+        if (entity != null && entity.getId() > 0) {
+            return Response.ok().entity(entity).build();
+        } else {
+            JsonObject json = new JsonObject();
+            json.addProperty("status", ActionResult.FAILURE1_CODE);
+            json.addProperty("message", "Branch not found.");
+            return Response.serverError().entity(json.toString()).build();
+        }
+
+    }//</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Delete">
+    @POST
+    @ApiOperation(value = "Delete")
+    @ApiResponse(code = 200, message = "Success")
+    @Path("/delete")
+    public Response Deletes(@ApiParam(value = "Form data", examples
+            = @Example(value
+                    //      = @ExampleProperty("[{\"id\": 1},{\"id\": 2}]"))) String formData) {
+                    = @ExampleProperty("[1,2]"))) String formData) {
+        JsonObject json = new JsonObject();
+        int count = 0;
+        int countError = 0;
+        JsonArray array = new Gson().fromJson(formData, JsonArray.class);
+        if (array != null && array.size() > 0) {
+            long id = 0L;
+            for (JsonElement ele : array) {
+                try {
+                    id = ele.getAsLong();
+                    if (customerService.delete(id)) {
+                        count++;
+                    } else {
+                        countError++;
+                    }
+                } catch (Exception ex) {
+                    logger.error(String.format("ERROR delete {%d}", id), ex);
+                    countError++;
+                }
+            }
+        }
+        json.addProperty("success", count);
+        json.addProperty("error", countError);
+        return Response.ok().entity(json.toString()).build();
+    }//</editor-fold>
 
 }

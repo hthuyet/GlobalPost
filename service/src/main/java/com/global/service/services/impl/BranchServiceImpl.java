@@ -20,86 +20,87 @@ import java.util.List;
 @Component
 @Transactional
 public class BranchServiceImpl implements BranchService {
-  private static final Logger logger = LoggerFactory.getLogger(BranchServiceImpl.class);
 
-  @PersistenceContext
-  private EntityManager em;
+    private static final Logger logger = LoggerFactory.getLogger(BranchServiceImpl.class);
 
-  @Autowired
-  public BranchRepo partRepo;
+    @PersistenceContext
+    private EntityManager em;
 
-  private static final String SQL_GET = "SELECT `id`,`branch_name`,`branch_address`,`branch_hotline` FROM branch d WHERE 1=1 ";
-  private static final String SQL_COUNT = "SELECT count(id) FROM branch d WHERE 1=1 ";
+    @Autowired
+    public BranchRepo partRepo;
 
-  @Override
-  public List findByQuery(String name, int offset, int limit){
-    List rtn = null;
-    String sql = SQL_GET;
-    if (StringUtils.isNoneBlank(name)) {
-      sql += " AND d.branch_name LIKE ? ";
+    private static final String SQL_GET = "SELECT `id`,`branch_name`,`branch_address`,`branch_hotline` FROM branch d WHERE 1=1 ";
+    private static final String SQL_COUNT = "SELECT count(id) FROM branch d WHERE 1=1 ";
+
+    @Override
+    public List findByQuery(String name, int offset, int limit) {
+        List rtn = null;
+        String sql = SQL_GET;
+        if (StringUtils.isNoneBlank(name)) {
+            sql += " AND d.branch_name LIKE ? ";
+        }
+
+        sql += " ORDER BY d.id DESC LIMIT ?,?";
+
+        Query query = em.createNativeQuery(sql);
+
+        int i = 1;
+        if (StringUtils.isNoneBlank(name)) {
+            query.setParameter(i++, "%" + name + "%");
+        }
+        query.setParameter(i++, offset);
+        query.setParameter(i++, limit);
+
+        List<Object[]> li = (List<Object[]>) query.getResultList();
+        rtn = new ArrayList<>();
+        for (Object[] objects : li) {
+            //Add to list
+            rtn.add(convertToObject(objects));
+        }
+        return rtn;
     }
 
-    sql += " ORDER BY d.id DESC LIMIT ?,?";
+    //<editor-fold defaultstate="collapsed" desc="convertToObject">
+    private Branch convertToObject(Object[] objects) {
+        Branch obj = new Branch();
+        int i = 0;
+        obj.setId(Long.parseLong(String.valueOf(objects[i++])));
+        obj.setName(String.valueOf(objects[i++]));
+        obj.setAddress(String.valueOf(objects[i++]));
+        obj.setHotline(String.valueOf(objects[i++]));
+        return obj;
+    }//</editor-fold>
 
-    Query query = em.createNativeQuery(sql);
+    //<editor-fold defaultstate="collapsed" desc="countByQuery">
+    @Override
+    public BigInteger countByQuery(String name) {
+        String sql = SQL_COUNT;
+        if (StringUtils.isNoneBlank(name)) {
+            sql += " AND d.branch_name LIKE ? ";
+        }
 
-    int i = 1;
-    if (StringUtils.isNoneBlank(name)) {
-      query.setParameter(i++, "%" + name + "%");
-    }
-    query.setParameter(i++, offset);
-    query.setParameter(i++, limit);
+        Query query = em.createNativeQuery(sql);
 
-    List<Object[]> li = (List<Object[]>) query.getResultList();
-    rtn = new ArrayList<>();
-    for (Object[] objects : li) {
-      //Add to list
-      rtn.add(convertToObject(objects));
-    }
-    return rtn;
-  }
+        int i = 1;
+        if (StringUtils.isNoneBlank(name)) {
+            query.setParameter(i++, "%" + name + "%");
+        }
 
-  //<editor-fold defaultstate="collapsed" desc="convertToObject">
-  private Branch convertToObject(Object[] objects) {
-    Branch obj = new Branch();
-    int i = 0;
-    obj.setId(Long.parseLong(String.valueOf(objects[i++])));
-    obj.setName(String.valueOf(objects[i++]));
-    obj.setAddress(String.valueOf(objects[i++]));
-    obj.setHotline(String.valueOf(objects[i++]));
-    return obj;
-  }//</editor-fold>
+        BigInteger count = (BigInteger) query.getSingleResult();
+        return count;
+    }//</editor-fold>
 
-  //<editor-fold defaultstate="collapsed" desc="countByQuery">
-  @Override
-  public BigInteger countByQuery(String name) {
-    String sql = SQL_COUNT;
-    if (StringUtils.isNoneBlank(name)) {
-      sql += " AND d.branch_name LIKE ? ";
-    }
+    //<editor-fold defaultstate="collapsed" desc="saveDeviceGroup">
+    @Override
+    public Branch save(Branch entity) {
+        entity = partRepo.save(entity);
+        return entity;
+    }//</editor-fold>
 
-    Query query = em.createNativeQuery(sql);
-
-    int i = 1;
-    if (StringUtils.isNoneBlank(name)) {
-      query.setParameter(i++, "%" + name + "%");
-    }
-
-    BigInteger count = (BigInteger) query.getSingleResult();
-    return count;
-  }//</editor-fold>
-
-  //<editor-fold defaultstate="collapsed" desc="saveDeviceGroup">
-  @Override
-  public Branch save(Branch entity) {
-    entity = partRepo.save(entity);
-    return entity;
-  }//</editor-fold>
-
-  //<editor-fold defaultstate="collapsed" desc="Delete">
-  @Override
-  public Boolean delete(Long id) {
-    partRepo.delete(id);
-    return true;
-  }//</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Delete">
+    @Override
+    public Boolean delete(Long id) {
+        partRepo.delete(id);
+        return true;
+    }//</editor-fold>
 }
