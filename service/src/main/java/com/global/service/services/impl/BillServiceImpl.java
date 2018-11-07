@@ -14,13 +14,18 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author HungNT
  */
+@Component
+@Transactional
 public class BillServiceImpl implements BillService {
 
     @PersistenceContext
@@ -30,8 +35,8 @@ public class BillServiceImpl implements BillService {
     public BillRepo billRepo;
 
     private static final String SQL_FIND_BY_QUERY = "SELECT d.`id`,d.`bill_no`,d.`bill_type`,d.`weight`,d.`cost`,d.`total_cost`,d.`content`,d.`paid`,d.`created`,d.`updated`,d.`is_cod`,d.`cod_value`,d.`bill_state`,d.`who_pay`,\n"
-            + "e.`customer_id`,e.`send_name`,e.`send_address`,e.`send_mobile`,e.`send_time`,e.`send_date`,e.`send_by`,\n"
-            + "f.`customer_id`,f.`receive_name`,f.`receive_address`,f.`receive_mobile`,f.`receive_time`,f.`receive_date`,f.`receive_by`\n"
+            + "e.`customer_id` as `e_customer_id`,e.`send_name`,e.`send_address`,e.`send_mobile`,e.`send_time`,e.`send_date`,e.`send_by`,\n"
+            + "f.`customer_id` as `f_customer_id`,f.`receive_name`,f.`receive_address`,f.`receive_mobile`,f.`receive_time`,f.`receive_date`,f.`receive_by`\n"
             + "FROM bill d\n"
             + "LEFT JOIN bill_send e\n"
             + "ON d.`id` = e.`bill_id`\n"

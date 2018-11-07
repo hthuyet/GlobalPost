@@ -12,6 +12,7 @@ import javax.persistence.*;
  *
  * @author HungNT
  */
+@Entity
 public class BillLog extends SsdcEntity<Long> {
 
     @Id

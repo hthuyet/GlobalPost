@@ -6,15 +6,14 @@
 package com.global.service.model;
 
 import com.global.jdbc.SsdcEntity;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
+import javax.persistence.*;
 
 /**
  *
  * @author HungNT
  */
+@Entity
 public class Bill extends SsdcEntity<Long> {
 
     @Id

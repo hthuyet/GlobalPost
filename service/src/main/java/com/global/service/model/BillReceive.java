@@ -6,16 +6,22 @@
 package com.global.service.model;
 
 import com.global.jdbc.SsdcEntity;
-import javax.persistence.Column;
+
+import javax.persistence.*;
 
 /**
  *
  * @author HungNT
  */
+@Entity
 public class BillReceive extends SsdcEntity<Long> {
 
-    @Column(name = "bill_id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long id;
+
+    @Column(name = "bill_id")
+    public Long billId;
 
     @Column(name = "customer_id")
     public Long customerId;

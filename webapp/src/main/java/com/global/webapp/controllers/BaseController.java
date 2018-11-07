@@ -24,6 +24,9 @@ public class BaseController {
   public static final String CUSTOMER_PAGE = "customer/index";
   public static final String CUSTOMER_PAGE_FORM = "customer/form";
 
+  public static final String BILL_PAGE = "bill/index";
+  public static final String BILL_PAGE_FORM = "bill/form";
+
   public ResponseEntity parseException(Exception ex) {
     JsonObject response = new JsonObject();
     if (ex instanceof UnknownHttpStatusCodeException) {

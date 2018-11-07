@@ -19,4 +19,3 @@ spring:
       encoding: UTF-8
 commondEndpointUrl: http://localhost:8091/api
 apiEndpointUrl: http://localhost:8092/api
-identityServiceEndpointUrl: http://localhost:8091/api
