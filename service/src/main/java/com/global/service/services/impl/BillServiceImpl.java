@@ -47,16 +47,6 @@ public class BillServiceImpl implements BillService {
             + "ON d.`id` = f.`bill_id`\n"
             + "WHERE 1 = 1 ";
 
-    private static final String SQL_GET_BILL_BY_ID = "SELECT d.`id`,d.`bill_no`,d.`bill_type`,d.`weight`,d.`cost`,d.`total_cost`,d.`content`,d.`paid`,d.`created`,d.`updated`,d.`is_cod`,d.`cod_value`,d.`bill_state`,d.`who_pay`,\n"
-            + "e.`customer_id`,e.`send_name`,e.`send_address`,e.`send_mobile`,e.`send_time`,e.`send_date`,e.`send_by`,\n"
-            + "f.`customer_id`,f.`receive_name`,f.`receive_address`,f.`receive_mobile`,f.`receive_time`,f.`receive_date`,f.`receive_by`\n"
-            + "FROM bill d\n"
-            + "LEFT JOIN bill_send e\n"
-            + "ON d.`id` = e.`bill_id`\n"
-            + "LEFT JOIN bill_receive f\n"
-            + "ON d.`id` = f.`bill_id`\n"
-            + "WHERE 1 = 1 ";
-
     @Override
     public List<BillResponse> findByQuery(String billNo, int state, Long from, Long to, String sName, String sMobile, String rName, String rMobile, int offset, int limit) {
         List rtn = null;
@@ -215,7 +205,7 @@ public class BillServiceImpl implements BillService {
 
     @Override
     public BillResponse getById(Long billId) {
-        String sql = SQL_GET_BILL_BY_ID;
+        String sql = SQL_FIND_BY_QUERY;
         if (billId != 0) {
             sql += " AND d.id = ? ";
         }
