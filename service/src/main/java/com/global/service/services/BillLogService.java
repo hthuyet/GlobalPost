@@ -16,5 +16,5 @@ public interface BillLogService {
 
     public abstract List findByBillCode(String code);
 
-    public abstract int insertBillLong(BillLog billLog);
+    public abstract BillLog insertBillLong(BillLog billLog);
 }

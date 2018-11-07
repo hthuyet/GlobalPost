@@ -5,33 +5,19 @@
  */
 package com.global.service.model;
 
-import com.global.jdbc.SsdcEntity;
-import javax.persistence.*;
-
 /**
  *
  * @author HungNT
  */
-public class BillLog extends SsdcEntity<Long> {
+public class BillLogResponse {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long id;
-
-    @Column(name = "bill_id")
-    public Long billId;
-
-    @Column(name = "bill_code")
-    public String billCode;
-
-    @Column(name = "content")
-    public String content;
-
-    @Column(name = "user_id")
-    public Long userId;
-    
-    @Column(name = "created")
-    public Long created;
+    private Long id;
+    private Long billId;
+    private String billCode;
+    private String content;
+    private Long userId;
+    private String userName;
+    private Long created;
 
     public Long getId() {
         return id;
@@ -72,7 +58,15 @@ public class BillLog extends SsdcEntity<Long> {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
-    
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     public Long getCreated() {
         return created;
     }

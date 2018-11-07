@@ -21,13 +21,16 @@ public class Customer extends SsdcEntity<Long> {
 
     @Column(name = "address")
     public String address;
+
     @Column(name = "tax_address")
     public String taxAddress;
 
     @Column(name = "mobile")
     public String mobile;
+
     @Column(name = "email")
     public String email;
+
     @Column(name = "note")
     public String note;
 

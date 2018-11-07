@@ -6,7 +6,8 @@
 package com.global.service.services.impl;
 
 import com.global.service.model.BillLog;
-import com.global.service.repository.BranchRepo;
+import com.global.service.model.BillLogResponse;
+import com.global.service.repository.BillLogRepo;
 import com.global.service.services.BillLogService;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ public class BillLogServiceImpl implements BillLogService {
     private EntityManager em;
 
     @Autowired
-    public BranchRepo branchRepo;
+    public BillLogRepo billLogRepo;
 
     private static final String SQL_GET_BY_BILL_CODE = "SELECT d.`id`,d.`bill_id`,d.`bill_code`,d.`content`,d.`user_id`,e.`user_name`,d.`created`  FROM bill_log d LEFT JOIN `user` e on d.`user_id` = e.`id` WHERE 1 = 1 ";
 
@@ -55,8 +56,8 @@ public class BillLogServiceImpl implements BillLogService {
     }
 
     //<editor-fold defaultstate="collapsed" desc="convertToObject">
-    private BillLog convertToObject(Object[] objects) {
-        BillLog obj = new BillLog();
+    private BillLogResponse convertToObject(Object[] objects) {
+        BillLogResponse obj = new BillLogResponse();
         int i = 0;
         obj.setId(Long.parseLong(String.valueOf(objects[i++])));
         obj.setBillId(Long.parseLong(String.valueOf(objects[i++])));
@@ -69,7 +70,8 @@ public class BillLogServiceImpl implements BillLogService {
     }//</editor-fold>
 
     @Override
-    public int insertBillLong(BillLog billLog) {
-        return 0;
+    public BillLog insertBillLong(BillLog entity) {
+        entity = billLogRepo.save(entity);
+        return entity;
     }
 }

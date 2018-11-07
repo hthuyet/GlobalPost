@@ -109,7 +109,6 @@ public class BranchServiceImpl implements BranchService {
     @Override
     public Branch save(Branch entity) {
         entity = branchRepo.save(entity);
-
         return entity;
     }//</editor-fold>
 
