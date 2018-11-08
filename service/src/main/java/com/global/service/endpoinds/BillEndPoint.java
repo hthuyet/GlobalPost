@@ -125,7 +125,7 @@ public class BillEndPoint {
     }
 
     @GET
-    @Path("/{code}")
+    @Path("/code/{code}")
     @ApiOperation(value = "Get Bill by Code")
     @ApiResponse(code = 200, message = "Success", response = BillResponse.class)
     public Response getByCode(@PathParam("code") String code) {
