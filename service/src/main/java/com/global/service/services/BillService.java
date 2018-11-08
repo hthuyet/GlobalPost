@@ -5,9 +5,10 @@
  */
 package com.global.service.services;
 
+import com.global.service.model.Bill;
+import com.global.service.model.BillForm;
 import com.global.service.model.BillResponse;
 import org.springframework.stereotype.Service;
-
 import java.math.BigInteger;
 import java.util.List;
 
@@ -23,4 +24,10 @@ public interface BillService {
     public abstract BigInteger countByQuery(String billNo, int state, Long from, Long to, String sName, String sMobile, String rName, String rMobile);
 
     public abstract BillResponse getById(Long billId);
+    
+    public abstract BillResponse getByCode(String code);
+    
+    public abstract Boolean delete(Long id);
+    
+    public abstract Bill save(BillForm billParameter);
 }

@@ -82,7 +82,7 @@ public class BranchEndPoint {
     @ApiResponse(code = 200, message = "success")
     public Response save(@ApiParam(value = "Form data", examples
             = @Example(value
-                    = @ExampleProperty("{\"id\": 2,\"name\": \"\"}"))) String formData) {
+                    = @ExampleProperty("{\"id\": 2,\"name\": \"\",\"address\": \"\",\"hotline\": \"\"}"))) String formData) {
         JsonObject json = new JsonObject();
         try {
             logger.info(String.format("add : %s", formData));

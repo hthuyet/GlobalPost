@@ -15,6 +15,7 @@ import javax.persistence.*;
  */
 @Entity
 public class BillSend extends SsdcEntity<Long> {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long id;
@@ -105,5 +106,13 @@ public class BillSend extends SsdcEntity<Long> {
 
     public void setSendBy(String sendBy) {
         this.sendBy = sendBy;
+    }
+
+    public Long getBillId() {
+        return billId;
+    }
+
+    public void setBillId(Long billId) {
+        this.billId = billId;
     }
 }

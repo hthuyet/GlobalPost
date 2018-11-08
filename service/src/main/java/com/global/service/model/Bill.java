@@ -59,6 +59,15 @@ public class Bill extends SsdcEntity<Long> {
     @Column(name = "who_pay")
     public int whoPay;
 
+    @Column(name = "user_create")
+    public Long userCreate;
+
+    @Column(name = "branch_create")
+    public Long branchCreate;
+
+    @Column(name = "current_branch")
+    public Long currentBranch;
+
     public Long getId() {
         return id;
     }
@@ -153,5 +162,29 @@ public class Bill extends SsdcEntity<Long> {
 
     public void setWhoPay(int whoPay) {
         this.whoPay = whoPay;
+    }
+
+    public Long getUserCreate() {
+        return userCreate;
+    }
+
+    public void setUserCreate(Long userCreate) {
+        this.userCreate = userCreate;
+    }
+
+    public Long getBranchCreate() {
+        return branchCreate;
+    }
+
+    public void setBranchCreate(Long branchCreate) {
+        this.branchCreate = branchCreate;
+    }
+
+    public Long getCurrentBranch() {
+        return currentBranch;
+    }
+
+    public void setCurrentBranch(Long currentBranch) {
+        this.currentBranch = currentBranch;
     }
 }

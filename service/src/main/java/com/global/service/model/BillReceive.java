@@ -107,4 +107,12 @@ public class BillReceive extends SsdcEntity<Long> {
     public void setReceiveBy(String receiveBy) {
         this.receiveBy = receiveBy;
     }
+
+    public Long getBillId() {
+        return billId;
+    }
+
+    public void setBillId(Long billId) {
+        this.billId = billId;
+    }
 }

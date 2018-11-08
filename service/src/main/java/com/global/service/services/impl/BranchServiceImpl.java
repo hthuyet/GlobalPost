@@ -26,8 +26,8 @@ public class BranchServiceImpl implements BranchService {
 
     private static final String SQL_GET = "SELECT `id`,`branch_name`,`branch_address`,`branch_hotline` FROM branch d WHERE 1=1 ";
     private static final String SQL_COUNT = "SELECT count(id) FROM branch d WHERE 1=1 ";
-    private static final String SQL_UPDATE_USER_WHEN_UPDATE_BRANCH = "UPDATE user set branch_name = ? where branch_id = ?";
-    private static final String SQL_COUNT_USER_BY_BRANCH = "SELECT count(id) FROM user d WHERE 1 = 1 ";
+    private static final String SQL_UPDATE_USER_WHEN_UPDATE_BRANCH = "UPDATE `user` set `branch_name` = ? where `branch_id` = ?";
+    private static final String SQL_COUNT_USER_BY_BRANCH = "SELECT count(`id`) FROM `user` d WHERE 1 = 1 ";
 
     @Override
     public List findByQuery(String name, int offset, int limit) {
@@ -122,11 +122,15 @@ public class BranchServiceImpl implements BranchService {
     //<editor-fold defaultstate="collapsed" desc="saveBranchOfUser">
     @Override
     public int saveBranchOfUser(String name, long id) {
-        String sql = SQL_UPDATE_USER_WHEN_UPDATE_BRANCH;
-        Query query = em.createNativeQuery(sql);
-        int i = 1;
-        query.setParameter(i++, name);
-        query.setParameter(i++, id);
-        return query.executeUpdate();
+        try {
+            String sql = SQL_UPDATE_USER_WHEN_UPDATE_BRANCH;
+            Query query = em.createNativeQuery(sql);
+            int i = 1;
+            query.setParameter(i++, name);
+            query.setParameter(i++, id);
+            return query.executeUpdate();
+        } catch (Exception ex) {
+            return 0;
+        }
     }//</editor-fold>
 }

@@ -16,4 +16,5 @@ public class GlobalConstants {
     public static final int BILL_IN_PARTNER_STATE = 2;
     public static final int BILL_FINISH_STATE = 3;
     public static final int BILL_HAS_PROBLEM_STATE = 4;
+    public static final int BILL_HAS_DELETED_STATE = 5;
 }

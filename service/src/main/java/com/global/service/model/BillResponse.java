@@ -25,6 +25,9 @@ public class BillResponse {
     private Long codValue;
     private int billState;
     private int whoPay;
+    private Long userCreate;
+    private Long branchCreate;
+    private Long currentBranch;
     private Long sendCustomer;
     private String sendName;
     private String sendAddress;
@@ -39,6 +42,9 @@ public class BillResponse {
     private String receiveTime;
     private String receiveDate;
     private String receiveBy;
+    private String userNameCreate;
+    private String branchNameCreate;
+    private String currentBranchName;
 
     public Long getId() {
         return id;
@@ -262,5 +268,53 @@ public class BillResponse {
 
     public void setReceiveCustomer(Long receiveCustomer) {
         this.receiveCustomer = receiveCustomer;
+    }
+
+    public Long getUserCreate() {
+        return userCreate;
+    }
+
+    public void setUserCreate(Long userCreate) {
+        this.userCreate = userCreate;
+    }
+
+    public Long getBranchCreate() {
+        return branchCreate;
+    }
+
+    public void setBranchCreate(Long branchCreate) {
+        this.branchCreate = branchCreate;
+    }
+
+    public Long getCurrentBranch() {
+        return currentBranch;
+    }
+
+    public void setCurrentBranch(Long currentBranch) {
+        this.currentBranch = currentBranch;
+    }
+
+    public String getUserNameCreate() {
+        return userNameCreate;
+    }
+
+    public void setUserNameCreate(String userNameCreate) {
+        this.userNameCreate = userNameCreate;
+    }
+
+    public String getBranchNameCreate() {
+        return branchNameCreate;
+    }
+
+    public void setBranchNameCreate(String branchNameCreate) {
+        this.branchNameCreate = branchNameCreate;
+    }
+
+    public String getCurrentBranchName() {
+        return currentBranchName;
+    }
+
+    public void setCurrentBranchName(String currentBranchName) {
+        this.currentBranchName = currentBranchName;
     }
 }
