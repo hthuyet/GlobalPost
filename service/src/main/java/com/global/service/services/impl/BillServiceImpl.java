@@ -5,7 +5,6 @@
  */
 package com.global.service.services.impl;
 
-import com.global.service.endpoinds.BranchEndPoint;
 import com.global.service.model.Bill;
 import com.global.service.model.BillForm;
 import com.global.service.model.BillReceive;
@@ -38,7 +37,7 @@ import org.springframework.stereotype.Component;
 @Transactional
 public class BillServiceImpl implements BillService {
 
-    private static final Logger logger = LoggerFactory.getLogger(BranchEndPoint.class);
+    private static final Logger logger = LoggerFactory.getLogger(BillServiceImpl.class);
 
     @PersistenceContext
     private EntityManager em;
@@ -390,8 +389,6 @@ public class BillServiceImpl implements BillService {
                 case GlobalConstants.BILL_INIT_STATE:
                     return false;
                 case GlobalConstants.BILL_IN_PROCESSING_STATE:
-                    return false;
-                case GlobalConstants.BILL_IN_PARTNER_STATE:
                     return false;
                 case GlobalConstants.BILL_FINISH_STATE:
                     changeBillState(bill.getId(), GlobalConstants.BILL_HAS_DELETED_STATE);

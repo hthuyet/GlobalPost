@@ -5,11 +5,11 @@
  */
 package com.global.service.endpoinds;
 
-import com.global.service.model.Bill;
-import com.global.service.model.BillForm;
-import com.global.service.model.BillResponse;
+import com.global.service.model.BillStock;
+import com.global.service.model.BillStockForm;
+import com.global.service.model.BillStockResponse;
 import com.global.service.repository.BillRepo;
-import com.global.service.services.BillService;
+import com.global.service.services.BillStockService;
 import com.global.service.utils.ActionResult;
 import com.global.service.utils.Utils;
 import com.google.gson.Gson;
@@ -42,71 +42,63 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @author HungNT
  */
 @Component
-@Path("bill")
-@Api("BillEndPoint")
+@Path("stock")
+@Api("BillStockEndPoint")
 @Produces(APPLICATION_JSON)
-public class BillEndPoint {
+public class BillStockEndPoint {
 
     private static final Logger logger = LoggerFactory.getLogger(BranchEndPoint.class);
 
     @Autowired
-    public BillService billService;
+    public BillStockService billStockService;
 
     @Autowired
     public BillRepo billRepo;
 
     @POST
-    @ApiOperation(value = "Search Bill")
+    @ApiOperation(value = "Search Bill Stock")
     @ApiResponse(code = 200, message = "Success")
     @Path("/search")
     public Response search(@ApiParam(value = "Form data",
             examples
             = @Example(
-                    value = @ExampleProperty("{\"billno\": \"\",\"state\": 0,\"from\": 0,\"to\": 0,\"sname\": \"\",\"smobile\": \"\",\"rname\": \"\",\"rmobile\": \"\",\"limit\": 20,\"page\": 1}"))) String formData) {
+                    value = @ExampleProperty("{\"billno\": \"\",\"state\": 0,\"from\": 0,\"to\": 0,\"limit\": 20,\"page\": 1}"))) String formData) {
         JsonObject object = new Gson().fromJson(formData, JsonObject.class);
         String billNo = Utils.getAsString(object, "billno", "");
         Long from = Utils.getAsLong(object, "from", 0L);
         Long to = Utils.getAsLong(object, "to", 0L);
         int state = Utils.getAsInt(object, "state", 0);
-        String sName = Utils.getAsString(object, "sname", "");
-        String sMobile = Utils.getAsString(object, "smobile", "");
-        String rName = Utils.getAsString(object, "rname", "");
-        String rMobile = Utils.getAsString(object, "rmobile", "");
         Integer limit = Utils.getAsInt(object, "limit", 20);
         Integer page = Utils.getAsInt(object, "page", 1);
         page = (page <= 1) ? 0 : (page - 1);
-        List<BillResponse> list = billService.findByQuery(billNo, state, from, to, sName, sMobile, rName, rMobile, page * limit, limit);
+        List<BillStockResponse> list = billStockService.findByQuery(billNo, state, from, to, page * limit, limit);
         return Response.ok().entity(list).build();
     }
 
     @POST
-    @ApiOperation(value = "Count Bill")
+    @ApiOperation(value = "Count Bill in Stock")
     @ApiResponse(code = 200, message = "Success")
     @Path("/count")
     public Response count(@ApiParam(value = "Form data", examples
             = @Example(
-                    value = @ExampleProperty("{\"billno\": \"\",\"state\": 0,\"from\": 0,\"to\": 0,\"sname\": \"\",\"smobile\": \"\",\"rname\": \"\",\"rmobile\": \"\"}"))) String formData) {
+                    value = @ExampleProperty("{\"billno\": \"\",\"state\": 0,\"from\": 0,\"to\": 0}"))) String formData) {
         JsonObject object = new Gson().fromJson(formData, JsonObject.class);
         String billNo = Utils.getAsString(object, "billno", "");
         Long from = Utils.getAsLong(object, "from", 0L);
         Long to = Utils.getAsLong(object, "to", 0L);
         int state = Utils.getAsInt(object, "state", 0);
-        String sName = Utils.getAsString(object, "sname", "");
-        String sMobile = Utils.getAsString(object, "smobile", "");
-        String rName = Utils.getAsString(object, "rname", "");
-        String rMobile = Utils.getAsString(object, "rmobile", "");
-        BigInteger count = billService.countByQuery(billNo, state, from, to, sName, sMobile, rName, rMobile);
+        BigInteger count = billStockService.countByQuery(billNo, state, from, to);
         return Response.ok().entity(count.intValue()).build();
     }
 
     @GET
     @Path("/{id}")
-    @ApiOperation(value = "Read Bill")
-    @ApiResponse(code = 200, message = "Success", response = BillResponse.class)
+    @ApiOperation(value = "Read Bill in Stock")
+    @ApiResponse(code = 200, message = "Success", response = BillStockResponse.class)
     public Response getById(@PathParam("id") Long id) {
         try {
             logger.info(String.format("getById : %s", id));
-            BillResponse entity = billService.getById(id);
+            BillStockResponse entity = billStockService.getById(id);
             if (entity != null && entity.getId() > 0) {
                 return Response.ok().entity(entity).build();
             } else {
@@ -125,12 +117,12 @@ public class BillEndPoint {
 
     @GET
     @Path("/code/{code}")
-    @ApiOperation(value = "Get Bill by Code")
-    @ApiResponse(code = 200, message = "Success", response = BillResponse.class)
+    @ApiOperation(value = "Get Bill in Stock by Code")
+    @ApiResponse(code = 200, message = "Success", response = BillStockResponse.class)
     public Response getByCode(@PathParam("code") String code) {
         try {
             logger.info(String.format("getByCode : %s", code));
-            BillResponse entity = billService.getByCode(code);
+            BillStockResponse entity = billStockService.getByCode(code);
             if (entity != null && entity.getId() > 0) {
                 return Response.ok().entity(entity).build();
             } else {
@@ -154,7 +146,6 @@ public class BillEndPoint {
     public Response Deletes(@ApiParam(value = "Form data", examples
             = @Example(value
                     = @ExampleProperty("[1,2]"))) String formData) {
-        JsonObject json = new JsonObject();
         int count = 0;
         JsonArray array = new Gson().fromJson(formData, JsonArray.class);
         if (array != null && array.size() > 0) {
@@ -162,7 +153,7 @@ public class BillEndPoint {
             for (JsonElement item : array) {
                 try {
                     id = item.getAsLong();
-                    if (billService.delete(id)) {
+                    if (billStockService.delete(id)) {
                         count++;
                     }
                 } catch (Exception ex) {
@@ -170,17 +161,14 @@ public class BillEndPoint {
                 }
             }
         }
-        json.addProperty("status", ActionResult.SUCCESS_CODE);
-        json.addProperty("deleteok", count);
-        json.addProperty("deletefail", array.size() - count);
-        return Response.ok().entity(json.toString()).build();
+        return Response.ok().entity(count == array.size()).build();
     }
 
     @POST
     @Path("/save")
     @ApiOperation(value = "Save Bill")
     @ApiResponse(code = 200, message = "success")
-    public Bill save(@RequestBody BillForm billParameter) {
-        return billService.save(billParameter);
+    public BillStock save(@RequestBody BillStockForm billStockParameter) {
+        return billStockService.save(billStockParameter);
     }
 }
