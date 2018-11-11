@@ -120,7 +120,7 @@ public class BillServiceImpl implements BillService {
         if (StringUtils.isNoneBlank(rMobile)) {
             sql += " AND f.receive_mobile like ? ";
         }
-        sql += " ORDER BY p.id DESC LIMIT ?,?";
+        sql += " ORDER BY d.id DESC LIMIT ?,?";
         logger.info("SQL: " + sql);
         Query query = em.createNativeQuery(sql);
 

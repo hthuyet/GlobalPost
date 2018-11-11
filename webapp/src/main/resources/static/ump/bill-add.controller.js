@@ -9,7 +9,27 @@ UserWebApp.controller('BillAddController', function ($http, $scope, HttpService,
     }
   }
 
+  $scope.sender = "";
+  $scope.receiver = "";
+
   renderEdit();
+
+  getCustomer();
+
+  function getCustomer(){
+    var params = {
+      "limit": "-1",
+      "name": ""
+    };
+
+    HttpService.postData('/customer/search', params).then(function (response) {
+      $scope.lstCustomer = response;
+      common.spinner(false);
+    },function error(response) {
+      console.log(response);
+      common.spinner(false);
+    });
+  }
 
 
   function onBeforeSubmit(formElement) {
@@ -34,6 +54,20 @@ UserWebApp.controller('BillAddController', function ($http, $scope, HttpService,
       return isValid;
     }
     return false;
+  }
+
+  $scope.senderObj = {};
+  $scope.changeSender = function () {
+    console.log($scope.sender);
+    if($scope.sender && $scope.sender != ""){
+      $scope.senderObj= JSON.parse($scope.sender);
+    }
+  }
+
+  $scope.changeReceiver = function () {
+    if($scope.receiver && $scope.receiver != ""){
+      $scope.receiverObj= JSON.parse($scope.receiver);
+    }
   }
 
   $scope.onSubmitFrm = function () {

@@ -8,9 +8,19 @@ UserWebApp.controller('BillController', function ($scope, $rootScope, HttpServic
 
 
   $scope.params = [];
-  $scope.params.name = '';
-  $scope.params.limit = 20;
-  $scope.params.page = 1;
+  $scope.params = {
+    "page": 1,
+    "limit": 20,
+    "billNo": "",
+    "billState": -1,
+    "from": 0,
+    "to": 0,
+    "sendName": "",
+    "sendMobile": "",
+    "receiveName": "",
+    "receiveMobile": "",
+  };
+
   $scope.checklistTable = {
     selected: [],
     checkAll: false
@@ -21,7 +31,14 @@ UserWebApp.controller('BillController', function ($scope, $rootScope, HttpServic
     var params = {
       "limit": "" + $scope.params.limit,
       "page": "" + $scope.params.page,
-      "name": "" + $scope.params.name
+      "billno": "" + $scope.params.billNo,
+      "state":  $scope.params.billState,
+      "from":  $scope.params.from,
+      "to": $scope.params.to,
+      "sname": "" + $scope.params.sendName,
+      "smobile": "" + $scope.params.sendMobile,
+      "rname": "" + $scope.params.receiveName,
+      "rmobile": "" + $scope.params.receiveMobile,
     };
 
 

@@ -39,7 +39,11 @@ public class CustomerServiceImpl implements CustomerService {
             sql += " AND c.name LIKE ? ";
         }
 
-        sql += " ORDER BY c.id DESC LIMIT ?,?";
+        sql += " ORDER BY c.id ";
+
+        if(limit > 0){
+            sql += " LIMIT ?,?";
+        }
 
         Query query = em.createNativeQuery(sql);
 
@@ -47,8 +51,11 @@ public class CustomerServiceImpl implements CustomerService {
         if (StringUtils.isNoneBlank(name)) {
             query.setParameter(i++, "%" + name + "%");
         }
-        query.setParameter(i++, offset);
-        query.setParameter(i++, limit);
+
+        if(limit > 0) {
+            query.setParameter(i++, offset);
+            query.setParameter(i++, limit);
+        }
 
         List<Object[]> li = (List<Object[]>) query.getResultList();
         rtn = new ArrayList<>();

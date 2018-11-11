@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Add js,css here -->
+</head>
+<body>
+<!-- Panel bill -->
+<div th:fragment="panel-bill" class="panel panel-flat">
+    <div class="panel-heading">
+        <h5 class="panel-title"><span th:text="#{bill.info}"></span></h5>
+        <div class="heading-elements">
+            <ul class="icons-list">
+                <li><a data-action="collapse"></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <form class="form-horizontal form-search row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label col-md-4" th:text="#{bill.billType}"></label>
+                    <div class="col-md-8">
+                        <select class="form-control" name="billType" ng-model="item.billType">
+                            <option value=""><span th:text="#{common.select.placeholder}"></span></option>
+                            <option value="1"><span th:text="#{bill.billType.1}"></span></option>
+                            <option value="2"><span th:text="#{bill.billType.2}"></span></option>
+                            <option value="3"><span th:text="#{bill.billType.3}"></span></option>
+                            <option value="4"><span th:text="#{bill.billType.4}"></span></option>
+                            <option value="5"><span th:text="#{bill.billType.5}"></span></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label col-md-4" th:text="#{bill.weight}"></label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="item.weight" th:placeholder="#{bill.weight}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label col-md-4" th:text="#{bill.cost}"></label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="item.cost" th:placeholder="#{bill.cost}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label col-md-4" th:text="#{bill.totalCost}"></label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="item.totalCost" th:placeholder="#{bill.totalCost}">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- /panel bill -->
+</body>
+</html>

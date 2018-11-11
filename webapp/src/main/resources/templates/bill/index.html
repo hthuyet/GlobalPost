@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
 <head>
-    <title>Global - Part</title>
+    <title>Global - Bill</title>
     <!-- Theme JS files -->
     <script type="text/javascript" src="/ump/bill.controller.js"></script>
     <!-- /theme JS files -->
@@ -57,9 +57,12 @@
                                         </ul>
                                     </div>
                                 </th>
-                                <th th:text="#{branch.name}"> </th>
-                                <th th:text="#{branch.address}"> </th>
-                                <th th:text="#{branch.hotline}"> </th>
+                                <th th:text="#{bill.billNo}"> </th>
+                                <th th:text="#{bill.sendAddress}"> </th>
+                                <th th:text="#{bill.receiveAddress}"> </th>
+                                <th th:text="#{bill.totalCost}"> </th>
+                                <th th:text="#{bill.sendDate}"> </th>
+                                <th th:text="#{bill.receiveDate}"> </th>
                                 <th style="width: 100px;" class ="text-right" th:text="#{user.search.action}"></th>
                             </tr>
                             </thead>
@@ -68,9 +71,12 @@
                             <tbody>
                             <tr ng-repeat="item in lstData">
                                 <td><input type="checkbox" checklist-model="checklistTable.selected" checklist-value="item.id"></td>
-                                <td>{{item.name}}</td>
-                                <td style="max-width:150px;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word">{{item.address}}</td>
-                                <td style="max-width:150px;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word">{{item.hotline}}</td>
+                                <td>{{item.billNo}}</td>
+                                <td style="max-width:150px;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word">{{item.sendAddress}}</td>
+                                <td style="max-width:150px;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word">{{item.receiveAddress}}</td>
+                                <td>{{item.totalCost}}</td>
+                                <td>{{item.sendDate}}</td>
+                                <td>{{item.receiveDate}}</td>
                                 <td class="text-right text-nowrap">
                                     <ul class="icons-list">
                                         <li>

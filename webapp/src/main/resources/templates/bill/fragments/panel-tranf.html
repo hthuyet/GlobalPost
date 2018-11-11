@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Add js,css here -->
+</head>
+<body>
+<!-- Panel tranf -->
+<div th:fragment="panel-tranf" class="panel panel-flat">
+    <div class="panel-heading">
+        <h5 class="panel-title"><span th:text="#{bill.transf}"></span></h5>
+        <div class="heading-elements">
+            <ul class="icons-list">
+                <li><a data-action="collapse"></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <form class="form-horizontal form-search row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label col-md-4" th:text="#{bill.sendName}"></label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="senderObj.name" th:placeholder="#{bill.receiveName}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label col-md-4" th:text="#{bill.sendMobile}"></label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="senderObj.mobile" th:placeholder="#{bill.sendMobile}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label col-md-4" th:text="#{bill.sendAddress}"></label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="senderObj.address" th:placeholder="#{bill.sendAddress}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label col-md-4" th:text="#{bill.sendTime}"></label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="senderObj.sendTime" th:placeholder="#{bill.sendTime}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label col-md-4" th:text="#{bill.sendDate}"></label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="senderObj.sendDate" th:placeholder="#{bill.sendDate}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label col-md-4" th:text="#{bill.sendBy}"></label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="senderObj.sendBy" th:placeholder="#{bill.sendBy}">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- /panel tranf -->
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Add js,css here -->
+</head>
+<body>
+<!-- Panel sender -->
+<div th:fragment="panel-receiver" class="panel panel-flat">
+    <div class="panel-heading">
+        <h5 class="panel-title"><span th:text="#{bill.receiver}"></span></h5>
+        <div class="heading-elements">
+            <ul class="icons-list">
+                <li><a data-action="collapse"></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <form class="form-horizontal form-search row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label col-md-4" th:text="#{bill.receiveName}"></label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="receiverObj.name" th:placeholder="#{bill.receiveName}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label col-md-4" th:text="#{bill.receiveMobile}"></label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="receiverObj.mobile" th:placeholder="#{bill.receiveMobile}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label col-md-4" th:text="#{bill.receiveAddress}"></label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="receiverObj.address" th:placeholder="#{bill.receiveAddress}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label col-md-4" th:text="#{bill.receiveTime}"></label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="receiverObj.sendTime" th:placeholder="#{bill.receiveTime}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label col-md-4" th:text="#{bill.receiveDate}"></label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="receiverObj.receiveDate" th:placeholder="#{bill.receiveDate}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label col-md-4" th:text="#{bill.receiveBy}"></label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="receiverObj.receiveBy" th:placeholder="#{bill.receiveBy}">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- /panel sender -->
+</body>
+</html>

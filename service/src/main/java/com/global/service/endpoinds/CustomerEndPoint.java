@@ -123,6 +123,12 @@ public class CustomerEndPoint {
         }
         obj.setId(Utils.getAsLong(object, "id", null));
         obj.setName(Utils.getAsString(object, "name", ""));
+        obj.setCode(Utils.getAsString(object, "code", ""));
+        obj.setAddress(Utils.getAsString(object, "address", ""));
+        obj.setEmail(Utils.getAsString(object, "email", ""));
+        obj.setMobile(Utils.getAsString(object, "mobile", ""));
+        obj.setTaxAddress(Utils.getAsString(object, "taxAddress", ""));
+        obj.setTaxCode(Utils.getAsString(object, "taxCode", ""));
         return obj;
     }//</editor-fold>
 
