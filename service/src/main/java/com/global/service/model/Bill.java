@@ -68,6 +68,15 @@ public class Bill extends SsdcEntity<Long> {
     @Column(name = "current_branch")
     public Long currentBranch;
 
+    @Column(name = "partner_id")
+    public Long partnerId;
+
+    @Column(name = "employee_send")
+    public Long employeeSend;
+
+    @Column(name = "employee_receive")
+    public Long employeeReceive;
+
     public Long getId() {
         return id;
     }
@@ -186,5 +195,29 @@ public class Bill extends SsdcEntity<Long> {
 
     public void setCurrentBranch(Long currentBranch) {
         this.currentBranch = currentBranch;
+    }
+
+    public Long getPartnerId() {
+        return partnerId;
+    }
+
+    public void setPartnerId(Long partnerId) {
+        this.partnerId = partnerId;
+    }
+
+    public Long getEmployeeSend() {
+        return employeeSend;
+    }
+
+    public void setEmployeeSend(Long employeeSend) {
+        this.employeeSend = employeeSend;
+    }
+
+    public Long getEmployeeReceive() {
+        return employeeReceive;
+    }
+
+    public void setEmployeeReceive(Long employeeReceive) {
+        this.employeeReceive = employeeReceive;
     }
 }

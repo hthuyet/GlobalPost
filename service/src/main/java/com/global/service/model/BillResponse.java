@@ -28,6 +28,9 @@ public class BillResponse {
     private Long userCreate;
     private Long branchCreate;
     private Long currentBranch;
+    private Long partnerId;
+    private Long employeeSend;
+    private Long employeeReceive;
     private Long sendCustomer;
     private String sendName;
     private String sendAddress;
@@ -45,6 +48,7 @@ public class BillResponse {
     private String userNameCreate;
     private String branchNameCreate;
     private String currentBranchName;
+    private String partnerName;
 
     public Long getId() {
         return id;
@@ -316,5 +320,37 @@ public class BillResponse {
 
     public void setCurrentBranchName(String currentBranchName) {
         this.currentBranchName = currentBranchName;
+    }
+
+    public Long getPartnerId() {
+        return partnerId;
+    }
+
+    public void setPartnerId(Long partnerId) {
+        this.partnerId = partnerId;
+    }
+
+    public String getPartnerName() {
+        return partnerName;
+    }
+
+    public void setPartnerName(String partnerName) {
+        this.partnerName = partnerName;
+    }
+
+    public Long getEmployeeSend() {
+        return employeeSend;
+    }
+
+    public void setEmployeeSend(Long employeeSend) {
+        this.employeeSend = employeeSend;
+    }
+
+    public Long getEmployeeReceive() {
+        return employeeReceive;
+    }
+
+    public void setEmployeeReceive(Long employeeReceive) {
+        this.employeeReceive = employeeReceive;
     }
 }

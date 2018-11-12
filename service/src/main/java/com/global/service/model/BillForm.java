@@ -28,6 +28,9 @@ public class BillForm {
     public Long userCreate;
     public Long branchCreate;
     public Long currentBranch;
+    public Long partnerId;
+    public Long employeeSend;
+    public Long employeeReceive;
     public Long sendCustomer;
     public String sendName;
     public String sendAddress;

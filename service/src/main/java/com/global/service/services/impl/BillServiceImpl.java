@@ -51,12 +51,13 @@ public class BillServiceImpl implements BillService {
     @Autowired
     public BillReceiveRepo billReceiveRepo;
 
-    private static final String SQL_FIND_BY_QUERY = "SELECT d.`id`,d.`bill_no`,d.`bill_type`,d.`weight`,d.`cost`,d.`total_cost`,d.`content`,d.`paid`,d.`created`,d.`updated`,d.`is_cod`,d.`cod_value`,d.`bill_state`,d.`who_pay`,d.`user_create`,d.`branch_create`,d.`current_branch`,\n"
+    private static final String SQL_FIND_BY_QUERY = "SELECT d.`id`,d.`bill_no`,d.`bill_type`,d.`weight`,d.`cost`,d.`total_cost`,d.`content`,d.`paid`,d.`created`,d.`updated`,d.`is_cod`,d.`cod_value`,d.`bill_state`,d.`who_pay`,d.`user_create`,d.`branch_create`,d.`current_branch`,d.`partner_id`,d.`employee_send`,d.`employee_receive`,\n"
             + "e.`customer_id` as `e_customer_id`,e.`send_name`,e.`send_address`,e.`send_mobile`,e.`send_time`,e.`send_date`,e.`send_by`,\n"
             + "f.`customer_id` as `f_customer_id`,f.`receive_name`,f.`receive_address`,f.`receive_mobile`,f.`receive_time`,f.`receive_date`,f.`receive_by`,\n"
             + "g.`user_name`,\n"
             + "h.`branch_name` as `h_branch_name`,\n"
-            + "i.`branch_name` as `i_branch_name`\n"
+            + "i.`branch_name` as `i_branch_name`,\n"
+            + "j.`part_name`\n"
             + "FROM bill d\n"
             + "LEFT JOIN bill_send e\n"
             + "ON d.`id` = e.`bill_id`\n"
@@ -68,6 +69,8 @@ public class BillServiceImpl implements BillService {
             + "ON d.`branch_create` = h.`id`\n"
             + "LEFT JOIN `branch` i\n"
             + "ON d.`current_branch` = i.`id`\n"
+            + "LEFT JOIN `partner` j\n"
+            + "ON d.`partner_id` = j.`id`\n"
             + "WHERE 1 = 1 AND d.`bill_state` != 5 ";
 
     private static final String SQL_COUNT_BY_QUERY = "SELECT count(d.`id`)\n"
@@ -82,6 +85,8 @@ public class BillServiceImpl implements BillService {
             + "ON d.`branch_create` = h.`id`\n"
             + "LEFT JOIN `branch` i\n"
             + "ON d.`current_branch` = i.`id`\n"
+            + "LEFT JOIN `partner` j\n"
+            + "ON d.`partner_id` = j.`id`\n"
             + "WHERE 1 = 1 AND d.`bill_state` != 5 ";
 
     private static final String SQL_FIND_BILL_RECEIVE_BY_ID = "SELECT `id`,`bill_id`,`customer_id`,`receive_name`,`receive_address`,`receive_mobile`,`receive_time`,`receive_date`,`receive_by` FROM `bill_receive` WHERE 1 = 1 ";
@@ -180,6 +185,9 @@ public class BillServiceImpl implements BillService {
         obj.setUserCreate(Long.parseLong(String.valueOf(objects[i++])));
         obj.setBranchCreate(Long.parseLong(String.valueOf(objects[i++])));
         obj.setCurrentBranch(Long.parseLong(String.valueOf(objects[i++])));
+        obj.setPartnerId(Long.parseLong(String.valueOf(objects[i++])));
+        obj.setEmployeeSend(Long.parseLong(String.valueOf(objects[i++])));
+        obj.setEmployeeReceive(Long.parseLong(String.valueOf(objects[i++])));
         obj.setSendCustomer(Long.parseLong(String.valueOf(objects[i++])));
         obj.setSendName(String.valueOf(objects[i++]));
         obj.setSendAddress(String.valueOf(objects[i++]));
@@ -197,6 +205,7 @@ public class BillServiceImpl implements BillService {
         obj.setUserNameCreate(String.valueOf(objects[i++]));
         obj.setBranchNameCreate(String.valueOf(objects[i++]));
         obj.setCurrentBranchName(String.valueOf(objects[i++]));
+        obj.setPartnerName(String.valueOf(objects[i++]));
         return obj;
     }
 
@@ -437,6 +446,12 @@ public class BillServiceImpl implements BillService {
             obj.userCreate = bill.userCreate;
             obj.weight = bill.weight;
             obj.whoPay = bill.whoPay;
+            obj.userCreate = bill.userCreate;
+            obj.branchCreate = bill.branchCreate;
+            obj.currentBranch = bill.currentBranch;
+            obj.partnerId = bill.partnerId;
+            obj.employeeSend = bill.employeeSend;
+            obj.employeeReceive = bill.employeeReceive;
             obj = billRepo.save(obj);
             if (obj != null && obj.getId() > 0) {
                 objSend = getBillSendByBillId(obj.getId());
