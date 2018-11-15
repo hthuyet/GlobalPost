@@ -2,291 +2,291 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
-<head>
-  <!-- Theme JS files -->
-  <script type="text/javascript" src="/ump/templates/form.controller.js"></script>
-  <script type="text/javascript" src="/ump/templates/form-haidh.controller.js"></script>
-  <script type="text/javascript" src="/assets/js/plugins/forms/selects/select2.min.js"></script>
+    <head>
+        <!-- Theme JS files -->
+        <script type="text/javascript" src="/ump/templates/form.controller.js"></script>
+        <script type="text/javascript" src="/ump/templates/form-haidh.controller.js"></script>
+        <script type="text/javascript" src="/assets/js/plugins/forms/selects/select2.min.js"></script>
 
-  <!--<script type="text/javascript" src="/assets/js/plugins/pickers/pickadate/picker.date.js"></script>-->
-  <script type="text/javascript" src="/assets/js/plugins/ui/moment/moment.min.js"></script>
-  <script type="text/javascript" src="/assets/js/plugins/pickers/daterangepicker.js"></script>
-  <script type="text/javascript" src="/assets/js/plugins/pickers/anytime.min.js"></script>
-  <script type="text/javascript" src="/assets/js/plugins/pickers/datepicker.js"></script>
-  <script type="text/javascript" src="/assets/js/plugins/pickers/pickadate/picker.js"></script>
-  <script type="text/javascript" src="/assets/js/plugins/pickers/pickadate/picker.date.js"></script>
-  <script type="text/javascript" src="/assets/js/plugins/pickers/pickadate/picker.time.js"></script>
-  <script type="text/javascript" src="/assets/js/plugins/pickers/pickadate/legacy.js"></script>
+        <!--<script type="text/javascript" src="/assets/js/plugins/pickers/pickadate/picker.date.js"></script>-->
+        <script type="text/javascript" src="/assets/js/plugins/ui/moment/moment.min.js"></script>
+        <script type="text/javascript" src="/assets/js/plugins/pickers/daterangepicker.js"></script>
+        <script type="text/javascript" src="/assets/js/plugins/pickers/anytime.min.js"></script>
+        <script type="text/javascript" src="/assets/js/plugins/pickers/datepicker.js"></script>
+        <script type="text/javascript" src="/assets/js/plugins/pickers/pickadate/picker.js"></script>
+        <script type="text/javascript" src="/assets/js/plugins/pickers/pickadate/picker.date.js"></script>
+        <script type="text/javascript" src="/assets/js/plugins/pickers/pickadate/picker.time.js"></script>
+        <script type="text/javascript" src="/assets/js/plugins/pickers/pickadate/legacy.js"></script>
 
 
-  <script>
+        <script>
 
-  </script>
-  <!-- /theme JS files -->
-</head>
-<body ng-controller="TemplateFormController">
-<th:block layout:fragment="content">
+        </script>
+        <!-- /theme JS files -->
+    </head>
+    <body ng-controller="TemplateFormController">
+    <th:block layout:fragment="content">
 
-  <!-- Page header -->
-  <div th:replace="templates/forms/fragments/page-header::page-header"></div>
-  <!-- /page header-->
+        <!-- Page header -->
+        <div th:replace="templates/forms/fragments/page-header::page-header"></div>
+        <!-- /page header-->
 
-  <!-- Page container -->
-  <div class="page-container">
+        <!-- Page container -->
+        <div class="page-container">
 
-    <!-- Page content -->
-    <div class="page-content">
+            <!-- Page content -->
+            <div class="page-content">
 
-      <!-- Main sidebar -->
-      <!--Add fragment sidebar here-->
-      <!-- /main sidebar -->
+                <!-- Main sidebar -->
+                <!--Add fragment sidebar here-->
+                <!-- /main sidebar -->
 
-      <!-- Main content -->
-      <div class="content-wrapper">
+                <!-- Main content -->
+                <div class="content-wrapper">
 
-        <!-- Panel content -->
-        <div class="panel panel-flat">
-          <div class="panel-heading">
-            <h5 class="panel-title">{{title}}</h5>
-            <div class="heading-elements">
-              <ul class="icons-list">
-                <li><a data-action="collapse"></a></li>
-                <li><a data-action="reload"></a></li>
-                <li><a data-action="close"></a></li>
-              </ul>
+                    <!-- Panel content -->
+                    <div class="panel panel-flat">
+                        <div class="panel-heading">
+                            <h5 class="panel-title">{{title}}</h5>
+                            <div class="heading-elements">
+                                <ul class="icons-list">
+                                    <li><a data-action="collapse"></a></li>
+                                    <li><a data-action="reload"></a></li>
+                                    <li><a data-action="close"></a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="panel-body">
+                            <form 	class="form-horizontal"
+                                   ng-controller="TemplateFormController"
+                                   name="form"
+                                   novalidate>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">Name
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <div class="col-md-4" role="alert">
+                                        <input 	type="text"
+                                                class="form-control"
+                                                id="nameTest"
+                                                name="name"
+                                                ng-model="user.name"
+                                                ng-minlength="3"
+                                                required>
+                                        <span class="help-block text-danger" ng-show="form.name.$dirty && form.name.$error.required">
+                                            <label class="has-error">Name must be required!</label>
+                                        </span>
+
+                                        <span class="help-block text-danger" ng-show="form.name.$dirty && form.name.$error.minlength">
+                                            <label class="has-error">Name must be from 3 character!</label>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">Contact
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <div class="col-md-4" role="alert">
+                                        <input 	type="numbers"
+                                                class="form-control"
+                                                id="contact"
+                                                name="contact"
+                                                ng-model="user.contact"
+                                                ng-minlength="10"
+                                                required>
+                                        <span class="help-block text-danger" ng-show="form.contact.$dirty && form.contact.$error.required">
+                                            <label class="has-error">Contact must be required!</label>
+                                        </span>
+
+                                        <span class="help-block text-danger" ng-show="form.contact.$dirty && form.contact.$error.minlength">
+                                            <label class="has-error">Contact must be from 10 numbers!</label>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">Password
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <div class="col-md-4">
+                                        <input type="password" class="form-control" id="username">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-3 control-label">
+                                        <label>Email:</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="email"
+                                               name="email"
+                                               value=""
+                                               placeholder=""
+                                               class="form-control"
+                                               id="email"
+                                               required>
+                                        <span class="help-block text-danger" ng-show="form.contact.$dirty && form.email.$error.required">
+                                            Required!
+                                        </span>
+                                        <span class="error" ng-show="form.contact.$dirty && form.email.$error.email">
+                                            Not valid email!
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-3 control-label">
+                                        <label>Select 1: </label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select class="select" id="select1">
+                                            <optgroup label="Mountain Time Zone">
+                                                <option value="AZ">Arizona</option>
+                                                <option value="CO">Colorado</option>
+                                                <option value="ID">Idaho</option>
+                                                <option value="WY">Wyoming</option>
+                                            </optgroup>
+                                            <optgroup label="Central Time Zone">
+                                                <option value="AL">Alabama</option>
+                                                <option value="AR">Arkansas</option>
+                                                <option value="KS">Kansas</option>
+                                                <option value="KY">Kentucky</option>
+                                            </optgroup>
+                                            <optgroup label="Eastern Time Zone">
+                                                <option value="CT">Connecticut</option>
+                                                <option value="FL">Florida</option>
+                                                <option value="MA">Massachusetts</option>
+                                                <option value="WV">West Virginia</option>
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-3 control-label">
+                                        <label>Select Search: </label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select class="select-search"
+                                                id="selectSearch1">
+                                            <optgroup label="Mountain Time Zone">
+                                                <option value="AZ">Arizona</option>
+                                                <option value="CO">Colorado</option>
+                                                <option value="ID">Idaho</option>
+                                                <option value="WY">Wyoming</option>
+                                            </optgroup>
+                                            <optgroup label="Central Time Zone">
+                                                <option value="AL">Alabama</option>
+                                                <option value="IA">Iowa</option>
+                                                <option value="KS">Kansas</option>
+                                                <option value="KY">Kentucky</option>
+                                            </optgroup>
+                                            <optgroup label="Eastern Time Zone">
+                                                <option value="CT">Connecticut</option>
+                                                <option value="FL">Florida</option>
+                                                <option value="MA">Massachusetts</option>
+                                                <option value="WV">West Virginia</option>
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-3 control-label">
+                                        <label>Custom border color</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select multiple="multiple" class="select-border-color border-warning"
+                                                id="multipleSelect">
+                                            <optgroup label="Mountain Time Zone">
+                                                <option value="AZ" selected="selected">Arizona</option>
+                                                <option value="CO">Colorado</option>
+                                                <option value="ID">Idaho</option>
+                                                <option value="WY">Wyoming</option>
+                                            </optgroup>
+                                            <optgroup label="Central Time Zone">
+                                                <option value="IL" selected="selected">Illinois</option>
+                                                <option value="IA">Iowa</option>
+                                                <option value="KS">Kansas</option>
+                                                <option value="KY">Kentucky</option>
+                                            </optgroup>
+                                            <optgroup label="Eastern Time Zone">
+                                                <option value="CT">Connecticut</option>
+                                                <option value="FL" selected="selected">Florida</option>
+                                                <option value="MA">Massachusetts</option>
+                                                <option value="WV">West Virginia</option>
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-3 control-label">
+                                        <label>Date:</label>
+                                    </div>
+                                    <div class="input-group col-md-4">
+                                        <span class="input-group-addon"><i class="icon-calendar22"></i></span>
+                                        <input type="text" class="form-control daterange-single" value="03/18/2013">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-3 control-label">
+                                        <label>Radio:</label>
+                                    </div>
+                                    <div class="input-group col-md-4">
+                                        <input type="radio" name="radio-inline-left" class="styled" checked="checked" id="inputRadio">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-3 control-label">
+                                        <label>CheckBox:</label>
+                                    </div>
+                                    <div class="input-group col-md-4">
+                                        <input type="checkbox" class="styled" checked="checked" id="inputCheckbox" name="checkbox">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-3 control-label">
+                                        <label>Input File:</label>
+                                    </div>
+                                    <div class="input-group col-md-4">
+                                        <input type="file" class="file-input" id="inputFile" name="inputFile">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-3 control-label">
+                                        <label>Input Image:</label>
+                                    </div>
+                                    <div class="input-group col-md-4">
+                                        <input type="file" class="file-input-custom" data-show-caption="true" data-show-upload="true" accept="image/*"
+                                               id="inputImage" name="inputImage">
+                                    </div>
+                                </div>
+
+                                <button class="btn btn-primary text-center" role="button" id="confirm"
+                                        type="submit"
+                                        ng-disabled="!form.$valid">
+                                    Confirm
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /panel cont -->
+
+                </div>
+                <!-- /main content -->
+
             </div>
-          </div>
+            <!-- /page content -->
 
-          <div class="panel-body">
-            <form 	class="form-horizontal"
-                     ng-controller="TemplateFormController"
-                     name="form"
-                     novalidate>
-              <div class="form-group">
-                <label class="control-label col-md-3">Name
-                  <span class="required" aria-required="true"> * </span>
-                </label>
-                <div class="col-md-4" role="alert">
-                  <input 	type="text"
-                            class="form-control"
-                            id="nameTest"
-                            name="name"
-                            ng-model="user.name"
-                            ng-minlength="3"
-                            required>
-                  <span class="help-block text-danger" ng-show="form.name.$dirty && form.name.$error.required">
-                        <label class="has-error">Name must be required!</label>
-                    </span>
-
-                  <span class="help-block text-danger" ng-show="form.name.$dirty && form.name.$error.minlength">
-                        <label class="has-error">Name must be from 3 character!</label>
-                    </span>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="control-label col-md-3">Contact
-                  <span class="required" aria-required="true"> * </span>
-                </label>
-                <div class="col-md-4" role="alert">
-                  <input 	type="numbers"
-                            class="form-control"
-                            id="contact"
-                            name="contact"
-                            ng-model="user.contact"
-                            ng-minlength="10"
-                            required>
-                  <span class="help-block text-danger" ng-show="form.contact.$dirty && form.contact.$error.required">
-                        <label class="has-error">Contact must be required!</label>
-                    </span>
-
-                  <span class="help-block text-danger" ng-show="form.contact.$dirty && form.contact.$error.minlength">
-                        <label class="has-error">Contact must be from 10 numbers!</label>
-                    </span>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label class="control-label col-md-3">Password
-                  <span class="required" aria-required="true"> * </span>
-                </label>
-                <div class="col-md-4">
-                  <input type="password" class="form-control" id="username">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <div class="col-md-3 control-label">
-                  <label>Email:</label>
-                </div>
-                <div class="col-md-4">
-                  <input type="email"
-                         name="email"
-                         value=""
-                         placeholder=""
-                         class="form-control"
-                         id="email"
-                         required>
-                  <span class="help-block text-danger" ng-show="form.contact.$dirty && form.email.$error.required">
-                    Required!
-                  </span>
-                  <span class="error" ng-show="form.contact.$dirty && form.email.$error.email">
-                    Not valid email!
-                  </span>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <div class="col-md-3 control-label">
-                  <label>Select 1: </label>
-                </div>
-                <div class="col-md-4">
-                  <select class="select" id="select1">
-                    <optgroup label="Mountain Time Zone">
-                      <option value="AZ">Arizona</option>
-                      <option value="CO">Colorado</option>
-                      <option value="ID">Idaho</option>
-                      <option value="WY">Wyoming</option>
-                    </optgroup>
-                    <optgroup label="Central Time Zone">
-                      <option value="AL">Alabama</option>
-                      <option value="AR">Arkansas</option>
-                      <option value="KS">Kansas</option>
-                      <option value="KY">Kentucky</option>
-                    </optgroup>
-                    <optgroup label="Eastern Time Zone">
-                      <option value="CT">Connecticut</option>
-                      <option value="FL">Florida</option>
-                      <option value="MA">Massachusetts</option>
-                      <option value="WV">West Virginia</option>
-                    </optgroup>
-                  </select>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <div class="col-md-3 control-label">
-                  <label>Select Search: </label>
-                </div>
-                <div class="col-md-4">
-                  <select class="select-search"
-                          id="selectSearch1">
-                    <optgroup label="Mountain Time Zone">
-                      <option value="AZ">Arizona</option>
-                      <option value="CO">Colorado</option>
-                      <option value="ID">Idaho</option>
-                      <option value="WY">Wyoming</option>
-                    </optgroup>
-                    <optgroup label="Central Time Zone">
-                      <option value="AL">Alabama</option>
-                      <option value="IA">Iowa</option>
-                      <option value="KS">Kansas</option>
-                      <option value="KY">Kentucky</option>
-                    </optgroup>
-                    <optgroup label="Eastern Time Zone">
-                      <option value="CT">Connecticut</option>
-                      <option value="FL">Florida</option>
-                      <option value="MA">Massachusetts</option>
-                      <option value="WV">West Virginia</option>
-                    </optgroup>
-                  </select>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <div class="col-md-3 control-label">
-                  <label>Custom border color</label>
-                </div>
-                <div class="col-md-4">
-                  <select multiple="multiple" class="select-border-color border-warning"
-                          id="multipleSelect">
-                    <optgroup label="Mountain Time Zone">
-                      <option value="AZ" selected="selected">Arizona</option>
-                      <option value="CO">Colorado</option>
-                      <option value="ID">Idaho</option>
-                      <option value="WY">Wyoming</option>
-                    </optgroup>
-                    <optgroup label="Central Time Zone">
-                      <option value="IL" selected="selected">Illinois</option>
-                      <option value="IA">Iowa</option>
-                      <option value="KS">Kansas</option>
-                      <option value="KY">Kentucky</option>
-                    </optgroup>
-                    <optgroup label="Eastern Time Zone">
-                      <option value="CT">Connecticut</option>
-                      <option value="FL" selected="selected">Florida</option>
-                      <option value="MA">Massachusetts</option>
-                      <option value="WV">West Virginia</option>
-                    </optgroup>
-                  </select>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <div class="col-md-3 control-label">
-                  <label>Date:</label>
-                </div>
-                <div class="input-group col-md-4">
-                  <span class="input-group-addon"><i class="icon-calendar22"></i></span>
-                  <input type="text" class="form-control daterange-single" value="03/18/2013">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <div class="col-md-3 control-label">
-                  <label>Radio:</label>
-                </div>
-                <div class="input-group col-md-4">
-                  <input type="radio" name="radio-inline-left" class="styled" checked="checked" id="inputRadio">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <div class="col-md-3 control-label">
-                  <label>CheckBox:</label>
-                </div>
-                <div class="input-group col-md-4">
-                  <input type="checkbox" class="styled" checked="checked" id="inputCheckbox" name="checkbox">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <div class="col-md-3 control-label">
-                  <label>Input File:</label>
-                </div>
-                <div class="input-group col-md-4">
-                  <input type="file" class="file-input" id="inputFile" name="inputFile">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <div class="col-md-3 control-label">
-                  <label>Input Image:</label>
-                </div>
-                <div class="input-group col-md-4">
-                  <input type="file" class="file-input-custom" data-show-caption="true" data-show-upload="true" accept="image/*"
-                         id="inputImage" name="inputImage">
-                </div>
-              </div>
-
-              <button class="btn btn-primary text-center" role="button" id="confirm"
-                      type="submit"
-                      ng-disabled="!form.$valid">
-              Confirm
-              </button>
-            </form>
-          </div>
         </div>
-        <!-- /panel cont -->
-
-      </div>
-      <!-- /main content -->
-
-    </div>
-    <!-- /page content -->
-
-  </div>
-  <!-- /page container -->
-</th:block>
+        <!-- /page container -->
+    </th:block>
 
 </body>
 

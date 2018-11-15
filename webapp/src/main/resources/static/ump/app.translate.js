@@ -149,7 +149,8 @@ var translationsEN = {
     addPermissionExits: 'Permission name is existed!',
     addPermissionEmpty: 'Operation/Object is not empty!',
     deletePermissionSuccessfully: 'Delete Permission successfully!.',
-    deletePermissionFail: 'Delete Permission fail!.',
+    deletePermissionFail: 'Delete Permission failure!.',
+    deletePermissionFailBecauseUsed: 'Delete Permission failure because it is being used!.',
     editPermissionSuccess: 'Edit permission successfully!',
     editPermissionFail: 'Edit permission fail!',
     editRoleSuccess: 'Edit role successfully!',
@@ -331,15 +332,15 @@ var translationsVI = {
 };
 
 UserWebApp.config(['$translateProvider', function ($translateProvider) {
-    // Declare multi language
-    $translateProvider.translations('en', translationsEN);
-    $translateProvider.translations('vi', translationsVI);
+        // Declare multi language
+        $translateProvider.translations('en', translationsEN);
+        $translateProvider.translations('vi', translationsVI);
 
-    // Get current language
-    var currentLang = $('.currentLang').attr('data-currentLang');
-    currentLang = currentLang && currentLang !== '' ? currentLang : 'en';
+        // Get current language
+        var currentLang = $('.currentLang').attr('data-currentLang');
+        currentLang = currentLang && currentLang !== '' ? currentLang : 'en';
 
-    // Set language
-    $translateProvider.fallbackLanguage(currentLang);
-    $translateProvider.preferredLanguage(currentLang);
-}]);
+        // Set language
+        $translateProvider.fallbackLanguage(currentLang);
+        $translateProvider.preferredLanguage(currentLang);
+    }]);

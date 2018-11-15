@@ -183,9 +183,12 @@ public class PermissionController {
                     if (count == 0) {
                         permissionsClient.delete(array.get(i).getAsLong());
                         logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "delete role " + array.get(i).getAsLong(), "", "");
+                        result = "200";
+                    } else {
+                        result = "300";
+                        break;
                     }
                 }
-                result = "200";
             } catch (Exception e) {
                 result = "400";
             }
@@ -245,7 +248,6 @@ public class PermissionController {
             }
 
             for (String id : idRoles) {
-
                 UserSearchForm userSearchForm = new UserSearchForm();
                 userSearchForm.currentUserName = session.getAttribute("username").toString();
                 Set<Integer> rolesSet = new HashSet<Integer>();
@@ -265,9 +267,7 @@ public class PermissionController {
                     userClient.update(String.valueOf(user.userName), user);
                 }
             }
-
         }
-
     }
 
     private Permissions initPermission(Map<String, String> params, String permissionID) {

@@ -1,4 +1,4 @@
-UserWebApp.controller('UsersController', function ($scope,$rootScope ,HttpService,$translate) {
+UserWebApp.controller('UsersController', function ($scope, $rootScope, HttpService, $translate) {
 
     $scope.params = [];
     $scope.roles = [];
@@ -15,14 +15,18 @@ UserWebApp.controller('UsersController', function ($scope,$rootScope ,HttpServic
     function renderDefaultRequestParams() {
 
         var limit = common.getUrlRequestParam('limit');
-        if(limit != null){
+        if (limit != null) {
             $scope.params.limit = limit;
-        } else {$scope.params.limit = '20';}
+        } else {
+            $scope.params.limit = '20';
+        }
 
         var page = common.getUrlRequestParam('page');
-        if(page != null){
+        if (page != null) {
             $scope.params.page = parseInt(page);
-        } else {$scope.params.page = '1';}
+        } else {
+            $scope.params.page = '1';
+        }
 
         if (['20', '30', '50'].indexOf($scope.params.limit) < 0) {
             setTimeout(function () {
@@ -55,20 +59,20 @@ UserWebApp.controller('UsersController', function ($scope,$rootScope ,HttpServic
         });
     }
 
-    $scope.recoverPassword = function(userName, email) {
+    $scope.recoverPassword = function (userName, email) {
         $scope.reUserName = userName;
         $scope.reEmail = email;
         $('.modalRecoverPassword').modal('show');
     };
 
-    $scope.onRecoverPassword = function() {
+    $scope.onRecoverPassword = function () {
         $scope.param1 = [];
         $scope.param1.reUserName = $scope.reUserName;
         $scope.param1.reEmail = $scope.reEmail;
         $scope.param1.redirectUrl = location.origin;
         HttpService.getData('/users/forgot-password', $scope.param1).then(function (data1) {
             $('.modalRecoverPassword').modal('hide');
-            if(data1 == 200){
+            if (data1 == 200) {
                 common.notifySuccess($translate.instant('recoverPasswordSuccess'));
             } else {
                 common.notifyError($translate.instant('recoverPasswordError'));
@@ -76,7 +80,7 @@ UserWebApp.controller('UsersController', function ($scope,$rootScope ,HttpServic
         });
     };
 
-    $scope.onUserSearch = function(item) {
+    $scope.onUserSearch = function (item) {
         loadDataList();
     };
 
@@ -111,12 +115,14 @@ UserWebApp.controller('UsersController', function ($scope,$rootScope ,HttpServic
         $scope.param1.userNames = JSON.stringify($scope.userNames);
         HttpService.getData('/users/delete', $scope.param1).then(function (data1) {
             $('.modalDelete').modal('hide');
-            if(data1 == 200){
+            if (data1 == 200) {
                 $scope.checklistTable.user = [];
                 loadDataList();
-                if($scope.userNames.indexOf($scope.userLogin) >= 0){
+                if ($scope.userNames.indexOf($scope.userLogin) >= 0) {
                     common.notifySuccess($translate.instant('deleteSuccessfullyExceptUserNameUsed') + $scope.userLogin);
-                } else {common.notifySuccess($translate.instant('deleteSuccessfully'));}
+                } else {
+                    common.notifySuccess($translate.instant('deleteSuccessfully'));
+                }
             } else {
                 common.notifyError($translate.instant('deleteError'));
             }
@@ -131,7 +137,9 @@ UserWebApp.controller('UsersController', function ($scope,$rootScope ,HttpServic
 
     $scope.onCheckbox = function () {
         if ($scope.checklistTable.checkAll) {
-            $scope.checklistTable.user = $scope.userList.map(function(_item) { return _item.userName; });
+            $scope.checklistTable.user = $scope.userList.map(function (_item) {
+                return _item.userName;
+            });
         } else {
             $scope.checklistTable.user = [];
         }
@@ -139,8 +147,12 @@ UserWebApp.controller('UsersController', function ($scope,$rootScope ,HttpServic
 
     $scope.onUserRefresh = function () {
         $scope.params = [];
-        if($scope.params.limit == null){$scope.params.limit = '20';}
-        if($scope.params.page == null){$scope.params.page = '1';}
+        if ($scope.params.limit == null) {
+            $scope.params.limit = '20';
+        }
+        if ($scope.params.page == null) {
+            $scope.params.page = '1';
+        }
         $scope.checklistTable.user = [];
         loadDataList();
     };
@@ -150,7 +162,9 @@ UserWebApp.controller('UsersController', function ($scope,$rootScope ,HttpServic
             // Update check box all status
             var element = $('.checkAllTable');
             var listChecked = $scope.checklistTable.user;
-            var list = $scope.userList.map(function(_item) { return _item.userName; });
+            var list = $scope.userList.map(function (_item) {
+                return _item.userName;
+            });
             $scope.checklistTable.checkAll = common.updateCheckBoxAllStatus(element, listChecked, list);
         }
     }, true);

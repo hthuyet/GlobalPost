@@ -5,7 +5,6 @@
  */
 package com.global.servicebase.user.model;
 
-import java.math.BigInteger;
 import java.util.Set;
 
 /**
@@ -22,7 +21,7 @@ public class UserResponse {
     public String password;
     public String description;
     public Set<String> operationIds;
-    public BigInteger userId;
+    public Long userId;
     public Long branchId;
     public String branchName;
 }

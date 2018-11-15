@@ -84,8 +84,10 @@ UserWebApp.controller('RolesController', function ($scope, $rootScope, HttpServi
                 $scope.checklistTable.role = [];
                 loadData();
                 common.notifySuccess($translate.instant('deletePermissionSuccessfully'));
-            } else {
+            } else if (data1 == 400) {
                 common.notifyError($translate.instant('deletePermissionFail'));
+            } else if (data1 == 300) {
+                common.notifyError($translate.instant('deletePermissionFailBecauseUsed'));
             }
         });
     };

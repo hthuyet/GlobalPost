@@ -22,7 +22,7 @@ import java.util.*;
 import org.apache.commons.lang3.StringUtils;
 
 @Service
-public class UserService extends SsdcCrudService<BigInteger, User> {
+public class UserService extends SsdcCrudService<Long, User> {
 
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
@@ -110,7 +110,7 @@ public class UserService extends SsdcCrudService<BigInteger, User> {
     }
 
     @Override
-    public void beforeUpdate(BigInteger id, User user) {
+    public void beforeUpdate(Long id, User user) {
         User userOld = get(id);
         // Send email to new email
         if (user.email != null && !userOld.email.equals(user.email)) {
@@ -120,7 +120,7 @@ public class UserService extends SsdcCrudService<BigInteger, User> {
         super.beforeUpdate(id, user);
     }
 
-    public User resetPassword(BigInteger id) {
+    public User resetPassword(Long id) {
         User user = get(id);
         if (user == null) {
             throw new UserNotFoundException("No user with id " + id);
@@ -137,7 +137,7 @@ public class UserService extends SsdcCrudService<BigInteger, User> {
         return user;
     }
 
-    public User createPassword(BigInteger id) {
+    public User createPassword(Long id) {
         User user = get(id);
         if (user == null) {
             throw new UserNotFoundException("No user with id " + id);
@@ -177,12 +177,12 @@ public class UserService extends SsdcCrudService<BigInteger, User> {
         }
     }
 
-    public Boolean checkToken(BigInteger id, String token) {
+    public Boolean checkToken(Long id, String token) {
         User user = get(id);
         return token.equals(user.forgotPwdToken);
     }
 
-    public Boolean changePasswordWithToken(BigInteger userId, String token, String newPassword) {
+    public Boolean changePasswordWithToken(Long userId, String token, String newPassword) {
         if (checkToken(userId, token)) {
             User user = get(userId);
             if (user != null) {
@@ -355,10 +355,10 @@ public class UserService extends SsdcCrudService<BigInteger, User> {
         userResponse.branchId = user.branchId;
         userResponse.branchName = user.branchName;
         try {
-            userResponse.userId = user.id;
+            userResponse.userId = Long.parseLong(String.valueOf(user.id));
         } catch (Exception ex) {
             logger.error(String.format("ERROR convertFromUserToSCUser {%s}: ", new Gson().toJson(user)), ex);
-            userResponse.userId = user.id;
+            userResponse.userId = Long.parseLong(String.valueOf(user.id));
         }
 
         Set<Role> roleResponses = new HashSet<>();

@@ -46,5 +46,4 @@ public class UserWebConfiguration extends WebMvcConfigurerAdapter {
         registry.addInterceptor(localeChangeInterceptor());
     }
 
-
 }

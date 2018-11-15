@@ -2,94 +2,94 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
-<head>
-  <!-- Theme JS files -->
+    <head>
+        <!-- Theme JS files -->
 
-  <!-- /theme JS files -->
-</head>
-<body>
-<th:block layout:fragment="content">
+        <!-- /theme JS files -->
+    </head>
+    <body>
+    <th:block layout:fragment="content">
 
-  <!-- Page header -->
-  <div th:replace="templates/tables/fragments/page-header::page-header"></div>
-  <!-- /page header-->
+        <!-- Page header -->
+        <div th:replace="templates/tables/fragments/page-header::page-header"></div>
+        <!-- /page header-->
 
-  <!-- Page container -->
-  <div class="page-container">
+        <!-- Page container -->
+        <div class="page-container">
 
-    <!-- Page content -->
-    <div class="page-content">
+            <!-- Page content -->
+            <div class="page-content">
 
-      <!-- Main sidebar -->
-      <!--Add fragment sidebar here-->
-      <!-- /main sidebar -->
+                <!-- Main sidebar -->
+                <!--Add fragment sidebar here-->
+                <!-- /main sidebar -->
 
-      <!-- Main content -->
-      <div class="content-wrapper">
+                <!-- Main content -->
+                <div class="content-wrapper">
 
-        <!-- Panel search -->
-        <div th:replace="templates/tables/fragments/panel-search::panel-search"></div>
-        <!-- /panel search-->
+                    <!-- Panel search -->
+                    <div th:replace="templates/tables/fragments/panel-search::panel-search"></div>
+                    <!-- /panel search-->
 
-        <!-- Panel content -->
-        <div class="panel panel-flat">
-          <div class="panel-heading">
-            <h5 class="panel-title">Table demo</h5>
-            <div class="heading-elements">
-              <ul class="icons-list">
-                <li><a data-action="collapse"></a></li>
-                <li><a data-action="reload"></a></li>
-                <li><a data-action="close"></a></li>
-              </ul>
+                    <!-- Panel content -->
+                    <div class="panel panel-flat">
+                        <div class="panel-heading">
+                            <h5 class="panel-title">Table demo</h5>
+                            <div class="heading-elements">
+                                <ul class="icons-list">
+                                    <li><a data-action="collapse"></a></li>
+                                    <li><a data-action="reload"></a></li>
+                                    <li><a data-action="close"></a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 20%;">Class</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>.navbar-top</code><br><code>.navbar-bottom</code></td>
+                                        <td>This class adds necessary <code>top</code> or <code>bottom</code> padding to the
+                                            <code>&lt;body></code> tag. Works only with default navbar height. If another height is specified,
+                                            apply
+                                            another class, see the line below.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>.navbar-top-*</code><br><code>.navbar-bottom-*</code></td>
+                                        <td>Controls padding for different navbar heights, for both positions. Available classes: mini
+                                            (<code>*-xs</code>), small (<code>*-sm</code>) and large (<code>*-lg</code>). Default navbar requires
+                                            <code>.navbar-top(bottom)-fixed</code> class.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>.navbar-top-*-*</code><br><code>.navbar-bottom-*-*</code></td>
+                                        <td>This type of classes is used only with multiple navbars. This is the only class, where
+                                            <code>*-md</code> suffix is available. For example class <code>.navbar-top-md-xs</code> means main
+                                            navbar has default height (<code>.*-md-*</code>), secondary navbar - mini height (<code>.*-xs</code>).
+                                            It calculates both navbars height and adds top or bottom padding with the same value.
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /panel cont -->
+
+                </div>
+                <!-- /main content -->
+
             </div>
-          </div>
+            <!-- /page content -->
 
-          <div class="table-responsive">
-            <table class="table table-hover">
-              <thead>
-              <tr>
-                <th style="width: 20%;">Class</th>
-                <th>Description</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr>
-                <td><code>.navbar-top</code><br><code>.navbar-bottom</code></td>
-                <td>This class adds necessary <code>top</code> or <code>bottom</code> padding to the
-                  <code>&lt;body></code> tag. Works only with default navbar height. If another height is specified,
-                  apply
-                  another class, see the line below.
-                </td>
-              </tr>
-              <tr>
-                <td><code>.navbar-top-*</code><br><code>.navbar-bottom-*</code></td>
-                <td>Controls padding for different navbar heights, for both positions. Available classes: mini
-                  (<code>*-xs</code>), small (<code>*-sm</code>) and large (<code>*-lg</code>). Default navbar requires
-                  <code>.navbar-top(bottom)-fixed</code> class.
-                </td>
-              </tr>
-              <tr>
-                <td><code>.navbar-top-*-*</code><br><code>.navbar-bottom-*-*</code></td>
-                <td>This type of classes is used only with multiple navbars. This is the only class, where
-                  <code>*-md</code> suffix is available. For example class <code>.navbar-top-md-xs</code> means main
-                  navbar has default height (<code>.*-md-*</code>), secondary navbar - mini height (<code>.*-xs</code>).
-                  It calculates both navbars height and adds top or bottom padding with the same value.
-                </td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
         </div>
-        <!-- /panel cont -->
-
-      </div>
-      <!-- /main content -->
-
-    </div>
-    <!-- /page content -->
-
-  </div>
-  <!-- /page container -->
-</th:block>
+        <!-- /page container -->
+    </th:block>
 </body>
 </html>

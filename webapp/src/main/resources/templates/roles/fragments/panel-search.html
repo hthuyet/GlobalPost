@@ -1,39 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <!-- Add js,css here -->
-</head>
-<body>
-<!-- Panel search -->
-<div th:fragment="panel-search" class="panel panel-flat">
-  <div class="panel-heading">
-    <h5 class="panel-title"><span th:text="#{panel.title.filter}"></span></h5>
-    <div class="heading-elements">
-      <ul class="icons-list">
-        <li><a data-action="collapse"></a></li>
-      </ul>
-    </div>
-  </div>
+    <head>
+        <!-- Add js,css here -->
+    </head>
+    <body>
+        <!-- Panel search -->
+        <div th:fragment="panel-search" class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title"><span th:text="#{panel.title.filter}"></span></h5>
+                <div class="heading-elements">
+                    <ul class="icons-list">
+                        <li><a data-action="collapse"></a></li>
+                    </ul>
+                </div>
+            </div>
 
-  <div class="panel-body">
-    <form ng-submit="onSearch()" method="GET" class="form-horizontal form-search row">
+            <div class="panel-body">
+                <form ng-submit="onSearch()" method="GET" class="form-horizontal form-search row">
 
-      <div class="col-md-4">
-        <div class="form-group">
-          <label class="control-label col-md-4" th:text="#{role.name}"></label>
-          <div class="col-md-8">
-            <input type="text" class="form-control" ng-model="params.roleName" th:placeholder="#{placeholder.text}">
-          </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-4" th:text="#{role.name}"></label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" ng-model="params.roleName" th:placeholder="#{placeholder.text}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-icon btn-default"><i class="icon-search4"></i></button>
+                    </div>
+
+                </form>
+            </div>
         </div>
-      </div>
-
-      <div class="col-md-3">
-        <button type="submit" class="btn btn-icon btn-default"><i class="icon-search4"></i></button>
-      </div>
-
-    </form>
-  </div>
-</div>
-<!-- /panel search -->
-</body>
+        <!-- /panel search -->
+    </body>
 </html>

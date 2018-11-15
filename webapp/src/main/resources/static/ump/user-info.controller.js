@@ -1,4 +1,4 @@
-UserWebApp.controller('UserInfoController', function ($scope,$rootScope ,HttpService, $translate) {
+UserWebApp.controller('UserInfoController', function ($scope, $rootScope, HttpService, $translate) {
 
     $scope.params = [];
     $scope.roles = [];
@@ -9,7 +9,7 @@ UserWebApp.controller('UserInfoController', function ($scope,$rootScope ,HttpSer
     var formItem = $('.formChangePassword');
     formItem.find('.inputRepeatPassword').on('change keyup paste', function () {
         var currentPassword = formItem.find('.inputPassword').val(),
-            repeatPassword = formItem.find('.inputRepeatPassword').val();
+                repeatPassword = formItem.find('.inputRepeatPassword').val();
         if (currentPassword !== repeatPassword) {
             formItem.find('.submitBtn').attr('disabled', true);
             formItem.find('.messageInputPasswordError').show();
@@ -22,7 +22,7 @@ UserWebApp.controller('UserInfoController', function ($scope,$rootScope ,HttpSer
 
     formItem.find('.inputPassword').on('change keyup paste', function () {
         var currentPassword = formItem.find('.inputPassword').val(),
-            repeatPassword = formItem.find('.inputRepeatPassword').val();
+                repeatPassword = formItem.find('.inputRepeatPassword').val();
         if (repeatPassword !== '' && currentPassword !== repeatPassword) {
             formItem.find('.submitBtn').attr('disabled', true);
             formItem.find('.messageInputPasswordError').show();
@@ -43,17 +43,16 @@ UserWebApp.controller('UserInfoController', function ($scope,$rootScope ,HttpSer
         $scope.params.userName = formItem.find('input[name=username]').val();
         $scope.params.currentPassword = formItem.find('input[name=currentPassword]').val();
         HttpService.getData('/users/post-check-current-password', $scope.params).then(function (response) {
-            if(response){
+            if (response) {
                 $scope.params.newPassword = formItem.find('input[name=newPassword]').val();
                 HttpService.getData('/users/change-password', $scope.params).then(function (response) {
-                    if(response){
+                    if (response) {
                         common.notifySuccess($translate.instant('changePasswordSuccess'));
-                        location.replace('/user-information/'+$scope.params.userName);
+                        location.replace('/user-information/' + $scope.params.userName);
                     } else {
                         common.notifyError($translate.instant('changePasswordFail'));
                     }
                 });
-
             } else {
                 common.notifyError($translate.instant('currentPasswordWrong'));
             }
@@ -61,12 +60,11 @@ UserWebApp.controller('UserInfoController', function ($scope,$rootScope ,HttpSer
         });
     }
 
-
     // Start form notification
-    $scope.formNotification = {isActive: false,};
+    $scope.formNotification = {isActive: false, };
     var javaResponseElement = $('.javaResponse');
     var userId = javaResponseElement.attr('data-userId');
-    HttpService.getData('/users/'+userId+'/notification-setting/get-by-user', {}).then(function (_notification) {
+    HttpService.getData('/users/' + userId + '/notification-setting/get-by-user', {}).then(function (_notification) {
         $scope.formNotification.isActive = _notification.isActive;
         $scope.formNotification.isSendEmail = _notification.isSendEmail;
         $scope.formNotification.isSendNotify = _notification.isSendNotify;
@@ -93,7 +91,7 @@ UserWebApp.controller('UserInfoController', function ($scope,$rootScope ,HttpSer
 
             if ($scope.formNotification.isActive) {
                 if (!($scope.formNotification.isAlarmTotal || $scope.formNotification.isCriticalTotal
-                    || $scope.formNotification.isMajorTotal || $scope.formNotification.isMinorTotal)) {
+                        || $scope.formNotification.isMajorTotal || $scope.formNotification.isMinorTotal)) {
                     isValid = false;
                     message.push($translate.instant('formCreateUserInvalidNotificationWhen'))
                 }
@@ -110,7 +108,7 @@ UserWebApp.controller('UserInfoController', function ($scope,$rootScope ,HttpSer
             return isValid;
         }
     }
-    
+
     $scope.onSubmitNotification = function () {
         // Start validate
         var formElement = $('.formUpdateNotification');
@@ -126,7 +124,7 @@ UserWebApp.controller('UserInfoController', function ($scope,$rootScope ,HttpSer
         delete data.isMinorTotal;
 
         // Start udpate notification setting
-        HttpService.postData('/users/'+userId+'/notification-setting/update-by-user', data).then(function (_notification) {
+        HttpService.postData('/users/' + userId + '/notification-setting/update-by-user', data).then(function (_notification) {
             common.notifySuccess($translate.instant('saveSuccessfully'));
             setTimeout(function () {
                 // location.replace('/users');

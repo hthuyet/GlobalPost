@@ -2,113 +2,113 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
-<head>
-    <title>Global - Thêm mới hoặc cập nhật đối tác</title>
-    <!-- Theme JS files -->
-    <script type="text/javascript" src="/ump/partner-add.controller.js"></script>
-    <!-- /theme JS files -->
-</head>
-<body ng-controller="PartnerAddController">
-<th:block layout:fragment="content">
+    <head>
+        <title>Global - Thêm mới hoặc cập nhật đối tác</title>
+        <!-- Theme JS files -->
+        <script type="text/javascript" src="/ump/partner-add.controller.js"></script>
+        <!-- /theme JS files -->
+    </head>
+    <body ng-controller="PartnerAddController">
+    <th:block layout:fragment="content">
 
-    <!-- Page header -->
-    <div th:replace="partner/fragments/page-header-add-edit::page-header-add-edit"></div>
-    <!-- /page header-->
+        <!-- Page header -->
+        <div th:replace="partner/fragments/page-header-add-edit::page-header-add-edit"></div>
+        <!-- /page header-->
 
-    <!-- Page container -->
-    <div class="page-container">
+        <!-- Page container -->
+        <div class="page-container">
 
-        <div class="displayNone dataResponse" th:data-data="${data}"></div>
-        <!-- Page content -->
-        <div class="page-content">
+            <div class="displayNone dataResponse" th:data-data="${data}"></div>
+            <!-- Page content -->
+            <div class="page-content">
 
-            <!-- Main content -->
-            <div class="content-wrapper">
+                <!-- Main content -->
+                <div class="content-wrapper">
 
-                <!-- Panel content -->
-                <div class="panel panel-flat">
+                    <!-- Panel content -->
+                    <div class="panel panel-flat">
 
-                    <div class="panel-heading">
-                        <h5 class="panel-title"><span th:text="#{breadcrumb.partner.add}"></span></h5>
-                        <div class="heading-elements">
-                            <ul class="icons-list">
-                                <li><a data-action="collapse"></a></li>
-                            </ul>
+                        <div class="panel-heading">
+                            <h5 class="panel-title"><span th:text="#{breadcrumb.partner.add}"></span></h5>
+                            <div class="heading-elements">
+                                <ul class="icons-list">
+                                    <li><a data-action="collapse"></a></li>
+                                </ul>
+                            </div>
                         </div>
+
+                        <form class="form-horizontal formValidate" name="partnerFrm" id="partnerFrm">
+                            <div class="panel-body">
+
+                                <!--Row 1-->
+                                <div class="row">
+                                    <!--Name-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label"><span
+                                                    th:text="#{partner.name}"></span></label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" id="name" ng-model="item.name"
+                                                       th:placeholder="#{partner.name}" minlength="5" maxlength="128" required="required" name="name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--End Name-->
+
+                                    <!--address-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label"><span
+                                                    th:text="#{partner.address}"></span></label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" id="address" ng-model="item.address"
+                                                       th:placeholder="#{partner.address}" name="address">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--End address-->
+                                </div>
+                                <!--End row 1-->
+
+
+                                <!--Row 2-->
+                                <div class="row">
+                                    <!--hotline-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label"><span
+                                                    th:text="#{partner.hotline}"></span></label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" id="hotline" ng-model="item.hotline" th:placeholder="#{partner.hotline}" name="hotline">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--End hotline-->
+                                </div>
+                                <!--End row 2-->
+
+
+                            </div>
+
+                            <div class="panel-footer text-center">
+                                <button type="button" ng-disabled="partnerFrm.$invalid" id="btnSubmit"
+                                        ng-click="onSubmitFrm()" class="btn btn-primary"
+                                        th:text="#{subscriber.header.title.subscriber.ok}"></button>
+                                <a class="btn btn-default" href="/partner"
+                                   th:text="#{subscriber.header.title.subscriber.cancel}"></a>
+                            </div>
+
+                        </form>
+
+
                     </div>
-
-                    <form class="form-horizontal formValidate" name="partnerFrm" id="partnerFrm">
-                        <div class="panel-body">
-
-                            <!--Row 1-->
-                            <div class="row">
-                                <!--Name-->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label"><span
-                                                th:text="#{partner.name}"></span></label>
-                                        <div class="col-md-8">
-                                            <input type="text" class="form-control" id="name" ng-model="item.name"
-                                                   th:placeholder="#{partner.name}" minlength="5" maxlength="128" required="required" name="name">
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--End Name-->
-
-                                <!--address-->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label"><span
-                                                th:text="#{partner.address}"></span></label>
-                                        <div class="col-md-8">
-                                            <input type="text" class="form-control" id="address" ng-model="item.address"
-                                                   th:placeholder="#{partner.address}" name="address">
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--End address-->
-                            </div>
-                            <!--End row 1-->
-
-
-                            <!--Row 2-->
-                            <div class="row">
-                                <!--hotline-->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label"><span
-                                                th:text="#{partner.hotline}"></span></label>
-                                        <div class="col-md-8">
-                                            <input type="text" class="form-control" id="hotline" ng-model="item.hotline" th:placeholder="#{partner.hotline}" name="hotline">
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--End hotline-->
-                            </div>
-                            <!--End row 2-->
-
-
-                        </div>
-
-                        <div class="panel-footer text-center">
-                            <button type="button" ng-disabled="partnerFrm.$invalid" id="btnSubmit"
-                                    ng-click="onSubmitFrm()" class="btn btn-primary"
-                                    th:text="#{subscriber.header.title.subscriber.ok}"></button>
-                            <a class="btn btn-default" href="/partner"
-                               th:text="#{subscriber.header.title.subscriber.cancel}"></a>
-                        </div>
-
-                    </form>
-
 
                 </div>
 
             </div>
 
         </div>
-
-    </div>
-    <!-- /page container -->
-</th:block>
+        <!-- /page container -->
+    </th:block>
 </body>
 </html>

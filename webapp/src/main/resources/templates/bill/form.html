@@ -2,249 +2,251 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
-<head>
-    <title>Global - Quản lý chi nhánh</title>
-    <!-- Theme JS files -->
-    <script type="text/javascript" src="/ump/bill-add.controller.js"></script>
-    <!-- /theme JS files -->
-</head>
-<body ng-controller="BillAddController">
-<th:block layout:fragment="content">
+    <head>
+        <title>Global - Quản lý chi nhánh</title>
+        <!-- Theme JS files -->
+        <script type="text/javascript" src="/ump/bill-add.controller.js"></script>
+        <!-- /theme JS files -->
+    </head>
+    <body ng-controller="BillAddController">
+    <th:block layout:fragment="content">
 
-    <!-- Page header -->
-    <div th:replace="bill/fragments/page-header-add-edit::page-header-add-edit"></div>
-    <!-- /page header-->
+        <!-- Page header -->
+        <div th:replace="bill/fragments/page-header-add-edit::page-header-add-edit"></div>
+        <!-- /page header-->
 
-    <!-- Page container -->
-    <div class="page-container">
-        <div class="displayNone dataResponse" th:data-data="${data}"></div>
-        <!-- Page content -->
-        <div class="page-content">
+        <!-- Page container -->
+        <div class="page-container">
+            <div class="displayNone dataResponse" th:data-data="${data}"></div>
+            <!-- Page content -->
+            <div class="page-content">
 
-            <!-- Main content -->
-            <div class="content-wrapper">
+                <!-- Main content -->
+                <div class="content-wrapper">
 
-                <!-- Panel content -->
-                <div class="panel panel-flat">
+                    <!-- Panel content -->
+                    <div class="panel panel-flat">
 
-                    <div class="panel-heading">
-                        <h5 ng-if="!item.id" class="panel-title"><span th:text="#{breadcrumb.part.add}"></span></h5>
-                        <h5 ng-if="item.id" class="panel-title"><span th:text="#{breadcrumb.part.edit}"></span></h5>
-                        <div class="heading-elements">
-                            <ul class="icons-list">
-                                <li><a data-action="collapse"></a></li>
-                            </ul>
+                        <div class="panel-heading">
+                            <h5 ng-if="!item.id" class="panel-title"><span th:text="#{breadcrumb.part.add}"></span></h5>
+                            <h5 ng-if="item.id" class="panel-title"><span th:text="#{breadcrumb.part.edit}"></span></h5>
+                            <div class="heading-elements">
+                                <ul class="icons-list">
+                                    <li><a data-action="collapse"></a></li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
 
-                    <form class="form-horizontal formValidate" name="billFrm" id="billFrm">
-                        <div class="panel-body">
+                        <form class="form-horizontal formValidate" name="billFrm" id="billFrm">
+                            <div class="panel-body">
+
+                                <!--Row 1-->
+                                <div class="row">
+                                    <!--Name-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label"><span th:text="#{bill.sendName}"></span></label>
+                                            <div class="col-md-8">
+                                                <select ui-select2 class="form-control" name="sender" ng-model="sender" ng-change="changeSender()">
+                                                    <option value=""><span th:text="#{common.select.placeholder}"></span></option>
+                                                    <option ng-repeat="item in lstCustomer" value="{{item}}"> {{item.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--End Name-->
+
+                                    <!--address-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label"><span
+                                                    th:text="#{bill.receiveName}"></span></label>
+                                            <div class="col-md-8">
+                                                <select ui-select2 class="form-control" name="receiver" ng-model="receiver" ng-change="changeReceiver()">
+                                                    <option ng-repeat="item in lstCustomer" value="{{item}}"> {{item.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--End address-->
+                                </div>
+                                <!--End row 1-->
+
+
+                                <!--Row 2-->
+                                <div class="row">
+                                    <!--hotline-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label"><span
+                                                    th:text="#{partner.hotline}"></span></label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" id="hotline" ng-model="item.hotline" th:placeholder="#{partner.hotline}" name="hotline">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--End hotline-->
+                                </div>
+                                <!--End row 2-->
+                            </div>
+
+
+
+                            <div class="clearfix"></div>
+
+
+                            <!--//Test-->
+                            <div class="col-md-12">
+                                <legend class="text-semibold"> <span th:text="#{bill.sender}"></span></legend>
+                            </div>
+
+                            <div class="col-md-6" style="border-right: 1px solid #dddddd">
+                                <div class="form-group">
+                                    <label class="control-label col-md-4" th:text="#{bill.sendName}"></label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" ng-model="senderObj.name" th:placeholder="#{bill.receiveName}">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-4" th:text="#{bill.sendAddress}"></label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" ng-model="senderObj.address" th:placeholder="#{bill.sendAddress}">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-4" th:text="#{bill.sendDate}"></label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" ng-model="senderObj.sendDate" th:placeholder="#{bill.sendDate}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6" style="border-right: 1px solid #dddddd">
+                                <div class="form-group">
+                                    <label class="control-label col-md-4" th:text="#{bill.sendMobile}"></label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" ng-model="senderObj.mobile" th:placeholder="#{bill.sendMobile}">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-4" th:text="#{bill.sendTime}"></label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" ng-model="senderObj.sendTime" th:placeholder="#{bill.sendTime}">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-4" th:text="#{bill.sendBy}"></label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" ng-model="senderObj.sendBy" th:placeholder="#{bill.sendBy}">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-12">
+                                <legend class="text-semibold"> <span th:text="#{bill.receiver}"></span></legend>
+                            </div>
+
+                            <div class="col-md-6" style="border-right: 1px solid #dddddd">
+                                <div class="form-group">
+                                    <label class="control-label col-md-4" th:text="#{bill.receiveName}"></label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" ng-model="receiverObj.name" th:placeholder="#{bill.receiveName}">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-4" th:text="#{bill.receiveAddress}"></label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" ng-model="receiverObj.address" th:placeholder="#{bill.receiveAddress}">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-4" th:text="#{bill.receiveDate}"></label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" ng-model="receiverObj.receiveDate" th:placeholder="#{bill.receiveDate}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6" style="border-right: 1px solid #dddddd">
+                                <div class="form-group">
+                                    <label class="control-label col-md-4" th:text="#{bill.receiveMobile}"></label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" ng-model="receiverObj.mobile" th:placeholder="#{bill.receiveMobile}">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-4" th:text="#{bill.receiveTime}"></label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" ng-model="receiverObj.sendTime" th:placeholder="#{bill.receiveTime}">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-4" th:text="#{bill.receiveBy}"></label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" ng-model="receiverObj.receiveBy" th:placeholder="#{bill.receiveBy}">
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+                            <!--//Test-->
+
+                            <div class="clearfix"></div>
 
                             <!--Row 1-->
                             <div class="row">
-                                <!--Name-->
                                 <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label"><span th:text="#{bill.sendName}"></span></label>
-                                        <div class="col-md-8">
-                                            <select ui-select2 class="form-control" name="sender" ng-model="sender" ng-change="changeSender()">
-                                                <option value=""><span th:text="#{common.select.placeholder}"></span></option>
-                                                <option ng-repeat="item in lstCustomer" value="{{item}}"> {{item.name}}</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                    <div th:replace="bill/fragments/panel-sender::panel-sender"></div>
                                 </div>
-                                <!--End Name-->
 
-                                <!--address-->
                                 <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label"><span
-                                                th:text="#{bill.receiveName}"></span></label>
-                                        <div class="col-md-8">
-                                            <select ui-select2 class="form-control" name="receiver" ng-model="receiver" ng-change="changeReceiver()">
-                                                <option ng-repeat="item in lstCustomer" value="{{item}}"> {{item.name}}</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                    <div th:replace="bill/fragments/panel-receiver::panel-receiver"></div>
                                 </div>
-                                <!--End address-->
                             </div>
                             <!--End row 1-->
 
-
                             <!--Row 2-->
                             <div class="row">
-                                <!--hotline-->
                                 <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label"><span
-                                                th:text="#{partner.hotline}"></span></label>
-                                        <div class="col-md-8">
-                                            <input type="text" class="form-control" id="hotline" ng-model="item.hotline" th:placeholder="#{partner.hotline}" name="hotline">
-                                        </div>
-                                    </div>
+                                    <div th:replace="bill/fragments/panel-bill::panel-bill"></div>
                                 </div>
-                                <!--End hotline-->
+
+                                <div class="col-md-6">
+                                    <div th:replace="bill/fragments/panel-tranf::panel-tranf"></div>
+                                </div>
                             </div>
                             <!--End row 2-->
-                        </div>
 
 
 
-                        <div class="clearfix"></div>
 
 
-                        <!--//Test-->
-                        <div class="col-md-12">
-                            <legend class="text-semibold"> <span th:text="#{bill.sender}"></span></legend>
-                        </div>
 
-                        <div class="col-md-6" style="border-right: 1px solid #dddddd">
-                            <div class="form-group">
-                                <label class="control-label col-md-4" th:text="#{bill.sendName}"></label>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="senderObj.name" th:placeholder="#{bill.receiveName}">
-                                </div>
+
+                            <div class="panel-footer text-center">
+                                <button type="button" ng-disabled="billFrm.$invalid" id="btnSubmit"
+                                        ng-click="onSubmitFrm()" class="btn btn-primary"
+                                        th:text="#{subscriber.header.title.subscriber.ok}"></button>
+                                <a class="btn btn-default" href="/bill"
+                                   th:text="#{subscriber.header.title.subscriber.cancel}"></a>
                             </div>
 
-                            <div class="form-group">
-                                <label class="control-label col-md-4" th:text="#{bill.sendAddress}"></label>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="senderObj.address" th:placeholder="#{bill.sendAddress}">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-4" th:text="#{bill.sendDate}"></label>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="senderObj.sendDate" th:placeholder="#{bill.sendDate}">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6" style="border-right: 1px solid #dddddd">
-                            <div class="form-group">
-                                <label class="control-label col-md-4" th:text="#{bill.sendMobile}"></label>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="senderObj.mobile" th:placeholder="#{bill.sendMobile}">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-4" th:text="#{bill.sendTime}"></label>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="senderObj.sendTime" th:placeholder="#{bill.sendTime}">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-4" th:text="#{bill.sendBy}"></label>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="senderObj.sendBy" th:placeholder="#{bill.sendBy}">
-                                </div>
-                            </div>
-                        </div>
+                        </form>
 
 
-                        <div class="col-md-12">
-                            <legend class="text-semibold"> <span th:text="#{bill.receiver}"></span></legend>
-                        </div>
-
-                        <div class="col-md-6" style="border-right: 1px solid #dddddd">
-                            <div class="form-group">
-                                <label class="control-label col-md-4" th:text="#{bill.receiveName}"></label>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="receiverObj.name" th:placeholder="#{bill.receiveName}">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-4" th:text="#{bill.receiveAddress}"></label>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="receiverObj.address" th:placeholder="#{bill.receiveAddress}">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-4" th:text="#{bill.receiveDate}"></label>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="receiverObj.receiveDate" th:placeholder="#{bill.receiveDate}">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6" style="border-right: 1px solid #dddddd">
-                            <div class="form-group">
-                                <label class="control-label col-md-4" th:text="#{bill.receiveMobile}"></label>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="receiverObj.mobile" th:placeholder="#{bill.receiveMobile}">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-4" th:text="#{bill.receiveTime}"></label>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="receiverObj.sendTime" th:placeholder="#{bill.receiveTime}">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-4" th:text="#{bill.receiveBy}"></label>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="receiverObj.receiveBy" th:placeholder="#{bill.receiveBy}">
-                                </div>
-                            </div>
-                        </div>
-
-
-
-
-
-                        <!--//Test-->
-
-                        <div class="clearfix"></div>
-
-                        <!--Row 1-->
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div th:replace="bill/fragments/panel-sender::panel-sender"></div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div th:replace="bill/fragments/panel-receiver::panel-receiver"></div>
-                            </div>
-                        </div>
-                        <!--End row 1-->
-
-                        <!--Row 2-->
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div th:replace="bill/fragments/panel-bill::panel-bill"></div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div th:replace="bill/fragments/panel-tranf::panel-tranf"></div>
-                            </div>
-                        </div>
-                        <!--End row 2-->
-
-
-
-
-
-
-
-                        <div class="panel-footer text-center">
-                            <button type="button" ng-disabled="billFrm.$invalid" id="btnSubmit"
-                                    ng-click="onSubmitFrm()" class="btn btn-primary"
-                                    th:text="#{subscriber.header.title.subscriber.ok}"></button>
-                            <a class="btn btn-default" href="/bill"
-                               th:text="#{subscriber.header.title.subscriber.cancel}"></a>
-                        </div>
-
-                    </form>
-
+                    </div>
 
                 </div>
 
@@ -252,9 +254,7 @@
 
         </div>
 
-    </div>
-
-    <!-- /page container -->
-</th:block>
+        <!-- /page container -->
+    </th:block>
 </body>
 </html>

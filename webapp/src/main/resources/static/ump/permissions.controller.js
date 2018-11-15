@@ -6,8 +6,8 @@ UserWebApp.controller('PermissionsController', function ($scope, $rootScope, Htt
     $scope.params.permissionsName = '';
 
     $scope.checklistTable = {
-      permission: [],
-      checkAll: false
+        permission: [],
+        checkAll: false
     };
 
     renderDefaultRequestParams();
@@ -15,14 +15,18 @@ UserWebApp.controller('PermissionsController', function ($scope, $rootScope, Htt
     function renderDefaultRequestParams() {
 
         var limit = common.getUrlRequestParam('limit');
-        if(limit != null){
+        if (limit != null) {
             $scope.params.limit = limit;
-        } else {$scope.params.limit = '20';}
+        } else {
+            $scope.params.limit = '20';
+        }
 
         var page = common.getUrlRequestParam('page');
-        if(page != null){
+        if (page != null) {
             $scope.params.page = parseInt(page);
-        } else {$scope.params.page = '1';}
+        } else {
+            $scope.params.page = '1';
+        }
 
         if (['20', '30', '50'].indexOf($scope.params.limit) < 0) {
             setTimeout(function () {
@@ -39,8 +43,8 @@ UserWebApp.controller('PermissionsController', function ($scope, $rootScope, Htt
 
     function loadData() {
         HttpService.getData('/permissions/search', $scope.params).then(function (response) {
-          $scope.permissionsList = response.permissions;
-          $scope.totalElements = response.totalElements;
+            $scope.permissionsList = response.permissions;
+            $scope.totalElements = response.totalElements;
         });
     }
 
@@ -56,7 +60,7 @@ UserWebApp.controller('PermissionsController', function ($scope, $rootScope, Htt
         loadData();
         common.btnLoading($('.btnRefresh'), true);
         setTimeout(function () {
-          common.btnLoading($('.btnRefresh'), false);
+            common.btnLoading($('.btnRefresh'), false);
         }, 1000);
     };
 
@@ -77,32 +81,38 @@ UserWebApp.controller('PermissionsController', function ($scope, $rootScope, Htt
         $scope.param1.id = JSON.stringify($scope.perDeleteList);
         HttpService.getData('/deletePermission', $scope.param1).then(function (data1) {
             $('.modalDelete').modal('hide');
-            if(data1 == 200){
+            if (data1 == 200) {
                 $scope.checklistTable.permission = [];
                 loadData();
                 common.notifySuccess($translate.instant('deletePermissionSuccessfully'));
-            } else {
+            } else if (data1 == 400) {
                 common.notifyError($translate.instant('deletePermissionFail'));
+            } else if (data1 == 300) {
+                common.notifyError($translate.instant('deletePermissionFailBecauseUsed'));
             }
         });
     };
 
     $scope.onCheckbox = function () {
-      if ($scope.checklistTable.checkAll) {
-          $scope.checklistTable.permission = $scope.permissionsList.map(function(_item) { return _item.id; });
-      } else {
-          $scope.checklistTable.permission = [];
-      }
+        if ($scope.checklistTable.checkAll) {
+            $scope.checklistTable.permission = $scope.permissionsList.map(function (_item) {
+                return _item.id;
+            });
+        } else {
+            $scope.checklistTable.permission = [];
+        }
     };
 
     $scope.$watch('checklistTable.permission', function (_newValue, _oldValue) {
-      if (_newValue !== _oldValue) {
-          // Update check box all status
-          var element = $('.checkAllTable');
-          var listChecked = $scope.checklistTable.permission;
-          var list = $scope.permissionsList.map(function(_item) { return _item.id; });
-          $scope.checklistTable.checkAll = common.updateCheckBoxAllStatus(element, listChecked, list);
-      }
+        if (_newValue !== _oldValue) {
+            // Update check box all status
+            var element = $('.checkAllTable');
+            var listChecked = $scope.checklistTable.permission;
+            var list = $scope.permissionsList.map(function (_item) {
+                return _item.id;
+            });
+            $scope.checklistTable.checkAll = common.updateCheckBoxAllStatus(element, listChecked, list);
+        }
     }, true);
 
     $scope.$watch('params.page', function (_newValue, _oldValue) {

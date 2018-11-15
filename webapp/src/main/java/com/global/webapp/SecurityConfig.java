@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();//TODO review
 
         http.authorizeRequests()
-                .antMatchers("/assets/**","/ump/**","/login",
+                .antMatchers("/assets/**", "/ump/**", "/login",
                         "/users/get-existed-email", "/users/forgot-password-with-email",
                         "/changeForgotPassword", "/changeForgotPasswordConfirm",
                         "/change-password", "/change-password-with-token", "/ump-websocket/**").permitAll()

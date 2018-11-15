@@ -165,7 +165,6 @@ public class RoleController {
                     updateRoleName(params.get("addId"));
                     result = "200";
                 }
-
             } catch (Exception e) {
                 e.printStackTrace();
                 result = "400";
@@ -180,11 +179,9 @@ public class RoleController {
     @ResponseBody
     public String deleteRole(@RequestParam Map<String, String> params) {
         String result = "";
-
         if (params.keySet().contains("id")) {
             String ids = params.get("id");
             JsonArray array = new Gson().fromJson(ids, JsonArray.class);
-
             try {
                 for (int i = 0; i < array.size(); i++) {
 
@@ -192,18 +189,19 @@ public class RoleController {
                     Set<Integer> roles = new HashSet<Integer>();
                     roles.add(array.get(i).getAsInt());
                     userSearchForm.roles = roles;
-
                     int totalItem = userClient.search(userSearchForm).length;
                     if (totalItem == 0) {
                         roleClient.delete(array.get(i).getAsLong());
                         logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "delete role " + array.get(i).getAsString(), "", "");
+                        result = "200";
+                    } else {
+                        result = "300";
+                        break;
                     }
                 }
-                result = "200";
             } catch (Exception e) {
                 result = "400";
             }
-
         }
         return result;
     }

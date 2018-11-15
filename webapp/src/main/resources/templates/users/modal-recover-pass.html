@@ -1,38 +1,38 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
-<!-- Modal backup -->
-<div th:fragment="modal-recover-pass" class="modal fade modalRecoverPassword">
-  <div class="modal-dialog modal-md">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h5 class="modal-title" th:text="#{user.header.title.recover.pass}"></h5>
-      </div>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+        <!-- Modal backup -->
+        <div th:fragment="modal-recover-pass" class="modal fade modalRecoverPassword">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h5 class="modal-title" th:text="#{user.header.title.recover.pass}"></h5>
+                    </div>
 
-      <div class="modal-body">
-        <label class="text-semibold">
-          <span th:text="#{user.header.title.recover.pass.body.start}"></span>
-          <span class="userNameEmail">{{reUserName}}</span>
-          <span th:text="#{user.header.title.recover.pass.body.end}"></span>
-          <span class="userNameEmail">{{reEmail}}</span>
-          <span>?</span>
-        </label></br>
+                    <div class="modal-body">
+                        <label class="text-semibold">
+                            <span th:text="#{user.header.title.recover.pass.body.start}"></span>
+                            <span class="userNameEmail">{{reUserName}}</span>
+                            <span th:text="#{user.header.title.recover.pass.body.end}"></span>
+                            <span class="userNameEmail">{{reEmail}}</span>
+                            <span>?</span>
+                        </label></br>
 
-      </div>
+                    </div>
 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" ng-click="onRecoverPassword()">Ok</button>
-        <button type="button" class="btn btn-idlink" data-dismiss="modal" th:text="#{common.modal.btn.close}"></button>
-      </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" ng-click="onRecoverPassword()">Ok</button>
+                        <button type="button" class="btn btn-idlink" data-dismiss="modal" th:text="#{common.modal.btn.close}"></button>
+                    </div>
 
-    </div>
-  </div>
-</div>
-<!-- /Modal backup -->
-</body>
+                </div>
+            </div>
+        </div>
+        <!-- /Modal backup -->
+    </body>
 </html>

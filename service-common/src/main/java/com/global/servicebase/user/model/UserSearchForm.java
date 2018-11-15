@@ -26,7 +26,7 @@ public class UserSearchForm {
     public String phoneNumber;
     public Set<Integer> deviceGroupIds;
     public Set<Integer> roles;
-    public BigInteger userId;
+    public Long userId;
 
     @ApiModelProperty(example = "using for checkCurrentPassword API")
     public String currentPassword;

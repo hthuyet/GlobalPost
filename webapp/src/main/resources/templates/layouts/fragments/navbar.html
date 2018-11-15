@@ -1,74 +1,74 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <!-- Add js,css here -->
-</head>
-<body>
-<!-- Main navbar -->
-<div th:fragment="navbar" class="navbar navbar-inverse bg-indigo navbar-fixed-top" id="navbar-main">
-  <div class="navbar-header">
-    <a class="navbar-brand" href="/" style="padding: 10px 20px;">
-      <img src="/assets/images/logo_light2.png" alt="GLOBAL" style="height: 100%;">
-    </a>
+    <head>
+        <!-- Add js,css here -->
+    </head>
+    <body>
+        <!-- Main navbar -->
+        <div th:fragment="navbar" class="navbar navbar-inverse bg-indigo navbar-fixed-top" id="navbar-main">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/" style="padding: 10px 20px;">
+                    <img src="/assets/images/logo_light2.png" alt="GLOBAL" style="height: 100%;">
+                </a>
 
-    <ul class="nav navbar-nav pull-right visible-xs-block">
-      <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
-    </ul>
-  </div>
+                <ul class="nav navbar-nav pull-right visible-xs-block">
+                    <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
+                </ul>
+            </div>
 
-  <div class="navbar-collapse collapse" id="navbar-mobile">
-    <ul class="nav navbar-nav navUmp">
-      <li class="dropdown">
-        <a href="" class="dropdown-toggle navLv1" data-toggle="dropdown" ><span th:text="#{layout.navbar.systemManager}"></span> <span class="caret" ></span></a>
-        <ul class="dropdown-menu width-250">
-          <li><a href="/branch" class="navLv1" th:text="#{layout.navbar.systemManager.part}"></a></li>
-          <li><a href="/partner" class="navLv1" th:text="#{layout.navbar.systemManager.partner}"></a></li>
-          <li><a href="/customer" class="navLv1"><span th:text="#{layout.navbar.systemManager.customer}"></span></a></li>
-        </ul>
-      </li>
+            <div class="navbar-collapse collapse" id="navbar-mobile">
+                <ul class="nav navbar-nav navUmp">
+                    <li class="dropdown">
+                        <a href="" class="dropdown-toggle navLv1" data-toggle="dropdown" ><span th:text="#{layout.navbar.systemManager}"></span> <span class="caret" ></span></a>
+                        <ul class="dropdown-menu width-250">
+                            <li><a href="/branch" class="navLv1" th:text="#{layout.navbar.systemManager.part}"></a></li>
+                            <li><a href="/partner" class="navLv1" th:text="#{layout.navbar.systemManager.partner}"></a></li>
+                            <li><a href="/customer" class="navLv1"><span th:text="#{layout.navbar.systemManager.customer}"></span></a></li>
+                        </ul>
+                    </li>
 
-      <li class="dropdown">
-        <a href="" class="dropdown-toggle navLv1" data-toggle="dropdown" ><span th:text="#{layout.navbar.users}"></span> <span class="caret" ></span></a>
-        <ul class="dropdown-menu width-250">
-          <li><a href="/users" class="navLv1" th:text="#{layout.navbar.users}"></a></li>
-          <li><a href="/roles" class="navLv1" th:text="#{layout.navbar.roles}"></a></li>
-          <li><a href="/permissions" class="navLv1"><span th:text="#{layout.navbar.permissions}"></span></a></li>
-        </ul>
-      </li>
+                    <li class="dropdown">
+                        <a href="" class="dropdown-toggle navLv1" data-toggle="dropdown" ><span th:text="#{layout.navbar.users}"></span> <span class="caret" ></span></a>
+                        <ul class="dropdown-menu width-250">
+                            <li><a href="/users" class="navLv1" th:text="#{layout.navbar.users}"></a></li>
+                            <li><a href="/roles" class="navLv1" th:text="#{layout.navbar.roles}"></a></li>
+                            <li><a href="/permissions" class="navLv1"><span th:text="#{layout.navbar.permissions}"></span></a></li>
+                        </ul>
+                    </li>
 
-      <li class="dropdown">
-        <a href="/bill" class="navLv1" ><span th:text="#{layout.navbar.bill}"></span></a>
-      </li>
+                    <li class="dropdown">
+                        <a href="/bill" class="navLv1" ><span th:text="#{layout.navbar.bill}"></span></a>
+                    </li>
 
-    </ul>
+                </ul>
 
-    <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right">
 
-      <li class="dropdown language-switch hidden-sm">
-        <a class="dropdown-toggle legitRipple" data-toggle="dropdown" aria-expanded="false"><img th:src="#{locale.current.flag}" th:alt="#{locale.current.name}" class="position-left"><span th:text="#{locale.current.name}"></span> <i class="caret"></i></a>
+                    <li class="dropdown language-switch hidden-sm">
+                        <a class="dropdown-toggle legitRipple" data-toggle="dropdown" aria-expanded="false"><img th:src="#{locale.current.flag}" th:alt="#{locale.current.name}" class="position-left"><span th:text="#{locale.current.name}"></span> <i class="caret"></i></a>
 
-        <ul class="dropdown-menu">
-          <li style="display: none"> <span class="currentLang" th:data-currentLang="${#locale}"></span></li>
-          <li th:class="${#strings.equals(#locale, 'en')} ? 'active' : ''"><a class="english" href="?lang=en"><img src="/assets/images/flags/us.png" alt=""> <span th:text="#{locale.name.en}"></span></a></li>
-          <li th:class="${#strings.equals(#locale, 'vi')} ? 'active' : ''"><a class="vietnam" href="?lang=vi"><img src="/assets/images/flags/vn.png" alt=""> <span th:text="#{locale.name.vi}"></span></a></li>
-        </ul>
-      </li>
+                        <ul class="dropdown-menu">
+                            <li style="display: none"> <span class="currentLang" th:data-currentLang="${#locale}"></span></li>
+                            <li th:class="${#strings.equals(#locale, 'en')} ? 'active' : ''"><a class="english" href="?lang=en"><img src="/assets/images/flags/us.png" alt=""> <span th:text="#{locale.name.en}"></span></a></li>
+                            <li th:class="${#strings.equals(#locale, 'vi')} ? 'active' : ''"><a class="vietnam" href="?lang=vi"><img src="/assets/images/flags/vn.png" alt=""> <span th:text="#{locale.name.vi}"></span></a></li>
+                        </ul>
+                    </li>
 
-      <li class="dropdown dropdown-user">
-        <a class="dropdown-toggle" data-toggle="dropdown">
-          <img src="/assets/images/placeholder.jpg" alt="">
-          <span th:text="${session.username}"></span>
-          <i class="caret"></i>
-        </a>
+                    <li class="dropdown dropdown-user">
+                        <a class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="/assets/images/placeholder.jpg" alt="">
+                            <span th:text="${session.username}"></span>
+                            <i class="caret"></i>
+                        </a>
 
-        <ul class="dropdown-menu dropdown-menu-right">
-          <li><a th:href="${'/user-information/' + session.username}"><i class="icon-user"></i> <span th:text="#{layout.navbar.userInformation}"></span> </a></li>
-          <li><a href="/logout"><i class="icon-switch2"></i> <span th:text="#{layout.navbar.logout}"></span> </a></li>
-        </ul>
-      </li>
-    </ul>
-  </div>
-</div>
-<!-- /main navbar -->
-</body>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a th:href="${'/user-information/' + session.username}"><i class="icon-user"></i> <span th:text="#{layout.navbar.userInformation}"></span> </a></li>
+                            <li><a href="/logout"><i class="icon-switch2"></i> <span th:text="#{layout.navbar.logout}"></span> </a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- /main navbar -->
+    </body>
 </html>

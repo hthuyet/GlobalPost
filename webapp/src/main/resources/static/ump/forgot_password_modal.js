@@ -1,5 +1,5 @@
 $(function () {
-    
+
     $('.forgotPasswordBtn').click(function () {
         $('.modalForgotPassword').modal('show');
 
@@ -8,7 +8,7 @@ $(function () {
             // console.log(';');
             $.ajax({
                 type: "GET",
-                url: '/users/get-existed-email?email='+inputEmail,
+                url: '/users/get-existed-email?email=' + inputEmail,
                 success: function (response) {
                     // console.log('lol : '+response);
                     if (response !== null && response) {
@@ -21,7 +21,7 @@ $(function () {
                         $('.btnContinue').unbind('click').click(function () {
                             $.ajax({
                                 type: "POST",
-                                url:'/users/forgot-password-with-email',
+                                url: '/users/forgot-password-with-email',
                                 data: {email: inputEmail, redirectUrl: location.origin},
                                 success: function () {
                                     location.replace('/login')
@@ -39,10 +39,6 @@ $(function () {
                     // console.log(e);
                 }
             });
-
-
-
         })
     })
-    
 });

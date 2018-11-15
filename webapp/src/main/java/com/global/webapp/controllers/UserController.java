@@ -253,7 +253,6 @@ public class UserController {
         return USER_PAGE_EDIT;
     }
 
-
     @GetMapping("/users/edit")
     @PreAuthorize("hasAuthority('ONE:USER:UPDATE')")
     @ResponseBody
@@ -265,7 +264,7 @@ public class UserController {
             userSearchForm.limit = 20;
             userSearchForm.page = 1;
 
-            if(Boolean.valueOf(params.get("checkExistedUsername"))){
+            if (Boolean.valueOf(params.get("checkExistedUsername"))) {
                 userSearchForm.userName = params.get("userName");
                 User[] listUser = userClient.search(userSearchForm);
                 if (listUser != null && listUser.length > 0) {
@@ -273,7 +272,7 @@ public class UserController {
                 }
             }
 
-            if(Boolean.valueOf(params.get("checkExistedEmail"))){
+            if (Boolean.valueOf(params.get("checkExistedEmail"))) {
                 userSearchForm.userName = null;
                 userSearchForm.email = params.get("email");
                 User[] listUser1 = userClient.search(userSearchForm);
@@ -394,7 +393,7 @@ public class UserController {
     @PostMapping("/users/forgot-password-with-email")
     @ResponseBody
     public Boolean updateForgotPasswordWithEmail(@RequestParam(value = "email", defaultValue = "") String email,
-                                                 @RequestParam(value = "redirectUrl", defaultValue = "") String redirectUrl) {
+            @RequestParam(value = "redirectUrl", defaultValue = "") String redirectUrl) {
         UserSearchForm userSearchForm = new UserSearchForm();
         userSearchForm.email = email;
         userSearchForm.redirectUrl = redirectUrl;
@@ -404,8 +403,8 @@ public class UserController {
 
     @GetMapping("/changeForgotPassword")
     public String changeForgotPassword(Model model,
-                                       @RequestParam(value = "userId", defaultValue = "0") Long userId,
-                                       @RequestParam(value = "token", defaultValue = "") String token) {
+            @RequestParam(value = "userId", defaultValue = "0") Long userId,
+            @RequestParam(value = "token", defaultValue = "") String token) {
         UserSearchForm userSearchForm = new UserSearchForm();
         userSearchForm.userId = userId;
         User[] user = userClient.search(userSearchForm);
@@ -418,8 +417,8 @@ public class UserController {
 
     @GetMapping("/changeForgotPasswordConfirm")
     public String changeForgotPasswordConfirm(Model model,
-                                              @RequestParam(value = "userId", defaultValue = "0") Long userId,
-                                              @RequestParam(value = "token", defaultValue = "") String token) {
+            @RequestParam(value = "userId", defaultValue = "0") Long userId,
+            @RequestParam(value = "token", defaultValue = "") String token) {
         UserSearchForm userSearchForm = new UserSearchForm();
         userSearchForm.userId = userId;
         User[] user = userClient.search(userSearchForm);
@@ -433,8 +432,8 @@ public class UserController {
     @PostMapping("/change-password-with-token")
     @ResponseBody
     public Boolean changePassword(@RequestParam(value = "newPassword", defaultValue = "") String newPassword,
-                                  @RequestParam(value = "userId", defaultValue = "0") Long userId,
-                                  @RequestParam(value = "token", defaultValue = "") String token) {
+            @RequestParam(value = "userId", defaultValue = "0") Long userId,
+            @RequestParam(value = "token", defaultValue = "") String token) {
         Boolean response = true;
         try {
             UserSearchForm userSearchForm = new UserSearchForm();

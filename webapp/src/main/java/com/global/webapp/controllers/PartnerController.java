@@ -16,72 +16,73 @@ import java.util.Map;
 
 @Controller
 public class PartnerController extends BaseController {
-  private Logger logger = LoggerFactory.getLogger(PartnerController.class);
 
-  @Autowired
-  protected PartnerClient partnerClient;
+    private Logger logger = LoggerFactory.getLogger(PartnerController.class);
 
-  @Autowired
-  protected HttpSession session;
+    @Autowired
+    protected PartnerClient partnerClient;
 
-  @Autowired
-  HttpSession httpSession;
+    @Autowired
+    protected HttpSession session;
 
-  @GetMapping("/partner")
-  @PreAuthorize("hasAuthority('GLOBAL:PARTNER:READ')")
-  public String index() {
-    logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "go to partner page", "", "");
-    return PARTNER_PAGE;
-  }
+    @Autowired
+    HttpSession httpSession;
 
-  @PostMapping("/partner/search")
-  @PreAuthorize("hasAuthority('GLOBAL:PARTNER:READ')")
-  @ResponseBody
-  public ResponseEntity search(@RequestBody Map<String, String> params) {
-    try {
-      logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "search partner on list partner page", "", "");
-      String rtn = partnerClient.search(params);
-      return new ResponseEntity<>(rtn, HttpStatus.OK);
-    } catch (Exception ex) {
-      return parseException(ex);
+    @GetMapping("/partner")
+    @PreAuthorize("hasAuthority('GLOBAL:PARTNER:READ')")
+    public String index() {
+        logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "go to partner page", "", "");
+        return PARTNER_PAGE;
     }
-  }
 
-  @PostMapping("/partner/count")
-  @PreAuthorize("hasAuthority('GLOBAL:PARTNER:READ')")
-  @ResponseBody
-  public int countDevices(@RequestBody Map<String, String> params) {
-    logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "count partner on list partner page", "", "");
-    return partnerClient.count(params);
-  }
-
-  @GetMapping("/partner/add")
-  @PreAuthorize("hasAuthority('GLOBAL:PARTNER:CREATE')")
-  public String add(Model model) {
-    logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "go to add partner page", "", "");
-    model.addAttribute("data", "");
-    return PARTNER_PAGE_FORM;
-  }
-
-  @GetMapping("partner/edit/{id}")
-  @PreAuthorize("hasAuthority('GLOBAL:PARTNER:UPDATE')")
-  public String edit(Model model, @PathVariable("id") String id) {
-    String data = partnerClient.get(Long.parseLong(id));
-    model.addAttribute("data", data);
-    logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "go to edit partner page", "", "");
-    return PARTNER_PAGE_FORM;
-  }
-
-  @PostMapping("/partner/save")
-  @PreAuthorize("hasAuthority('GLOBAL:PARTNER:CREATE')")
-  @ResponseBody
-  public ResponseEntity save(@RequestBody Map<String, String> params) {
-    try {
-      logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "execute save partner", "", "");
-      String rtn = partnerClient.save(params);
-      return new ResponseEntity<>(rtn,HttpStatus.OK);
-    } catch (Exception ex) {
-      return parseException(ex);
+    @PostMapping("/partner/search")
+    @PreAuthorize("hasAuthority('GLOBAL:PARTNER:READ')")
+    @ResponseBody
+    public ResponseEntity search(@RequestBody Map<String, String> params) {
+        try {
+            logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "search partner on list partner page", "", "");
+            String rtn = partnerClient.search(params);
+            return new ResponseEntity<>(rtn, HttpStatus.OK);
+        } catch (Exception ex) {
+            return parseException(ex);
+        }
     }
-  }
+
+    @PostMapping("/partner/count")
+    @PreAuthorize("hasAuthority('GLOBAL:PARTNER:READ')")
+    @ResponseBody
+    public int countDevices(@RequestBody Map<String, String> params) {
+        logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "count partner on list partner page", "", "");
+        return partnerClient.count(params);
+    }
+
+    @GetMapping("/partner/add")
+    @PreAuthorize("hasAuthority('GLOBAL:PARTNER:CREATE')")
+    public String add(Model model) {
+        logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "go to add partner page", "", "");
+        model.addAttribute("data", "");
+        return PARTNER_PAGE_FORM;
+    }
+
+    @GetMapping("partner/edit/{id}")
+    @PreAuthorize("hasAuthority('GLOBAL:PARTNER:UPDATE')")
+    public String edit(Model model, @PathVariable("id") String id) {
+        String data = partnerClient.get(Long.parseLong(id));
+        model.addAttribute("data", data);
+        logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "go to edit partner page", "", "");
+        return PARTNER_PAGE_FORM;
+    }
+
+    @PostMapping("/partner/save")
+    @PreAuthorize("hasAuthority('GLOBAL:PARTNER:CREATE')")
+    @ResponseBody
+    public ResponseEntity save(@RequestBody Map<String, String> params) {
+        try {
+            logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "execute save partner", "", "");
+            String rtn = partnerClient.save(params);
+            return new ResponseEntity<>(rtn, HttpStatus.OK);
+        } catch (Exception ex) {
+            return parseException(ex);
+        }
+    }
 }

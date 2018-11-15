@@ -1,6 +1,7 @@
 package com.global.webapp.models;
 
 public class UmpResponse {
+
     public String status;
     public Object data;
     public String message;

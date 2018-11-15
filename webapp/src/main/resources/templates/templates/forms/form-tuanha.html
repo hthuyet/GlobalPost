@@ -2,134 +2,134 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
-<head>
-  <!-- Theme JS files -->
-  <script type="text/javascript" src="/ump/templates/form.controller.js"></script>
-  <script type="text/javascript" src="/assets/js/plugins/forms/selects/select2.min.js"></script>
-  <script type="text/javascript" src="/ump/templates/tuanha.js"></script>
-  <!-- /theme JS files -->
-</head>
-<body ng-controller="TemplateFormController">
-<th:block layout:fragment="content">
+    <head>
+        <!-- Theme JS files -->
+        <script type="text/javascript" src="/ump/templates/form.controller.js"></script>
+        <script type="text/javascript" src="/assets/js/plugins/forms/selects/select2.min.js"></script>
+        <script type="text/javascript" src="/ump/templates/tuanha.js"></script>
+        <!-- /theme JS files -->
+    </head>
+    <body ng-controller="TemplateFormController">
+    <th:block layout:fragment="content">
 
-  <!-- Page header -->
-  <div th:replace="templates/forms/fragments/page-header::page-header"></div>
-  <!-- /page header-->
+        <!-- Page header -->
+        <div th:replace="templates/forms/fragments/page-header::page-header"></div>
+        <!-- /page header-->
 
-  <!-- Page container -->
-  <div class="page-container">
+        <!-- Page container -->
+        <div class="page-container">
 
-    <!-- Page content -->
-    <div class="page-content">
+            <!-- Page content -->
+            <div class="page-content">
 
-      <!-- Main sidebar -->
-      <!--Add fragment sidebar here-->
-      <!-- /main sidebar -->
+                <!-- Main sidebar -->
+                <!--Add fragment sidebar here-->
+                <!-- /main sidebar -->
 
-      <!-- Main content -->
-      <div class="content-wrapper">
+                <!-- Main content -->
+                <div class="content-wrapper">
 
-        <!-- Panel content -->
-        <div class="panel panel-flat">
-          <div class="panel-heading">
-            <h5 class="panel-title">{{title}}</h5>
-            <div class="heading-elements">
-              <ul class="icons-list">
-                <li><a data-action="collapse"></a></li>
-                <li><a data-action="reload"></a></li>
-                <li><a data-action="close"></a></li>
-              </ul>
+                    <!-- Panel content -->
+                    <div class="panel panel-flat">
+                        <div class="panel-heading">
+                            <h5 class="panel-title">{{title}}</h5>
+                            <div class="heading-elements">
+                                <ul class="icons-list">
+                                    <li><a data-action="collapse"></a></li>
+                                    <li><a data-action="reload"></a></li>
+                                    <li><a data-action="close"></a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="panel-body">
+                            <form id="formbody">
+                                <div class="form-group">
+                                    <h4>Input Text</h4>
+                                    <input type="text" name='text' class="form-control" id="text">
+                                    <h4>Input Number</h4>
+                                    <input class="form-control" type="number" name="number" id="number">
+                                    <h4>Input Date</h4>
+                                    <input class="form-control" type="date" name="date" id="date">
+                                    <h4>Input Datetime</h4>
+                                    <input class="form-control" type="datetime" name="datetime" id="datetime">
+                                    <h4>Input Select</h4>
+                                    <select name="select" class="form-control" id="select">
+                                        <option value="opt1">Default select height</option>
+                                        <option value="opt2">Option 2</option>
+                                        <option value="opt3">Option 3</option>
+                                        <option value="opt4">Option 4</option>
+                                        <option value="opt5">Option 5</option>
+                                    </select>
+                                    <h4>Input Multi Select</h4>
+                                    <select multiple="multiple" class="form-control" id="multiSelect1">
+                                        <option selected="selected">Option 2</option>
+                                        <option selected="selected">Option 3</option>
+                                        <option>Option 4</option>
+                                        <option>Option 5</option>
+                                    </select>
+                                    <h4>Input Select 2</h4>
+                                    <select class="form-control select2" id="select2" name="select2">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                    </select>
+                                    </br>
+                                    <h4>Input Multi Selecte 2</h4>
+                                    <select multiple="multiple" class="select2" id="multiSelect2">
+                                        <optgroup label="Mountain Time Zone">
+                                            <option value="AZ" selected="selected">Arizona</option>
+                                            <option value="CO">Colorado</option>
+                                            <option value="ID">Idaho</option>
+                                            <option value="WY">Wyoming</option>
+                                        </optgroup>
+                                        <optgroup label="Central Time Zone">
+                                            <option value="AL">Alabama</option>
+                                            <option value="IA" selected="selected">Iowa</option>
+                                            <option value="KS">Kansas</option>
+                                            <option value="KY">Kentucky</option>
+                                        </optgroup>
+                                        <optgroup label="Eastern Time Zone">
+                                            <option value="CT">Connecticut</option>
+                                            <option value="FL" selected="selected">Florida</option>
+                                            <option value="MA">Massachusetts</option>
+                                            <option value="WV">West Virginia</option>
+                                        </optgroup>
+                                    </select>
+                                    </br>
+                                    <h4>Input Radio</h4>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="radio-inline-left" class="styled" checked="checked" id="inputRadio">
+                                        Selected styled
+                                    </label>
+                                    </br>
+                                    <h4>Input Checkbox</h4>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="styled" checked="checked" id="inputCheckbox" name="checkbox">
+                                        Checked styled
+                                    </label>
+                                    </br>
+                                    <h4>Input File</h4>
+                                    <input type="file" class="file-input" id="inputFile" name="inputFile">
+                                    <h4>Input Image</h4>
+                                    <input type="file" class="file-input-custom" data-show-caption="true" data-show-upload="true" accept="image/*"
+                                           id="inputImage" name="inputImage">
+                                    </br>
+                                    </br>
+                                    <button type="submit" class="btn btn-primary legitRipple">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /panel cont -->
+
+                </div>
+                <!-- /main content -->
+
             </div>
-          </div>
-
-          <div class="panel-body">
-            <form id="formbody">
-              <div class="form-group">
-                <h4>Input Text</h4>
-                <input type="text" name='text' class="form-control" id="text">
-                <h4>Input Number</h4>
-                <input class="form-control" type="number" name="number" id="number">
-                <h4>Input Date</h4>
-                <input class="form-control" type="date" name="date" id="date">
-                <h4>Input Datetime</h4>
-                <input class="form-control" type="datetime" name="datetime" id="datetime">
-                <h4>Input Select</h4>
-                <select name="select" class="form-control" id="select">
-                  <option value="opt1">Default select height</option>
-                  <option value="opt2">Option 2</option>
-                  <option value="opt3">Option 3</option>
-                  <option value="opt4">Option 4</option>
-                  <option value="opt5">Option 5</option>
-                </select>
-                <h4>Input Multi Select</h4>
-                <select multiple="multiple" class="form-control" id="multiSelect1">
-                  <option selected="selected">Option 2</option>
-                  <option selected="selected">Option 3</option>
-                  <option>Option 4</option>
-                  <option>Option 5</option>
-                </select>
-                <h4>Input Select 2</h4>
-                <select class="form-control select2" id="select2" name="select2">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                </select>
-                </br>
-                <h4>Input Multi Selecte 2</h4>
-                <select multiple="multiple" class="select2" id="multiSelect2">
-                  <optgroup label="Mountain Time Zone">
-                    <option value="AZ" selected="selected">Arizona</option>
-                    <option value="CO">Colorado</option>
-                    <option value="ID">Idaho</option>
-                    <option value="WY">Wyoming</option>
-                  </optgroup>
-                  <optgroup label="Central Time Zone">
-                    <option value="AL">Alabama</option>
-                    <option value="IA" selected="selected">Iowa</option>
-                    <option value="KS">Kansas</option>
-                    <option value="KY">Kentucky</option>
-                  </optgroup>
-                  <optgroup label="Eastern Time Zone">
-                    <option value="CT">Connecticut</option>
-                    <option value="FL" selected="selected">Florida</option>
-                    <option value="MA">Massachusetts</option>
-                    <option value="WV">West Virginia</option>
-                  </optgroup>
-                </select>
-                </br>
-                <h4>Input Radio</h4>
-                <label class="radio-inline">
-                  <input type="radio" name="radio-inline-left" class="styled" checked="checked" id="inputRadio">
-                  Selected styled
-                </label>
-                </br>
-                <h4>Input Checkbox</h4>
-                <label class="checkbox-inline">
-                  <input type="checkbox" class="styled" checked="checked" id="inputCheckbox" name="checkbox">
-                  Checked styled
-                </label>
-                </br>
-                <h4>Input File</h4>
-                <input type="file" class="file-input" id="inputFile" name="inputFile">
-                <h4>Input Image</h4>
-                <input type="file" class="file-input-custom" data-show-caption="true" data-show-upload="true" accept="image/*"
-                       id="inputImage" name="inputImage">
-                </br>
-                </br>
-                <button type="submit" class="btn btn-primary legitRipple">Save</button>
-              </div>
-            </form>
-          </div>
+            <!-- /page content -->
         </div>
-        <!-- /panel cont -->
-
-      </div>
-      <!-- /main content -->
-
-    </div>
-    <!-- /page content -->
-  </div>
-  <!-- /page container -->
-</th:block>
+        <!-- /page container -->
+    </th:block>
 </body>
 </html>

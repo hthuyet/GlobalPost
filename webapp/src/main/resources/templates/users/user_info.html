@@ -2,376 +2,376 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
-<head>
-    <title>ONE Platform - Users</title>
-    <!-- Theme JS files -->
-    <script type="text/javascript" src="/ump/user-info.controller.js"></script>
-    <!-- /theme JS files -->
-</head>
-<body ng-controller="UserInfoController">
-<th:block layout:fragment="content">
+    <head>
+        <title>ONE Platform - Users</title>
+        <!-- Theme JS files -->
+        <script type="text/javascript" src="/ump/user-info.controller.js"></script>
+        <!-- /theme JS files -->
+    </head>
+    <body ng-controller="UserInfoController">
+    <th:block layout:fragment="content">
 
-    <div class="javaResponse"
-         th:data-userId="${userId}"
-         style="display: none"></div>
+        <div class="javaResponse"
+             th:data-userId="${userId}"
+             style="display: none"></div>
 
-    <!-- Page header -->
-    <div th:replace="users/page-header::page-header"></div>
-    <!-- /page header-->
+        <!-- Page header -->
+        <div th:replace="users/page-header::page-header"></div>
+        <!-- /page header-->
 
-    <!-- Page container -->
-    <div class="page-container">
+        <!-- Page container -->
+        <div class="page-container">
 
-        <!-- Page content -->
-        <div class="page-content">
+            <!-- Page content -->
+            <div class="page-content">
 
-            <!-- Main content -->
-            <div class="content-wrapper">
+                <!-- Main content -->
+                <div class="content-wrapper">
 
-                <!-- Panel content -->
-                <div class="panel panel-flat">
+                    <!-- Panel content -->
+                    <div class="panel panel-flat">
 
-                    <div class="panel-heading">
-                        <h5 class="panel-title"> <span th:text="#{user.info.title.up}"></span></h5>
-                        <div class="heading-elements">
-                            <ul class="icons-list">
-                                <li><a data-action="collapse"></a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <form class="form-horizontal formValidate formUpdateNotification">
-                    <div class="panel-body">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <div class="col-md-2">
-                                    <label class="control-label"> <span th:text="#{username}"></span></label>
-                                </div>
-                                <div class="col-md-10">
-                                    <span th:text="${userName}"></span>
-                                </div>
+                        <div class="panel-heading">
+                            <h5 class="panel-title"> <span th:text="#{user.info.title.up}"></span></h5>
+                            <div class="heading-elements">
+                                <ul class="icons-list">
+                                    <li><a data-action="collapse"></a></li>
+                                </ul>
                             </div>
                         </div>
 
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <div class="col-md-2">
-                                    <label class="control-label"> <span th:text="#{fullName}"></span></label>
+                        <form class="form-horizontal formValidate formUpdateNotification">
+                            <div class="panel-body">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="col-md-2">
+                                            <label class="control-label"> <span th:text="#{username}"></span></label>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <span th:text="${userName}"></span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-10">
-                                    <span th:text="${fullName}"></span>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <div class="col-md-2">
-                                    <label class="control-label">Email</label>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="col-md-2">
+                                            <label class="control-label"> <span th:text="#{fullName}"></span></label>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <span th:text="${fullName}"></span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-10">
-                                    <span th:text="${email}"></span>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <div class="col-md-2">
-                                    <label class="control-label"> <span th:text="#{phoneNumber}"></span></label>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="col-md-2">
+                                            <label class="control-label">Email</label>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <span th:text="${email}"></span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-10">
-                                    <span th:text="${phoneNumber}"></span>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <div class="col-md-2">
-                                    <label class="control-label"> <span th:text="#{device.alarm.deviceGroup}"></span>
-                                        <span class="text-danger">*</span></label>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="col-md-2">
+                                            <label class="control-label"> <span th:text="#{phoneNumber}"></span></label>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <span th:text="${phoneNumber}"></span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-10">
-                                    <span class="tag label col-md-11 control-label"
-                                          th:each="dg : ${group}" style="text-align:  left; color:  black;">
-                                    <span th:text="${dg.name}"></span></span>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <div class="col-md-2">
-                                    <label class="control-label"> <span th:text="#{user.search.role}"></span>
-                                        <span class="text-danger">*</span></label>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="col-md-2">
+                                            <label class="control-label"> <span th:text="#{device.alarm.deviceGroup}"></span>
+                                                <span class="text-danger">*</span></label>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <span class="tag label col-md-11 control-label"
+                                                  th:each="dg : ${group}" style="text-align:  left; color:  black;">
+                                                <span th:text="${dg.name}"></span></span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-10">
-                                    <span class="tag label col-md-11 control-label"
-                                          th:each="r : ${role}" style="text-align:  left; color:  black;">
-                                    <span th:text="${r.name}"></span></span>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="col-md-2">
+                                            <label class="control-label"> <span th:text="#{user.search.role}"></span>
+                                                <span class="text-danger">*</span></label>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <span class="tag label col-md-11 control-label"
+                                                  th:each="r : ${role}" style="text-align:  left; color:  black;">
+                                                <span th:text="${r.name}"></span></span>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
 
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <div class="col-md-2">
-                                    <label class="control-label"> <span th:text="#{user.description}"></span></label>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="col-md-2">
+                                            <label class="control-label"> <span th:text="#{user.description}"></span></label>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <span th:text="${description}"></span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-10">
-                                    <span th:text="${description}"></span>
-                                </div>
-                            </div>
-                        </div>
 
 
-                        <!--START notification setting-->
-                        <div class="clearfix"></div>
-                        <hr>
-                        <div class="col-md-12">
-                            <div class="col-md-12">
-
-                                <div class="form-group">
+                                <!--START notification setting-->
+                                <div class="clearfix"></div>
+                                <hr>
+                                <div class="col-md-12">
                                     <div class="col-md-12">
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" name="isActive" ng-model="formNotification.isActive">
-                                                <span class="text-semibold text-uppercase" th:text="#{notificationSetting}"></span>
-                                            </label>
+
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" name="isActive" ng-model="formNotification.isActive">
+                                                        <span class="text-semibold text-uppercase" th:text="#{notificationSetting}"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
+
+                                    <!--show form notification-->
+                                    <div ng-if="formNotification.isActive">
+                                        <div class="col-md-6">
+                                            <span class="text-uppercase text-semibold"> <span th:text="#{sendNotificationWhen}"></span>:</span>
+
+                                            <div class="form-group">
+                                                <div class="col-md-3">
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="isAlarmTotal" ng-model="formNotification.isAlarmTotal"> <span th:text="#{alarmTotal}"></span></label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="number" class="form-control" name="alarmTotal" ng-model="formNotification.alarmTotal" ng-if="formNotification.isAlarmTotal"
+                                                           th:placeholder="#{placeholder.number}" required="required" min="0">
+
+                                                    <input type="text" class="form-control" ng-if="!formNotification.isAlarmTotal" ng-init="formNotification.alarmTotal = null"
+                                                           th:placeholder="#{placeholder.number}" disabled="disabled">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-md-3">
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="isCriticalTotal" ng-model="formNotification.isCriticalTotal"> <span th:text="#{criticalTotal}"></span></label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="number" class="form-control" name="criticalTotal" ng-model="formNotification.criticalTotal" ng-if="formNotification.isCriticalTotal"
+                                                           th:placeholder="#{placeholder.number}" required="required" min="0">
+
+                                                    <input type="text" class="form-control" ng-if="!formNotification.isCriticalTotal" ng-init="formNotification.criticalTotal = null"
+                                                           th:placeholder="#{placeholder.number}" disabled="disabled">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-md-3">
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="isMajorTotal" ng-model="formNotification.isMajorTotal"> <span th:text="#{majorTotal}"></span></label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="number" class="form-control" name="majorTotal" ng-model="formNotification.majorTotal" ng-if="formNotification.isMajorTotal"
+                                                           th:placeholder="#{placeholder.number}" required="required" min="0">
+
+                                                    <input type="text" class="form-control" ng-if="!formNotification.isMajorTotal" ng-init="formNotification.majorTotal = null"
+                                                           th:placeholder="#{placeholder.number}" disabled="disabled">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-md-3">
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="isMinorTotal" ng-model="formNotification.isMinorTotal"> <span th:text="#{minorTotal}"></span></label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="number" class="form-control" name="minorTotal" ng-model="formNotification.minorTotal" ng-if="formNotification.isMinorTotal"
+                                                           th:placeholder="#{placeholder.number}" required="required" min="0">
+
+                                                    <input type="text" class="form-control" ng-if="!formNotification.isMinorTotal" ng-init="formNotification.minorTotal = null"
+                                                           th:placeholder="#{placeholder.number}" disabled="disabled">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3"> <span th:text="#{groups}"></span>: <span class="text-danger">*</span></label>
+                                                <div class="col-md-8">
+                                                    <div class="multi-select-full">
+                                                        <select class="notificationSelectMultiGroups" name="deviceGroups" multiple="multiple" required="required">
+                                                            <option th:each="dg : ${group}" th:value="${dg.id}" th:text="${dg.name + dg.id}"></option>
+                                                            <!--<option ng-repeat="group in notificationGroups" value="{{group.id}}" on-finish-render="ngRepeatOptionNotificationGroup">{{group.name}}</option>-->
+                                                        </select>
+                                                        <input type="text" ng-model="formNotification.deviceGroups" style="display: none">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <span class="text-uppercase text-semibold"> <span th:text="#{notificationType}"></span>:</span>
+
+                                            <div class="form-group">
+                                                <div class="col-md-10">
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="isMinorTotal" ng-model="formNotification.isSendEmail"> <span th:text="#{sendEmail}"></span></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-md-10">
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="isMinorTotal" ng-model="formNotification.isSendNotifyList"> <span th:text="#{sendNotificationList}"></span></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-md-10">
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="isMinorTotal" ng-model="formNotification.isSendNotify"> <span th:text="#{sendNotify}"></span></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-md-10">
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="isMinorTotal" ng-model="formNotification.isSendSms"> <span th:text="#{sendSMS}"></span></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!--END show form notification-->
+
+                                    <!--disabled form notification-->
+                                    <div ng-if="!formNotification.isActive">
+                                        <div class="col-md-6">
+                                            <span class="text-uppercase text-semibold"> <span th:text="#{sendNotificationWhen}"></span>:</span>
+
+                                            <div class="form-group">
+                                                <div class="col-md-3">
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" disabled="disabled"> <span th:text="#{alarmTotal}"></span></label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" class="form-control" th:placeholder="#{placeholder.number}" disabled="disabled">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-md-3">
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" disabled="disabled"> <span th:text="#{criticalTotal}"></span></label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" class="form-control" th:placeholder="#{placeholder.number}" disabled="disabled">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-md-3">
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" disabled="disabled"> <span th:text="#{majorTotal}"></span></label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" class="form-control" th:placeholder="#{placeholder.number}" disabled="disabled">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-md-3">
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" disabled="disabled"> <span th:text="#{minorTotal}"></span></label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" class="form-control" th:placeholder="#{placeholder.number}" disabled="disabled">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3"> <span th:text="#{groups}"></span>:</label>
+                                                <div class="col-md-8">
+                                                    <div class="multi-select-full">
+                                                        <select class="form-control" disabled="disabled">
+                                                            <option value="" th:text="#{placeholder.select}"></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <span class="text-uppercase text-semibold"> <span th:text="#{notificationType}"></span>:</span>
+
+                                            <div class="form-group">
+                                                <div class="col-md-10">
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" disabled="disabled"> <span th:text="#{sendEmail}"></span></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-md-10">
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" disabled="disabled"> <span th:text="#{sendNotificationList}"></span></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-md-10">
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" disabled="disabled"> <span th:text="#{sendNotify}"></span></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-md-10">
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" disabled="disabled"> <span th:text="#{sendSMS}"></span></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--END disabled form notification-->
                                 </div>
+                                <!--END notification setting-->
                             </div>
 
-                            <!--show form notification-->
-                            <div ng-if="formNotification.isActive">
-                                <div class="col-md-6">
-                                    <span class="text-uppercase text-semibold"> <span th:text="#{sendNotificationWhen}"></span>:</span>
-
-                                    <div class="form-group">
-                                        <div class="col-md-3">
-                                            <div class="checkbox">
-                                                <label><input type="checkbox" name="isAlarmTotal" ng-model="formNotification.isAlarmTotal"> <span th:text="#{alarmTotal}"></span></label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input type="number" class="form-control" name="alarmTotal" ng-model="formNotification.alarmTotal" ng-if="formNotification.isAlarmTotal"
-                                                   th:placeholder="#{placeholder.number}" required="required" min="0">
-
-                                            <input type="text" class="form-control" ng-if="!formNotification.isAlarmTotal" ng-init="formNotification.alarmTotal = null"
-                                                   th:placeholder="#{placeholder.number}" disabled="disabled">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="col-md-3">
-                                            <div class="checkbox">
-                                                <label><input type="checkbox" name="isCriticalTotal" ng-model="formNotification.isCriticalTotal"> <span th:text="#{criticalTotal}"></span></label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input type="number" class="form-control" name="criticalTotal" ng-model="formNotification.criticalTotal" ng-if="formNotification.isCriticalTotal"
-                                                   th:placeholder="#{placeholder.number}" required="required" min="0">
-
-                                            <input type="text" class="form-control" ng-if="!formNotification.isCriticalTotal" ng-init="formNotification.criticalTotal = null"
-                                                   th:placeholder="#{placeholder.number}" disabled="disabled">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="col-md-3">
-                                            <div class="checkbox">
-                                                <label><input type="checkbox" name="isMajorTotal" ng-model="formNotification.isMajorTotal"> <span th:text="#{majorTotal}"></span></label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input type="number" class="form-control" name="majorTotal" ng-model="formNotification.majorTotal" ng-if="formNotification.isMajorTotal"
-                                                   th:placeholder="#{placeholder.number}" required="required" min="0">
-
-                                            <input type="text" class="form-control" ng-if="!formNotification.isMajorTotal" ng-init="formNotification.majorTotal = null"
-                                                   th:placeholder="#{placeholder.number}" disabled="disabled">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="col-md-3">
-                                            <div class="checkbox">
-                                                <label><input type="checkbox" name="isMinorTotal" ng-model="formNotification.isMinorTotal"> <span th:text="#{minorTotal}"></span></label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input type="number" class="form-control" name="minorTotal" ng-model="formNotification.minorTotal" ng-if="formNotification.isMinorTotal"
-                                                   th:placeholder="#{placeholder.number}" required="required" min="0">
-
-                                            <input type="text" class="form-control" ng-if="!formNotification.isMinorTotal" ng-init="formNotification.minorTotal = null"
-                                                   th:placeholder="#{placeholder.number}" disabled="disabled">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3"> <span th:text="#{groups}"></span>: <span class="text-danger">*</span></label>
-                                        <div class="col-md-8">
-                                            <div class="multi-select-full">
-                                                <select class="notificationSelectMultiGroups" name="deviceGroups" multiple="multiple" required="required">
-                                                    <option th:each="dg : ${group}" th:value="${dg.id}" th:text="${dg.name + dg.id}"></option>
-                                                    <!--<option ng-repeat="group in notificationGroups" value="{{group.id}}" on-finish-render="ngRepeatOptionNotificationGroup">{{group.name}}</option>-->
-                                                </select>
-                                                <input type="text" ng-model="formNotification.deviceGroups" style="display: none">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <span class="text-uppercase text-semibold"> <span th:text="#{notificationType}"></span>:</span>
-
-                                    <div class="form-group">
-                                        <div class="col-md-10">
-                                            <div class="checkbox">
-                                                <label><input type="checkbox" name="isMinorTotal" ng-model="formNotification.isSendEmail"> <span th:text="#{sendEmail}"></span></label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="col-md-10">
-                                            <div class="checkbox">
-                                                <label><input type="checkbox" name="isMinorTotal" ng-model="formNotification.isSendNotifyList"> <span th:text="#{sendNotificationList}"></span></label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="col-md-10">
-                                            <div class="checkbox">
-                                                <label><input type="checkbox" name="isMinorTotal" ng-model="formNotification.isSendNotify"> <span th:text="#{sendNotify}"></span></label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="col-md-10">
-                                            <div class="checkbox">
-                                                <label><input type="checkbox" name="isMinorTotal" ng-model="formNotification.isSendSms"> <span th:text="#{sendSMS}"></span></label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
+                            <div class="panel-footer text-center">
+                                <button type="submit" class="btn btn-primary btn-icon" ng-click="onSubmitNotification()"> <i class="icon-checkmark3 position-left"></i> <span th:text="#{btn.ok}"></span></button>
+                                <a class="btn btn-link btn-icon" th:href="${'/users/change-password/' + session.username}"> <i class="icon-hyperlink position-left"></i> <span th:text="#{user.info.change.password}"></span></a>
+                                <a class="btn btn-link" href="/" th:text="#{subscriber.header.title.subscriber.cancel}"></a>
                             </div>
-                            <!--END show form notification-->
+                        </form>
 
-                            <!--disabled form notification-->
-                            <div ng-if="!formNotification.isActive">
-                                <div class="col-md-6">
-                                    <span class="text-uppercase text-semibold"> <span th:text="#{sendNotificationWhen}"></span>:</span>
-
-                                    <div class="form-group">
-                                        <div class="col-md-3">
-                                            <div class="checkbox">
-                                                <label><input type="checkbox" disabled="disabled"> <span th:text="#{alarmTotal}"></span></label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input type="text" class="form-control" th:placeholder="#{placeholder.number}" disabled="disabled">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="col-md-3">
-                                            <div class="checkbox">
-                                                <label><input type="checkbox" disabled="disabled"> <span th:text="#{criticalTotal}"></span></label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input type="text" class="form-control" th:placeholder="#{placeholder.number}" disabled="disabled">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="col-md-3">
-                                            <div class="checkbox">
-                                                <label><input type="checkbox" disabled="disabled"> <span th:text="#{majorTotal}"></span></label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input type="text" class="form-control" th:placeholder="#{placeholder.number}" disabled="disabled">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="col-md-3">
-                                            <div class="checkbox">
-                                                <label><input type="checkbox" disabled="disabled"> <span th:text="#{minorTotal}"></span></label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input type="text" class="form-control" th:placeholder="#{placeholder.number}" disabled="disabled">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3"> <span th:text="#{groups}"></span>:</label>
-                                        <div class="col-md-8">
-                                            <div class="multi-select-full">
-                                                <select class="form-control" disabled="disabled">
-                                                    <option value="" th:text="#{placeholder.select}"></option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <span class="text-uppercase text-semibold"> <span th:text="#{notificationType}"></span>:</span>
-
-                                    <div class="form-group">
-                                        <div class="col-md-10">
-                                            <div class="checkbox">
-                                                <label><input type="checkbox" disabled="disabled"> <span th:text="#{sendEmail}"></span></label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="col-md-10">
-                                            <div class="checkbox">
-                                                <label><input type="checkbox" disabled="disabled"> <span th:text="#{sendNotificationList}"></span></label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="col-md-10">
-                                            <div class="checkbox">
-                                                <label><input type="checkbox" disabled="disabled"> <span th:text="#{sendNotify}"></span></label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="col-md-10">
-                                            <div class="checkbox">
-                                                <label><input type="checkbox" disabled="disabled"> <span th:text="#{sendSMS}"></span></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--END disabled form notification-->
-                        </div>
-                        <!--END notification setting-->
                     </div>
-
-                    <div class="panel-footer text-center">
-                        <button type="submit" class="btn btn-primary btn-icon" ng-click="onSubmitNotification()"> <i class="icon-checkmark3 position-left"></i> <span th:text="#{btn.ok}"></span></button>
-                        <a class="btn btn-link btn-icon" th:href="${'/users/change-password/' + session.username}"> <i class="icon-hyperlink position-left"></i> <span th:text="#{user.info.change.password}"></span></a>
-                        <a class="btn btn-link" href="/" th:text="#{subscriber.header.title.subscriber.cancel}"></a>
-                    </div>
-                    </form>
-
-                </div>
 
 
                 </div>

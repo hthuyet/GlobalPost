@@ -6,6 +6,7 @@ import java.util.Map;
 import static org.springframework.util.ObjectUtils.toObjectArray;
 
 public class ObjectUtils {
+
     public static Object[] wrapToArray(Object obj) {
         if (obj == null) {
             return new Object[0];

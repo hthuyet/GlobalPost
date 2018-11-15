@@ -1,4 +1,4 @@
-UserWebApp.controller('UserEditController', function ($scope,$rootScope ,HttpService,$translate) {
+UserWebApp.controller('UserEditController', function ($scope, $rootScope, HttpService, $translate) {
 
     $scope.params = [];
     $scope.roles = [];
@@ -14,7 +14,7 @@ UserWebApp.controller('UserEditController', function ($scope,$rootScope ,HttpSer
     $rootScope.role = $('.dataResponse').attr('data-role');
     $rootScope.group = $('.dataResponse').attr('data-group');
     renderDefaultRequestParams();
-    $('#userName').on('keypress', function(e) {
+    $('#userName').on('keypress', function (e) {
         if (e.which == 32)
             return false;
     });
@@ -56,20 +56,20 @@ UserWebApp.controller('UserEditController', function ($scope,$rootScope ,HttpSer
 
     $scope.onUserEdit = function () {
         $scope.params.checkExisted = false;
-        if($rootScope.userName != $scope.params.userName){
+        if ($rootScope.userName != $scope.params.userName) {
             $scope.params.checkExistedUsername = true;
         }
-        if($rootScope.email != $scope.params.email){
+        if ($rootScope.email != $scope.params.email) {
             $scope.params.checkExistedEmail = true;
         }
         $scope.params.userNameOld = $rootScope.userName;
         HttpService.getData('/users/edit', $scope.params).then(function (response) {
-            if(response == 200){
+            if (response == 200) {
                 common.notifySuccess($translate.instant('editUserSuccess'));
                 location.replace('/users');
-            } else if(response == 201) {
+            } else if (response == 201) {
                 common.notifyError($translate.instant('existedUser'));
-            } else if(response == 202) {
+            } else if (response == 202) {
                 common.notifyError($translate.instant('existedEmail'));
             } else {
                 common.notifyError($translate.instant('editUserFail'));
