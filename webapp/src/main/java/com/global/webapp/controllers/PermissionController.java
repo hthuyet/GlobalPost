@@ -174,6 +174,7 @@ public class PermissionController {
             JsonArray array = new Gson().fromJson(ids, JsonArray.class);
 
             try {
+                int deleteOk = 0;
                 for (int i = 0; i < array.size(); i++) {
                     RoleSearchForm roleSearchForm = new RoleSearchForm();
                     Set<Long> longSet = new HashSet<Long>();
@@ -183,11 +184,13 @@ public class PermissionController {
                     if (count == 0) {
                         permissionsClient.delete(array.get(i).getAsLong());
                         logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "delete role " + array.get(i).getAsLong(), "", "");
-                        result = "200";
-                    } else {
-                        result = "300";
-                        break;
+                        deleteOk++;
                     }
+                }
+                if (deleteOk == array.size()) {
+                    result = "200";
+                } else {
+                    result = "300";
                 }
             } catch (Exception e) {
                 result = "400";

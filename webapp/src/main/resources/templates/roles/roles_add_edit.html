@@ -43,7 +43,8 @@
                             </div>
                         </div>
 
-                        <form  class="form-horizontal formCreateRole" name="roleForm" id="roleForm">
+                        <form ng-submit="onRoleAdd()" class="form-horizontal formCreateRole"
+                              name="roleForm">
                             <div class="panel-body">
                                 <input style="display: none" type="text" class="form-control" ng-model="params.roleId">
                                 <div class="col-md-6">
@@ -115,21 +116,15 @@
                             </div>
 
                             <div class="panel-footer text-center">
-                                <button type="button" id="btnSubmit" ng-disabled="roleForm.$invalid" ng-click="onRoleAdd()"   class="btn btn-primary"
+                                <button type="submit" class="btn btn-primary"
                                         th:text="#{subscriber.header.title.subscriber.ok}"></button>
-                                <a class="btn btn-default" href="/roles"
+                                <a class="btn btn-default" href="/permissions"
                                    th:text="#{subscriber.header.title.subscriber.cancel}"></a>
                             </div>
-
                         </form>
-
-
                     </div>
-
                 </div>
-
             </div>
-
         </div>
         <!-- /page container -->
     </th:block>

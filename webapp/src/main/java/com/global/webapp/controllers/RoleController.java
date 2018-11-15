@@ -183,8 +183,8 @@ public class RoleController {
             String ids = params.get("id");
             JsonArray array = new Gson().fromJson(ids, JsonArray.class);
             try {
+                int deleteOk = 0;
                 for (int i = 0; i < array.size(); i++) {
-
                     UserSearchForm userSearchForm = new UserSearchForm();
                     Set<Integer> roles = new HashSet<Integer>();
                     roles.add(array.get(i).getAsInt());
@@ -193,11 +193,13 @@ public class RoleController {
                     if (totalItem == 0) {
                         roleClient.delete(array.get(i).getAsLong());
                         logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "delete role " + array.get(i).getAsString(), "", "");
-                        result = "200";
-                    } else {
-                        result = "300";
-                        break;
+                        deleteOk++;
                     }
+                }
+                if (deleteOk == array.size()) {
+                    result = "200";
+                } else {
+                    result = "300";
                 }
             } catch (Exception e) {
                 result = "400";

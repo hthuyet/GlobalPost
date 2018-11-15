@@ -317,6 +317,7 @@ var translationsVI = {
     addPermissionEmpty: 'Operation/Object không được trống!',
     deletePermissionSuccessfully: 'Delete Permission successfully!.',
     deletePermissionFail: 'Delete Permission fail!.',
+    deletePermissionFailBecauseUsed: 'Delete Permission failure because it is being used!.',
     editPermissionSuccess: 'Edit permission successfully!',
     editPermissionFail: 'Edit permission fail!',
     editRoleSuccess: 'Edit role successfully!',

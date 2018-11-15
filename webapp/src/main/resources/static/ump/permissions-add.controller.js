@@ -44,6 +44,7 @@ UserWebApp.controller('PermissionAddController', function ($http, $rootScope, $s
     loadData();
 
     function validatePermission(myParameter) {
+        console.log(myParameter);
         if (myParameter.length == 0) {
             return false;
         }
@@ -83,10 +84,8 @@ UserWebApp.controller('PermissionAddController', function ($http, $rootScope, $s
     }
 
     $scope.onPermissionAdd = function () {
-        console.log($scope.myParameter);
         var isValid = validatePermission($scope.myParameter.value);
         if (isValid) {
-
             if ($scope.getId != null && $scope.getId != '') {
                 var totalOperations = listAllOperations($scope.myParameter.value, $scope.myClass.value);
                 var params = {};
@@ -96,7 +95,7 @@ UserWebApp.controller('PermissionAddController', function ($http, $rootScope, $s
                 params.addDescription = $scope.params.permissionDes;
                 params.addOperations = totalOperations;
 
-                HttpService.postData('/editPermission', params, $("#btnSubmit")).then(function (response) {
+                HttpService.postData('/editPermission', params).then(function (response) {
                     if (response == 200) {
                         common.notifySuccess($translate.instant('editPermissionSuccess'));
                         location.replace('/permissions');
@@ -114,7 +113,7 @@ UserWebApp.controller('PermissionAddController', function ($http, $rootScope, $s
                 params.addDescription = $scope.params.permissionDes;
                 params.addOperations = totalOperations;
 
-                HttpService.postData('/addPermission', params, $("#btnSubmit")).then(function (response) {
+                HttpService.postData('/addPermission', params).then(function (response) {
                     if (response == 200) {
                         common.notifySuccess($translate.instant('addPermissionSuccess'));
                         location.replace('/permissions');
@@ -125,7 +124,6 @@ UserWebApp.controller('PermissionAddController', function ($http, $rootScope, $s
                     }
                 });
             }
-
         } else {
             common.notifyError($translate.instant('addPermissionEmpty'));
         }

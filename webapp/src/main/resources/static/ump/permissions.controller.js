@@ -116,10 +116,7 @@ UserWebApp.controller('PermissionsController', function ($scope, $rootScope, Htt
     }, true);
 
     $scope.$watch('params.page', function (_newValue, _oldValue) {
-        // console.log('_oldValue : '+_oldValue);
-        // console.log('_newValue : '+_newValue);
         if (_newValue !== _oldValue) {
-            // console.log('params.page is change');
             common.updateUrlRequestParam('page', _newValue);
             loadData();
         }

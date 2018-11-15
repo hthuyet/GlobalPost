@@ -41,6 +41,7 @@ UserWebApp.controller('RoleAddController', function ($http, $scope, HttpService,
     }
 
     function validateRole(myParameter) {
+        console.log(myParameter);
         if (myParameter == '') {
             return false;
         }
@@ -97,7 +98,7 @@ UserWebApp.controller('RoleAddController', function ($http, $scope, HttpService,
                 params.addOperationRole = "";
                 params.addPermission = totalPermissions + '*';
 
-                HttpService.postData('/editRole', params, $("#btnSubmit")).then(function (response) {
+                HttpService.postData('/editRole', params).then(function (response) {
                     if (response == 200) {
                         common.notifySuccess($translate.instant('editRoleSuccess'));
                         location.replace('/roles');
@@ -116,7 +117,7 @@ UserWebApp.controller('RoleAddController', function ($http, $scope, HttpService,
                 params.addOperationRole = "";
                 params.addPermission = totalPermissions + '*';
 
-                HttpService.postData('/addRole', params, $("#btnSubmit")).then(function (response) {
+                HttpService.postData('/addRole', params).then(function (response) {
                     if (response == 200) {
                         common.notifySuccess($translate.instant('addRoleSuccess'));
                         location.replace('/roles');
