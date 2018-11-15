@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.global.servicebase.user.model.PermissionSearchForm;
 import com.global.servicebase.user.model.Permission;
 import com.global.servicebase.user.services.PermissionsService;
+import java.math.BigInteger;
 
 /**
  *
@@ -35,7 +36,7 @@ import com.global.servicebase.user.services.PermissionsService;
 @Produces(APPLICATION_JSON)
 @Consumes({APPLICATION_JSON, TEXT_PLAIN})
 @Api("Permissions")
-public class PermissionEndPoint extends SsdcCrudEndpoint<Long, Permission> {
+public class PermissionEndPoint extends SsdcCrudEndpoint<BigInteger, Permission> {
 
     private Logger logger = LoggerFactory.getLogger(PermissionEndPoint.class);
 

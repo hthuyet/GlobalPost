@@ -11,6 +11,7 @@ import com.global.servicebase.user.model.Permission;
 import com.global.servicebase.user.model.PermissionSearchForm;
 import com.global.servicebase.utils.CommonService;
 import com.global.utils.ObjectUtils;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -20,7 +21,7 @@ import java.util.Set;
  * Created by ThuyetLV
  */
 @Service
-public class PermissionsService extends SsdcCrudService<Long, Permission> {
+public class PermissionsService extends SsdcCrudService<BigInteger, Permission> {
 
     @Autowired
     private CommonService commonService;

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.global.servicebase.user.model.RoleSearchForm;
 import com.global.servicebase.user.model.Role;
 import com.global.servicebase.user.services.RoleService;
+import java.math.BigInteger;
 
 /**
  *
@@ -32,7 +33,7 @@ import com.global.servicebase.user.services.RoleService;
 @Produces(APPLICATION_JSON)
 @Consumes({APPLICATION_JSON, TEXT_PLAIN})
 @Api("Roles")
-public class RoleEndPoint extends SsdcCrudEndpoint<Long, Role> {
+public class RoleEndPoint extends SsdcCrudEndpoint<BigInteger, Role> {
 
     private RoleService roleService;
 

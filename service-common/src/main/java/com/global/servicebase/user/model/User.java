@@ -1,11 +1,12 @@
 package com.global.servicebase.user.model;
 
 import com.global.jdbc.SsdcEntity;
+import java.math.BigInteger;
 import org.mindrot.jbcrypt.BCrypt;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class User extends SsdcEntity<Long> {
+public class User extends SsdcEntity<BigInteger> {
 
     public String userName;
     public String fullName;

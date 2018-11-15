@@ -6,6 +6,7 @@
 package com.global.servicebase.user.model;
 
 import io.swagger.annotations.ApiModelProperty;
+import java.math.BigInteger;
 import java.util.Set;
 
 /**
@@ -25,7 +26,7 @@ public class UserSearchForm {
     public String phoneNumber;
     public Set<Integer> deviceGroupIds;
     public Set<Integer> roles;
-    public Long userId;
+    public BigInteger userId;
 
     @ApiModelProperty(example = "using for checkCurrentPassword API")
     public String currentPassword;

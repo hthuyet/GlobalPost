@@ -13,6 +13,7 @@ import com.global.servicebase.user.model.RoleSearchForm;
 import com.global.servicebase.user.model.User;
 import com.global.servicebase.utils.CommonService;
 import com.global.utils.ObjectUtils;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -22,7 +23,7 @@ import java.util.Set;
  * Created by ThuyetLV
  */
 @Service
-public class RoleService extends SsdcCrudService<Long, Role> {
+public class RoleService extends SsdcCrudService<BigInteger, Role> {
 
     @Autowired
     public UserService userService;

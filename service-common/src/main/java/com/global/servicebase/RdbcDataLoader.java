@@ -19,6 +19,7 @@ import com.global.servicebase.user.services.PermissionsService;
 import com.global.servicebase.user.services.RoleService;
 import com.global.servicebase.user.services.UserService;
 import java.io.InputStream;
+import java.math.BigInteger;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -62,9 +63,9 @@ public class RdbcDataLoader implements ApplicationRunner {
             for (int i = 0; i < operationsList.size(); i++) {
                 addOperations[i] = operationsList.get(i).id;
             }
-            long id = initPermission(addOperations);
-            if (id != 0L) {
-                Role roleSuperAdmin = initRole(addOperations, id);
+            BigInteger id = initPermission(addOperations);
+            if (id.longValue() != 0L) {
+                Role roleSuperAdmin = initRole(addOperations, id.longValue());
                 initUser(roleSuperAdmin);
             }
         } catch (Exception e) {
@@ -104,7 +105,7 @@ public class RdbcDataLoader implements ApplicationRunner {
         return role;
     }
 
-    private long initPermission(String[] addOperations) {
+    private BigInteger initPermission(String[] addOperations) {
         boolean check = permissionsService.getByName("SuperAdmin");
         if (!check) {
             Permission permissions = new Permission();
@@ -118,7 +119,7 @@ public class RdbcDataLoader implements ApplicationRunner {
             Permission permission1 = permissionsService.create(permissions);
             return permission1.id;
         }
-        return 0L;
+        return BigInteger.valueOf(0);
     }
 
     private void processNodeImport(Node node) {

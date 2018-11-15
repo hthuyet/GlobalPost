@@ -17,11 +17,12 @@ import org.springframework.stereotype.Service;
 import com.global.servicebase.services.EmailTemplateService;
 import com.global.servicebase.services.MailService;
 import com.global.servicebase.globalexception.UserNotFoundException;
+import java.math.BigInteger;
 import java.util.*;
 import org.apache.commons.lang3.StringUtils;
 
 @Service
-public class UserService extends SsdcCrudService<Long, User> {
+public class UserService extends SsdcCrudService<BigInteger, User> {
 
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
@@ -109,7 +110,7 @@ public class UserService extends SsdcCrudService<Long, User> {
     }
 
     @Override
-    public void beforeUpdate(Long id, User user) {
+    public void beforeUpdate(BigInteger id, User user) {
         User userOld = get(id);
         // Send email to new email
         if (user.email != null && !userOld.email.equals(user.email)) {
@@ -119,7 +120,7 @@ public class UserService extends SsdcCrudService<Long, User> {
         super.beforeUpdate(id, user);
     }
 
-    public User resetPassword(Long id) {
+    public User resetPassword(BigInteger id) {
         User user = get(id);
         if (user == null) {
             throw new UserNotFoundException("No user with id " + id);
@@ -136,7 +137,7 @@ public class UserService extends SsdcCrudService<Long, User> {
         return user;
     }
 
-    public User createPassword(Long id) {
+    public User createPassword(BigInteger id) {
         User user = get(id);
         if (user == null) {
             throw new UserNotFoundException("No user with id " + id);
@@ -145,10 +146,10 @@ public class UserService extends SsdcCrudService<Long, User> {
         String randomPassword = "global!@#123";
         user.setEncryptedPassword(randomPassword);
 
-        List<Operation> lstAll =  operationService.getAll();
+        List<Operation> lstAll = operationService.getAll();
         Set<String> setPer = new HashSet<>();
 
-        for (Operation operation: lstAll){
+        for (Operation operation : lstAll) {
             setPer.add(operation.id);
         }
 
@@ -176,12 +177,12 @@ public class UserService extends SsdcCrudService<Long, User> {
         }
     }
 
-    public Boolean checkToken(Long id, String token) {
+    public Boolean checkToken(BigInteger id, String token) {
         User user = get(id);
         return token.equals(user.forgotPwdToken);
     }
 
-    public Boolean changePasswordWithToken(Long userId, String token, String newPassword) {
+    public Boolean changePasswordWithToken(BigInteger userId, String token, String newPassword) {
         if (checkToken(userId, token)) {
             User user = get(userId);
             if (user != null) {
@@ -210,7 +211,7 @@ public class UserService extends SsdcCrudService<Long, User> {
         Set<String> operationIds = new HashSet<>();
         for (String roleId : user.roleIds) {
             if (!roleId.isEmpty()) {
-                Role role = roleService.get(Long.valueOf(roleId));
+                Role role = roleService.get(new BigInteger(roleId));
                 if (role != null) {
                     operationIds.addAll(role.operationIds);
                 }
@@ -357,12 +358,12 @@ public class UserService extends SsdcCrudService<Long, User> {
             userResponse.userId = user.id;
         } catch (Exception ex) {
             logger.error(String.format("ERROR convertFromUserToSCUser {%s}: ", new Gson().toJson(user)), ex);
-            userResponse.userId = Long.parseLong(String.valueOf(user.id));
+            userResponse.userId = user.id;
         }
 
         Set<Role> roleResponses = new HashSet<>();
         for (String roleId : user.roleIds) {
-            roleResponses.add(roleService.get(Long.valueOf(roleId)));
+            roleResponses.add(roleService.get(new BigInteger(roleId)));
         }
         userResponse.roles = roleResponses;
         return userResponse;
