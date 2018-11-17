@@ -24,6 +24,8 @@ public class User {
     public Set<String> operationIds;
     public Set<Role> roles;
     public Long userId;
+    public Long branchId;
+    public String branchName;
 
     public User() {
         this.roleIds = new LinkedHashSet<>();
