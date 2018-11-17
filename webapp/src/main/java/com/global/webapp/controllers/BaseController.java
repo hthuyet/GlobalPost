@@ -13,52 +13,51 @@ import org.springframework.web.client.UnknownHttpStatusCodeException;
 
 @Controller
 public class BaseController {
+  private Logger logger = LoggerFactory.getLogger(BaseController.class);
 
-    private Logger logger = LoggerFactory.getLogger(BaseController.class);
+  public static final String BRANCH_PAGE = "branch/index";
+  public static final String BRANCH_PAGE_FORM = "branch/form";
 
-    public static final String BRANCH_PAGE = "branch/index";
-    public static final String BRANCH_PAGE_FORM = "branch/form";
+  public static final String PARTNER_PAGE = "partner/index";
+  public static final String PARTNER_PAGE_FORM = "partner/form";
 
-    public static final String PARTNER_PAGE = "partner/index";
-    public static final String PARTNER_PAGE_FORM = "partner/form";
+  public static final String CUSTOMER_PAGE = "customer/index";
+  public static final String CUSTOMER_PAGE_FORM = "customer/form";
 
-    public static final String CUSTOMER_PAGE = "customer/index";
-    public static final String CUSTOMER_PAGE_FORM = "customer/form";
+  public static final String BILL_PAGE = "bill/index";
+  public static final String BILL_PAGE_FORM = "bill/form";
 
-    public static final String BILL_PAGE = "bill/index";
-    public static final String BILL_PAGE_FORM = "bill/form";
-
-    public ResponseEntity parseException(Exception ex) {
-        JsonObject response = new JsonObject();
-        if (ex instanceof UnknownHttpStatusCodeException) {
-            logger.error("ERROR UnknownHttpStatusCodeException: ", ex);
-            UnknownHttpStatusCodeException uex = (UnknownHttpStatusCodeException) ex;
-            if (uex.getRawStatusCode() == 601) {
-                response.addProperty("message", uex.getResponseBodyAsString());
-            } else {
-                String s = uex.getResponseBodyAsString();
-                if (StringUtils.isNotBlank(s)) {
-                    response = new Gson().fromJson(s, JsonObject.class);
-                } else {
-                    response.addProperty("message", ex.getMessage());
-                }
-            }
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response.toString());
-        } else if (ex instanceof HttpServerErrorException) {
-            logger.error("ERROR HttpServerErrorException: ", ex);
-            HttpServerErrorException hex = (HttpServerErrorException) ex;
-            String s = hex.getResponseBodyAsString();
-            if (StringUtils.isNotBlank(s)) {
-                response = new Gson().fromJson(s, JsonObject.class);
-            } else {
-                response.addProperty("message", ex.getMessage());
-            }
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response.toString());
+  public ResponseEntity parseException(Exception ex) {
+    JsonObject response = new JsonObject();
+    if (ex instanceof UnknownHttpStatusCodeException) {
+      logger.error("ERROR UnknownHttpStatusCodeException: ",ex);
+      UnknownHttpStatusCodeException uex = (UnknownHttpStatusCodeException) ex;
+      if (uex.getRawStatusCode() == 601) {
+        response.addProperty("message", uex.getResponseBodyAsString());
+      } else {
+        String s = uex.getResponseBodyAsString();
+        if (StringUtils.isNotBlank(s)) {
+          response = new Gson().fromJson(s, JsonObject.class);
         } else {
-            logger.error("ERROR parseException: ", ex);
-            response.addProperty("message", ex.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response.toString());
+          response.addProperty("message", ex.getMessage());
         }
-
+      }
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response.toString());
+    } else if (ex instanceof HttpServerErrorException) {
+      logger.error("ERROR HttpServerErrorException: ",ex);
+      HttpServerErrorException hex = (HttpServerErrorException) ex;
+      String s = hex.getResponseBodyAsString();
+      if (StringUtils.isNotBlank(s)) {
+        response = new Gson().fromJson(s, JsonObject.class);
+      } else {
+        response.addProperty("message", ex.getMessage());
+      }
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response.toString());
+    } else {
+      logger.error("ERROR parseException: ",ex);
+      response.addProperty("message", ex.getMessage());
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response.toString());
     }
+
+  }
 }

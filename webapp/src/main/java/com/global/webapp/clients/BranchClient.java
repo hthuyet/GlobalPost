@@ -24,10 +24,10 @@ public class BranchClient {
 
     @Autowired
     public BranchClient(RestTemplate restTemplate,
-            @Value("${apiEndpointUrl}") String identityServiceEndpointUrl) {
+                        @Value("${apiEndpointUrl}") String identityServiceEndpointUrl) {
         this.restTemplate = restTemplate;
         this.restTemplate.getMessageConverters()
-                .add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+            .add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
         this.endpointUrl = identityServiceEndpointUrl + "/branch";
     }
 
@@ -37,12 +37,12 @@ public class BranchClient {
         return "200";
     }
 
-    public String search(Map<String, String> maps) {
+    public String search(Map<String,String> maps) {
         String url = String.format("%s/search", this.endpointUrl);
         return this.restTemplate.postForObject(url, maps, String.class);
     }
 
-    public int count(Map<String, String> maps) {
+    public int count(Map<String,String> maps) {
         String url = String.format("%s/count", this.endpointUrl);
         return this.restTemplate.postForObject(url, maps, Integer.class);
     }
@@ -52,7 +52,7 @@ public class BranchClient {
         return this.restTemplate.getForObject(url, String.class);
     }
 
-    public String save(Map<String, String> maps) {
+    public String save(Map<String,String> maps) {
         String url = String.format("%s/save", this.endpointUrl);
         return this.restTemplate.postForObject(url, maps, String.class);
     }

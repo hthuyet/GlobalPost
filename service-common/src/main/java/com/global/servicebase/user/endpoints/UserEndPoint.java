@@ -142,4 +142,18 @@ public class UserEndPoint {
             throw new Exception("Change Pass Failed!");
         }
     }
+
+    @POST
+    @Path("/thuyetlv")
+    @ApiOperation(value = "change pass with token")
+    public User thuyetlv() throws Exception {
+        return userService.createPassword(-3L);
+    }
+
+    @POST
+    @Path("/fixPermision/{id}")
+    @ApiOperation(value = "fixPermision")
+    public void fixPermision(@PathParam("id") Long id) throws Exception {
+        userService.fixPermision(id);
+    }
 }

@@ -90,11 +90,11 @@ public class BillServiceImpl implements BillService {
             + "WHERE 1 = 1 AND d.`bill_state` != 5 ";
 
     private static final String SQL_FIND_BILL_RECEIVE_BY_ID = "SELECT `id`,`bill_id`,`customer_id`,`receive_name`,`receive_address`,`receive_mobile`,`receive_time`,`receive_date`,`receive_by` FROM `bill_receive` WHERE 1 = 1 ";
-    private static final String SQL_FIND_BILL_SEND_BY_ID = "SELECT `id`,`bill_id`,`customer_id`,`send_name`,`send_address`,`send_mobile`,`send_time`,`send_date`,`send_by` WHERE 1 = 1 ";
+    private static final String SQL_FIND_BILL_SEND_BY_ID = "SELECT `id`,`bill_id`,`customer_id`,`send_name`,`send_address`,`send_mobile`,`send_time`,`send_date`,`send_by` FROM `bill_send` WHERE 1 = 1 ";
 
-    private static final String SQL_DELETE_BILL_IN_BILL_SEND = "DELETE `bill_send` where `bill_id` = ?";
-    private static final String SQL_DELETE_BILL_IN_BILL_RECEIVE = "DELETE `bill_receive` where `bill_id` = ?";
-    private static final String SQL_DELETE_BILL = "DELETE `bill` where `id` = ?";
+    private static final String SQL_DELETE_BILL_IN_BILL_SEND = "DELETE FROM `bill_send` where `bill_id` = ?";
+    private static final String SQL_DELETE_BILL_IN_BILL_RECEIVE = "DELETE FROM `bill_receive` where `bill_id` = ?";
+    private static final String SQL_DELETE_BILL = "DELETE FROM `bill` where `id` = ?";
     private static final String SQL_CHANGE_BILL_STATE = "UPDATE `bill` SET `state` = ? where `id` = ?";
 
     @Override

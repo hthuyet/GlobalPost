@@ -8,7 +8,7 @@ spring:
 #  redis:
 #    host: master-ump-server
 #    port: 6379
-#    password: ump@2018
+#    password: ump@2018 206.189.41.190
   http:
     multipart:
       max-file-size: 1024MB
@@ -17,5 +17,5 @@ spring:
       basename: messages/messages
       cache-seconds: -1
       encoding: UTF-8
-commondEndpointUrl: http://localhost:8091/api
+commondEndpointUrl: http://206.189.41.190:8091/api
 apiEndpointUrl: http://localhost:8092/api

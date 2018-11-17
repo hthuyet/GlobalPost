@@ -76,4 +76,13 @@ public class PermissionEndPoint extends SsdcCrudEndpoint<BigInteger, Permission>
     public int count(@RequestBody PermissionSearchForm searchParameter) {
         return permissionsService.count(searchParameter);
     }
+
+    @GET
+    @Path("/test")
+    @ApiOperation(value = "Test Permissions")
+    @ApiResponse(code = 200, message = "Success")
+    public Boolean test() {
+        permissionsService.afterUpdate(null, null);
+        return true;
+    }
 }

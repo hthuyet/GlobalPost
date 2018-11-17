@@ -137,6 +137,24 @@ public class UserService extends SsdcCrudService<Long, User> {
         return user;
     }
 
+    public void fixPermision(Long id){
+        User user = get(id);
+        if (user == null) {
+            throw new UserNotFoundException("No user with id " + id);
+        }
+
+        List<Operation> lstAll =  operationService.getAll();
+        Set<String> setPer = new HashSet<>();
+
+        for (Operation operation: lstAll){
+            setPer.add(operation.id);
+        }
+
+        user.operationIds = setPer;
+        System.out.println(new Gson().toJson(setPer));
+
+        update(id, user);
+    }
     public User createPassword(Long id) {
         User user = get(id);
         if (user == null) {

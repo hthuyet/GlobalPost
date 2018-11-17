@@ -21,7 +21,7 @@ public class PermissionClient {
     public PermissionClient(RestTemplate restTemplate, @Value("${commondEndpointUrl}") String apiEndpointUrl) {
         this.restTemplate = restTemplate;
         this.restTemplate.getMessageConverters()
-                .add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+            .add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
         this.endpointUrl = apiEndpointUrl + "/permissions";
     }
 

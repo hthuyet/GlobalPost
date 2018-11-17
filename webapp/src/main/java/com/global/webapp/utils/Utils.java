@@ -2,6 +2,9 @@ package com.global.webapp.utils;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.Map;
 
 public class Utils {
 
@@ -40,4 +43,33 @@ public class Utils {
         return obj.get(key).getAsJsonArray();
     }
 
+  public static String getAsString(Map<String, String> maps, String key, String defaultValue) {
+    String rtn =  maps.get(key);
+    if (rtn == null) {
+      return defaultValue;
+    }
+    return rtn;
+  }
+  public static Integer getAsInt(Map<String, String> maps, String key, Integer defaultValue) {
+    String rtn =  maps.get(key);
+    if (rtn == null || !StringUtils.isNumeric(rtn)) {
+      return defaultValue;
+    }
+    return Integer.parseInt(rtn);
+  }
+  public static Long getAsLong(Map<String, String> maps, String key, Long defaultValue) {
+    String rtn =  maps.get(key);
+    if (rtn == null || !StringUtils.isNumeric(rtn)) {
+      return defaultValue;
+    }
+    return Long.parseLong(rtn);
+  }
+
+  public static Boolean getAsBoolean(Map<String, String> maps, String key, Boolean defaultValue) {
+    String rtn =  maps.get(key);
+    if (rtn == null || StringUtils.isBlank(rtn)) {
+      return defaultValue;
+    }
+    return Boolean.parseBoolean(rtn);
+  }
 }

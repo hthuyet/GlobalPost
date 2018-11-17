@@ -251,6 +251,7 @@ public class PermissionController {
             }
 
             for (String id : idRoles) {
+
                 UserSearchForm userSearchForm = new UserSearchForm();
                 userSearchForm.currentUserName = session.getAttribute("username").toString();
                 Set<Integer> rolesSet = new HashSet<Integer>();
@@ -270,7 +271,9 @@ public class PermissionController {
                     userClient.update(String.valueOf(user.userName), user);
                 }
             }
+
         }
+
     }
 
     private Permissions initPermission(Map<String, String> params, String permissionID) {
