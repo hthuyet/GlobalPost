@@ -45,11 +45,16 @@
                                 <!--sendName-->
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label"><span th:text="#{bill.sendName}"></span></label>
+                                        <label class="col-md-3 control-label"><span
+                                                th:text="#{bill.sendName}"></span></label>
                                         <div class="col-md-8">
-                                            <select ui-select2 class="form-control" name="sender" ng-model="sender" ng-change="changeSender()">
-                                                <option value=""><span th:text="#{common.select.placeholder}"></span></option>
-                                                <option ng-repeat="item in lstCustomer" value="{{item}}"> {{item.name}}</option>
+                                            <select ui-select2 class="form-control" name="sender" ng-model="sender"
+                                                    ng-change="changeSender()">
+                                                <option value=""><span th:text="#{common.select.placeholder}"></span>
+                                                </option>
+                                                <option ng-repeat="item in lstCustomer" value="{{item}}">
+                                                    {{item.name}}
+                                                </option>
                                             </select>
                                         </div>
                                     </div>
@@ -62,8 +67,11 @@
                                         <label class="col-md-3 control-label"><span
                                                 th:text="#{bill.receiveName}"></span></label>
                                         <div class="col-md-8">
-                                            <select ui-select2 class="form-control" name="receiver" ng-model="receiver" ng-change="changeReceiver()">
-                                                <option ng-repeat="item in lstCustomer" value="{{item}}"> {{item.name}}</option>
+                                            <select ui-select2 class="form-control" name="receiver" ng-model="receiver"
+                                                    ng-change="changeReceiver()">
+                                                <option ng-repeat="item in lstCustomer" value="{{item}}">
+                                                    {{item.name}}
+                                                </option>
                                             </select>
                                         </div>
                                     </div>
@@ -78,9 +86,11 @@
                                 <!--billNo-->
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label"><span th:text="#{bill.billNo}"></span></label>
+                                        <label class="col-md-3 control-label"><span
+                                                th:text="#{bill.billNo}"></span></label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" id="billNo" ng-model="item.billNo" th:placeholder="#{bill.billNo}" name="billNo">
+                                            <input type="text" class="form-control" id="billNo" ng-model="item.billNo"
+                                                   th:placeholder="#{bill.billNo}" name="billNo">
                                         </div>
                                     </div>
                                 </div>
@@ -115,11 +125,6 @@
                             </div>
                         </div>
                         <!--End row 2-->
-
-
-
-
-
 
 
                         <div class="panel-footer text-center">

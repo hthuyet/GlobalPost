@@ -13,6 +13,8 @@
             white-space: nowrap;
             padding-right: 100px;
         }
+
+
     </style>
 </head>
 <body ng-controller="BillController">
@@ -45,35 +47,44 @@
                             <tr>
                                 <th nowrap style="padding-right: 0px; width: 80px">
                                     <div class="btn-group">
-                                        <input type="checkbox" class="checkAllTable" ng-change="onCheckbox()" ng-model="checklistTable.checkAll">
+                                        <input type="checkbox" class="checkAllTable" ng-change="onCheckbox()"
+                                               ng-model="checklistTable.checkAll">
                                     </div>
                                     <div class="btn-group">
-                                        <a class="btn btn-xs btn-link dropdown-toggle" data-toggle="dropdown" th:title="#{common.search.btn.more}"><span class="caret"></span></a>
+                                        <a class="btn btn-xs btn-link dropdown-toggle" data-toggle="dropdown"
+                                           th:title="#{common.search.btn.more}"><span class="caret"></span></a>
                                         <ul class="dropdown-menu dropdown-menu-left">
                                             <li>
-                                                <button class="btn btn-link btn-icon" ng-click="onDeletes()" ng-disabled="checklistTable.selected.length == 0">
-                                                    <i class="icon-trash position-left"></i> <span th:text="#{common.btn.delete}"></span></button>
+                                                <button class="btn btn-link btn-icon" ng-click="onDeletes()"
+                                                        ng-disabled="checklistTable.selected.length == 0">
+                                                    <i class="icon-trash position-left"></i> <span
+                                                        th:text="#{common.btn.delete}"></span></button>
                                             </li>
                                         </ul>
                                     </div>
                                 </th>
-                                <th th:text="#{bill.billNo}"> </th>
-                                <th th:text="#{bill.sendAddress}"> </th>
-                                <th th:text="#{bill.receiveAddress}"> </th>
-                                <th th:text="#{bill.totalCost}"> </th>
-                                <th th:text="#{bill.sendDate}"> </th>
-                                <th th:text="#{bill.receiveDate}"> </th>
-                                <th style="width: 100px;" class ="text-right" th:text="#{user.search.action}"></th>
+                                <th th:text="#{bill.billNo}"></th>
+                                <th th:text="#{bill.sendAddress}"></th>
+                                <th th:text="#{bill.receiveAddress}"></th>
+                                <th th:text="#{bill.totalCost}"></th>
+                                <th th:text="#{bill.sendDate}"></th>
+                                <th th:text="#{bill.receiveDate}"></th>
+                                <th style="width: 100px;" class="text-right" th:text="#{user.search.action}"></th>
                             </tr>
                             </thead>
 
                             <!--BODY-->
                             <tbody>
                             <tr ng-repeat="item in lstData">
-                                <td><input type="checkbox" checklist-model="checklistTable.selected" checklist-value="item.id"></td>
+                                <td><input type="checkbox" checklist-model="checklistTable.selected"
+                                           checklist-value="item.id"></td>
                                 <td>{{item.billNo}}</td>
-                                <td style="max-width:150px;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word">{{item.sendAddress}}</td>
-                                <td style="max-width:150px;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word">{{item.receiveAddress}}</td>
+                                <td style="max-width:150px;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word">
+                                    {{item.sendAddress}}
+                                </td>
+                                <td style="max-width:150px;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word">
+                                    {{item.receiveAddress}}
+                                </td>
                                 <td>{{item.totalCost}}</td>
                                 <td>{{item.sendDate}}</td>
                                 <td>{{item.receiveDate}}</td>
@@ -111,15 +122,18 @@
                                     max-size="4"
                                     ng-model="params.page"
                                     boundary-links="true" force-ellipses="true" rotate="true"
-                                    previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
+                                    previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;"
+                                    last-text="&raquo;"></ul>
                             </div>
                             <div class="form-group">
-                                <input type="number" name="page" th:placeholder="#{common.page}" class="form-control validatePositiveInteger"
+                                <input type="number" name="page" th:placeholder="#{common.page}"
+                                       class="form-control validatePositiveInteger"
                                        min="1" max="{{(totalElements / params.limit) | ceil}}"
                                        style="width: 55px">
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-default" th:text="#{common.paging.btn.go}"></button>
+                                <button type="submit" class="btn btn-default"
+                                        th:text="#{common.paging.btn.go}"></button>
                             </div>
                             <div class="form-group">
                                 <select class="form-control" ng-model="params.limit">

@@ -265,7 +265,7 @@ public class UserController {
             userSearchForm.limit = 20;
             userSearchForm.page = 1;
 
-            if(Boolean.valueOf(params.get("checkExistedUsername"))){
+            if (Boolean.valueOf(params.get("checkExistedUsername"))) {
                 userSearchForm.userName = params.get("userName");
                 User[] listUser = userClient.search(userSearchForm);
                 if (listUser != null && listUser.length > 0) {
@@ -273,7 +273,7 @@ public class UserController {
                 }
             }
 
-            if(Boolean.valueOf(params.get("checkExistedEmail"))){
+            if (Boolean.valueOf(params.get("checkExistedEmail"))) {
                 userSearchForm.userName = null;
                 userSearchForm.email = params.get("email");
                 User[] listUser1 = userClient.search(userSearchForm);

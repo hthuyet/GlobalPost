@@ -35,6 +35,8 @@ UserWebApp.controller('UserAddController', function ($scope, $rootScope, HttpSer
         $scope.params.deviceGroup = {
             role: []
         };
+        $scope.params.branch = {
+        };
         $scope.params.fullName = '';
         $scope.params.email = '';
         $scope.params.description = '';
@@ -45,6 +47,10 @@ UserWebApp.controller('UserAddController', function ($scope, $rootScope, HttpSer
             console.log($scope.roles);
         });
 
+        HttpService.postData('/branch/search', {}).then(function (response) {
+            $scope.branches = response;
+            console.log($scope.branches);
+        });
     }
 
     function onValidateBeforeSubmitForm(formElement) {

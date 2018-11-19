@@ -8,7 +8,6 @@ package com.global.webapp.models.searchForm;
 import java.util.Set;
 
 /**
- *
  * Created by ThuyetLV
  */
 public class PermissionSearchForm {

@@ -23,10 +23,10 @@ public class UserClient {
 
     @Autowired
     public UserClient(RestTemplate restTemplate,
-            @Value("${commondEndpointUrl}") String identityServiceEndpointUrl) {
+                      @Value("${commondEndpointUrl}") String identityServiceEndpointUrl) {
         this.restTemplate = restTemplate;
         this.restTemplate.getMessageConverters()
-            .add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+                .add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
         this.endpointUrl = identityServiceEndpointUrl + "/users";
     }
 
