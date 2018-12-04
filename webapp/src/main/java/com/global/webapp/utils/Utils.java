@@ -53,18 +53,26 @@ public class Utils {
 
     public static Integer getAsInt(Map<String, String> maps, String key, Integer defaultValue) {
         String rtn = maps.get(key);
-        if (rtn == null || !StringUtils.isNumeric(rtn)) {
+        try {
+            if (rtn == null) {
+                return defaultValue;
+            }
+            return Integer.parseInt(rtn);
+        }catch (Exception ex){
             return defaultValue;
         }
-        return Integer.parseInt(rtn);
     }
 
     public static Long getAsLong(Map<String, String> maps, String key, Long defaultValue) {
         String rtn = maps.get(key);
-        if (rtn == null || !StringUtils.isNumeric(rtn)) {
+        try {
+            if (rtn == null) {
+                return defaultValue;
+            }
+            return Long.parseLong(rtn);
+        }catch (Exception ex){
             return defaultValue;
         }
-        return Long.parseLong(rtn);
     }
 
     public static Boolean getAsBoolean(Map<String, String> maps, String key, Boolean defaultValue) {

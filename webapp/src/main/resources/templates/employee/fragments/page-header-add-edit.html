@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Add js,css here -->
+</head>
+<body>
+<!-- Page header -->
+<div th:fragment="page-header-add-edit" class="page-header page-header-xs">
+    <div class="page-header-content">
+        <div class="page-title">
+            <h4><a href="/" class="btn-link"><i class="icon-arrow-left52 position-left"></i></a> <span
+                    class="text-semibold" th:text="#{layout.navbar.systemManager.employee}"></span></h4>
+            <ul class="breadcrumb breadcrumb-caret position-right">
+                <li><a href="/" th:text="#{breadcrumb.home}"></a></li>
+                <li><a href="/customer" th:text="#{breadcrumb.employee}"></a></li>
+                <li class="active" th:text="#{breadcrumb.employee.add}"></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- /page header -->
+</body>
+</html>

@@ -83,6 +83,9 @@ public class BillController extends BaseController {
         model.addAttribute("email", Utils.getAsString(jsonObject, "email", ""));
         model.addAttribute("note", Utils.getAsString(jsonObject, "note", ""));
         model.addAttribute("userId", Utils.getAsString(jsonObject, "userId", ""));
+        model.addAttribute("employeeSend", Utils.getAsString(jsonObject, "employeeSend", ""));
+        model.addAttribute("employeeReceive", Utils.getAsString(jsonObject, "employeeReceive", ""));
+        model.addAttribute("data", jsonObject.toString());
         logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "go to edit bill page", "", "");
         return BILL_PAGE_FORM;
     }
@@ -93,6 +96,8 @@ public class BillController extends BaseController {
     public ResponseEntity save(@RequestBody Map<String, String> params) {
         try {
             logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "execute bill customer", "", "");
+            params.put("userCreate", String.valueOf((Long) session.getAttribute("userId")));
+            params.put("branchCreate", String.valueOf((Long) session.getAttribute("branchId")));
             String rtn = billClient.save(params);
             return new ResponseEntity<>(rtn, HttpStatus.OK);
         } catch (Exception ex) {
@@ -112,5 +117,19 @@ public class BillController extends BaseController {
         } catch (Exception ex) {
             return parseException(ex);
         }
+    }
+
+    @GetMapping("/bill/import")
+//    @PreAuthorize("hasAuthority('GLOBAL:BILL:IMPORT')")
+    public String importBill() {
+        logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "go to bill import page", "", "");
+        return BILL_IM_PAGE;
+    }
+
+    @GetMapping("/bill/export")
+//    @PreAuthorize("hasAuthority('GLOBAL:BILL:EXPORT')")
+    public String exportBill() {
+        logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "go to bill export page", "", "");
+        return BILL_EX_PAGE;
     }
 }

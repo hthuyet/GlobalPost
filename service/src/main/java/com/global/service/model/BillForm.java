@@ -45,4 +45,6 @@ public class BillForm {
     public String receiveTime;
     public String receiveDate;
     public String receiveBy;
+    public int saveSender;
+    public int saveReceiver;
 }

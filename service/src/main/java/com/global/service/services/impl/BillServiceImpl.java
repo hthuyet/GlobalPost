@@ -5,14 +5,11 @@
  */
 package com.global.service.services.impl;
 
-import com.global.service.model.Bill;
-import com.global.service.model.BillForm;
-import com.global.service.model.BillReceive;
-import com.global.service.model.BillResponse;
-import com.global.service.model.BillSend;
+import com.global.service.model.*;
 import com.global.service.repository.BillReceiveRepo;
 import com.global.service.repository.BillRepo;
 import com.global.service.repository.BillSendRepo;
+import com.global.service.repository.CustomerRepo;
 import com.global.service.services.BillService;
 import com.global.service.utils.GlobalConstants;
 
@@ -48,6 +45,9 @@ public class BillServiceImpl implements BillService {
 
   @Autowired
   public BillSendRepo billSendRepo;
+
+  @Autowired
+  public CustomerRepo customerRepo;
 
   @Autowired
   public BillReceiveRepo billReceiveRepo;
@@ -177,10 +177,16 @@ public class BillServiceImpl implements BillService {
     obj.setTotalCost(Long.parseLong(String.valueOf(objects[i++])));
     obj.setContent(String.valueOf(objects[i++]));
     obj.setPaid(Integer.parseInt(String.valueOf(objects[i++])));
-    obj.setCreated(Long.parseLong(String.valueOf(objects[i++])));
-    obj.setUpdated(Long.parseLong(String.valueOf(objects[i++])));
-    obj.setIsCod(Integer.parseInt(String.valueOf(objects[i++])));
     Object tmp = objects[i++];
+    if (tmp != null) {
+      obj.setCreated(Long.parseLong(String.valueOf(tmp)));
+    }
+    tmp = objects[i++];
+    if (tmp != null) {
+      obj.setUpdated(Long.parseLong(String.valueOf(tmp)));
+    }
+    obj.setIsCod(Integer.parseInt(String.valueOf(objects[i++])));
+    tmp = objects[i++];
     if (tmp != null) {
       obj.setCodValue(new BigInteger(String.valueOf(tmp)).longValue());
     }
@@ -234,7 +240,7 @@ public class BillServiceImpl implements BillService {
     obj.setId(Long.parseLong(String.valueOf(objects[i++])));
     obj.setBillId(Long.parseLong(String.valueOf(objects[i++])));
     String customerId = String.valueOf(objects[i++]);
-    obj.setCustomerId("".equals(customerId) ? null : Long.parseLong(customerId));
+    obj.setCustomerId("".equals(customerId) || "null".equalsIgnoreCase(customerId) ? null : Long.parseLong(customerId));
     obj.setSendName(String.valueOf(objects[i++]));
     obj.setSendAddress(String.valueOf(objects[i++]));
     obj.setSendMobile(String.valueOf(objects[i++]));
@@ -342,7 +348,7 @@ public class BillServiceImpl implements BillService {
   private BillSend getBillSendByBillId(Long billId) {
     String sql = SQL_FIND_BILL_SEND_BY_ID;
     if (billId != 0) {
-      sql += " AND `id` = ? ";
+      sql += " AND `bill_id` = ? ";
     }
     logger.info("SQL: " + sql);
     Query query = em.createNativeQuery(sql);
@@ -361,7 +367,7 @@ public class BillServiceImpl implements BillService {
   private BillReceive getBillReceiveByBillId(Long billId) {
     String sql = SQL_FIND_BILL_RECEIVE_BY_ID;
     if (billId != 0) {
-      sql += " AND `id` = ? ";
+      sql += " AND `bill_id` = ? ";
     }
     logger.info("SQL: " + sql);
     Query query = em.createNativeQuery(sql);
@@ -433,9 +439,44 @@ public class BillServiceImpl implements BillService {
     return false;
   }
 
+//  private BillResponse saveBill(EntityManager emm,BillResponse obj){
+//    String sql = "update bill set bill_no=?, bill_state=?, bill_type=?, branch_create=?, cod_value=?, content=?, cost=?, created=?, current_branch=?, employee_receive=?, employee_send=?, is_cod=?, paid=?, partner_id=?, total_cost=?, updated=?, user_create=?, weight=?, who_pay=? where id=?";
+//    Query query = em.createNativeQuery(sql);
+//    int i = 1;
+//    if (billId != 0) {
+//      query.setParameter(i++, billId);
+//    }
+//    List<Object[]> li = (List<Object[]>) query.getResultList();
+//    if (li.size() > 0) {
+//      return convertToReceiveObject(li.get(0));
+//    }
+//    return null;
+//  }
+
   @Override
   public Bill save(BillForm bill) {
     try {
+      //Save saveSender
+      if(bill.saveSender > 0){
+        Customer customer = new Customer();
+        customer.name = bill.sendName;
+        customer.mobile = bill.sendMobile;
+        customer.address = bill.sendAddress;
+        customer = customerRepo.save(customer);
+
+        bill.sendCustomer = customer.id;
+      }
+
+      //Save saveReceiver
+      if(bill.saveReceiver > 0){
+        Customer rCustomer = new Customer();
+        rCustomer.name = bill.receiveName;
+        rCustomer.mobile = bill.receiveMobile;
+        rCustomer.address = bill.receiveAddress;
+        rCustomer = customerRepo.save(rCustomer);
+        bill.receiveCustomer = rCustomer.id;
+      }
+
       Long id = bill.id;
       Bill obj = null;
       BillSend objSend = null;
@@ -445,32 +486,29 @@ public class BillServiceImpl implements BillService {
         if (obj == null) {
           return null;
         }
+        obj.setUpdated(System.currentTimeMillis());
       } else {
         obj = new Bill();
+        obj.setCreated(System.currentTimeMillis());
       }
-      obj.id = bill.id;
-      obj.billNo = bill.billNo;
-      obj.billType = bill.billType;
-      obj.billState = bill.billState;
-      obj.branchCreate = bill.branchCreate;
-      obj.codValue = bill.codValue;
-      obj.content = bill.content;
-      obj.cost = bill.cost;
-      obj.created = bill.created;
-      obj.currentBranch = bill.currentBranch;
-      obj.isCod = bill.isCod;
-      obj.paid = bill.paid;
-      obj.totalCost = bill.totalCost;
-      obj.updated = bill.updated;
-      obj.userCreate = bill.userCreate;
-      obj.weight = bill.weight;
-      obj.whoPay = bill.whoPay;
-      obj.userCreate = bill.userCreate;
-      obj.branchCreate = bill.branchCreate;
-      obj.currentBranch = bill.currentBranch;
-      obj.partnerId = bill.partnerId;
-      obj.employeeSend = bill.employeeSend;
-      obj.employeeReceive = bill.employeeReceive;
+      obj.setBillNo(bill.billNo);
+      obj.setBillType(bill.billType);
+      obj.setBillState(bill.billState);
+      obj.setBranchCreate(bill.branchCreate);
+      obj.setCodValue(bill.codValue);
+      obj.setContent(bill.content);
+      obj.setCost(bill.cost);
+      obj.setCurrentBranch(bill.currentBranch);
+      obj.setIsCod(bill.isCod);
+      obj.setPaid(bill.paid);
+      obj.setTotalCost(bill.totalCost);
+      obj.setUserCreate(bill.userCreate);
+      obj.setWeight(bill.weight);
+      obj.setWhoPay(bill.whoPay);
+      obj.setBranchCreate(bill.branchCreate);
+      obj.setPartnerId(bill.partnerId);
+      obj.setEmployeeSend(bill.employeeSend);
+      obj.setEmployeeReceive(bill.employeeReceive);
       obj = billRepo.save(obj);
       if (obj != null && obj.getId() > 0) {
         objSend = getBillSendByBillId(obj.getId());
@@ -504,6 +542,7 @@ public class BillServiceImpl implements BillService {
         return null;
       }
     } catch (Exception ex) {
+      logger.error("ERROR save: ",ex);
       return null;
     }
   }

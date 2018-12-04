@@ -46,6 +46,8 @@ public class UmpAuthSuccessHandler extends SavedRequestAwareAuthenticationSucces
         session.setAttribute("username", springUser.getUsername());
         User user = userClient.getByUsername(springUser.getUsername());
         session.setAttribute("userId", user.userId);
+        session.setAttribute("branchId", user.branchId);
+        System.out.println("----------branchId: " + user.branchId);
 
         HttpSession session = httpServletRequest.getSession();
         if (session != null) {
@@ -60,7 +62,7 @@ public class UmpAuthSuccessHandler extends SavedRequestAwareAuthenticationSucces
             }
         } else {
 
-            httpServletResponse.sendRedirect("/users/");
+            httpServletResponse.sendRedirect("/bill/");
         }
     }
 }

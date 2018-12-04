@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- Modal Import -->
+<div th:fragment="modal-import" class="modal fade modalImport" id="modalImport">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content text-center">
+            <form class="form-horizontal formValidate" name="importFrm" id="importFrm">
+                <div class="modal-body">
+                    <!--Row 1-->
+                    <div class="row">
+                        <!--type-->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><span th:text="#{bill.import.fromType}"></span></label>
+                                <div class="col-md-8">
+                                    <select class="form-control" name="fromType" ng-model="fromType"
+                                            ng-change="changeFromType()" convert-to-number>
+                                        <option value=""><span th:text="#{common.select.placeholder}"></span></option>
+                                        <option value="1"><span th:text="#{bill.import.fromType.1}"></span></option>
+                                        <option value="2"><span th:text="#{bill.import.fromType.2}"></span></option>
+                                        <option value="3"><span th:text="#{bill.import.fromType.3}"></span></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!--End type-->
+
+                        <!--from-->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><span
+                                        th:text="#{bill.import.from}"></span></label>
+                                <div class="col-md-8">
+                                    <select ui-select2 class="form-control" name="selectedValue"
+                                            ng-model="selectedValue"
+                                            convert-to-number ng-required="true">
+                                        <option ng-repeat="item in lstDataCommon" value="{{item.id}}"
+                                                ng-bind="item.name"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!--End from-->
+                    </div>
+                    <!--End row 1-->
+                </div>
+
+                <div class="modal-footer text-center">
+                    <button type="button" ng-disabled="importFrm.$invalid" id="btnExeImport"
+                            ng-click="executeImport()" class="btn btn-primary"
+                            th:text="#{btn.ok}"></button>
+                    <a class="btn btn-link" data-dismiss="modal" th:text="#{btn.cancel}"></a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- /modal Import -->
+
+</body>
+</html>

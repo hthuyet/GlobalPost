@@ -18,6 +18,9 @@ public class BaseController {
     public static final String BRANCH_PAGE = "branch/index";
     public static final String BRANCH_PAGE_FORM = "branch/form";
 
+    public static final String EMPLOYEE_PAGE = "employee/index";
+    public static final String EMPLOYEE_PAGE_FORM = "employee/form";
+
     public static final String PARTNER_PAGE = "partner/index";
     public static final String PARTNER_PAGE_FORM = "partner/form";
 
@@ -25,6 +28,8 @@ public class BaseController {
     public static final String CUSTOMER_PAGE_FORM = "customer/form";
 
     public static final String BILL_PAGE = "bill/index";
+    public static final String BILL_IM_PAGE = "bill/import";
+    public static final String BILL_EX_PAGE = "bill/export";
     public static final String BILL_PAGE_FORM = "bill/form";
 
     public ResponseEntity parseException(Exception ex) {

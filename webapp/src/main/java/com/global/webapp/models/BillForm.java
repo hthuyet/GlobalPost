@@ -40,6 +40,8 @@ public class BillForm {
     public String receiveTime;
     public String receiveDate;
     public String receiveBy;
+    public int saveSender;
+    public int saveReceiver;
 
     public BillForm(Map<String, String> params) {
         id = Utils.getAsLong(params, "id", null);
@@ -74,6 +76,8 @@ public class BillForm {
         receiveTime = Utils.getAsString(params, "receiveTime", "");
         receiveDate = Utils.getAsString(params, "receiveDate", "");
         receiveBy = Utils.getAsString(params, "receiveBy", "");
+        saveSender = Utils.getAsInt(params, "saveSender", 0);
+        saveReceiver = Utils.getAsInt(params, "saveReceiver", 0);
 
         long currentTime = new Date().getTime();
         if (id == null || id <= 0) {

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <!-- Add js,css here -->
+    </head>
+    <body>
+        <!-- Page header -->
+        <div th:fragment="page-header" class="page-header page-header-xs">
+            <div class="page-header-content">
+                <div class="page-title">
+                    <h4><a href="/" class="btn-link"><i class="icon-arrow-left52 position-left"></i></a> <span class="text-semibold" th:text="#{layout.navbar.bill.title}"></span></h4>
+
+                    <ul class="breadcrumb breadcrumb-caret position-right">
+                        <li><a href="/" th:text="#{breadcrumb.home}"></a></li>
+                        <li class="active" th:text="#{breadcrumb.billimport}"></li>
+                    </ul>
+                </div>
+
+                <div class="heading-elements">
+                    <div class="heading-btn-group">
+                        <a ng-disabled="checklistTable.selected.length == 0" ng-click="onImport()" class="btn btn-link btn-float has-text text-size-small">
+                            <i class="icon-import text-indigo-400"></i><span th:text="#{common.btn.import}"></span>
+                        </a>
+
+                        <a ng-disabled="checklistTable.selected.length == 0" ng-click="onImport()" class="btn btn-link btn-float has-text text-size-small">
+                            <i class="icon-database-export text-indigo-400"></i><span th:text="#{common.btn.export}"></span>
+                        </a>
+
+                        <button class="btn btn-link btn-float has-text text-size-small btnRefresh" ng-click="onRefresh()">
+                            <i class="icon-sync text-indigo-400"></i><span th:text="#{common.btn.refresh}"></span>
+                        </button>
+
+                        <a ng-disabled="checklistTable.selected.length == 0" ng-click="onClear()" class="btn btn-link btn-float has-text text-size-small">
+                            <i class="icon-cross2 text-indigo-400"></i><span th:text="#{common.btn.clear}"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /page header -->
+
+    </body>
+</html>

@@ -20,7 +20,7 @@
             <div class="form-group">
                 <label class="control-label col-md-4" th:text="#{bill.receiveName}"></label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" ng-model="receiverObj.name"
+                    <input type="text" class="form-control" ng-model="item.receiveName"
                            th:placeholder="#{bill.receiveName}">
                 </div>
             </div>
@@ -30,7 +30,7 @@
             <div class="form-group">
                 <label class="control-label col-md-4" th:text="#{bill.receiveMobile}"></label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" ng-model="receiverObj.mobile"
+                    <input type="text" class="form-control" ng-model="item.receiveMobile"
                            th:placeholder="#{bill.receiveMobile}">
                 </div>
             </div>
@@ -40,38 +40,50 @@
             <div class="form-group">
                 <label class="control-label col-md-4" th:text="#{bill.receiveAddress}"></label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" ng-model="receiverObj.address"
+                    <input type="text" class="form-control" ng-model="item.receiveAddress"
                            th:placeholder="#{bill.receiveAddress}">
                 </div>
             </div>
         </div>
 
-        <div class="col-md-12">
-            <div class="form-group">
-                <label class="control-label col-md-4" th:text="#{bill.receiveTime}"></label>
-                <div class="col-md-8">
-                    <input type="text" class="form-control" ng-model="receiverObj.sendTime"
-                           th:placeholder="#{bill.receiveTime}">
-                </div>
-            </div>
-        </div>
+        <!--<div class="col-md-12">-->
+            <!--<div class="form-group">-->
+                <!--<label class="control-label col-md-4" th:text="#{bill.receiveTime}"></label>-->
+                <!--<div class="col-md-8">-->
+                    <!--<input type="text" class="form-control" ng-model="item.receiveTime"-->
+                           <!--th:placeholder="#{bill.receiveTime}">-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
 
-        <div class="col-md-12">
-            <div class="form-group">
-                <label class="control-label col-md-4" th:text="#{bill.receiveDate}"></label>
-                <div class="col-md-8">
-                    <input type="text" class="form-control" ng-model="receiverObj.receiveDate"
-                           th:placeholder="#{bill.receiveDate}">
-                </div>
-            </div>
-        </div>
+        <!--<div class="col-md-12">-->
+            <!--<div class="form-group">-->
+                <!--<label class="control-label col-md-4" th:text="#{bill.receiveDate}"></label>-->
+                <!--<div class="col-md-8">-->
+                    <!--<input type="text" class="form-control" ng-model="item.receiveDate"-->
+                           <!--th:placeholder="#{bill.receiveDate}">-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
 
         <div class="col-md-12">
             <div class="form-group">
                 <label class="control-label col-md-4" th:text="#{bill.receiveBy}"></label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" ng-model="receiverObj.receiveBy"
-                           th:placeholder="#{bill.receiveBy}">
+                    <select ui-select2 class="form-control" name="employeeReceive"
+                            ng-model="item.employeeReceive" convert-to-number ng-change="testChangeReceive()">
+                        <option ng-repeat="item in lstEmployee track by item.id" value="{{item.id}}" ng-bind="item.fullName">
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label col-md-4" th:text="#{bill.saveInfo}"></label>
+                <div class="col-md-8">
+                    <input type="checkbox" ng-model="item.saveReceiver" name="saveReceiver" value="true" ng-disabled="false">
                 </div>
             </div>
         </div>

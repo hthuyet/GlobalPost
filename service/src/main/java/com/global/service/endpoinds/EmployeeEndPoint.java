@@ -85,7 +85,7 @@ public class EmployeeEndPoint {
     @ApiResponse(code = 200, message = "success")
     public Response save(@ApiParam(value = "Form data", examples
             = @Example(value
-                    = @ExampleProperty("{\"id\": 2,\"name\": \"\",\"address\": \"\",\"mobile\": \"\",\"branch\": 0}"))) String formData) {
+                    = @ExampleProperty("{\"id\": 2,\"fullName\": \"\",\"address\": \"\",\"mobile\": \"\",\"branchId\": 0}"))) String formData) {
         JsonObject json = new JsonObject();
         try {
             logger.info(String.format("add : %s", formData));
@@ -123,10 +123,10 @@ public class EmployeeEndPoint {
             obj = new Employee();
         }
         obj.setId(Utils.getAsLong(object, "id", null));
-        obj.setFullName(Utils.getAsString(object, "name", ""));
+        obj.setFullName(Utils.getAsString(object, "fullName", ""));
         obj.setAddress(Utils.getAsString(object, "address", ""));
         obj.setMobile(Utils.getAsString(object, "mobile", ""));
-        obj.setBranchId(Utils.getAsLong(object, "branch", null));
+        obj.setBranchId(Utils.getAsLong(object, "branchId", null));
         return obj;
     }//</editor-fold>
 

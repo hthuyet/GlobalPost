@@ -3,12 +3,13 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
 <head>
-    <title>Global - Quản lý chi nhánh</title>
+    <title>Global - Tạo mới hoặc cập nhật bill</title>
     <!-- Theme JS files -->
     <script type="text/javascript" src="/ump/bill-add.controller.js"></script>
+    <script type="text/javascript" src="/ump/modal.customer.controller.js"></script>
     <!-- /theme JS files -->
 </head>
-<body ng-controller="BillAddController">
+<body ng-controller="BillAddController" ng-init="init()">
 <th:block layout:fragment="content">
 
     <!-- Page header -->
@@ -39,21 +40,18 @@
 
                     <form class="form-horizontal formValidate" name="billFrm" id="billFrm">
                         <div class="panel-body">
+                            <input type="hidden" class="form-control" id="sendCustomerHidden" ng-model="item.sendCustomer">
+                            <input type="hidden" class="form-control" id="receiveCustomerHidden" ng-model="item.receiveCustomer">
 
                             <!--Row 1-->
                             <div class="row">
                                 <!--sendName-->
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label"><span
-                                                th:text="#{bill.sendName}"></span></label>
+                                        <label class="col-md-3 control-label"><span th:text="#{bill.sendName}"></span></label>
                                         <div class="col-md-8">
-                                            <select ui-select2 class="form-control" name="sender" ng-model="sender"
-                                                    ng-change="changeSender()">
-                                                <option value=""><span th:text="#{common.select.placeholder}"></span>
-                                                </option>
-                                                <option ng-repeat="item in lstCustomer" value="{{item}}">
-                                                    {{item.name}}
+                                            <select ui-select2 class="form-control" name="sender" ng-model="senderSelected" ng-change="changeSender()" convert-to-number>
+                                                <option ng-repeat="item in lstCustomer" value="{{item.id}}" ng-bind="item.name">
                                                 </option>
                                             </select>
                                         </div>
@@ -67,10 +65,8 @@
                                         <label class="col-md-3 control-label"><span
                                                 th:text="#{bill.receiveName}"></span></label>
                                         <div class="col-md-8">
-                                            <select ui-select2 class="form-control" name="receiver" ng-model="receiver"
-                                                    ng-change="changeReceiver()">
-                                                <option ng-repeat="item in lstCustomer" value="{{item}}">
-                                                    {{item.name}}
+                                            <select ui-select2 class="form-control" name="receiver" ng-model="receiverSelected" ng-change="changeReceiver()" convert-to-number>
+                                                <option ng-repeat="item in lstCustomer" value="{{item.id}}" ng-bind="item.name">
                                                 </option>
                                             </select>
                                         </div>
@@ -80,6 +76,36 @@
                             </div>
                             <!--End row 1-->
 
+                            <!--Row 2-->
+                            <div class="row">
+
+                                <!--sendName-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label"><span th:text="#{bill.sendName}"></span></label>
+                                        <div class="col-md-8">
+                                            <input type="text" class="form-control" id="senderChoose" ng-model="item.sendName"
+                                                   th:placeholder="#{bill.sendName}" name="sendName"
+                                                   ng-click="chooseCustomer(0)" ng-readonly="true" data-info="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--End Test-->
+
+                                <!--receiveName-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label"><span th:text="#{bill.receiveName}"></span></label>
+                                        <div class="col-md-8">
+                                            <input type="text" class="form-control" id="receiverChoose" ng-model="item.receiveName"
+                                                   th:placeholder="#{bill.receiveName}" name="receiverName"
+                                                   ng-click="chooseCustomer(1)" ng-readonly="true" data-info="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--End Test-->
+                            </div>
+                            <!--End row 2-->
 
                             <!--Row 2-->
                             <div class="row">
@@ -95,6 +121,8 @@
                                     </div>
                                 </div>
                                 <!--End billNo-->
+
+
                             </div>
                             <!--End row 2-->
                         </div>
@@ -121,7 +149,7 @@
                             </div>
 
                             <div class="col-md-6">
-                                <div th:replace="bill/fragments/panel-tranf::panel-tranf"></div>
+                                <!--<div th:replace="bill/fragments/panel-tranf::panel-tranf"></div>-->
                             </div>
                         </div>
                         <!--End row 2-->
@@ -135,6 +163,8 @@
                                th:text="#{subscriber.header.title.subscriber.cancel}"></a>
                         </div>
 
+                        <div th:replace="bill/fragments/modal-choose-user::modal-choose-user"></div>
+
                     </form>
 
 
@@ -147,6 +177,14 @@
     </div>
 
     <!-- /page container -->
+
+    <script type="text/javascript">
+      billFrm
+      $(document).ready(function () {
+        console.log("ready");
+        $("#customerForm").validate(common.formValidate);
+      });
+    </script>
 </th:block>
 </body>
 </html>

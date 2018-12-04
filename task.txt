@@ -1,0 +1,6 @@
+- Tạo bill
+nhập và xuất tìm kiếm: billno, type, create_branch
+
+- Nhập bill (tích nhiều xong chọn nhập) -> đổi trạng thái (có modal chọn từ bên nào có thể đối tác hoặc chi nhánh hoặc nhân viên giao hàng)
+- Xuất bill (tích nhiều xong chọn nhập) -> đổi trạng thái (có modal chọn xuất cho bên nào có thể đối tác hoặc chi nhánh  hoặc nhân viên giao hàng)
+- Hoàn thành bill (tích chọn rồi finish)

@@ -20,7 +20,7 @@
             <div class="form-group">
                 <label class="control-label col-md-4" th:text="#{bill.billType}"></label>
                 <div class="col-md-8">
-                    <select class="form-control" name="billType" ng-model="item.billType" ng-required="true">
+                    <select class="form-control" name="billType" ng-model="item.billType" ng-required="true" convert-to-number="">
                         <option value=""><span th:text="#{common.select.placeholder}"></span></option>
                         <option value="1"><span th:text="#{bill.billType.1}"></span></option>
                         <option value="2"><span th:text="#{bill.billType.2}"></span></option>
@@ -36,7 +36,7 @@
             <div class="form-group">
                 <label class="control-label col-md-4" th:text="#{bill.weight}"></label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" ng-model="item.weight" name="weight"
+                    <input type="text" class="form-control" ng-model="item.weight" name="weight" ng-required="true"
                            th:placeholder="#{bill.weight}">
                 </div>
             </div>
@@ -46,7 +46,7 @@
             <div class="form-group">
                 <label class="control-label col-md-4" th:text="#{bill.cost}"></label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" ng-model="item.cost" name="cost"
+                    <input type="text" class="form-control" ng-model="item.cost" name="cost" ng-required="true"
                            th:placeholder="#{bill.cost}">
                 </div>
             </div>
@@ -56,7 +56,7 @@
             <div class="form-group">
                 <label class="control-label col-md-4" th:text="#{bill.totalCost}"></label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" ng-model="item.totalCost" name="totalCost"
+                    <input type="text" class="form-control" ng-model="item.totalCost" name="totalCost" ng-required="true"
                            th:placeholder="#{bill.totalCost}">
                 </div>
             </div>
@@ -66,7 +66,7 @@
             <div class="form-group">
                 <label class="control-label col-md-4" th:text="#{bill.isCod}"></label>
                 <div class="col-md-8">
-                    <input type="checkbox" ng-model="item.isCod" name="isCod" value="true">
+                    <input type="checkbox" ng-model="item.isCod" name="isCod" value="1" ng-checked="item.isCod == '1'">
                 </div>
             </div>
         </div>

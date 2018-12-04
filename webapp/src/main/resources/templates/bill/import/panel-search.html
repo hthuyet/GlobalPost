@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Add js,css here -->
+</head>
+<body>
+<!-- Panel search -->
+<div th:fragment="panel-search" class="panel panel-flat">
+    <div class="panel-heading">
+        <h5 class="panel-title"><span th:text="#{panel.title.filter}"></span></h5>
+        <div class="heading-elements">
+            <ul class="icons-list">
+                <li><a data-action="collapse"></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <form ng-submit="onSearch()" method="POST" class="form-horizontal form-search row">
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="control-label col-md-4" th:text="#{bill.billNo}"></label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="params.billNo"
+                               th:placeholder="#{bill.billNo}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="control-label col-md-4" th:text="#{bill.billType}"></label>
+                    <div class="col-md-8">
+                        <select class="form-control" name="billType" ng-model="params.billType" convert-to-number="">
+                            <option value=""><span th:text="#{common.select.placeholder}"></span></option>
+                            <option value="1"><span th:text="#{bill.billType.1}"></span></option>
+                            <option value="2"><span th:text="#{bill.billType.2}"></span></option>
+                            <option value="3"><span th:text="#{bill.billType.3}"></span></option>
+                            <option value="4"><span th:text="#{bill.billType.4}"></span></option>
+                            <option value="5"><span th:text="#{bill.billType.5}"></span></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="control-label col-md-4" th:text="#{bill.billState}"></label>
+                    <div class="col-md-8">
+                        <select class="form-control" name="billState" ng-model="params.billState" convert-to-number="">
+                            <option value=""><span th:text="#{common.select.placeholder}"></span></option>
+                            <option value="1"><span th:text="#{bill.billType.1}"></span></option>
+                            <option value="2"><span th:text="#{bill.billType.2}"></span></option>
+                            <option value="3"><span th:text="#{bill.billType.3}"></span></option>
+                            <option value="4"><span th:text="#{bill.billType.4}"></span></option>
+                            <option value="5"><span th:text="#{bill.billType.5}"></span></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <button type="button" ng-click="onSearch()" class="btn btn-icon btn-default"><i class="icon-search4"></i></button>
+            </div>
+
+            <div class="clearfix"></div>
+        </form>
+    </div>
+</div>
+<!-- /panel search -->
+
+
+
+</body>
+</html>

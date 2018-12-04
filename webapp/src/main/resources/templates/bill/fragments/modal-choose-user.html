@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- Modal backup -->
+<div th:fragment="modal-choose-user" class="modal fade modalChooseUser" ng-controller="ModalCustomerController">
+    <div class="modal-dialog modal-full">
+        <div class="modal-content">
+            <div class="modal-body">
+                <input type="hidden" class="form-control" id="modalChooseUserType">
+
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <h5 class="panel-title"><span th:text="#{panel.title.filter}"></span></h5>
+                        <div class="heading-elements">
+                            <ul class="icons-list">
+                                <li><a data-action="collapse"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="panel-body">
+                        <form class="form-horizontal form-search row">
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label col-md-4" th:text="#{customer.name}"></label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" ng-model="params.name" th:placeholder="#{placeholder.text}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <button type="button" ng-click="onSearch()" class="btn btn-icon btn-default"><i class="icon-search4"></i></button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+                <div class="panel panel-flat">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover" style="margin-top: 20px;">
+                            <!--HEADER-->
+                            <thead>
+                            <tr>
+                                <th th:text="#{customer.code}"></th>
+                                <th th:text="#{customer.name}"></th>
+                                <th th:text="#{customer.address}"></th>
+                                <th th:text="#{customer.mobile}"></th>
+                            </tr>
+                            </thead>
+
+                            <!--BODY-->
+                            <tbody>
+                            <tr ng-repeat="item in lstData" ng-dblclick="chooseCustomer(item)">
+                                <td>{{item.code}}</td>
+                                <td>{{item.name}}</td>
+                                <td>{{item.address}}</td>
+                                <td>{{item.mobile}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="panel-footer text-right">
+
+                        <!-- Paging elements -->
+                        <div class="form-inline formPaging formValidate">
+                            <div class="form-group">
+                                {{totalElements | number}} <span class="text-lowercase" th:text="#{items}"></span>
+                            </div>
+                            <div class="form-group" style="border-left: 1px solid #ddd">
+                                <ul class="pagination-flat pagination-rounded"
+                                    uib-pagination
+                                    total-items="totalElements"
+                                    items-per-page="params.limit"
+                                    max-size="4"
+                                    ng-model="params.page"
+                                    boundary-links="true" force-ellipses="true" rotate="true"
+                                    previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
+                            </div>
+                            <div class="form-group">
+                                <input type="number" name="page" th:placeholder="#{common.page}" class="form-control validatePositiveInteger"
+                                       min="1" max="{{(totalElements / params.limit) | ceil}}"
+                                       style="width: 55px">
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-default" th:text="#{common.paging.btn.go}"></button>
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control" ng-model="params.limit">
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                </select>
+                                <span th:text="#{common.paging.label.limit}"></span>
+                            </div>
+                        </div>
+                        <!-- /paging element -->
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer text-center">
+                <a class="btn btn-link" data-dismiss="modal" th:text="#{btn.cancel}"></a>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /Modal backup -->
+</body>
+</html>
