@@ -165,6 +165,10 @@ var translationsEN = {
   apiProfileUrlEmpty: 'API URL is not empty!',
   importSuccessfully: 'Import success!',
   importError: 'Import  error!',
+  billImportModal: 'Import bill',
+  billExportModal: 'Export bill',
+  exportSuccessfully: 'Export successfully.',
+  exportError: 'Export  error!',
 };
 
 var translationsVI = {
@@ -334,6 +338,10 @@ var translationsVI = {
   apiProfileUrlEmpty: 'API URL không được trống!',
   importSuccessfully: 'Import success!',
   importError: 'Import  error!',
+  billImportModal: 'Import bill',
+  billExportModal: 'Export bill',
+  exportSuccessfully: 'Export successfully.',
+  exportError: 'Export  error!',
 };
 
 UserWebApp.config(['$translateProvider', function ($translateProvider) {

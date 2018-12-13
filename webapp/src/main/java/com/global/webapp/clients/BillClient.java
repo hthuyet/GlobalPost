@@ -54,6 +54,26 @@ public class BillClient {
         return this.restTemplate.postForObject(url, maps, Integer.class);
     }
 
+    public String searchImport(Map<String, String> maps) {
+        String url = String.format("%s/searchImport", this.endpointUrl);
+        return this.restTemplate.postForObject(url, maps, String.class);
+    }
+
+    public int countImport(Map<String, String> maps) {
+        String url = String.format("%s/countImport", this.endpointUrl);
+        return this.restTemplate.postForObject(url, maps, Integer.class);
+    }
+
+    public String searchExport(Map<String, String> maps) {
+        String url = String.format("%s/searchExport", this.endpointUrl);
+        return this.restTemplate.postForObject(url, maps, String.class);
+    }
+
+    public int countExport(Map<String, String> maps) {
+        String url = String.format("%s/countExport", this.endpointUrl);
+        return this.restTemplate.postForObject(url, maps, Integer.class);
+    }
+
     public String get(Long id) {
         String url = String.format("%s/%s", this.endpointUrl, id.toString());
         return this.restTemplate.getForObject(url, String.class);
@@ -72,5 +92,15 @@ public class BillClient {
         }
         String url = String.format("%s/delete", this.endpointUrl);
         return this.restTemplate.postForObject(url, list, String.class);
+    }
+
+    public String exeImport(Map<String, String> maps) {
+        String url = String.format("%s/exeImport", this.endpointUrl);
+        return this.restTemplate.postForObject(url, maps, String.class);
+    }
+
+    public String exeExport(Map<String, String> maps) {
+        String url = String.format("%s/exeExport", this.endpointUrl);
+        return this.restTemplate.postForObject(url, maps, String.class);
     }
 }

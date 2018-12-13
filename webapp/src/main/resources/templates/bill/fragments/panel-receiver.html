@@ -20,7 +20,7 @@
             <div class="form-group">
                 <label class="control-label col-md-4" th:text="#{bill.receiveName}"></label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" ng-model="item.receiveName"
+                    <input type="text" class="form-control" ng-model="item.receiveName" ng-disabled="item.receiveCustomer >= 0"
                            th:placeholder="#{bill.receiveName}">
                 </div>
             </div>
@@ -30,7 +30,7 @@
             <div class="form-group">
                 <label class="control-label col-md-4" th:text="#{bill.receiveMobile}"></label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" ng-model="item.receiveMobile"
+                    <input type="text" class="form-control" ng-model="item.receiveMobile" ng-disabled="item.receiveCustomer >= 0"
                            th:placeholder="#{bill.receiveMobile}">
                 </div>
             </div>
@@ -40,7 +40,7 @@
             <div class="form-group">
                 <label class="control-label col-md-4" th:text="#{bill.receiveAddress}"></label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" ng-model="item.receiveAddress"
+                    <input type="text" class="form-control" ng-model="item.receiveAddress" ng-disabled="item.receiveCustomer >= 0"
                            th:placeholder="#{bill.receiveAddress}">
                 </div>
             </div>
@@ -83,7 +83,7 @@
             <div class="form-group">
                 <label class="control-label col-md-4" th:text="#{bill.saveInfo}"></label>
                 <div class="col-md-8">
-                    <input type="checkbox" ng-model="item.saveReceiver" name="saveReceiver" value="true" ng-disabled="false">
+                    <input type="checkbox" ng-model="item.saveReceiver" name="saveReceiver" value="true" ng-disabled="item.receiveCustomer >= 0">
                 </div>
             </div>
         </div>

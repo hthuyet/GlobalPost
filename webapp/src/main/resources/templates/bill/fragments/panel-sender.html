@@ -20,7 +20,7 @@
             <div class="form-group">
                 <label class="control-label col-md-4" th:text="#{bill.sendName}"></label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" ng-model="item.sendName"
+                    <input type="text" class="form-control" ng-model="item.sendName" ng-disabled="item.sendCustomer >= 0"
                            th:placeholder="#{bill.receiveName}">
                 </div>
             </div>
@@ -30,7 +30,7 @@
             <div class="form-group">
                 <label class="control-label col-md-4" th:text="#{bill.sendMobile}"></label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" ng-model="item.sendMobile"
+                    <input type="text" class="form-control" ng-model="item.sendMobile" ng-disabled="item.sendCustomer >= 0"
                            th:placeholder="#{bill.sendMobile}">
                 </div>
             </div>
@@ -40,7 +40,7 @@
             <div class="form-group">
                 <label class="control-label col-md-4" th:text="#{bill.sendAddress}"></label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" ng-model="item.sendAddress"
+                    <input type="text" class="form-control" ng-model="item.sendAddress" ng-disabled="item.sendCustomer >= 0"
                            th:placeholder="#{bill.sendAddress}">
                 </div>
             </div>
@@ -82,7 +82,7 @@
             <div class="form-group">
                 <label class="control-label col-md-4" th:text="#{bill.saveInfo}"></label>
                 <div class="col-md-8">
-                    <input type="checkbox" ng-model="item.saveSender" name="saveSender" value="true">
+                    <input type="checkbox" ng-model="item.saveSender" name="saveSender" value="true" ng-disabled="item.sendCustomer >= 0">
                 </div>
             </div>
         </div>

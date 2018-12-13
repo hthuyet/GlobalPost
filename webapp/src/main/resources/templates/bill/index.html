@@ -86,8 +86,8 @@
                                     {{item.receiveAddress}}
                                 </td>
                                 <td>{{item.totalCost}}</td>
-                                <td>{{item.sendDate}}</td>
-                                <td>{{item.receiveDate}}</td>
+                                <td>{{item.sendDate | dateTimeFormat }}</td>
+                                <td>{{item.receiveDate | dateTimeFormat }}</td>
                                 <td class="text-right text-nowrap">
                                     <ul class="icons-list">
                                         <li>

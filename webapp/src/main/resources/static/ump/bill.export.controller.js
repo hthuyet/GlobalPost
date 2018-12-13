@@ -1,4 +1,4 @@
-UserWebApp.controller('BillImportController', function ($scope, $rootScope, HttpService, $translate, $location, $filter) {
+UserWebApp.controller('BillExportController', function ($scope, $rootScope, HttpService, $translate, $location, $filter) {
 
   $scope.lstAllData = [];
   $scope.lstData = [];
@@ -32,7 +32,7 @@ UserWebApp.controller('BillImportController', function ($scope, $rootScope, Http
       };
 
 
-      HttpService.postData('/bill/searchImport', params).then(function (response) {
+      HttpService.postData('/bill/searchExport', params).then(function (response) {
         common.spinner(false);
         if (response && response.length == 1) {
           var obj = response[0];
@@ -55,7 +55,7 @@ UserWebApp.controller('BillImportController', function ($scope, $rootScope, Http
         console.log(response);
         common.spinner(false);
       });
-    } else {
+    }else{
       common.spinner(false);
     }
   }
@@ -85,7 +85,7 @@ UserWebApp.controller('BillImportController', function ($scope, $rootScope, Http
       common.btnLoading($('.btnRefresh'), false);
     }, 1000);
   };
-
+  
   $scope.onClear = function () {
     $scope.lstAllData = [];
     $scope.multi = false;
@@ -137,40 +137,21 @@ UserWebApp.controller('BillImportController', function ($scope, $rootScope, Http
   }, true);
 
 
-  //Modal imoport
-  $scope.onImport = function () {
-    $('#modalImport').modal('show');
-    $rootScope.$broadcast('modalImport', {list: $scope.checklistTable.selected});
+  //Modal export
+  $scope.onExport = function () {
+    $('#modalExport').modal('show');
+    $rootScope.$broadcast('modalExport', {list: $scope.checklistTable.selected});
   };
 
 
-  $rootScope.$on('importSuccess', function (event, data) {
-    $('#modalImport').modal('hide');
+  $rootScope.$on('exportSuccess', function (event, data) {
+    $('#modalExport').modal('hide');
     $scope.checklistTable = {
       selected: [],
       checkAll: false
     };
     $scope.lstAllData = [];
   });
-
-  $scope.executeImport = function () {
-    common.spinner(true);
-    var params = {};
-    HttpService.postData('/customer/save', params, $("#btnExeImport")).then(function (response) {
-      common.notifySuccess($translate.instant('importSuccessfully'));
-      common.spinner(false);
-      $('#modalImport').modal('hide');
-      $scope.checklistTable = {
-        selected: [],
-        checkAll: false
-      };
-      $scope.lstAllData = [];
-    }, function error(response) {
-      common.notifyError($translate.instant('importError'));
-      console.log(response);
-      common.spinner(false);
-    });
-  };
-
+  
 
 });

@@ -3,9 +3,10 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
 <head>
-    <title>Global - Xuất bill</title>
+    <title>Global - Xuất Bill</title>
     <!-- Theme JS files -->
-    <script type="text/javascript" src="/ump/bill.controller.js"></script>
+    <script type="text/javascript" src="/ump/bill.export.controller.js"></script>
+    <script type="text/javascript" src="/ump/bill.export.modal.controller.js"></script>
     <!-- /theme JS files -->
 
     <style>
@@ -17,11 +18,11 @@
 
     </style>
 </head>
-<body ng-controller="BillController">
+<body ng-controller="BillExportController">
 <th:block layout:fragment="content">
 
     <!-- Page header -->
-    <div th:replace="bill/fragments/page-header::page-header"></div>
+    <div th:replace="bill/export/page-header::page-header"></div>
     <!-- /page header-->
 
     <!-- Page container -->
@@ -34,7 +35,7 @@
             <div class="content-wrapper">
 
                 <!-- Panel search -->
-                <div th:replace="bill/fragments/panel-search::panel-search"></div>
+                <div th:replace="bill/export/panel-search::panel-search"></div>
                 <!-- /panel search -->
 
                 <!-- Panel content -->
@@ -75,7 +76,7 @@
 
                             <!--BODY-->
                             <tbody>
-                            <tr ng-repeat="item in lstData">
+                            <tr ng-repeat="item in lstAllData">
                                 <td><input type="checkbox" checklist-model="checklistTable.selected"
                                            checklist-value="item.id"></td>
                                 <td>{{item.billNo}}</td>
@@ -112,12 +113,12 @@
                         <!-- Paging elements -->
                         <form class="form-inline formPaging formValidate">
                             <div class="form-group">
-                                {{totalElements | number}} <span class="text-lowercase" th:text="#{items}"></span>
+                                {{lstAllData.length | number}} <span class="text-lowercase" th:text="#{items}"></span>
                             </div>
                             <div class="form-group" style="border-left: 1px solid #ddd">
                                 <ul class="pagination-flat pagination-rounded"
                                     uib-pagination
-                                    total-items="totalElements"
+                                    total-items="lstAllData.length"
                                     items-per-page="params.limit"
                                     max-size="4"
                                     ng-model="params.page"
@@ -128,7 +129,7 @@
                             <div class="form-group">
                                 <input type="number" name="page" th:placeholder="#{common.page}"
                                        class="form-control validatePositiveInteger"
-                                       min="1" max="{{(totalElements / params.limit) | ceil}}"
+                                       min="1" max="{{(lstAllData.length / params.limit) | ceil}}"
                                        style="width: 55px">
                             </div>
                             <div class="form-group">
@@ -154,6 +155,7 @@
 
                 <!-- Modal replace-->
                 <div th:replace="bill/fragments/modal-delete::modal-delete"></div>
+                <div th:replace="bill/export/modal-export::modal-export"></div>
                 <!-- /modal replace-->
 
             </div>

@@ -243,6 +243,7 @@ UserWebApp.controller('BillAddController', function ($http, $scope, HttpService,
       $scope.item.sendMobile = ($scope.item.sendMobile) ? $scope.item.sendMobile : obj.mobile;
       $scope.item.sendAddress = ($scope.item.sendAddress) ? $scope.item.sendAddress : obj.address;
       $scope.item.sendBy = ($scope.item.sendBy) ? $scope.item.sendBy : "";
+      $scope.item.saveSender = false;
     }else{
       //receiverName
       $scope.item.receiveCustomer = obj.id;
@@ -250,6 +251,7 @@ UserWebApp.controller('BillAddController', function ($http, $scope, HttpService,
       $scope.item.receiveMobile = ($scope.item.receiveMobile) ? $scope.item.receiveMobile : obj.mobile;
       $scope.item.receiveAddress = ($scope.item.receiveAddress) ? $scope.item.receiveAddress : obj.address;
       $scope.item.receiveBy = ($scope.item.receiveBy) ? $scope.item.receiveBy : "";
+      $scope.item.saveReceiver = false;
     }
     console.log(data);
   });
