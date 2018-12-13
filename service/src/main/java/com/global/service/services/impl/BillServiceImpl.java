@@ -457,7 +457,7 @@ public class BillServiceImpl implements BillService {
   public Bill save(BillForm bill) {
     try {
       //Save saveSender
-      if(bill.saveSender > 0){
+      if (bill.saveSender > 0) {
         Customer customer = new Customer();
         customer.name = bill.sendName;
         customer.mobile = bill.sendMobile;
@@ -468,7 +468,7 @@ public class BillServiceImpl implements BillService {
       }
 
       //Save saveReceiver
-      if(bill.saveReceiver > 0){
+      if (bill.saveReceiver > 0) {
         Customer rCustomer = new Customer();
         rCustomer.name = bill.receiveName;
         rCustomer.mobile = bill.receiveMobile;
@@ -542,9 +542,37 @@ public class BillServiceImpl implements BillService {
         return null;
       }
     } catch (Exception ex) {
-      logger.error("ERROR save: ",ex);
+      logger.error("ERROR save: ", ex);
       return null;
     }
+  }
+
+  private static final String SQL_QUERY_IMPORT = "UPDATE bill set bill_state=?,current_branch=? WHERE id IN (%list%)";
+  private static final String SQL_QUERY_EXPORT = "UPDATE bill set bill_state=? WHERE id IN (%list%)";
+
+  @Override
+  public Integer exeImport(int state, Long currentBranch, List<Long> lstId) {
+    if (lstId == null || lstId.isEmpty())
+      return 0;
+    String sql = SQL_QUERY_IMPORT;
+    sql = sql.replaceAll("%list%", StringUtils.join(lstId, ","));
+    Query query = em.createNativeQuery(sql);
+    int i = 1;
+    query.setParameter(i++, state);
+    query.setParameter(i++, currentBranch);
+    return query.executeUpdate();
+  }
+
+  @Override
+  public Integer exeExport(int state, List<Long> lstId) {
+    if (lstId == null || lstId.isEmpty())
+      return 0;
+    String sql = SQL_QUERY_EXPORT;
+    sql = sql.replaceAll("%list%", StringUtils.join(lstId, ","));
+    Query query = em.createNativeQuery(sql);
+    int i = 1;
+    query.setParameter(i++, state);
+    return query.executeUpdate();
   }
 
   @Override
@@ -565,5 +593,259 @@ public class BillServiceImpl implements BillService {
       return convertToObject(li.get(0));
     }
     return null;
+  }
+
+  @Override
+  public List<BillResponse> findImport(String billNo, int state, Long from, Long to, String sName, String sMobile, String rName, String rMobile, int offset, int limit) {
+    List rtn = null;
+    String sql = SQL_FIND_BY_QUERY;
+    if (StringUtils.isNoneBlank(billNo)) {
+      sql += " AND d.bill_no like ? ";
+    }
+    if (state > -1) {
+      sql += " AND d.bill_state = ? ";
+    }
+    if (from != 0) {
+      sql += " AND d.created > ? ";
+    }
+    if (to != 0) {
+      sql += " AND d.created < ? ";
+    }
+    if (StringUtils.isNoneBlank(sName)) {
+      sql += " AND e.send_name like ? ";
+    }
+    if (StringUtils.isNoneBlank(sMobile)) {
+      sql += " AND e.send_mobile like ? ";
+    }
+    if (StringUtils.isNoneBlank(rName)) {
+      sql += " AND f.receive_name like ? ";
+    }
+    if (StringUtils.isNoneBlank(rMobile)) {
+      sql += " AND f.receive_mobile like ? ";
+    }
+    sql += " ORDER BY d.id DESC LIMIT ?,?";
+    logger.info("SQL: " + sql);
+    Query query = em.createNativeQuery(sql);
+
+    int i = 1;
+    if (StringUtils.isNoneBlank(billNo)) {
+      query.setParameter(i++, "%" + billNo + "%");
+    }
+    if (state > -1) {
+      query.setParameter(i++, state);
+    }
+    if (from != 0) {
+      query.setParameter(i++, from);
+    }
+    if (to != 0) {
+      query.setParameter(i++, to);
+    }
+    if (StringUtils.isNoneBlank(sName)) {
+      query.setParameter(i++, "%" + sName + "%");
+    }
+    if (StringUtils.isNoneBlank(sMobile)) {
+      query.setParameter(i++, "%" + sMobile + "%");
+    }
+    if (StringUtils.isNoneBlank(rName)) {
+      query.setParameter(i++, "%" + rName + "%");
+    }
+    if (StringUtils.isNoneBlank(rMobile)) {
+      query.setParameter(i++, "%" + rMobile + "%");
+    }
+    query.setParameter(i++, offset);
+    query.setParameter(i++, limit);
+    List<Object[]> li = (List<Object[]>) query.getResultList();
+    rtn = new ArrayList<>();
+    for (Object[] objects : li) {
+      //Add to list
+      rtn.add(convertToObject(objects));
+    }
+    return rtn;
+  }
+
+  @Override
+  public List<BillResponse> findExport(String billNo, int state, Long from, Long to, String sName, String sMobile, String rName, String rMobile, int offset, int limit) {
+    List rtn = null;
+    String sql = SQL_FIND_BY_QUERY;
+    if (StringUtils.isNoneBlank(billNo)) {
+      sql += " AND d.bill_no like ? ";
+    }
+    if (state > -1) {
+      sql += " AND d.bill_state = ? ";
+    }
+    if (from != 0) {
+      sql += " AND d.created > ? ";
+    }
+    if (to != 0) {
+      sql += " AND d.created < ? ";
+    }
+    if (StringUtils.isNoneBlank(sName)) {
+      sql += " AND e.send_name like ? ";
+    }
+    if (StringUtils.isNoneBlank(sMobile)) {
+      sql += " AND e.send_mobile like ? ";
+    }
+    if (StringUtils.isNoneBlank(rName)) {
+      sql += " AND f.receive_name like ? ";
+    }
+    if (StringUtils.isNoneBlank(rMobile)) {
+      sql += " AND f.receive_mobile like ? ";
+    }
+    sql += " ORDER BY d.id DESC LIMIT ?,?";
+    logger.info("SQL: " + sql);
+    Query query = em.createNativeQuery(sql);
+
+    int i = 1;
+    if (StringUtils.isNoneBlank(billNo)) {
+      query.setParameter(i++, "%" + billNo + "%");
+    }
+    if (state > -1) {
+      query.setParameter(i++, state);
+    }
+    if (from != 0) {
+      query.setParameter(i++, from);
+    }
+    if (to != 0) {
+      query.setParameter(i++, to);
+    }
+    if (StringUtils.isNoneBlank(sName)) {
+      query.setParameter(i++, "%" + sName + "%");
+    }
+    if (StringUtils.isNoneBlank(sMobile)) {
+      query.setParameter(i++, "%" + sMobile + "%");
+    }
+    if (StringUtils.isNoneBlank(rName)) {
+      query.setParameter(i++, "%" + rName + "%");
+    }
+    if (StringUtils.isNoneBlank(rMobile)) {
+      query.setParameter(i++, "%" + rMobile + "%");
+    }
+    query.setParameter(i++, offset);
+    query.setParameter(i++, limit);
+    List<Object[]> li = (List<Object[]>) query.getResultList();
+    rtn = new ArrayList<>();
+    for (Object[] objects : li) {
+      //Add to list
+      rtn.add(convertToObject(objects));
+    }
+    return rtn;
+  }
+
+  @Override
+  public BigInteger countImport(String billNo, int state, Long from, Long to, String sName, String sMobile, String rName, String rMobile) {
+    String sql = SQL_COUNT_BY_QUERY;
+    if (StringUtils.isNoneBlank(billNo)) {
+      sql += " AND d.bill_no like ? ";
+    }
+    if (state > -1) {
+      sql += " AND d.bill_state = ? ";
+    }
+    if (from != 0) {
+      sql += " AND d.created > ? ";
+    }
+    if (to != 0) {
+      sql += " AND d.created < ? ";
+    }
+    if (StringUtils.isNoneBlank(sName)) {
+      sql += " AND e.send_name like ? ";
+    }
+    if (StringUtils.isNoneBlank(sMobile)) {
+      sql += " AND e.send_mobile like ? ";
+    }
+    if (StringUtils.isNoneBlank(rName)) {
+      sql += " AND f.receive_name like ? ";
+    }
+    if (StringUtils.isNoneBlank(rMobile)) {
+      sql += " AND f.receive_mobile like ? ";
+    }
+    logger.info("SQL: " + sql);
+    Query query = em.createNativeQuery(sql);
+
+    int i = 1;
+    if (StringUtils.isNoneBlank(billNo)) {
+      query.setParameter(i++, "%" + billNo + "%");
+    }
+    if (state > -1) {
+      query.setParameter(i++, state);
+    }
+    if (from != 0) {
+      query.setParameter(i++, from);
+    }
+    if (to != 0) {
+      query.setParameter(i++, to);
+    }
+    if (StringUtils.isNoneBlank(sName)) {
+      query.setParameter(i++, "%" + sName + "%");
+    }
+    if (StringUtils.isNoneBlank(sMobile)) {
+      query.setParameter(i++, "%" + sMobile + "%");
+    }
+    if (StringUtils.isNoneBlank(rName)) {
+      query.setParameter(i++, "%" + rName + "%");
+    }
+    if (StringUtils.isNoneBlank(rMobile)) {
+      query.setParameter(i++, "%" + rMobile + "%");
+    }
+    BigInteger count = (BigInteger) query.getSingleResult();
+    return count;
+  }
+
+  @Override
+  public BigInteger countExport(String billNo, int state, Long from, Long to, String sName, String sMobile, String rName, String rMobile) {
+    String sql = SQL_COUNT_BY_QUERY;
+    if (StringUtils.isNoneBlank(billNo)) {
+      sql += " AND d.bill_no like ? ";
+    }
+    if (state > -1) {
+      sql += " AND d.bill_state = ? ";
+    }
+    if (from != 0) {
+      sql += " AND d.created > ? ";
+    }
+    if (to != 0) {
+      sql += " AND d.created < ? ";
+    }
+    if (StringUtils.isNoneBlank(sName)) {
+      sql += " AND e.send_name like ? ";
+    }
+    if (StringUtils.isNoneBlank(sMobile)) {
+      sql += " AND e.send_mobile like ? ";
+    }
+    if (StringUtils.isNoneBlank(rName)) {
+      sql += " AND f.receive_name like ? ";
+    }
+    if (StringUtils.isNoneBlank(rMobile)) {
+      sql += " AND f.receive_mobile like ? ";
+    }
+    logger.info("SQL: " + sql);
+    Query query = em.createNativeQuery(sql);
+
+    int i = 1;
+    if (StringUtils.isNoneBlank(billNo)) {
+      query.setParameter(i++, "%" + billNo + "%");
+    }
+    if (state > -1) {
+      query.setParameter(i++, state);
+    }
+    if (from != 0) {
+      query.setParameter(i++, from);
+    }
+    if (to != 0) {
+      query.setParameter(i++, to);
+    }
+    if (StringUtils.isNoneBlank(sName)) {
+      query.setParameter(i++, "%" + sName + "%");
+    }
+    if (StringUtils.isNoneBlank(sMobile)) {
+      query.setParameter(i++, "%" + sMobile + "%");
+    }
+    if (StringUtils.isNoneBlank(rName)) {
+      query.setParameter(i++, "%" + rName + "%");
+    }
+    if (StringUtils.isNoneBlank(rMobile)) {
+      query.setParameter(i++, "%" + rMobile + "%");
+    }
+    BigInteger count = (BigInteger) query.getSingleResult();
+    return count;
   }
 }

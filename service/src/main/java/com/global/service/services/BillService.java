@@ -9,25 +9,33 @@ import com.global.service.model.Bill;
 import com.global.service.model.BillForm;
 import com.global.service.model.BillResponse;
 import org.springframework.stereotype.Service;
+
 import java.math.BigInteger;
 import java.util.List;
 
 /**
- *
  * @author HungNT
  */
 @Service
 public interface BillService {
 
-    public abstract List<BillResponse> findByQuery(String billNo, int state, Long from, Long to, String sName, String sMobile, String rName, String rMobile, int offset, int limit);
+  public abstract List<BillResponse> findByQuery(String billNo, int state, Long from, Long to, String sName, String sMobile, String rName, String rMobile, int offset, int limit);
+  public abstract List<BillResponse> findImport(String billNo, int state, Long from, Long to, String sName, String sMobile, String rName, String rMobile, int offset, int limit);
+  public abstract List<BillResponse> findExport(String billNo, int state, Long from, Long to, String sName, String sMobile, String rName, String rMobile, int offset, int limit);
 
-    public abstract BigInteger countByQuery(String billNo, int state, Long from, Long to, String sName, String sMobile, String rName, String rMobile);
+  public abstract BigInteger countByQuery(String billNo, int state, Long from, Long to, String sName, String sMobile, String rName, String rMobile);
+  public abstract BigInteger countImport(String billNo, int state, Long from, Long to, String sName, String sMobile, String rName, String rMobile);
+  public abstract BigInteger countExport(String billNo, int state, Long from, Long to, String sName, String sMobile, String rName, String rMobile);
 
-    public abstract BillResponse getById(Long billId);
-    
-    public abstract BillResponse getByCode(String code);
-    
-    public abstract Boolean delete(Long id);
-    
-    public abstract Bill save(BillForm billParameter);
+  public abstract BillResponse getById(Long billId);
+
+  public abstract BillResponse getByCode(String code);
+
+  public abstract Boolean delete(Long id);
+
+  public abstract Bill save(BillForm billParameter);
+
+  public abstract Integer exeImport(int type, Long branchId, List<Long> lstId);
+
+  public abstract Integer exeExport(int type, List<Long> lstId);
 }
