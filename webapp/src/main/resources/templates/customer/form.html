@@ -58,13 +58,22 @@
                                 <div class="row">
                                     <!--Code-->
                                     <div class="col-md-6">
-                                        <div class="form-group">
+                                        <div class="form-group" ng-class="{'has-error':customerForm.code.$invalid && !customerForm.code.$pristine}">
                                             <label class="col-md-3 control-label"><span
                                                     th:text="#{customer.code}"></span></label>
                                             <div class="col-md-8">
                                                 <input type="text" class="form-control" id="code" ng-model="item.code"
-                                                       pattern="[A-Za-z0-9]+" th:placeholder="#{customer.code}"
+                                                       th:placeholder="#{customer.code}"
                                                        minlength="5" maxlength="20" required="required" name="code">
+                                                <div ng-if="customerForm.code.$invalid && !customerForm.code.$pristine"
+                                                     ng-messages="customerForm.code.$error" role="alert">
+                                                    <!--<div ng-message="pattern">-->
+                                                        <!--<span class="validation-error-label" th:text="#{common.code.invalid}"></span>-->
+                                                    <!--</div>-->
+                                                    <div ng-message="exits">
+                                                        <span class="validation-error-label" th:text="#{common.code.exits}"></span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -188,7 +197,9 @@
                                             <label class="col-md-3 control-label"><span
                                                     th:text="#{customer.user}"></span></label>
                                             <div class="col-md-8">
-                                                <input type="text" class="form-control" id="user" ng-model="item.userId" th:placeholder="#{customer.user}" name="user">
+                                                <select ui-select2 class="form-control" name="userId" ng-model="item.userId" convert-to-number>
+                                                    <option ng-repeat="item in lstUser track by item.id" value="{{item.id}}" ng-bind="item.name"></option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>

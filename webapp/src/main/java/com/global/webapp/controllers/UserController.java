@@ -6,6 +6,8 @@ import com.google.gson.JsonObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +22,7 @@ import javax.servlet.http.HttpSession;
 import java.util.*;
 
 @Controller
-public class UserController {
+public class UserController extends  BaseController{
 
     private static final String USER_PAGE = "users/users";
     private static final String USER_PAGE_ADD = "users/user_add";
@@ -65,6 +67,18 @@ public class UserController {
     public String indexChangePassword(Model model, @PathVariable String userName) {
         logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "go to user change password page", "", "");
         return USER_CHANGE_PASSWORD;
+    }
+
+    @PostMapping("/users/getall")
+    @ResponseBody
+    public ResponseEntity search(@RequestBody Map<String, String> params) {
+        try {
+            logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "list all user", "", "");
+            String rtn = userClient.getall(params);
+            return new ResponseEntity<>(rtn, HttpStatus.OK);
+        } catch (Exception ex) {
+            return parseException(ex);
+        }
     }
 
     @GetMapping("/users/search")

@@ -51,13 +51,13 @@ public class PartnerEndPoint {
     public Response search(@ApiParam(value = "Form data",
             examples
             = @Example(
-                    value = @ExampleProperty("{\"name\": \"\",\"limit\": 20,\"page\": 1}"))) String formData) {
+                    value = @ExampleProperty("{\"search\": \"\",\"limit\": 20,\"page\": 1}"))) String formData) {
         JsonObject object = new Gson().fromJson(formData, JsonObject.class);
-        String name = Utils.getAsString(object, "name", "");
+        String search = Utils.getAsString(object, "search", "");
         Integer limit = Utils.getAsInt(object, "limit", 20);
         Integer page = Utils.getAsInt(object, "page", 1);
         page = (page <= 1) ? 0 : (page - 1);
-        List<Partner> list = partnerService.findByQuery(name, page * limit, limit);
+        List<Partner> list = partnerService.findByQuery(search, page * limit, limit);
         return Response.ok().entity(list).build();
     }//</editor-fold>
 
@@ -68,10 +68,10 @@ public class PartnerEndPoint {
     @Path("/count")
     public Response count(@ApiParam(value = "Form data", examples
             = @Example(value
-                    = @ExampleProperty("{\"name\": \"\"}"))) String formData) {
+                    = @ExampleProperty("{\"search\": \"\"}"))) String formData) {
         JsonObject object = new Gson().fromJson(formData, JsonObject.class);
-        String name = Utils.getAsString(object, "name", "");
-        BigInteger count = partnerService.countByQuery(name);
+        String search = Utils.getAsString(object, "search", "");
+        BigInteger count = partnerService.countByQuery(search);
         return Response.ok().entity(count.intValue()).build();
     }//</editor-fold>
 

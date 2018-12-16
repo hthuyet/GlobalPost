@@ -52,14 +52,14 @@ public class EmployeeEndPoint {
     public Response search(@ApiParam(value = "Form data",
             examples
             = @Example(
-                    value = @ExampleProperty("{\"name\": \"\",\"branch\": 0,\"limit\": 20,\"page\": 1}"))) String formData) {
+                    value = @ExampleProperty("{\"search\": \"\",\"branch\": 0,\"limit\": 20,\"page\": 1}"))) String formData) {
         JsonObject object = new Gson().fromJson(formData, JsonObject.class);
-        String name = Utils.getAsString(object, "name", "");
+        String search = Utils.getAsString(object, "search", "");
         Long branchId = Utils.getAsLong(object, "branch", null);
         Integer limit = Utils.getAsInt(object, "limit", 20);
         Integer page = Utils.getAsInt(object, "page", 1);
         page = (page <= 1) ? 0 : (page - 1);
-        List<EmployeeResponse> list = employeeService.findByQuery(name, branchId, page * limit, limit);
+        List<EmployeeResponse> list = employeeService.findByQuery(search, branchId, page * limit, limit);
         return Response.ok().entity(list).build();
     }//</editor-fold>
 
@@ -70,11 +70,11 @@ public class EmployeeEndPoint {
     @Path("/count")
     public Response count(@ApiParam(value = "Form data", examples
             = @Example(value
-                    = @ExampleProperty("{\"name\": \"\",\"branch\": 0}"))) String formData) {
+                    = @ExampleProperty("{\"search\": \"\",\"branch\": 0}"))) String formData) {
         JsonObject object = new Gson().fromJson(formData, JsonObject.class);
-        String name = Utils.getAsString(object, "name", "");
+        String search = Utils.getAsString(object, "search", "");
         Long branchId = Utils.getAsLong(object, "branch", null);
-        BigInteger count = employeeService.countByQuery(name, branchId);
+        BigInteger count = employeeService.countByQuery(search, branchId);
         return Response.ok().entity(count.intValue()).build();
     }//</editor-fold>
 

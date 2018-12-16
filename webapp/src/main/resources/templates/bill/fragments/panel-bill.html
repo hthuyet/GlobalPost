@@ -70,6 +70,16 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label col-md-4" th:text="#{bill.content}"></label>
+                <div class="col-md-8">
+                    <textarea type="text" class="form-control" ng-model="item.content" name="content"
+                           th:placeholder="#{bill.content}"></textarea>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <!-- /panel bill -->

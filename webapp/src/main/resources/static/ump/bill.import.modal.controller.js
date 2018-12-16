@@ -43,7 +43,7 @@ UserWebApp.controller('BillImportModalController', function ($scope, $rootScope,
     var params = {
       "limit": $scope.limit,
       "page": $scope.page,
-      "name": ""
+      "search": ""
     };
 
     if($scope.fromType == 1 || $scope.fromType == "1"){

@@ -33,11 +33,11 @@ public class PartnerServiceImpl implements PartnerService {
   private static final String SQL_COUNT = "SELECT count(id) FROM partner p WHERE 1=1 ";
 
   @Override
-  public List findByQuery(String name, int offset, int limit) {
+  public List findByQuery(String search, int offset, int limit) {
     List rtn = null;
     String sql = SQL_GET;
-    if (StringUtils.isNoneBlank(name)) {
-      sql += " AND p.part_name LIKE ? ";
+    if (StringUtils.isNoneBlank(search)) {
+      sql += " AND (p.part_name LIKE ? OR p.part_address LIKE ? OR p.part_hotline LIKE ?) ";
     }
 
     if (limit > 0) {
@@ -47,8 +47,10 @@ public class PartnerServiceImpl implements PartnerService {
     Query query = em.createNativeQuery(sql);
 
     int i = 1;
-    if (StringUtils.isNoneBlank(name)) {
-      query.setParameter(i++, "%" + name + "%");
+    if (StringUtils.isNoneBlank(search)) {
+      query.setParameter(i++, "%" + search + "%");
+      query.setParameter(i++, "%" + search + "%");
+      query.setParameter(i++, "%" + search + "%");
     }
     if (limit > 0) {
       query.setParameter(i++, offset);
@@ -77,17 +79,19 @@ public class PartnerServiceImpl implements PartnerService {
 
   //<editor-fold defaultstate="collapsed" desc="countByQuery">
   @Override
-  public BigInteger countByQuery(String name) {
+  public BigInteger countByQuery(String search) {
     String sql = SQL_COUNT;
-    if (StringUtils.isNoneBlank(name)) {
-      sql += " AND p.part_name LIKE ? ";
+    if (StringUtils.isNoneBlank(search)) {
+      sql += " AND (p.part_name LIKE ? OR p.part_address LIKE ? OR p.part_hotline LIKE ?) ";
     }
 
     Query query = em.createNativeQuery(sql);
 
     int i = 1;
-    if (StringUtils.isNoneBlank(name)) {
-      query.setParameter(i++, "%" + name + "%");
+    if (StringUtils.isNoneBlank(search)) {
+      query.setParameter(i++, "%" + search + "%");
+      query.setParameter(i++, "%" + search + "%");
+      query.setParameter(i++, "%" + search + "%");
     }
 
     BigInteger count = (BigInteger) query.getSingleResult();

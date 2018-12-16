@@ -16,8 +16,7 @@
     </div>
 
     <div class="panel-body">
-        <form ng-submit="onSearch()" method="POST" class="form-horizontal form-search row">
-
+        <form ng-submit="onSearch()" class="form-horizontal form-search row">
             <div class="col-md-2">
                 <div class="form-group">
                     <label class="control-label col-md-4" th:text="#{bill.billNo}"></label>
@@ -32,8 +31,11 @@
                 <div class="form-group">
                     <label class="control-label col-md-4" th:text="#{bill.billState}"></label>
                     <div class="col-md-8">
-                        <input type="text" class="form-control" ng-model="params.billState"
-                               th:placeholder="#{bill.billState}">
+                        <select class="form-control" name="billState" ng-model="params.billState"  convert-to-number>
+                            <option value="-1"><span th:text="#{common.select.placeholder}"></span></option>
+                            <option value="0"><span th:text="#{bill.billState.0}"></span></option>
+                            <option value="1"><span th:text="#{bill.billState.1}"></span></option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -89,7 +91,7 @@
                     </ul>
                 </div>
 
-                <button type="button" class="btn btn-icon btn-default"><i class="icon-search4"></i></button>
+                <button type="submit" ng-click="onSearch()" class="btn btn-icon btn-default"><i class="icon-search4"></i></button>
             </div>
 
             <div class="clearfix"></div>

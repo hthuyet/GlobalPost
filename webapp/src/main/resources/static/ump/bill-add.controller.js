@@ -18,7 +18,7 @@ UserWebApp.controller('BillAddController', function ($http, $scope, HttpService,
   function loadData() {
     var params = {
       "limit": "-1",
-      "name": ""
+      "search": ""
     };
 
     HttpService.postData('/customer/search', params).then(function (response) {

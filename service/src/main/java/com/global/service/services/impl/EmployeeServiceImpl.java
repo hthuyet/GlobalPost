@@ -27,14 +27,14 @@ public class EmployeeServiceImpl implements EmployeeService {
   public EmployeeRepo employeeRepo;
 
   private static final String SQL_GET = "SELECT d.`id`,d.`full_name`,d.`mobile`,d.`address`,d.`branch_id`,e.`branch_name` FROM `employee` d LEFT JOIN `branch` e ON d.`branch_id` = e.`id` WHERE 1 = 1 ";
-  private static final String SQL_COUNT = "SELECT count(id) FROM employee d WHERE 1=1 ";
+  private static final String SQL_COUNT = "SELECT COUNT(d.`id`) FROM `employee` d LEFT JOIN `branch` e ON d.`branch_id` = e.`id` WHERE 1 = 1 ";
 
   @Override
-  public List findByQuery(String name, Long branchId, int offset, int limit) {
+  public List findByQuery(String search, Long branchId, int offset, int limit) {
     List rtn = null;
     String sql = SQL_GET;
-    if (StringUtils.isNoneBlank(name)) {
-      sql += " AND d.full_name LIKE ? ";
+    if (StringUtils.isNoneBlank(search)) {
+      sql += " AND (d.full_name LIKE ? OR d.address LIKE ? OR d.mobile LIKE ? OR e.`branch_name` LIKE ?) ";
     }
     if (branchId != null && branchId != 0) {
       sql += " AND d.branch_id = ? ";
@@ -47,8 +47,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     Query query = em.createNativeQuery(sql);
 
     int i = 1;
-    if (StringUtils.isNoneBlank(name)) {
-      query.setParameter(i++, "%" + name + "%");
+    if (StringUtils.isNoneBlank(search)) {
+      query.setParameter(i++, "%" + search + "%");
+      query.setParameter(i++, "%" + search + "%");
+      query.setParameter(i++, "%" + search + "%");
+      query.setParameter(i++, "%" + search + "%");
     }
     if (branchId != null && branchId != 0) {
       query.setParameter(i++, branchId);
@@ -82,10 +85,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 
   //<editor-fold defaultstate="collapsed" desc="countByQuery">
   @Override
-  public BigInteger countByQuery(String name, Long branchId) {
+  public BigInteger countByQuery(String search, Long branchId) {
     String sql = SQL_COUNT;
-    if (StringUtils.isNoneBlank(name)) {
-      sql += " AND d.full_name LIKE ? ";
+    if (StringUtils.isNoneBlank(search)) {
+      sql += " AND (d.full_name LIKE ? OR d.address LIKE ? OR d.mobile LIKE ? OR e.`branch_name` LIKE ?) ";
     }
     if (branchId != null && branchId != 0) {
       sql += " AND d.branch_id = ? ";
@@ -94,8 +97,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     Query query = em.createNativeQuery(sql);
 
     int i = 1;
-    if (StringUtils.isNoneBlank(name)) {
-      query.setParameter(i++, "%" + name + "%");
+    if (StringUtils.isNoneBlank(search)) {
+      query.setParameter(i++, "%" + search + "%");
+      query.setParameter(i++, "%" + search + "%");
+      query.setParameter(i++, "%" + search + "%");
+      query.setParameter(i++, "%" + search + "%");
     }
     if (branchId != null && branchId != 0) {
       query.setParameter(i++, branchId);

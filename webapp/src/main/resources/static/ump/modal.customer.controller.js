@@ -3,10 +3,13 @@ UserWebApp.controller('ModalCustomerController', function ($scope, $rootScope, H
   $scope.lstData = [];
   $scope.totalElements = 0;
 
-  $scope.params = [];
-  $scope.params.name = '';
-  $scope.params.limit = 20;
-  $scope.params.page = 1;
+  $scope.params = {
+    "name": "",
+    "limit": 20,
+    "page": 1,
+  };
+
+  $scope.page = $scope.params.page;
 
   $scope.checklistTable = {
     selected: [],
@@ -19,15 +22,17 @@ UserWebApp.controller('ModalCustomerController', function ($scope, $rootScope, H
     var params = {
       "limit": "" + $scope.params.limit,
       "page": "" + $scope.params.page,
-      "name": "" + $scope.params.name
+      "search": "" + $scope.params.name
     };
 
     HttpService.postData('/customer/search', params).then(function (response) {
       $scope.lstData = response;
       common.spinner(false);
+      $scope.page = $scope.params.page;
     }, function error(response) {
       console.log(response);
       common.spinner(false);
+      $scope.page = "";
     });
 
     HttpService.postData('/customer/count', params).then(function (response) {
@@ -39,36 +44,12 @@ UserWebApp.controller('ModalCustomerController', function ($scope, $rootScope, H
     });
   }
 
-  renderDefaultRequestParams();
-
-  function renderDefaultRequestParams() {
-
-    var limit = common.getUrlRequestParam('limit');
-    if (limit != null) {
-      $scope.params.limit = limit;
-    } else {
-      $scope.params.limit = '20';
-    }
-
-    var page = common.getUrlRequestParam('page');
-    if (page != null) {
-      $scope.params.page = parseInt(page);
-    } else {
-      $scope.params.page = '1';
-    }
-
-    if (['20', '30', '50'].indexOf($scope.params.limit) < 0) {
-      setTimeout(function () {
-        $scope.$apply(function () {
-          $scope.params.limit = '20';
-          common.notifyWarning($translate.instant('requestParamError'));
-        });
-      }, 1);
-    }
-
-    loadData();
-
+  $scope.goToPage = function () {
+    $scope.params.page = $scope.page;
   }
+
+  loadData();
+
 
   // Search role
   $scope.onSearch = function () {
@@ -123,6 +104,6 @@ UserWebApp.controller('ModalCustomerController', function ($scope, $rootScope, H
     }
     $('.modalChooseUser').modal('hide');
 
-    $rootScope.$broadcast('modalChooseUserHide', {data: item,type: type});
+    $rootScope.$broadcast('modalChooseUserHide', {data: item, type: type});
   }
 });

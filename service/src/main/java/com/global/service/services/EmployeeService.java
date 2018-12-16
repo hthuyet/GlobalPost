@@ -17,9 +17,9 @@ import java.util.List;
 @Service
 public interface EmployeeService {
 
-    public abstract List findByQuery(String name, Long branchId, int offset, int limit);
+    public abstract List findByQuery(String search, Long branchId, int offset, int limit);
 
-    public abstract BigInteger countByQuery(String name, Long branchId);
+    public abstract BigInteger countByQuery(String search, Long branchId);
 
     public abstract Boolean delete(Long id);
 

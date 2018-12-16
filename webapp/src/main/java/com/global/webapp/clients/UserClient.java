@@ -10,6 +10,7 @@ import com.global.webapp.models.searchForm.UserSearchForm;
 
 import javax.servlet.http.HttpSession;
 import java.nio.charset.Charset;
+import java.util.Map;
 
 /**
  * Created by ThuyetLV
@@ -39,6 +40,11 @@ public class UserClient {
         String url = String.format("%s/%s", this.endpointUrl, userName);
         this.restTemplate.delete(url);
         return "200";
+    }
+
+    public String getall(Map<String, String> params) {
+        String url = String.format("%s/getall", this.endpointUrl);
+        return this.restTemplate.postForObject(url, params , String.class);
     }
 
     public User[] search(UserSearchForm userSearchForm) {

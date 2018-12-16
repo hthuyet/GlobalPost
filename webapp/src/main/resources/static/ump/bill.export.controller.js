@@ -60,6 +60,10 @@ UserWebApp.controller('BillExportController', function ($scope, $rootScope, Http
     }
   }
 
+  $scope.goToPage = function () {
+    $scope.params.page = $scope.page;
+  }
+
   loadData();
 
   // Search role

@@ -24,7 +24,7 @@ UserWebApp.controller('EmployeeAddController', function ($http, $scope, HttpServ
     common.spinner(true);
     var params = {
       "limit": "-1",
-      "name": ""
+      "search": ""
     };
     HttpService.postData('/branch/search', params).then(function (response) {
       $scope.lstDataCommon = response.map(function (item) {

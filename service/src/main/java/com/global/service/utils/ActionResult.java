@@ -6,6 +6,7 @@ public class ActionResult {
     public static int EXCEPTION_CODE = -1;
     public static int FAILURE1_CODE = 1;
     public static int FAILURE_CODE = 3;
+    public static int EXITS_CODE = 4;
     public static int NOEDIT_CODE = 2;
     public static String EXCEPTION = "exception";
     public static String SESSIONTIMEOUT = "sessionTimeout";
@@ -15,4 +16,5 @@ public class ActionResult {
     public static String NOROOT = "noRoot";
     public static String SUCCESS1 = "success1";
     public static String FAILURE1 = "failure1";
+    public static String REQUEST_INVALID = "Yêu cầu không hợp lệ!";
 }

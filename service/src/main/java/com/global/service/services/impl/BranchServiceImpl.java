@@ -31,11 +31,11 @@ public class BranchServiceImpl implements BranchService {
   private static final String SQL_COUNT_USER_BY_BRANCH = "SELECT count(`id`) FROM `user` d WHERE 1 = 1 ";
 
   @Override
-  public List findByQuery(String name, int offset, int limit) {
+  public List findByQuery(String search, int offset, int limit) {
     List rtn = null;
     String sql = SQL_GET;
-    if (StringUtils.isNoneBlank(name)) {
-      sql += " AND d.branch_name LIKE ? ";
+    if (StringUtils.isNoneBlank(search)) {
+      sql += " AND (d.branch_name LIKE ? OR d.branch_address LIKE ? OR d.branch_hotline LIKE ?) ";
     }
 
     if (limit > 0) {
@@ -45,8 +45,10 @@ public class BranchServiceImpl implements BranchService {
     Query query = em.createNativeQuery(sql);
 
     int i = 1;
-    if (StringUtils.isNoneBlank(name)) {
-      query.setParameter(i++, "%" + name + "%");
+    if (StringUtils.isNoneBlank(search)) {
+      query.setParameter(i++, "%" + search + "%");
+      query.setParameter(i++, "%" + search + "%");
+      query.setParameter(i++, "%" + search + "%");
     }
     if (limit > 0) {
       query.setParameter(i++, offset);
@@ -93,17 +95,19 @@ public class BranchServiceImpl implements BranchService {
 
   //<editor-fold defaultstate="collapsed" desc="countByQuery">
   @Override
-  public BigInteger countByQuery(String name) {
+  public BigInteger countByQuery(String search) {
     String sql = SQL_COUNT;
-    if (StringUtils.isNoneBlank(name)) {
-      sql += " AND d.branch_name LIKE ? ";
+    if (StringUtils.isNoneBlank(search)) {
+      sql += " AND (d.branch_name LIKE ? OR d.branch_address LIKE ? OR d.branch_hotline LIKE ?) ";
     }
 
     Query query = em.createNativeQuery(sql);
 
     int i = 1;
-    if (StringUtils.isNoneBlank(name)) {
-      query.setParameter(i++, "%" + name + "%");
+    if (StringUtils.isNoneBlank(search)) {
+      query.setParameter(i++, "%" + search + "%");
+      query.setParameter(i++, "%" + search + "%");
+      query.setParameter(i++, "%" + search + "%");
     }
 
     BigInteger count = (BigInteger) query.getSingleResult();
