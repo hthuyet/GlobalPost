@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
-* Created by ThuyetLV
+ * Created by ThuyetLV
  */
 public interface ObjectCache {
 

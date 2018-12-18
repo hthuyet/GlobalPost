@@ -14,7 +14,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
-* Created by ThuyetLV
+ * Created by ThuyetLV
  */
 public class SsdcCrudEndpoint<ID extends Serializable, T extends SsdcEntity<ID>> {
 

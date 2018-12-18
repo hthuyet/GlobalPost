@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
-* Created by ThuyetLV
+ * Created by ThuyetLV
  */
 public class IterableUtils {
 

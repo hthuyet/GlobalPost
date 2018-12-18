@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
-* Created by ThuyetLV
+ * Created by ThuyetLV
  */
 public class AMQPEventBus implements EventBus {
 

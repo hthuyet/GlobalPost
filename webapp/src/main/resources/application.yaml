@@ -17,6 +17,6 @@ spring:
       basename: messages/messages
       cache-seconds: -1
       encoding: UTF-8
-#commondEndpointUrl: http://206.189.41.190:8091/api
-commondEndpointUrl: http://localhost:8091/api
+commondEndpointUrl: http://206.189.41.190:8091/api
+#commondEndpointUrl: http://localhost:8091/api
 apiEndpointUrl: http://localhost:8092/api

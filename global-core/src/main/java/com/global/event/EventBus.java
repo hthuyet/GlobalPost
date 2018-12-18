@@ -1,7 +1,7 @@
 package com.global.event;
 
 /**
-* Created by ThuyetLV
+ * Created by ThuyetLV
  */
 public interface EventBus {
 

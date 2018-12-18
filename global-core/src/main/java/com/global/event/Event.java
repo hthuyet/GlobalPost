@@ -3,7 +3,7 @@ package com.global.event;
 import java.util.Map;
 
 /**
-* Created by ThuyetLV
+ * Created by ThuyetLV
  */
 public class Event {
 

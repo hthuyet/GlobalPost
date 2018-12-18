@@ -3,7 +3,7 @@ package com.global.utils;
 import org.apache.commons.net.util.SubnetUtils;
 
 /**
-* Created by ThuyetLV
+ * Created by ThuyetLV
  */
 public class IpUtil {
 

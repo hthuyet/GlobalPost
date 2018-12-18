@@ -3,7 +3,7 @@ package com.global.utils;
 import java.io.IOException;
 
 /**
-* Created by ThuyetLV
+ * Created by ThuyetLV
  */
 public interface Serializer<T> {
 

@@ -3,7 +3,7 @@ package com.global.jdbc;
 import java.io.Serializable;
 
 /**
-* Created by ThuyetLV
+ * Created by ThuyetLV
  */
 public class SsdcEntity<ID extends Serializable> implements Serializable {
 

@@ -10,7 +10,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
-* Created by ThuyetLV
+ * Created by ThuyetLV
  */
 public class AMQPEventPublisher extends AMQPAbstractConfiguration {
 

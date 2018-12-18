@@ -16,7 +16,7 @@ import org.springframework.util.ErrorHandler;
 import com.global.event.AMQPSubscriber;
 
 /**
-* Created by ThuyetLV
+ * Created by ThuyetLV
  */
 public class AMQPEventListener extends AMQPAbstractConfiguration {
 

@@ -11,7 +11,7 @@ import static java.util.Collections.singletonList;
 import static com.global.utils.StringUtils.toSnakeCase;
 
 /**
-* Created by ThuyetLV
+ * Created by ThuyetLV
  */
 public class TableInfo {
 

@@ -55,6 +55,10 @@ public class RoleService extends SsdcCrudService<BigInteger, Role> {
         List<Role> rtn = new ArrayList<>();
         List<Role> lstRole = this.repository.search("permissions_ids LIKE '%" + permissionId + "%'");
 
+        for (Role role : lstRole) {
+            role.id = new BigInteger("" + role.id);
+        }
+
         Set<Long> permissionsIds;
         boolean find = false;
         for (Role role : lstRole) {

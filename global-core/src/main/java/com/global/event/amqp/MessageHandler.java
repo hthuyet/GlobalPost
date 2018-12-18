@@ -9,7 +9,7 @@ import com.global.event.Event;
 import java.lang.reflect.InvocationTargetException;
 
 /**
-* Created by ThuyetLV
+ * Created by ThuyetLV
  */
 public class MessageHandler {
 

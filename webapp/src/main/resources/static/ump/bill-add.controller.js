@@ -39,7 +39,7 @@ UserWebApp.controller('BillAddController', function ($http, $scope, HttpService,
 
     HttpService.postData('/employee/search', params).then(function (response) {
       $scope.lstEmployee = response;
-      $scope.lstEmployee.unshift({"id": 0,"fullName": "Please select"});
+      //$scope.lstEmployee.unshift({"id": 0,"fullName": "Vui lòng chọn"});
       common.spinner(false);
     }, function error(response) {
       $scope.lstEmployee = [];

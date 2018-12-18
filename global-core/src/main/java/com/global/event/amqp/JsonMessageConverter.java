@@ -10,7 +10,7 @@ import org.springframework.amqp.support.converter.MessageConverter;
 import com.global.event.Event;
 
 /**
-* Created by ThuyetLV
+ * Created by ThuyetLV
  */
 public class JsonMessageConverter implements MessageConverter {
 

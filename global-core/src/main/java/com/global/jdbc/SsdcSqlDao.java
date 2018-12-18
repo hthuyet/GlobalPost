@@ -41,7 +41,7 @@ import static com.global.utils.ObjectUtils.wrapToArray;
 import static com.global.utils.StringUtils.toSnakeCase;
 
 /**
-* Created by ThuyetLV
+ * Created by ThuyetLV
  */
 public class SsdcSqlDao<T extends SsdcEntity<ID>, ID extends Serializable>
         implements SsdcDao<T, ID>, InitializingBean {

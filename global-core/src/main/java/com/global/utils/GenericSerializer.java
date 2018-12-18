@@ -5,7 +5,7 @@ import com.google.gson.Gson;
 import java.io.IOException;
 
 /**
-* Created by ThuyetLV
+ * Created by ThuyetLV
  */
 public class GenericSerializer implements Serializer<Object> {
 

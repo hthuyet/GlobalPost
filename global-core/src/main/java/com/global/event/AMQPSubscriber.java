@@ -3,7 +3,7 @@ package com.global.event;
 import java.lang.reflect.Method;
 
 /**
-* Created by ThuyetLV
+ * Created by ThuyetLV
  */
 public class AMQPSubscriber {
 

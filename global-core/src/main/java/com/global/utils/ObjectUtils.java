@@ -22,7 +22,7 @@ public class ObjectUtils {
         }
         return new Object[]{obj};
     }
-    
+
     public static boolean equals(Set<?> set1, Set<?> set2) {
 
         if (set1 == null || set2 == null) {

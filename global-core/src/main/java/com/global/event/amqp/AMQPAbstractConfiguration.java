@@ -9,7 +9,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.MessageConverter;
 
 /**
-* Created by ThuyetLV
+ * Created by ThuyetLV
  */
 public abstract class AMQPAbstractConfiguration {
 

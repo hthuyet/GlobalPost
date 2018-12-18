@@ -5,7 +5,7 @@ import java.util.Map;
 import static java.lang.Math.max;
 
 /**
-* Created by ThuyetLV
+ * Created by ThuyetLV
  */
 public class StringUtils {
 
