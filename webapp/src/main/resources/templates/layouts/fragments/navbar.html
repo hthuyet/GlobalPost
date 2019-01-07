@@ -2,13 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- Add js,css here -->
+    <style type="text/css">
+        .navbar-header{
+            min-width: 50px !important;
+        }
+    </style>
 </head>
 <body>
+
 <!-- Main navbar -->
 <div th:fragment="navbar" class="navbar navbar-inverse bg-indigo navbar-fixed-top" id="navbar-main">
     <div class="navbar-header">
-        <a class="navbar-brand" href="/" style="padding: 10px 20px;">
-            <img src="/assets/images/logo_light2.png" alt="GLOBAL" style="height: 100%;">
+        <a class="navbar-brand" href="/" style="padding: 0;">
+            <img src="/assets/images/logo_light2.png" alt="GLOBAL" style="height: 100%;margin-top: 0;">
         </a>
 
         <ul class="nav navbar-nav pull-right visible-xs-block">

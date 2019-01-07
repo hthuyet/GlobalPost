@@ -165,6 +165,7 @@ var translationsEN = {
   apiProfileUrlEmpty: 'API URL is not empty!',
   importSuccessfully: 'Import success!',
   importError: 'Import  error!',
+  searchBillNotFound: 'Bill {{billNo}} not found!',
   billImportModal: 'Import bill',
   billExportModal: 'Export bill',
   exportSuccessfully: 'Export successfully.',
@@ -342,6 +343,7 @@ var translationsVI = {
   billExportModal: 'Export bill',
   exportSuccessfully: 'Export successfully.',
   exportError: 'Export  error!',
+  searchBillNotFound: 'Không tìm thấy vận đơn {{billNo}}!',
 };
 
 UserWebApp.config(['$translateProvider', function ($translateProvider) {

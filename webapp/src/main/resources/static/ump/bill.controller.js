@@ -13,8 +13,8 @@ UserWebApp.controller('BillController', function ($scope, $rootScope, HttpServic
     "limit": 20,
     "billNo": "",
     "billState": -1,
-    "from": 0,
-    "to": 0,
+    "from": "",
+    "to": "",
     "sendName": "",
     "sendMobile": "",
     "receiveName": "",
@@ -43,7 +43,7 @@ UserWebApp.controller('BillController', function ($scope, $rootScope, HttpServic
 
     if ($scope.params.from && $scope.params.from != "") {
       try {
-        var fromDate = new Date($scope.params.from);
+        var fromDate = convertToDate($scope.params.from);
         params.from = fromDate.getTime();
       } catch (c) {
         console.error(c);
@@ -54,7 +54,7 @@ UserWebApp.controller('BillController', function ($scope, $rootScope, HttpServic
 
     if ($scope.params.to && $scope.params.to != "") {
       try {
-        var toDate = new Date($scope.params.to);
+        var toDate = convertToDate($scope.params.to);
         params.to = toDate.getTime();
       } catch (c) {
         console.error(c);

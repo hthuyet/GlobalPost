@@ -45,50 +45,46 @@
                             <!--HEADER-->
                             <thead>
                             <tr>
-                                <th nowrap style="padding-right: 0px; width: 80px">
-                                    <div class="btn-group">
-                                        <input type="checkbox" class="checkAllTable" ng-change="onCheckbox()"
-                                               ng-model="checklistTable.checkAll">
-                                    </div>
-                                    <div class="btn-group">
-                                        <a class="btn btn-xs btn-link dropdown-toggle" data-toggle="dropdown"
-                                           th:title="#{common.search.btn.more}"><span class="caret"></span></a>
-                                        <ul class="dropdown-menu dropdown-menu-left">
-                                            <li>
-                                                <button class="btn btn-link btn-icon" ng-click="onDeletes()"
-                                                        ng-disabled="checklistTable.selected.length == 0">
-                                                    <i class="icon-trash position-left"></i> <span
-                                                        th:text="#{common.btn.delete}"></span></button>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                <th class="text-center">
+                                    <input type="checkbox" class="checkAllTable" ng-change="onCheckbox()"
+                                           ng-model="checklistTable.checkAll">
                                 </th>
-                                <th th:text="#{bill.billNo}"></th>
-                                <th th:text="#{bill.sendAddress}"></th>
-                                <th th:text="#{bill.receiveAddress}"></th>
-                                <th th:text="#{bill.totalCost}"></th>
-                                <th th:text="#{bill.sendDate}"></th>
-                                <th th:text="#{bill.receiveDate}"></th>
-                                <th style="width: 100px;" class="text-right" th:text="#{user.search.action}"></th>
+                                <th  class="text-center" th:text="#{bill.billNo}"></th>
+                                <th class="text-center" th:text="#{bill.sendAddress}"></th>
+                                <th class="text-center" th:text="#{bill.receiveAddress}"></th>
+                                <th class="text-center" th:text="#{bill.totalCost}"></th>
+                                <th class="text-center" th:text="#{bill.sendDate}"></th>
+                                <th class="text-center" th:text="#{bill.receiveDate}"></th>
+                                <th class="text-center" th:text="#{bill.billState}"></th>
+                                <th style="width: 100px;" class="text-center" th:text="#{user.search.action}"></th>
                             </tr>
                             </thead>
 
                             <!--BODY-->
                             <tbody>
                             <tr ng-repeat="item in lstData">
-                                <td><input type="checkbox" checklist-model="checklistTable.selected"
+                                <td class="text-center"><input type="checkbox" checklist-model="checklistTable.selected"
                                            checklist-value="item.id"></td>
-                                <td>{{item.billNo}}</td>
-                                <td>
+                                <td class="text-center">{{item.billNo}}</td>
+                                <td class="text-center">
                                     {{item.sendAddress}}
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     {{item.receiveAddress}}
                                 </td>
-                                <td>{{item.totalCost}}</td>
-                                <td>{{item.sendDate | dateTimeFormat }}</td>
-                                <td>{{item.receiveDate | dateTimeFormat }}</td>
-                                <td class="text-right text-nowrap">
+                                <td class="text-center">{{item.totalCost}}</td>
+                                <td class="text-center">{{item.sendDate | dateTimeFormat }}</td>
+                                <td class="text-center">{{item.receiveDate | dateTimeFormat }}</td>
+                                <td class="text-center">
+                                    <span ng-switch="item.billState">
+                                        <span ng-switch-when="0" th:text="#{bill.billState.0}"></span>
+                                        <span ng-switch-when="1" th:text="#{bill.billState.1}"></span>
+                                        <span ng-switch-when="2" th:text="#{bill.billState.2}"></span>
+                                        <span ng-switch-when="3" th:text="#{bill.billState.3}"></span>
+                                        <span ng-switch-when="4" th:text="#{bill.billState.4}"></span>
+                                    </span>
+                                </td>
+                                <td  class="text-center">
                                     <ul class="icons-list">
                                         <li>
                                             <a href="/bill/edit/{{item.id}}" th:title="#{subscriber.btn.edit}">

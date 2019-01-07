@@ -19,8 +19,8 @@
         <form ng-submit="onSearch()" class="form-horizontal form-search row">
             <div class="col-md-2">
                 <div class="form-group">
-                    <label class="control-label col-md-4" th:text="#{bill.billNo}"></label>
-                    <div class="col-md-8">
+                    <label class="control-label col-md-6" th:text="#{bill.billNo}"></label>
+                    <div class="col-md-6">
                         <input type="text" class="form-control" ng-model="params.billNo"
                                th:placeholder="#{bill.billNo}">
                     </div>
@@ -31,7 +31,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-4" th:text="#{bill.billState}"></label>
                     <div class="col-md-8">
-                        <select class="form-control" name="billState" ng-model="params.billState"  convert-to-number>
+                        <select class="form-control" name="billState" ng-model="params.billState" convert-to-number>
                             <option value="-1"><span th:text="#{common.select.placeholder}"></span></option>
                             <option value="0"><span th:text="#{bill.billState.0}"></span></option>
                             <option value="1"><span th:text="#{bill.billState.1}"></span></option>
@@ -46,11 +46,9 @@
                         <label class="control-label col-md-4" th:text="#{bill.from}"></label>
                         <div class="col-md-8">
                             <div class="input-group">
-                                <input type="text" class="form-control inputDateTime"
-                                       th:placeholder="#{common.input.placeholder}"
-                                       ng-model="params.from"
-                                       ng-change="checkDate()">
-                                <span class="input-group-addon"><i class="icon-calendar3"></i></span>
+                                <span class="input-group-addon"><i class="icon-calendar"></i></span>
+                                <input type="text" class="form-control datepicker" id="startDate"
+                                       placeholder="Pick a date&hellip;" ng-model="params.from">
                             </div>
                         </div>
                     </div>
@@ -62,11 +60,9 @@
                     <label class="control-label col-md-4"> <span th:text="#{bill.to}"></span>:</label>
                     <div class="col-md-8">
                         <div class="input-group">
-                            <input type="text" class="form-control inputDateTime"
-                                   th:placeholder="#{common.input.placeholder}"
-                                   ng-model="params.to"
-                                   ng-change="checkDate()">
-                            <span class="input-group-addon"><i class="icon-calendar3"></i></span>
+                            <span class="input-group-addon"><i class="icon-calendar"></i></span>
+                            <input type="text" class="form-control datepicker" id="endDate"
+                                   placeholder="Pick a date&hellip;" ng-model="params.to">
                         </div>
                     </div>
                 </div>
@@ -91,7 +87,8 @@
                     </ul>
                 </div>
 
-                <button type="submit" ng-click="onSearch()" class="btn btn-icon btn-default"><i class="icon-search4"></i></button>
+                <button type="submit" ng-click="onSearch()" class="btn btn-icon btn-default"><i
+                        class="icon-search4"></i></button>
             </div>
 
             <div class="clearfix"></div>
@@ -137,16 +134,26 @@
             </div>
 
             <script type="text/javascript">
-              $(function () {
-                $('.inputDateTime').inputmask(constants.DATE_INPUT_MASK_FORMAT);
-              })
+              //              $(function () {
+              //                $('.inputDateTime').inputmask(constants.DATE_INPUT_MASK_FORMAT);
+              //              })
+
+              $(document).ready(function () {
+                $("#startDate").datepicker({
+                  format: 'dd/mm/yyyy',
+                  startDate: '-1d'
+                });
+                $("#endDate").datepicker({
+                  format: 'dd/mm/yyyy',
+                });
+              });
+
             </script>
 
         </form>
     </div>
 </div>
 <!-- /panel search -->
-
 
 
 </body>

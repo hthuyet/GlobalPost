@@ -45,34 +45,19 @@
 
                             <!--Row 1-->
                             <div class="row">
-                                <!--sendName-->
+                                <!--billNo-->
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label"><span th:text="#{bill.sendName}"></span></label>
+                                        <label class="col-md-3 control-label labelBillNo"><span th:text="#{bill.billNo}"></span></label>
                                         <div class="col-md-8">
-                                            <select ui-select2 class="form-control" name="sender" ng-model="senderSelected" ng-change="changeSender()" convert-to-number>
-                                                <option ng-repeat="item in lstCustomer" value="{{item.id}}" ng-bind="item.name">
-                                                </option>
-                                            </select>
+                                            <input type="text" class="form-control" id="billNo" ng-model="item.billNo"
+                                                   th:placeholder="#{bill.billNo}" name="billNo">
                                         </div>
                                     </div>
                                 </div>
-                                <!--End sendName-->
+                                <!--End billNo-->
 
-                                <!--receiveName-->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label"><span
-                                                th:text="#{bill.receiveName}"></span></label>
-                                        <div class="col-md-8">
-                                            <select ui-select2 class="form-control" name="receiver" ng-model="receiverSelected" ng-change="changeReceiver()" convert-to-number>
-                                                <option ng-repeat="item in lstCustomer" value="{{item.id}}" ng-bind="item.name">
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--End receiveName-->
+
                             </div>
                             <!--End row 1-->
 
@@ -107,24 +92,7 @@
                             </div>
                             <!--End row 2-->
 
-                            <!--Row 2-->
-                            <div class="row">
-                                <!--billNo-->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label"><span
-                                                th:text="#{bill.billNo}"></span></label>
-                                        <div class="col-md-8">
-                                            <input type="text" class="form-control" id="billNo" ng-model="item.billNo"
-                                                   th:placeholder="#{bill.billNo}" name="billNo">
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--End billNo-->
 
-
-                            </div>
-                            <!--End row 2-->
                         </div>
 
 

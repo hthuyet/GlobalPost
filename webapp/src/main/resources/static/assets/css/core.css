@@ -3382,7 +3382,7 @@ select[multiple].input-group-xs > .input-group-btn > .btn {
   width: 100%;
 }
 .navbar-header {
-  min-width: 200px;
+  min-width: 50px;
 }
 .navbar-collapse > .navbar-header {
   margin-left: 0;

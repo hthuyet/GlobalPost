@@ -34,7 +34,9 @@ UserWebApp.controller('BillExportController', function ($scope, $rootScope, Http
 
       HttpService.postData('/bill/searchExport', params).then(function (response) {
         common.spinner(false);
-        if (response && response.length == 1) {
+        if (response == null || response.length <= 0) {
+          common.notifyError($translate.instant('searchBillNotFound', {billNo: $scope.params.billNo}));
+        } else if (response && response.length == 1) {
           var obj = response[0];
           var found = false;
           if ($scope.lstAllData && $scope.lstAllData.length > 0) {
@@ -50,12 +52,14 @@ UserWebApp.controller('BillExportController', function ($scope, $rootScope, Http
             $scope.checklistTable.selected.push(obj.id);
           }
           $scope.params.billNo = "";
+        } else {
+          common.notifyError($translate.instant('searchBillNotFound', {billNo: $scope.params.billNo}));
         }
       }, function error(response) {
         console.log(response);
         common.spinner(false);
       });
-    }else{
+    } else {
       common.spinner(false);
     }
   }
@@ -64,11 +68,10 @@ UserWebApp.controller('BillExportController', function ($scope, $rootScope, Http
     $scope.params.page = $scope.page;
   }
 
-  loadData();
+  // loadData();
 
   // Search role
   $scope.onSearch = function () {
-    console.log('-----------onSearch----------');
     loadData();
   };
 
@@ -89,7 +92,7 @@ UserWebApp.controller('BillExportController', function ($scope, $rootScope, Http
       common.btnLoading($('.btnRefresh'), false);
     }, 1000);
   };
-  
+
   $scope.onClear = function () {
     $scope.lstAllData = [];
     $scope.multi = false;
@@ -156,6 +159,6 @@ UserWebApp.controller('BillExportController', function ($scope, $rootScope, Http
     };
     $scope.lstAllData = [];
   });
-  
+
 
 });
