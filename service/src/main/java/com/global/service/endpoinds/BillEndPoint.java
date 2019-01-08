@@ -241,7 +241,7 @@ public class BillEndPoint {
   @POST
   @ApiOperation(value = "Delete")
   @ApiResponse(code = 200, message = "Success")
-  @Path("/{id}")
+  @Path("/delete")
   public Response Deletes(@ApiParam(value = "Form data", examples
       = @Example(value
       = @ExampleProperty("[1,2]"))) String formData) {
