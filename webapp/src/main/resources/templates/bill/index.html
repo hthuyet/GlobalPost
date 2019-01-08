@@ -75,7 +75,8 @@
                                 <td class="text-center">{{item.totalCost}}</td>
                                 <td class="text-center">{{item.sendDate | dateTimeFormat }}</td>
                                 <td class="text-center">{{item.receiveDate | dateTimeFormat }}</td>
-                                <td class="text-center">
+                                <td class="text-center"
+                                    ng-class="{init: item.billState == '0',process: item.billState == '1',finish: item.billState == '2',hasError: item.billState == '3',deleted: item.billState == '4'}">
                                     <span ng-switch="item.billState">
                                         <span ng-switch-when="0" th:text="#{bill.billState.0}"></span>
                                         <span ng-switch-when="1" th:text="#{bill.billState.1}"></span>

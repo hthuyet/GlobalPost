@@ -125,12 +125,16 @@ UserWebApp.controller('BillController', function ($scope, $rootScope, HttpServic
 
   $scope.onDeleteConfirm = function () {
     common.spinner(true);
-    $scope.param1 = [];
-    $scope.param1.id = JSON.stringify($scope.deleteList);
-    HttpService.getData('/deleteRole', $scope.param1).then(function (data1) {
+    var param = {};
+    param.ids = $scope.deleteList.join(",");
+    HttpService.postData('/bill/delete', param).then(function (data1) {
       $('.modalDelete').modal('hide');
       if (data1 == 200) {
-        $scope.checklistTable.selected = [];
+        $scope.checklistTable = {
+          selected: [],
+          checkAll: false
+        };
+        $scope.deleteList = [];
         loadData();
         common.notifySuccess($translate.instant('deleteSuccessfully'));
       } else {

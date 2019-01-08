@@ -385,3 +385,30 @@ form.form-label-right .control-label {
   font-weight: bold;
   font-size: 16px;
 }
+
+.init{
+  background-color: #fff;
+  color: #0b76cc;
+  font-weight: bold;
+}
+
+.process{
+  background-color: #fff;
+  color: greenyellow;
+  font-weight: bold;
+}
+.finish{
+  background-color: #fff;
+  color: green;
+  font-weight: bold;
+}
+.hasError{
+  background-color: #fff;
+  color: red;
+  font-weight: bold;
+}
+.deleted{
+  background-color: #fff;
+  color: grey;
+  font-weight: bold;
+}

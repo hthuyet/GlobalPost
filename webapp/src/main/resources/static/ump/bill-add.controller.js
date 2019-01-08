@@ -172,7 +172,7 @@ UserWebApp.controller('BillAddController', function ($http, $scope, HttpService,
     if ($scope.id != null && $scope.id != '') {
       HttpService.postData('/bill/save', params, btnSubmitElement).then(function (response) {
         common.notifySuccess($translate.instant('saveSuccessfully'));
-        // location.replace('/bill');
+        location.replace('/bill');
       }, function error(response) {
         common.notifyError($translate.instant('saveError'));
         console.log(response);
@@ -181,7 +181,7 @@ UserWebApp.controller('BillAddController', function ($http, $scope, HttpService,
     } else {
       HttpService.postData('/bill/save', params, btnSubmitElement).then(function (response) {
         common.notifySuccess($translate.instant('saveSuccessfully'));
-        // location.replace('/bill');
+        location.replace('/bill');
       }, function error(response) {
         common.notifyError($translate.instant('saveError'));
         console.log(response);
@@ -195,7 +195,7 @@ UserWebApp.controller('BillAddController', function ($http, $scope, HttpService,
     if (data) {
       common.spinner(true);
 
-      $timeout( function(){
+      $timeout(function () {
         $scope.item = JSON.parse(data);
         console.log($scope.item);
 
@@ -227,7 +227,6 @@ UserWebApp.controller('BillAddController', function ($http, $scope, HttpService,
   }
 
 
-
   $scope.chooseCustomer = function (type) {
     $("#modalChooseUserType").val(type);
     $('.modalChooseUser').modal('show');
@@ -235,25 +234,36 @@ UserWebApp.controller('BillAddController', function ($http, $scope, HttpService,
 
   $scope.$on('modalChooseUserHide', function (event, data) {
     var obj = data.data;
-    if(data.type == 0 || data.type == "0"){
+    if (data.type == 0 || data.type == "0") {
       //Sender
+      console.log("---Sender-");
       $scope.item.sendCustomer = obj.id;
-      $scope.item.sendName = ($scope.item.sendName) ? $scope.item.sendName : obj.name;
-      $scope.item.sendName = ($scope.item.sendName) ? $scope.item.sendName : obj.name;
-      $scope.item.sendMobile = ($scope.item.sendMobile) ? $scope.item.sendMobile : obj.mobile;
-      $scope.item.sendAddress = ($scope.item.sendAddress) ? $scope.item.sendAddress : obj.address;
-      $scope.item.sendBy = ($scope.item.sendBy) ? $scope.item.sendBy : "";
+      // $scope.item.sendName = ($scope.item.sendName) ? $scope.item.sendName : obj.name;
+      // $scope.item.sendMobile = ($scope.item.sendMobile) ? $scope.item.sendMobile : obj.mobile;
+      // $scope.item.sendAddress = ($scope.item.sendAddress) ? $scope.item.sendAddress : obj.address;
+      // $scope.item.sendBy = ($scope.item.sendBy) ? $scope.item.sendBy : "";
+
+
+      $scope.item.sendName = obj.name;
+      $scope.item.sendMobile = obj.mobile;
+      $scope.item.sendAddress = obj.address;
       $scope.item.saveSender = false;
-    }else{
+    } else {
       //receiverName
+      console.log("---receiverName-");
       $scope.item.receiveCustomer = obj.id;
-      $scope.item.receiveName = ($scope.item.receiveName) ? $scope.item.receiveName : obj.name;
-      $scope.item.receiveMobile = ($scope.item.receiveMobile) ? $scope.item.receiveMobile : obj.mobile;
-      $scope.item.receiveAddress = ($scope.item.receiveAddress) ? $scope.item.receiveAddress : obj.address;
-      $scope.item.receiveBy = ($scope.item.receiveBy) ? $scope.item.receiveBy : "";
+
+      $scope.item.receiveName = obj.name;
+      $scope.item.receiveMobile = obj.mobile;
+      $scope.item.receiveAddress = obj.address;
+
+      // $scope.item.receiveName = ($scope.item.receiveName) ? $scope.item.receiveName : obj.name;
+      // $scope.item.receiveMobile = ($scope.item.receiveMobile) ? $scope.item.receiveMobile : obj.mobile;
+      // $scope.item.receiveAddress = ($scope.item.receiveAddress) ? $scope.item.receiveAddress : obj.address;
+      // $scope.item.receiveBy = ($scope.item.receiveBy) ? $scope.item.receiveBy : "";
       $scope.item.saveReceiver = false;
     }
-    console.log(data);
+
   });
 
   $scope.testChangeSend = function () {

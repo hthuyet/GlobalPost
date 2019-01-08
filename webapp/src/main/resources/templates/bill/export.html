@@ -34,9 +34,25 @@
             <!-- Main content -->
             <div class="content-wrapper">
 
-                <!-- Panel search -->
-                <div th:replace="bill/export/panel-search::panel-search"></div>
-                <!-- /panel search -->
+                <!--SEARCH-->
+                <div class="well well-sm">
+                    <form class="form-horizontal form-search row" ng-submit="onSearch()">
+                        <div class="col-md-6 pull-left">
+                            <label class="control-label col-md-3 labelBillNo" th:text="#{bill.billNo}"></label>
+                            <div class="col-md-8">
+                                <input type="text"
+                                       class="form-control"
+                                       name="searchValue"
+                                       ng-model="params.billNo"
+                                       th:placeholder="#{placeholder.text}">
+                            </div>
+                            <div class="col-md-1">
+                                <button type="button" class="btn btn-icon btn-default" ng-click="onSearch()"><i class="icon-search4"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!--SEARCH-->
 
                 <!-- Panel content -->
                 <div class="panel panel-flat">
