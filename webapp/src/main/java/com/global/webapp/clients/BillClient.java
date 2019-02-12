@@ -79,6 +79,11 @@ public class BillClient {
         return this.restTemplate.getForObject(url, String.class);
     }
 
+    public String getByCode(String code) {
+        String url = String.format("%s/code/%s", this.endpointUrl, code);
+        return this.restTemplate.getForObject(url, String.class);
+    }
+
     public String save(Map<String, String> maps) {
         String url = String.format("%s/save", this.endpointUrl);
         return this.restTemplate.postForObject(url, new BillForm(maps), String.class);

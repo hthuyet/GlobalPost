@@ -15,22 +15,6 @@
                         <li class="active" th:text="#{breadcrumb.bill}"></li>
                     </ul>
                 </div>
-
-                <div class="heading-elements">
-                    <div class="heading-btn-group">
-                        <a href="/bill/add" class="btn btn-link btn-float has-text text-size-small">
-                            <i class="icon-plus3 text-indigo-400"></i><span th:text="#{breadcrumb.bill.add}"></span>
-                        </a>
-
-                        <a ng-disabled="checklistTable.selected.length == 0" ng-click="onDeletes()" class="btn btn-link btn-float has-text text-size-small">
-                            <i class="icon-cross2 text-indigo-400"></i><span th:text="#{common.btn.delete}"></span>
-                        </a>
-
-                        <button class="btn btn-link btn-float has-text text-size-small btnRefresh" ng-click="onRefresh()">
-                            <i class="icon-sync text-indigo-400"></i><span th:text="#{common.btn.refresh}"></span>
-                        </button>
-                    </div>
-                </div>
             </div>
         </div>
         <!-- /page header -->

@@ -47,4 +47,5 @@ public class BillForm {
     public String receiveBy;
     public int saveSender;
     public int saveReceiver;
+    public int payType;
 }

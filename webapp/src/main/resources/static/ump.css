@@ -412,3 +412,8 @@ form.form-label-right .control-label {
   color: grey;
   font-weight: bold;
 }
+
+input[type="checkbox"]:focus {
+  border-color: #ffffcc;
+  outline:1px;
+}

@@ -5,6 +5,7 @@
  */
 package com.global.service.services.impl;
 
+import com.global.exception.ObjExitsException;
 import com.global.service.model.*;
 import com.global.service.repository.BillReceiveRepo;
 import com.global.service.repository.BillRepo;
@@ -58,7 +59,8 @@ public class BillServiceImpl implements BillService {
       + "g.`user_name`,\n"
       + "h.`branch_name` as `h_branch_name`,\n"
       + "i.`branch_name` as `i_branch_name`,\n"
-      + "j.`part_name`\n"
+      + "j.`part_name`, "
+      + "d.`pay_type` "
       + "FROM bill d\n"
       + "LEFT JOIN bill_send e\n"
       + "ON d.`id` = e.`bill_id`\n"
@@ -231,6 +233,10 @@ public class BillServiceImpl implements BillService {
     obj.setBranchNameCreate(String.valueOf(objects[i++]));
     obj.setCurrentBranchName(String.valueOf(objects[i++]));
     obj.setPartnerName(String.valueOf(objects[i++]));
+    tmp = objects[i++];
+    if (tmp != null) {
+      obj.setPayType(Integer.parseInt(String.valueOf(tmp)));
+    }
     return obj;
   }
 
@@ -490,6 +496,13 @@ public class BillServiceImpl implements BillService {
       } else {
         obj = new Bill();
         obj.setCreated(System.currentTimeMillis());
+
+        //Check ton tai code
+        BillResponse exit = getByCode(bill.billNo);
+        if (exit != null && exit.getId() > 0) {
+          throw new ObjExitsException("Bill No exits");
+        }
+
       }
       obj.setBillNo(bill.billNo);
       obj.setBillType(bill.billType);
@@ -509,6 +522,8 @@ public class BillServiceImpl implements BillService {
       obj.setPartnerId(bill.partnerId);
       obj.setEmployeeSend(bill.employeeSend);
       obj.setEmployeeReceive(bill.employeeReceive);
+      obj.setPayType(bill.payType);
+      obj.setWhoPay(bill.whoPay);
       obj = billRepo.save(obj);
       if (obj != null && obj.getId() > 0) {
         objSend = getBillSendByBillId(obj.getId());

@@ -111,6 +111,18 @@ public class BillController extends BaseController {
     return BILL_PAGE_FORM;
   }
 
+  @PostMapping("/bill/detail/{code}")
+  @PreAuthorize("hasAuthority('GLOBAL:BILL:UPDATE')")
+  @ResponseBody
+  public ResponseEntity detail(@PathVariable("code") String code) {
+    try {
+      JsonObject jsonObject = new Gson().fromJson(billClient.getByCode(code), JsonObject.class);
+      return new ResponseEntity<>(jsonObject.toString(), HttpStatus.OK);
+    } catch (Exception ex) {
+      return parseException(ex);
+    }
+  }
+
   @GetMapping("/bill/edit/{id}")
   @PreAuthorize("hasAuthority('GLOBAL:BILL:UPDATE')")
   public String edit(Model model, @PathVariable("id") String id) {

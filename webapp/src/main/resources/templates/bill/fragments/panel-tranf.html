@@ -17,20 +17,17 @@
 
     <div class="panel-body">
         <div class="col-md-6" style="border-right: 1px solid #dddddd">
-            <div class="col-md-12">
-                <legend class="text-semibold"><span th:text="#{bill.transf.sender}"></span></legend>
-            </div>
             <div class="form-group">
                 <label class="control-label col-md-4" th:text="#{bill.transf.sender.hour}"></label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" ng-model="senderObj.hour" ng-required="true"
+                    <input type="text" class="form-control" ng-model="senderObj.hour"
                            th:placeholder="#{bill.transf.sender.hour}">
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-md-4" th:text="#{bill.transf.sender.date}"></label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" ng-model="senderObj.date" ng-required="true"
+                    <input type="text" class="form-control" ng-model="senderObj.date"
                            th:placeholder="#{bill.transf.sender.date}">
                 </div>
             </div>
@@ -38,7 +35,7 @@
             <div class="form-group">
                 <label class="control-label col-md-4" th:text="#{bill.transf.sender.name}"></label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" ng-model="senderObj.name" ng-required="true"
+                    <input type="text" class="form-control" ng-model="senderObj.name"
                            th:placeholder="#{bill.transf.sender.name}">
                 </div>
             </div>
@@ -46,22 +43,26 @@
             <div class="form-group">
                 <label class="control-label col-md-4" th:text="#{bill.transf.sender.user}"></label>
                 <div class="col-md-8">
-                    <select class="select2 form-control" ng-model="receiverObj.employeeSend">
-                        <option ng-repeat="item in lstEmployee" value="{{item.id}}"> {{item.fullName}}</option>
-                    </select>
+                    <input type="text" ng-model="employeeSendSelected" placeholder=""
+                           uib-typeahead="item as item.fullName for item in searchSendEmployee($viewValue)"
+                           typeahead-loading="loadingSendSelected" typeahead-no-results="noResults" class="form-control"
+                           typeahead-on-select="selectSendReceive($item)" typeahead-select-on-exact="true"
+                           typeahead-wait-ms="80">
+
+                    <i ng-show="loadingReceiveSelected" class="glyphicon glyphicon-refresh"></i>
+                    <div ng-show="noResults">
+                        <i class="glyphicon glyphicon-remove"></i> No Results Found
+                    </div>
                 </div>
             </div>
         </div>
 
 
         <div class="col-md-6" style="border-right: 1px solid #dddddd">
-            <div class="col-md-12">
-                <legend class="text-semibold"><span th:text="#{bill.transf.receive}"></span></legend>
-            </div>
             <div class="form-group">
                 <label class="control-label col-md-4" th:text="#{bill.transf.receive.hour}"></label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" ng-model="receiverObj.hour" ng-required="true"
+                    <input type="text" class="form-control" ng-model="receiverObj.hour"
                            th:placeholder="#{bill.transf.receive.hour}">
                 </div>
             </div>
@@ -69,7 +70,7 @@
             <div class="form-group">
                 <label class="control-label col-md-4" th:text="#{bill.transf.receive.date}"></label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" ng-model="receiverObj.date" ng-required="true"
+                    <input type="text" class="form-control" ng-model="receiverObj.date"
                            th:placeholder="#{bill.transf.receive.date}">
                 </div>
             </div>
@@ -77,7 +78,7 @@
             <div class="form-group">
                 <label class="control-label col-md-4" th:text="#{bill.transf.receive.name}"></label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" ng-model="receiverObj.name" ng-required="true"
+                    <input type="text" class="form-control" ng-model="receiverObj.name"
                            th:placeholder="#{bill.transf.receive.name}">
                 </div>
             </div>
@@ -85,9 +86,16 @@
             <div class="form-group">
                 <label class="control-label col-md-4" th:text="#{bill.transf.receive.user}"></label>
                 <div class="col-md-8">
-                    <select class="select2 form-control" ng-model="receiverObj.employeeReceive">
-                        <option ng-repeat="item in lstEmployee" value="{{item.id}}"> {{item.fullName}}</option>
-                    </select>
+                    <input type="text" ng-model="employeeReceiveSelected" placeholder=""
+                           uib-typeahead="item as item.fullName for item in searchEmployee($viewValue)"
+                           typeahead-loading="loadingReceiveSelected" typeahead-no-results="noResults" class="form-control"
+                           typeahead-on-select="selectEmployeeReceive($item)" typeahead-select-on-exact="true"
+                           typeahead-wait-ms="80">
+
+                    <i ng-show="loadingReceiveSelected" class="glyphicon glyphicon-refresh"></i>
+                    <div ng-show="noResults">
+                        <i class="glyphicon glyphicon-remove"></i> No Results Found
+                    </div>
                 </div>
             </div>
         </div>

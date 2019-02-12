@@ -77,6 +77,9 @@ public class Bill extends SsdcEntity<Long> {
     @Column(name = "employee_receive")
     public Long employeeReceive;
 
+    @Column(name = "pay_type")
+    public int payType;
+
     public Long getId() {
         return id;
     }
@@ -219,5 +222,13 @@ public class Bill extends SsdcEntity<Long> {
 
     public void setEmployeeReceive(Long employeeReceive) {
         this.employeeReceive = employeeReceive;
+    }
+
+    public int getPayType() {
+        return payType;
+    }
+
+    public void setPayType(int payType) {
+        this.payType = payType;
     }
 }

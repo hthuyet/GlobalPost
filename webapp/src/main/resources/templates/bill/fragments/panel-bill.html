@@ -65,8 +65,26 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="control-label col-md-4" th:text="#{bill.isCod}"></label>
-                <div class="col-md-8">
+                <div class="col-md-8 input-group">
                     <input type="checkbox" ng-model="item.isCod" name="isCod" value="1" ng-checked="item.isCod == '1'">
+                    <input type="number" placeholder="COD" class="form-control"  ng-model="item.codValue" name="codValue" ng-disabled="item.isCod != '1'">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label col-md-4" th:text="#{bill.paymethod}"></label>
+                <div class="col-md-8">
+                    <input type="checkbox"  ng-model="item.payType" name="payType" value="1" ng-checked="item.payType == '1'">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label col-md-4" th:text="#{bill.whoPay}"></label>
+                <div class="col-md-8">
+                    <input type="checkbox"  ng-model="item.whoPay" name="whoPay" value="1" ng-checked="item.whoPay == '1'">
                 </div>
             </div>
         </div>

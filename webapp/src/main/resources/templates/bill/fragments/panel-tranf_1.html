@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Add js,css here -->
+</head>
+<body>
+<!-- Panel tranf -->
+<div th:fragment="panel-tranf-1" class="panel panel-flat">
+    <div class="panel-heading">
+        <h5 class="panel-title"><span th:text="#{bill.transf}"></span></h5>
+        <div class="heading-elements">
+            <ul class="icons-list">
+                <li><a data-action="collapse"></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <div class="col-md-6" style="border-right: 1px solid #dddddd">
+            <div class="col-md-12">
+                <legend class="text-semibold"><span th:text="#{bill.transf.sender}"></span></legend>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4" th:text="#{bill.transf.sender.hour}"></label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" ng-model="senderObj.hour" ng-required="true"
+                           th:placeholder="#{bill.transf.sender.hour}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4" th:text="#{bill.transf.sender.date}"></label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" ng-model="senderObj.date" ng-required="true"
+                           th:placeholder="#{bill.transf.sender.date}">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-4" th:text="#{bill.transf.sender.name}"></label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" ng-model="senderObj.name" ng-required="true"
+                           th:placeholder="#{bill.transf.sender.name}">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-4" th:text="#{bill.transf.sender.user}"></label>
+                <div class="col-md-8">
+                    <select class="select2 form-control" ng-model="receiverObj.employeeSend">
+                        <option ng-repeat="item in lstEmployee" value="{{item.id}}"> {{item.fullName}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-6" style="border-right: 1px solid #dddddd">
+            <div class="col-md-12">
+                <legend class="text-semibold"><span th:text="#{bill.transf.receive}"></span></legend>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4" th:text="#{bill.transf.receive.hour}"></label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" ng-model="receiverObj.hour" ng-required="true"
+                           th:placeholder="#{bill.transf.receive.hour}">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-4" th:text="#{bill.transf.receive.date}"></label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" ng-model="receiverObj.date" ng-required="true"
+                           th:placeholder="#{bill.transf.receive.date}">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-4" th:text="#{bill.transf.receive.name}"></label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" ng-model="receiverObj.name" ng-required="true"
+                           th:placeholder="#{bill.transf.receive.name}">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-4" th:text="#{bill.transf.receive.user}"></label>
+                <div class="col-md-8">
+                    <select class="select2 form-control" ng-model="receiverObj.employeeReceive">
+                        <option ng-repeat="item in lstEmployee" value="{{item.id}}"> {{item.fullName}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /panel tranf -->
+</body>
+</html>

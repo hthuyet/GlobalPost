@@ -8,11 +8,6 @@
 <div th:fragment="panel-sender" class="panel panel-flat">
     <div class="panel-heading">
         <h5 class="panel-title"><span th:text="#{bill.sender}"></span></h5>
-        <div class="heading-elements">
-            <ul class="icons-list">
-                <li><button type="button" class="btn btn-icon btn-default" ng-click="chooseCustomer(0)"><i class="icon-search4"></i></button></li>
-            </ul>
-        </div>
     </div>
 
     <div class="panel-body">
@@ -20,8 +15,19 @@
             <div class="form-group">
                 <label class="control-label col-md-4" th:text="#{bill.sendName}"></label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" ng-model="item.sendName" ng-disabled="item.sendCustomer >= 0"
-                           th:placeholder="#{bill.receiveName}">
+                    <input type="text" ng-model="asyncSelected" placeholder="Locations loaded via $http"
+                           uib-typeahead="item as item.name for item in getLocation($viewValue)"
+                           typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control"
+                           typeahead-on-select="selectSender($item)" typeahead-select-on-exact="true"
+                           typeahead-wait-ms="80">
+
+                    <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+                    <div ng-show="noResults">
+                        <i class="glyphicon glyphicon-remove"></i> No Results Found
+                    </div>
+
+                    <!--<input type="text" class="form-control" ng-model="item.sendName" ng-disabled="item.sendCustomer >= 0"-->
+                    <!--th:placeholder="#{bill.receiveName}">-->
                 </div>
             </div>
         </div>
@@ -30,7 +36,8 @@
             <div class="form-group">
                 <label class="control-label col-md-4" th:text="#{bill.sendMobile}"></label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" ng-model="item.sendMobile" ng-disabled="item.sendCustomer >= 0"
+                    <input type="text" class="form-control" ng-model="item.sendMobile"
+                           ng-disabled="item.sendCustomer >= 0"
                            th:placeholder="#{bill.sendMobile}">
                 </div>
             </div>
@@ -40,49 +47,52 @@
             <div class="form-group">
                 <label class="control-label col-md-4" th:text="#{bill.sendAddress}"></label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" ng-model="item.sendAddress" ng-disabled="item.sendCustomer >= 0"
+                    <input type="text" class="form-control" ng-model="item.sendAddress"
+                           ng-disabled="item.sendCustomer >= 0"
                            th:placeholder="#{bill.sendAddress}">
                 </div>
             </div>
         </div>
 
         <!--<div class="col-md-12">-->
-            <!--<div class="form-group">-->
-                <!--<label class="control-label col-md-4" th:text="#{bill.sendTime}"></label>-->
-                <!--<div class="col-md-8">-->
-                    <!--<input type="text" class="form-control" ng-model="item.sendTime"-->
-                           <!--th:placeholder="#{bill.sendTime}">-->
-                <!--</div>-->
-            <!--</div>-->
+        <!--<div class="form-group">-->
+        <!--<label class="control-label col-md-4" th:text="#{bill.sendTime}"></label>-->
+        <!--<div class="col-md-8">-->
+        <!--<input type="text" class="form-control" ng-model="item.sendTime"-->
+        <!--th:placeholder="#{bill.sendTime}">-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+
+        <!--<div class="col-md-12">-->
+        <!--<div class="form-group">-->
+        <!--<label class="control-label col-md-4" th:text="#{bill.sendDate}"></label>-->
+        <!--<div class="col-md-8">-->
+        <!--<input type="text" class="form-control" ng-model="item.sendDate"-->
+        <!--th:placeholder="#{bill.sendDate}">-->
+        <!--</div>-->
+        <!--</div>-->
         <!--</div>-->
 
         <!--<div class="col-md-12">-->
             <!--<div class="form-group">-->
-                <!--<label class="control-label col-md-4" th:text="#{bill.sendDate}"></label>-->
+                <!--<label class="control-label col-md-4"><span th:text="#{bill.sendBy}"></span></label>-->
                 <!--<div class="col-md-8">-->
-                    <!--<input type="text" class="form-control" ng-model="item.sendDate"-->
-                           <!--th:placeholder="#{bill.sendDate}">-->
+                    <!--<select ui-select2 class="form-control" name="employeeSend" ng-model="item.employeeSend"-->
+                            <!--convert-to-number ng-change="testChangeSend()">-->
+                        <!--<option ng-repeat="item in lstEmployee track by item.id" value="{{item.id}}"-->
+                                <!--ng-bind="item.fullName"></option>-->
+                    <!--</select>-->
                 <!--</div>-->
             <!--</div>-->
         <!--</div>-->
-
-        <div class="col-md-12">
-            <div class="form-group">
-                <label class="control-label col-md-4"><span th:text="#{bill.sendBy}"></span></label>
-                <div class="col-md-8">
-                    <select ui-select2 class="form-control" name="employeeSend" ng-model="item.employeeSend"
-                             convert-to-number ng-change="testChangeSend()">
-                        <option ng-repeat="item in lstEmployee track by item.id" value="{{item.id}}" ng-bind="item.fullName"></option>
-                    </select>
-                </div>
-            </div>
-        </div>
 
         <div class="col-md-12">
             <div class="form-group">
                 <label class="control-label col-md-4" th:text="#{bill.saveInfo}"></label>
                 <div class="col-md-8">
-                    <input type="checkbox" ng-model="item.saveSender" name="saveSender" value="true" ng-disabled="item.sendCustomer >= 0">
+                    <input type="checkbox" ng-model="item.saveSender" name="saveSender" value="true"
+                           ng-disabled="item.sendCustomer >= 0">
                 </div>
             </div>
         </div>

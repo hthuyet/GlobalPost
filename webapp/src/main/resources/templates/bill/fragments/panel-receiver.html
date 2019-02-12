@@ -8,11 +8,6 @@
 <div th:fragment="panel-receiver" class="panel panel-flat">
     <div class="panel-heading">
         <h5 class="panel-title"><span th:text="#{bill.receiver}"></span></h5>
-        <div class="heading-elements">
-            <ul class="icons-list">
-                <li><button type="button" class="btn btn-icon btn-default" ng-click="chooseCustomer(1)"><i class="icon-search4"></i></button></li>
-            </ul>
-        </div>
     </div>
 
     <div class="panel-body">
@@ -20,8 +15,18 @@
             <div class="form-group">
                 <label class="control-label col-md-4" th:text="#{bill.receiveName}"></label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" ng-model="item.receiveName" ng-disabled="item.receiveCustomer >= 0"
-                           th:placeholder="#{bill.receiveName}">
+                    <input type="text" ng-model="receiverSelected" placeholder="Locations loaded via $http"
+                           uib-typeahead="item as item.name for item in searchReceiver($viewValue)"
+                           typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control"
+                           typeahead-on-select="selectReceiver($item)" typeahead-select-on-exact="true" typeahead-wait-ms="80">
+
+                    <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+                    <div ng-show="noResults">
+                        <i class="glyphicon glyphicon-remove"></i> No Results Found
+                    </div>
+
+                    <!--<input type="text" class="form-control" ng-model="item.receiveName" ng-disabled="item.receiveCustomer >= 0"-->
+                           <!--th:placeholder="#{bill.receiveName}">-->
                 </div>
             </div>
         </div>
@@ -66,18 +71,18 @@
             <!--</div>-->
         <!--</div>-->
 
-        <div class="col-md-12">
-            <div class="form-group">
-                <label class="control-label col-md-4" th:text="#{bill.receiveBy}"></label>
-                <div class="col-md-8">
-                    <select ui-select2 class="form-control" name="employeeReceive"
-                            ng-model="item.employeeReceive" convert-to-number ng-change="testChangeReceive()">
-                        <option ng-repeat="item in lstEmployee track by item.id" value="{{item.id}}" ng-bind="item.fullName">
-                        </option>
-                    </select>
-                </div>
-            </div>
-        </div>
+        <!--<div class="col-md-12">-->
+            <!--<div class="form-group">-->
+                <!--<label class="control-label col-md-4" th:text="#{bill.receiveBy}"></label>-->
+                <!--<div class="col-md-8">-->
+                    <!--<select ui-select2 class="form-control" name="employeeReceive"-->
+                            <!--ng-model="item.employeeReceive" convert-to-number ng-change="testChangeReceive()">-->
+                        <!--<option ng-repeat="item in lstEmployee track by item.id" value="{{item.id}}" ng-bind="item.fullName">-->
+                        <!--</option>-->
+                    <!--</select>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
 
         <div class="col-md-12">
             <div class="form-group">

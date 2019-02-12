@@ -271,8 +271,15 @@ public class BillEndPoint {
   @Path("/save")
   @ApiOperation(value = "Save Bill")
   @ApiResponse(code = 200, message = "success")
-  public Bill save(@RequestBody BillForm billParameter) {
-    return billService.save(billParameter);
+  public Response save(@RequestBody BillForm billParameter) {
+    try {
+      return Response.ok().entity(billService.save(billParameter)).build();
+    } catch (Exception ex) {
+      JsonObject json = new JsonObject();
+      json.addProperty("status", ActionResult.FAILURE1);
+      json.addProperty("message", ex.getMessage());
+      return Response.serverError().entity(json.toString()).build();
+    }
   }
 
 

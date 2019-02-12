@@ -6,15 +6,15 @@
     <title>Global - Bill</title>
     <!-- Theme JS files -->
     <script type="text/javascript" src="/ump/bill.controller.js"></script>
+    <script type="text/javascript" src="/ump/bill-form.controller.js"></script>
+    <script type="text/javascript" src="/ump/modal.customer.controller.js"></script>
     <!-- /theme JS files -->
 
-    <style>
+    <style type="text/css">
         .tableLabel tr td:first-child {
             white-space: nowrap;
             padding-right: 100px;
         }
-
-
     </style>
 </head>
 <body ng-controller="BillController">
@@ -33,50 +33,47 @@
             <!-- Main content -->
             <div class="content-wrapper">
 
-                <!-- Panel search -->
-                <div th:replace="bill/fragments/panel-search::panel-search"></div>
-                <!-- /panel search -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <!-- Panel search -->
+                        <div th:replace="bill/fragments/panel-search::panel-search"></div>
+                        <!-- /panel search -->
 
-                <!-- Panel content -->
-                <div class="panel panel-flat">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-hover"
-                               style="margin-top: 20px">
-                            <!--HEADER-->
-                            <thead>
-                            <tr>
-                                <th class="text-center">
-                                    <input type="checkbox" class="checkAllTable" ng-change="onCheckbox()"
-                                           ng-model="checklistTable.checkAll">
-                                </th>
-                                <th  class="text-center" th:text="#{bill.billNo}"></th>
-                                <th class="text-center" th:text="#{bill.sendAddress}"></th>
-                                <th class="text-center" th:text="#{bill.receiveAddress}"></th>
-                                <th class="text-center" th:text="#{bill.totalCost}"></th>
-                                <th class="text-center" th:text="#{bill.sendDate}"></th>
-                                <th class="text-center" th:text="#{bill.receiveDate}"></th>
-                                <th class="text-center" th:text="#{bill.billState}"></th>
-                                <th style="width: 100px;" class="text-center" th:text="#{user.search.action}"></th>
-                            </tr>
-                            </thead>
+                        <!-- Panel content -->
+                        <div class="panel panel-flat">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover"
+                                       style="margin-top: 20px">
+                                    <!--HEADER-->
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center" th:text="#{bill.billNo}"></th>
+                                        <th class="text-center" th:text="#{bill.sendAddress}"></th>
+                                        <th class="text-center" th:text="#{bill.receiveAddress}"></th>
+                                        <th class="text-center" th:text="#{bill.totalCost}"></th>
+                                        <th class="text-center" th:text="#{bill.sendDate}"></th>
+                                        <th class="text-center" th:text="#{bill.receiveDate}"></th>
+                                        <th class="text-center" th:text="#{bill.billState}"></th>
+                                        <th style="width: 100px;" class="text-center"
+                                            th:text="#{user.search.action}"></th>
+                                    </tr>
+                                    </thead>
 
-                            <!--BODY-->
-                            <tbody>
-                            <tr ng-repeat="item in lstData">
-                                <td class="text-center"><input type="checkbox" checklist-model="checklistTable.selected"
-                                           checklist-value="item.id"></td>
-                                <td class="text-center">{{item.billNo}}</td>
-                                <td class="text-center">
-                                    {{item.sendAddress}}
-                                </td>
-                                <td class="text-center">
-                                    {{item.receiveAddress}}
-                                </td>
-                                <td class="text-center">{{item.totalCost}}</td>
-                                <td class="text-center">{{item.sendDate | dateTimeFormat }}</td>
-                                <td class="text-center">{{item.receiveDate | dateTimeFormat }}</td>
-                                <td class="text-center"
-                                    ng-class="{init: item.billState == '0',process: item.billState == '1',finish: item.billState == '2',hasError: item.billState == '3',deleted: item.billState == '4'}">
+                                    <!--BODY-->
+                                    <tbody>
+                                    <tr ng-repeat="item in lstData">
+                                        <td class="text-center">{{item.billNo}}</td>
+                                        <td class="text-center">
+                                            {{item.sendAddress}}
+                                        </td>
+                                        <td class="text-center">
+                                            {{item.receiveAddress}}
+                                        </td>
+                                        <td class="text-center">{{item.totalCost}}</td>
+                                        <td class="text-center">{{item.sendDate | dateTimeFormat }}</td>
+                                        <td class="text-center">{{item.receiveDate | dateTimeFormat }}</td>
+                                        <td class="text-center"
+                                            ng-class="{init: item.billState == '0',process: item.billState == '1',finish: item.billState == '2',hasError: item.billState == '3',deleted: item.billState == '4'}">
                                     <span ng-switch="item.billState">
                                         <span ng-switch-when="0" th:text="#{bill.billState.0}"></span>
                                         <span ng-switch-when="1" th:text="#{bill.billState.1}"></span>
@@ -84,71 +81,79 @@
                                         <span ng-switch-when="3" th:text="#{bill.billState.3}"></span>
                                         <span ng-switch-when="4" th:text="#{bill.billState.4}"></span>
                                     </span>
-                                </td>
-                                <td  class="text-center">
-                                    <ul class="icons-list">
-                                        <li>
-                                            <a href="/bill/edit/{{item.id}}" th:title="#{subscriber.btn.edit}">
-                                                <span class="icon-pencil7"></span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a ng-click="onDelete(item.id)" th:title="#{common.btn.delete}">
-                                                <span class="icon-trash"></span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                                        </td>
+                                        <td class="text-center">
+                                            <ul class="icons-list">
+                                                <li>
+                                                    <a href="/bill/edit/{{item.id}}" th:title="#{subscriber.btn.edit}">
+                                                        <span class="icon-pencil7"></span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a ng-click="onDelete(item.id)" th:title="#{common.btn.delete}">
+                                                        <span class="icon-trash"></span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="panel-footer text-right">
+
+                                <!-- Paging elements -->
+                                <form class="form-inline formPaging formValidate" ng-submit="goToPage()">
+                                    <div class="form-group">
+                                        {{totalElements | number}} <span class="text-lowercase"
+                                                                         th:text="#{items}"></span>
+                                    </div>
+                                    <div class="form-group" style="border-left: 1px solid #ddd">
+                                        <ul class="pagination-flat pagination-rounded"
+                                            uib-pagination
+                                            total-items="totalElements"
+                                            items-per-page="params.limit"
+                                            max-size="2"
+                                            ng-model="params.page"
+                                            boundary-link-numbers="true"
+                                            force-ellipses="true" rotate="true"
+                                            previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;"
+                                            last-text="&raquo;"></ul>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="number" name="page" th:placeholder="#{common.page}"
+                                               class="form-control validatePositiveInteger" ng-model="page"
+                                               min="1" max="{{(totalElements / params.limit) | ceil}}"
+                                               style="width: 55px">
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-default"
+                                                th:text="#{common.paging.btn.go}"></button>
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-control" ng-model="params.limit" convert-to-number>
+                                            <option value="5">5</option>
+                                            <option value="10">10</option>
+                                            <option value="15">15</option>
+                                            <option value="20">20</option>
+                                            <option value="30">30</option>
+                                        </select>
+                                        <span th:text="#{common.paging.label.limit}"></span>
+                                    </div>
+                                </form>
+                                <!-- /paging element -->
+
+                            </div>
+                        </div>
+                        <!-- /panel content -->
                     </div>
 
-                    <div class="panel-footer text-right">
 
-                        <!-- Paging elements -->
-                        <form class="form-inline formPaging formValidate" ng-submit="goToPage()">
-                            <div class="form-group">
-                                {{totalElements | number}} <span class="text-lowercase" th:text="#{items}"></span>
-                            </div>
-                            <div class="form-group" style="border-left: 1px solid #ddd">
-                                <ul class="pagination-flat pagination-rounded"
-                                    uib-pagination
-                                    total-items="totalElements"
-                                    items-per-page="params.limit"
-                                    max-size="2"
-                                    ng-model="params.page"
-                                    boundary-link-numbers="true"
-                                    force-ellipses="true" rotate="true"
-                                    previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;"
-                                    last-text="&raquo;"></ul>
-                            </div>
-                            <div class="form-group">
-                                <input type="number" name="page" th:placeholder="#{common.page}"
-                                       class="form-control validatePositiveInteger" ng-model="page"
-                                       min="1" max="{{(totalElements / params.limit) | ceil}}"
-                                       style="width: 55px">
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-default"
-                                        th:text="#{common.paging.btn.go}"></button>
-                            </div>
-                            <div class="form-group">
-                                <select class="form-control" ng-model="params.limit" convert-to-number>
-                                    <option value="5">5</option>
-                                    <option value="10">10</option>
-                                    <option value="15">15</option>
-                                    <option value="20">20</option>
-                                    <option value="30">30</option>
-                                </select>
-                                <span th:text="#{common.paging.label.limit}"></span>
-                            </div>
-                        </form>
-                        <!-- /paging element -->
-
+                    <div class="col-md-6">
+                        <div th:replace="bill/fragments/form::form"></div>
                     </div>
                 </div>
-                <!-- /panel content -->
 
                 <!-- Modal replace-->
                 <div th:replace="bill/fragments/modal-delete::modal-delete"></div>
@@ -162,6 +167,15 @@
 
     </div>
     <!-- /page container -->
+
+
+
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $("#billNo").focus();
+      });
+
+    </script>
 </th:block>
 </body>
 </html>

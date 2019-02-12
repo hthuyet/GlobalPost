@@ -49,6 +49,7 @@ public class BillResponse {
     private String branchNameCreate;
     private String currentBranchName;
     private String partnerName;
+    private int payType;
 
     public Long getId() {
         return id;
@@ -352,5 +353,13 @@ public class BillResponse {
 
     public void setEmployeeReceive(Long employeeReceive) {
         this.employeeReceive = employeeReceive;
+    }
+
+    public int getPayType() {
+        return payType;
+    }
+
+    public void setPayType(int payType) {
+        this.payType = payType;
     }
 }
