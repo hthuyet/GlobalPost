@@ -61,7 +61,6 @@ public class UmpAuthSuccessHandler extends SavedRequestAwareAuthenticationSucces
                 super.onAuthenticationSuccess(httpServletRequest, httpServletResponse, authentication);
             }
         } else {
-
             httpServletResponse.sendRedirect("/bill/");
         }
     }
