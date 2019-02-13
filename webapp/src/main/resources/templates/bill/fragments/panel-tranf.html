@@ -49,10 +49,10 @@
                            typeahead-on-select="selectSendReceive($item)" typeahead-select-on-exact="true"
                            typeahead-wait-ms="80">
 
-                    <i ng-show="loadingReceiveSelected" class="glyphicon glyphicon-refresh"></i>
-                    <div ng-show="noResults">
-                        <i class="glyphicon glyphicon-remove"></i> No Results Found
-                    </div>
+                    <!--<i ng-show="loadingReceiveSelected" class="glyphicon glyphicon-refresh"></i>-->
+                    <!--<div ng-show="noResults">-->
+                        <!--<i class="glyphicon glyphicon-remove"></i> No Results Found-->
+                    <!--</div>-->
                 </div>
             </div>
         </div>
@@ -60,21 +60,19 @@
 
         <div class="col-md-6" style="border-right: 1px solid #dddddd">
             <div class="form-group">
-                <label class="control-label col-md-4" th:text="#{bill.transf.receive.hour}"></label>
-                <div class="col-md-8">
-                    <input type="text" class="form-control" ng-model="receiverObj.hour"
-                           th:placeholder="#{bill.transf.receive.hour}">
-                </div>
-            </div>
-
-            <div class="form-group">
                 <label class="control-label col-md-4" th:text="#{bill.transf.receive.date}"></label>
                 <div class="col-md-8">
                     <input type="text" class="form-control" ng-model="receiverObj.date"
                            th:placeholder="#{bill.transf.receive.date}">
                 </div>
             </div>
-
+            <div class="form-group">
+                <label class="control-label col-md-4" th:text="#{bill.transf.receive.hour}"></label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" ng-model="receiverObj.hour"
+                           th:placeholder="#{bill.transf.receive.hour}">
+                </div>
+            </div>
             <div class="form-group">
                 <label class="control-label col-md-4" th:text="#{bill.transf.receive.name}"></label>
                 <div class="col-md-8">
@@ -92,10 +90,10 @@
                            typeahead-on-select="selectEmployeeReceive($item)" typeahead-select-on-exact="true"
                            typeahead-wait-ms="80">
 
-                    <i ng-show="loadingReceiveSelected" class="glyphicon glyphicon-refresh"></i>
-                    <div ng-show="noResults">
-                        <i class="glyphicon glyphicon-remove"></i> No Results Found
-                    </div>
+                    <!--<i ng-show="loadingReceiveSelected" class="glyphicon glyphicon-refresh"></i>-->
+                    <!--<div ng-show="noResults">-->
+                        <!--<i class="glyphicon glyphicon-remove"></i> No Results Found-->
+                    <!--</div>-->
                 </div>
             </div>
         </div>
