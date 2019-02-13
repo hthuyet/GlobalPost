@@ -15,6 +15,8 @@
             white-space: nowrap;
             padding-right: 100px;
         }
+
+
     </style>
 </head>
 <body ng-controller="BillController">
@@ -53,9 +55,9 @@
                                         <th class="text-center" th:text="#{bill.totalCost}"></th>
                                         <th class="text-center" th:text="#{bill.sendDate}"></th>
                                         <th class="text-center" th:text="#{bill.receiveDate}"></th>
-                                        <th class="text-center" th:text="#{bill.billState}"></th>
-                                        <th style="width: 100px;" class="text-center"
-                                            th:text="#{user.search.action}"></th>
+                                        <!--<th class="text-center" th:text="#{bill.billState}"></th>-->
+                                        <!--<th style="width: 100px;" class="text-center"-->
+                                        <!--th:text="#{user.search.action}"></th>-->
                                     </tr>
                                     </thead>
 
@@ -72,30 +74,30 @@
                                         <td class="text-center">{{item.totalCost}}</td>
                                         <td class="text-center">{{item.sendDate | dateTimeFormat }}</td>
                                         <td class="text-center">{{item.receiveDate | dateTimeFormat }}</td>
-                                        <td class="text-center"
-                                            ng-class="{init: item.billState == '0',process: item.billState == '1',finish: item.billState == '2',hasError: item.billState == '3',deleted: item.billState == '4'}">
-                                    <span ng-switch="item.billState">
-                                        <span ng-switch-when="0" th:text="#{bill.billState.0}"></span>
-                                        <span ng-switch-when="1" th:text="#{bill.billState.1}"></span>
-                                        <span ng-switch-when="2" th:text="#{bill.billState.2}"></span>
-                                        <span ng-switch-when="3" th:text="#{bill.billState.3}"></span>
-                                        <span ng-switch-when="4" th:text="#{bill.billState.4}"></span>
-                                    </span>
-                                        </td>
-                                        <td class="text-center">
-                                            <ul class="icons-list">
-                                                <li>
-                                                    <a href="/bill/edit/{{item.id}}" th:title="#{subscriber.btn.edit}">
-                                                        <span class="icon-pencil7"></span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a ng-click="onDelete(item.id)" th:title="#{common.btn.delete}">
-                                                        <span class="icon-trash"></span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </td>
+                                        <!--<td class="text-center"-->
+                                            <!--ng-class="{init: item.billState == '0',process: item.billState == '1',finish: item.billState == '2',hasError: item.billState == '3',deleted: item.billState == '4'}">-->
+                                    <!--<span ng-switch="item.billState">-->
+                                        <!--<span ng-switch-when="0" th:text="#{bill.billState.0}"></span>-->
+                                        <!--<span ng-switch-when="1" th:text="#{bill.billState.1}"></span>-->
+                                        <!--<span ng-switch-when="2" th:text="#{bill.billState.2}"></span>-->
+                                        <!--<span ng-switch-when="3" th:text="#{bill.billState.3}"></span>-->
+                                        <!--<span ng-switch-when="4" th:text="#{bill.billState.4}"></span>-->
+                                    <!--</span>-->
+                                        <!--</td>-->
+                                        <!--<td class="text-center">-->
+                                            <!--<ul class="icons-list">-->
+                                                <!--<li>-->
+                                                    <!--<a href="/bill/edit/{{item.id}}" th:title="#{subscriber.btn.edit}">-->
+                                                        <!--<span class="icon-pencil7"></span>-->
+                                                    <!--</a>-->
+                                                <!--</li>-->
+                                                <!--<li>-->
+                                                    <!--<a ng-click="onDelete(item.id)" th:title="#{common.btn.delete}">-->
+                                                        <!--<span class="icon-trash"></span>-->
+                                                    <!--</a>-->
+                                                <!--</li>-->
+                                            <!--</ul>-->
+                                        <!--</td>-->
                                     </tr>
                                     </tbody>
                                 </table>
@@ -169,12 +171,10 @@
     <!-- /page container -->
 
 
-
     <script type="text/javascript">
       $(document).ready(function () {
         $("#billNo").focus();
       });
-
     </script>
 </th:block>
 </body>
