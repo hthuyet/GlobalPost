@@ -17,11 +17,11 @@
                 <div class="col-md-8">
                     <input type="text" ng-model="receiverSelected" placeholder=""
                            uib-typeahead="item as item.name for item in searchReceiver($viewValue)"
-                           typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control"
+                           typeahead-loading="loadingReceiver" typeahead-no-results="noReceiver" class="form-control"
                            typeahead-on-select="selectReceiver($item)" typeahead-select-on-exact="true" typeahead-wait-ms="80">
 
                     <!--<i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>-->
-                    <div ng-show="noResults">
+                    <div ng-show="noReceiver">
                         <i class="glyphicon glyphicon-remove"></i> No Results Found
                     </div>
 

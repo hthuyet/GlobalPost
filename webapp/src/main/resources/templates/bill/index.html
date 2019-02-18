@@ -69,15 +69,16 @@
                                     <tbody>
                                     <tr ng-repeat="item in lstData">
                                         <td class="text-center">{{item.billNo}}</td>
-                                        <td class="text-center">
-                                            {{item.sendAddress}}
+                                        <td class="text-center" title="{{item.sendAddress}}">
+                                            {{item.sendAddress | truncate2}}
                                         </td>
-                                        <td class="text-center text-small">
-                                            {{item.receiveAddress}}
+                                        <td class="text-center text-small" title="{{item.receiveAddress}}">
+                                            {{item.receiveAddress | truncate2 }}
                                         </td>
-                                        <td class="text-center">{{item.totalCost}}</td>
-                                        <td class="text-center">{{item.sendDate | dateTimeFormat }}</td>
-                                        <td class="text-center">{{item.receiveDate | dateTimeFormat }}</td>
+                                        <td class="text-center">{{ "" + item.totalCost | numberFilter}}</td>
+                                        <td class="text-center">{{item.sendDate | dateFormat }}</td>
+                                        <td class="text-center">{{item.receiveDate | dateFormat }}</td>
+                                        <!--<td class="text-center">{{item.receiveDate | dateTimeFormat }}</td>-->
                                         <!--<td class="text-center"-->
                                             <!--ng-class="{init: item.billState == '0',process: item.billState == '1',finish: item.billState == '2',hasError: item.billState == '3',deleted: item.billState == '4'}">-->
                                     <!--<span ng-switch="item.billState">-->

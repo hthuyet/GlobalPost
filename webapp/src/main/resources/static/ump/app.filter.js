@@ -9,6 +9,55 @@ UserWebApp
       return Math.ceil(n);
     };
   })
+  .filter('numberFilter', [function () {
+    return function (number) {
+      if (!angular.isUndefined(number)) {
+        var parts = number.split(".");
+        var str = parts[0].toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1 ");
+        if(parts[1] !== undefined){
+          str+="."+parts[1];
+        }
+        return str;
+      }
+    };
+  }])
+  .filter('truncate2', function () {
+    return function (value) {
+      var max = 15;
+      var wordwise = false;
+      var tail = "...";
+      if (!value) return '';
+      max = parseInt(max, 10);
+      if (!max) return value;
+      if (value.length <= max) return value;
+
+      value = value.substr(0, max);
+      if (wordwise) {
+        var lastspace = value.lastIndexOf(' ');
+        if (lastspace != -1) {
+          value = value.substr(0, lastspace);
+        }
+      }
+      return value + (tail || ' …');
+    };
+  })
+  .filter('truncate', function () {
+    return function (value, wordwise, max, tail) {
+      if (!value) return '';
+      max = parseInt(max, 10);
+      if (!max) return value;
+      if (value.length <= max) return value;
+
+      value = value.substr(0, max);
+      if (wordwise) {
+        var lastspace = value.lastIndexOf(' ');
+        if (lastspace != -1) {
+          value = value.substr(0, lastspace);
+        }
+      }
+      return value + (tail || ' …');
+    };
+  })
   .filter('dateFormat', function ($filter) {
     return function (input) {
       if (typeof input === 'undefined' || input === null || input === '0000-00-00' || input === '0000-00-00 00:00:00' || input == "") {

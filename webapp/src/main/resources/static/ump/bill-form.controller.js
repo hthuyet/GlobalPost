@@ -1,7 +1,7 @@
 UserWebApp.controller('BillFormController', function ($http, $rootScope, $scope, HttpService, CommonService, $translate, $timeout, $http, limitToFilter) {
 
   console.log("----BillFormController-------");
-  $scope.item = {};
+  resetFrm();
 
   // loadData();
 
@@ -9,7 +9,7 @@ UserWebApp.controller('BillFormController', function ($http, $rootScope, $scope,
     loadData();
   }
 
-  function resetFrm(){
+  function resetFrm() {
     $scope.billNo = "";
     $scope.asyncSelected = {
       "id": "",
@@ -42,14 +42,14 @@ UserWebApp.controller('BillFormController', function ($http, $rootScope, $scope,
       "partnerId": "",
       "employeeSend": "",
       "employeeReceive": "",
-      "sendCustomer": "",
+      "sendCustomer": -1,
       "sendName": "",
       "sendAddress": "",
       "sendMobile": "",
       "sendTime": "",
       "sendDate": "",
       "sendBy": "",
-      "receiveCustomer": "",
+      "receiveCustomer": -1,
       "receiveName": "",
       "receiveAddress": "",
       "receiveMobile": "",
@@ -188,11 +188,14 @@ UserWebApp.controller('BillFormController', function ($http, $rootScope, $scope,
     return false;
   }
 
+  function formatCurrencyToNumber(value) {
+    return value.replace(/[\s]/g, '');
+  }
+
   $scope.onSubmitFrm = function () {
     var formElement = $('#billFrm');
     var btnSubmitElement = $('#btnSubmit');
 
-    console.log("--------1----------");
     if (!onBeforeSubmit(formElement)) {
       return false;
     }
@@ -203,14 +206,17 @@ UserWebApp.controller('BillFormController', function ($http, $rootScope, $scope,
       params.id = $scope.item.id;
     }
 
-    if(!$scope.item || !$scope.item.billNo){
+    if (!$scope.item || !$scope.item.billNo) {
       $scope.item.billNo = $scope.billNo;
     }
+
     params.billNo = $scope.item.billNo;
     params.billType = $scope.item.billType;
     params.weight = $scope.item.weight;
-    params.cost = $scope.item.cost;
-    params.totalCost = $scope.item.totalCost;
+
+    params.cost = formatCurrencyToNumber($scope.item.cost);
+    params.totalCost = formatCurrencyToNumber($scope.item.totalCost);
+
     params.content = $scope.item.content;
     params.paid = $scope.item.paid;
     params.isCod = $scope.item.isCod;
@@ -244,10 +250,20 @@ UserWebApp.controller('BillFormController', function ($http, $rootScope, $scope,
     params.saveReceiver = ($scope.item.saveReceiver) ? "1" : "0";
     params.employeeSend = ($scope.item.employeeSend) ? $scope.item.employeeSend : "0";
     params.employeeReceive = ($scope.item.employeeReceive) ? $scope.item.employeeReceive : "0";
-    if(params.isCod == 1 || params.isCod == "1"){
+    if (params.isCod == 1 || params.isCod == "1") {
       params.codValue = $scope.item.codValue;
     }
-    console.log(params);
+
+
+    if ($scope.senderDateTime) {
+      params.sendDate = formatDate($scope.senderDateTime);
+      params.sendTime = formatTime($scope.senderDateTime);
+    }
+
+    if ($scope.senderDateTime) {
+      params.receiveDate = formatDate($scope.receiverDateTime);
+      params.receiveTime = formatTime($scope.receiverDateTime);
+    }
 
     if ($scope.id != null && $scope.id != '') {
       HttpService.postData('/bill/save', params, btnSubmitElement).then(function (response) {
@@ -271,6 +287,28 @@ UserWebApp.controller('BillFormController', function ($http, $rootScope, $scope,
     }
   };
 
+  function formatTime(date) {
+    return date.getHours() + ":" + date.getMinutes();
+  }
+
+  function formatDate(date) {
+    var rtn = "";
+    var sdate = date.getDate();
+    var month = date.getMonth() + 1;
+    if (sdate < 10) {
+      rtn += "0" + sdate;
+    } else {
+      rtn += sdate;
+    }
+    if (month < 10) {
+      rtn += "/0" + month;
+    } else {
+      rtn += "/" + month;
+    }
+    rtn += "/" + date.getFullYear();
+    return rtn;
+  }
+
   $scope.testFrm = function () {
     $scope.asyncSelected = {
       "id": $scope.item.sendCustomer,
@@ -288,7 +326,9 @@ UserWebApp.controller('BillFormController', function ($http, $rootScope, $scope,
   }
 
   //Typehead
-  $scope.getLocation = function (val) {
+  $scope.loadingSender = false;
+  $scope.getSender = function (val) {
+    $scope.loadingSender = true;
     var params = {
       "limit": "10",
       "page": "1",
@@ -296,12 +336,24 @@ UserWebApp.controller('BillFormController', function ($http, $rootScope, $scope,
     };
 
     return $http.post('/customer/search', params).then(function (response) {
-      return response.data.map(function (item) {
-        return item;
-      });
+      $scope.loadingSender = false;
+      console.log(response.data.length);
+      if (response.data.length <= 0) {
+        console.log("---selectSender---");
+        $scope.noSender = true;
+        $scope.selectSender({});
+      } else {
+        $scope.noSender = false;
+        return response.data.map(function (item) {
+          return item;
+        });
+      }
     });
   };
+
+  $scope.loadingReceiver = false;
   $scope.searchReceiver = function (val) {
+    $scope.loadingReceiver = true;
     var params = {
       "limit": "10",
       "page": "1",
@@ -309,28 +361,54 @@ UserWebApp.controller('BillFormController', function ($http, $rootScope, $scope,
     };
 
     return $http.post('/customer/search', params).then(function (response) {
-      return response.data.map(function (item) {
-        return item;
-      });
+      $scope.loadingReceiver = false;
+      console.log(response.data.length);
+      if (response.data.length <= 0) {
+        $scope.noReceiver = true;
+        $scope.selectReceiver({});
+      } else {
+        $scope.noReceiver = false;
+        return response.data.map(function (item) {
+          return item;
+        });
+      }
     });
   };
 
   $scope.selectSender = function (obj) {
-    $scope.item.sendCustomer = obj.id;
-    $scope.item.sendName = obj.name;
-    $scope.item.sendMobile = obj.mobile;
-    $scope.item.sendAddress = obj.address;
-    $scope.item.saveSender = false;
+    console.log("------selectSender obj: " + Object.keys(obj).length);
+    if (Object.keys(obj).length > 0) {
+      $scope.item.sendCustomer = obj.id;
+      $scope.item.sendName = obj.name;
+      $scope.item.sendMobile = obj.mobile;
+      $scope.item.sendAddress = obj.address;
+      $scope.item.saveSender = false;
+    } else {
+      $scope.item.sendCustomer = -1;
+      $scope.item.sendName = "";
+      $scope.item.sendMobile = "";
+      $scope.item.sendAddress = "";
+      $scope.item.saveSender = true;
+    }
   }
 
   $scope.receiverSelected = "";
 
   $scope.selectReceiver = function (obj) {
-    $scope.item.receiveCustomer = obj.id;
-    $scope.item.receiveName = obj.name;
-    $scope.item.receiveMobile = obj.mobile;
-    $scope.item.receiveAddress = obj.address;
-    $scope.item.saveReceiver = false;
+    console.log("--------selectReceiver---------");
+    if (Object.keys(obj).length > 0) {
+      $scope.item.receiveCustomer = obj.id;
+      $scope.item.receiveName = obj.name;
+      $scope.item.receiveMobile = obj.mobile;
+      $scope.item.receiveAddress = obj.address;
+      $scope.item.saveReceiver = false;
+    } else {
+      $scope.item.receiveCustomer = -1;
+      $scope.item.receiveName = "";
+      $scope.item.receiveMobile = "";
+      $scope.item.receiveAddress = "";
+      $scope.item.saveReceiver = true;
+    }
   }
 
 
@@ -369,6 +447,25 @@ UserWebApp.controller('BillFormController', function ($http, $rootScope, $scope,
     });
   };
 
+  //DATETIME PICKER
+  var that = this;
 
+  $scope.isOpen = false;
+  $scope.receiverDateTime = new Date();
+
+  $scope.openCalendar = function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    $scope.isOpen = true;
+  };
+
+
+  $scope.isOpenSender = false;
+  $scope.senderDateTime = new Date();
+  $scope.openCalendarSender = function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    $scope.isOpenSender = true;
+  };
 
 });

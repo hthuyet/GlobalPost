@@ -1,5 +1,5 @@
 {
-  "name": "ump-webapp",
+  "name": "global-webapp",
   "authors": [
     "Le Van Thuyet <lethuyet.10.11.1990@gmail.com>"
   ],
@@ -18,5 +18,18 @@
   "dependencies": {
     "jquery": "^3.1.1",
     "bootstrap": "^3.3.7"
+  },
+  "overrides": {
+    "angularjs-bootstrap-datetimepicker": {
+      "main": [
+        "src/js/datetimepicker.js",
+        "src/js/datetimepicker.templates.js",
+        "src/css/datetimepicker.css"
+      ],
+      "dependencies": {
+        "angular": "^1.x",
+        "moment": "^2.x"
+      }
+    }
   }
 }

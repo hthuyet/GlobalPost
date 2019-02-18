@@ -17,20 +17,20 @@
 
     <div class="panel-body collapse">
         <form ng-submit="onSearch()" class="form-horizontal form-search row">
-            <div class="col-md-2">
+            <div class="col-xs-12 col-md-6">
                 <div class="form-group">
-                    <label class="control-label col-md-6" th:text="#{bill.billNo}"></label>
-                    <div class="col-md-6">
+                    <label class="control-label col-xs-4" th:text="#{bill.billNo}"></label>
+                    <div class="col-xs-8">
                         <input type="text" class="form-control" ng-model="params.billNo"
                                th:placeholder="#{bill.billNo}">
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-2">
+            <div class="col-xs-12 col-md-6">
                 <div class="form-group">
-                    <label class="control-label col-md-4" th:text="#{bill.billState}"></label>
-                    <div class="col-md-8">
+                    <label class="control-label col-xs-4" th:text="#{bill.billState}"></label>
+                    <div class="col-xs-8">
                         <select class="form-control" name="billState" ng-model="params.billState" convert-to-number>
                             <option value="-1"><span th:text="#{common.select.placeholder}"></span></option>
                             <option value="0"><span th:text="#{bill.billState.0}"></span></option>
@@ -40,25 +40,23 @@
                 </div>
             </div>
 
-            <div class="col-md-2">
+            <div class="col-xs-12 col-md-6">
                 <div class="form-group">
-                    <div class="input-group">
-                        <label class="control-label col-md-4" th:text="#{bill.from}"></label>
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <input type="text" class="form-control datepicker" id="startDate"
-                                       placeholder="Pick a date&hellip;" ng-model="params.from">
-                                <span class="input-group-addon"><i class="icon-calendar"></i></span>
-                            </div>
+                    <label class="control-label col-xs-4" th:text="#{bill.from}"></label>
+                    <div class="col-xs-8">
+                        <div class="input-group">
+                            <input type="text" class="form-control datepicker" id="startDate"
+                                   placeholder="Pick a date&hellip;" ng-model="params.from">
+                            <span class="input-group-addon"><i class="icon-calendar"></i></span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-2">
+            <div class="col-xs-12 col-md-6">
                 <div class="form-group">
-                    <label class="control-label col-md-4"> <span th:text="#{bill.to}"></span>:</label>
-                    <div class="col-md-8">
+                    <label class="control-label col-xs-4"> <span th:text="#{bill.to}"></span>:</label>
+                    <div class="col-xs-8">
                         <div class="input-group">
                             <input type="text" class="form-control datepicker" id="endDate"
                                    placeholder="Pick a date&hellip;" ng-model="params.to">
@@ -68,70 +66,52 @@
                 </div>
             </div>
 
-            <div class="col-md-2">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown"><span
-                            th:text="#{common.search.btn.more}"></span>
-                        <span class="caret"></span></button>
-                    <ul class="dropdown-menu dropdown-menu-right dropdownMoreInputSearch">
-                        <li><input type="checkbox" ng-model="checklistSearch.to"> <span th:text="#{bill.to}"></span>
-                        </li>
-                        <li><input type="checkbox" ng-model="checklistSearch.sendName"> <span
-                                th:text="#{bill.sendName}"></span></li>
-                        <li><input type="checkbox" ng-model="checklistSearch.sendMobile"> <span
-                                th:text="#{bill.sendMobile}"></span></li>
-                        <li><input type="checkbox" ng-model="checklistSearch.receiveName"> <span
-                                th:text="#{bill.receiveName}"></span></li>
-                        <li><input type="checkbox" ng-model="checklistSearch.receiveMobile"> <span
-                                th:text="#{bill.receiveMobile}"></span></li>
-                    </ul>
-                </div>
-
-                <button type="submit" ng-click="onSearch()" class="btn btn-icon btn-default"><i
-                        class="icon-search4"></i></button>
-            </div>
-
-            <div class="clearfix"></div>
-
-            <div class="col-md-3" ng-if="checklistSearch.sendName">
+            <div class="col-xs-12 col-md-6">
                 <div class="form-group">
-                    <label class="control-label col-md-4"> <span th:text="#{bill.sendName}"></span>:</label>
-                    <div class="col-md-8">
-                        <input type="text" class="form-control" ng-model="params.sendName"
+                    <label class="control-label col-xs-4"> <span th:text="#{bill.sendName2}"></span>:</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="form-control" ng-model="params.sendName2"
                                th:placeholder="#{bill.sendName}">
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-3" ng-if="checklistSearch.sendMobile">
+            <div class="col-xs-12 col-md-6">
                 <div class="form-group">
-                    <label class="control-label col-md-4"> <span th:text="#{bill.sendMobile}"></span>:</label>
-                    <div class="col-md-8">
-                        <input type="text" class="form-control" ng-model="params.sendMobile"
+                    <label class="control-label col-xs-4"> <span th:text="#{bill.sendMobile2}"></span>:</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="form-control" ng-model="params.sendMobile2"
                                th:placeholder="#{bill.sendMobile}">
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-3" ng-if="checklistSearch.receiveName">
+            <div class="col-xs-12 col-md-6">
                 <div class="form-group">
-                    <label class="control-label col-md-4"> <span th:text="#{bill.receiveName}"></span>:</label>
-                    <div class="col-md-8">
+                    <label class="control-label col-xs-4"> <span th:text="#{bill.receiveName2}"></span>:</label>
+                    <div class="col-xs-8">
                         <input type="text" class="form-control" ng-model="params.receiveName"
-                               th:placeholder="#{bill.receiveName}">
+                               th:placeholder="#{bill.receiveName2}">
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-3" ng-if="checklistSearch.receiveMobile">
+            <div class="col-xs-12 col-md-6">
                 <div class="form-group">
-                    <label class="control-label col-md-4"> <span th:text="#{bill.receiveMobile}"></span>:</label>
-                    <div class="col-md-8">
-                        <input type="text" class="form-control" ng-model="params.receiveMobile"
-                               th:placeholder="#{bill.receiveMobile}">
+                    <label class="control-label col-xs-4"> <span th:text="#{bill.receiveMobile2}"></span>:</label>
+                    <div class="col-xs-8">
+                        <div class="input-group">
+                            <input type="text" class="form-control" ng-model="params.receiveMobile"
+                                   th:placeholder="#{bill.receiveMobile2}">
+                            <span class="input-group-addon">
+                                <button type="submit" ng-click="onSearch()" class="btn btn-icon btn-default"><i
+                                        class="icon-search4"></i></button>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
+
 
             <script type="text/javascript">
               //              $(function () {

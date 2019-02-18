@@ -16,13 +16,13 @@
                 <label class="control-label col-md-4" th:text="#{bill.sendName}"></label>
                 <div class="col-md-8">
                     <input type="text" ng-model="asyncSelected" placeholder=""
-                           uib-typeahead="item as item.name for item in getLocation($viewValue)"
-                           typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control"
+                           uib-typeahead="item as item.name for item in getSender($viewValue)"
+                           typeahead-loading="loadingSender" typeahead-no-results="noSender" class="form-control"
                            typeahead-on-select="selectSender($item)" typeahead-select-on-exact="true"
                            typeahead-wait-ms="80">
 
                     <!--<i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>-->
-                    <div ng-show="noResults">
+                    <div ng-show="noSender">
                         <i class="glyphicon glyphicon-remove"></i> No Results Found
                     </div>
 

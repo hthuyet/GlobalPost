@@ -20,8 +20,8 @@
             <div class="form-group">
                 <label class="control-label col-md-4" th:text="#{bill.billType}"></label>
                 <div class="col-md-8">
-                    <!--<select class="form-control" name="billType" ng-model="item.billType" ng-required="true" convert-to-number="">-->
-                    <select class="form-control" name="billType" ng-required="true" convert-to-number="">
+                    <select class="form-control" name="billType" ng-required="true" convert-to-number
+                            ng-model="item.billType">
                         <!--<option value=""><span th:text="#{common.select.placeholder}"></span></option>-->
                         <option value="1" ng-selected="selected"><span th:text="#{bill.billType.1}"></span></option>
                         <option value="2"><span th:text="#{bill.billType.2}"></span></option>
@@ -48,7 +48,7 @@
                 <label class="control-label col-md-4" th:text="#{bill.cost}"></label>
                 <div class="col-md-8">
                     <input type="text" class="form-control" ng-model="item.cost" name="cost" ng-required="true"
-                           th:placeholder="#{bill.cost}">
+                           th:placeholder="#{bill.cost}" format="numberFilter">
                 </div>
             </div>
         </div>
@@ -59,7 +59,7 @@
                 <div class="col-md-8">
                     <input type="text" class="form-control" ng-model="item.totalCost" name="totalCost"
                            ng-required="true"
-                           th:placeholder="#{bill.totalCost}">
+                           th:placeholder="#{bill.totalCost}" format="numberFilter">
                 </div>
             </div>
         </div>
@@ -103,6 +103,8 @@
                 </div>
             </div>
         </div>
+
+
     </div>
 </div>
 <!-- /panel bill -->

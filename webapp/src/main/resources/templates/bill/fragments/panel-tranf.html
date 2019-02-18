@@ -18,17 +18,16 @@
     <div class="panel-body">
         <div class="col-md-6" style="border-right: 1px solid #dddddd">
             <div class="form-group">
-                <label class="control-label col-md-4" th:text="#{bill.transf.sender.hour}"></label>
-                <div class="col-md-8">
-                    <input type="text" class="form-control" ng-model="senderObj.hour"
-                           th:placeholder="#{bill.transf.sender.hour}">
-                </div>
-            </div>
-            <div class="form-group">
                 <label class="control-label col-md-4" th:text="#{bill.transf.sender.date}"></label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" ng-model="senderObj.date"
-                           th:placeholder="#{bill.transf.sender.date}">
+                    <div class="input-group">
+                        <input type="text" class="form-control" datetime-picker="dd/MM/yyyy HH:mm" ng-model="senderDateTime" is-open="isOpenSender"/>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="openCalendarSender($event, prop)">
+                                <i class="icon-calendar"></i>
+                            </button>
+                        </span>
+                    </div>
                 </div>
             </div>
 
@@ -62,15 +61,14 @@
             <div class="form-group">
                 <label class="control-label col-md-4" th:text="#{bill.transf.receive.date}"></label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" ng-model="receiverObj.date"
-                           th:placeholder="#{bill.transf.receive.date}">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-md-4" th:text="#{bill.transf.receive.hour}"></label>
-                <div class="col-md-8">
-                    <input type="text" class="form-control" ng-model="receiverObj.hour"
-                           th:placeholder="#{bill.transf.receive.hour}">
+                    <div class="input-group">
+                        <input type="text" class="form-control" datetime-picker="dd/MM/yyyy HH:mm" ng-model="receiverDateTime" is-open="isOpen"/>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="openCalendar($event, prop)">
+                                <i class="icon-calendar"></i>
+                            </button>
+                        </span>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
@@ -99,6 +97,9 @@
         </div>
     </div>
 </div>
+
+
+
 <!-- /panel tranf -->
 </body>
 </html>
