@@ -38,103 +38,70 @@
                         </div>
                     </div>
 
-                    <form class="form-horizontal formValidate" name="billFrm" id="billFrm">
                         <div class="panel-body">
-                            <input type="hidden" class="form-control" id="sendCustomerHidden" ng-model="item.sendCustomer">
-                            <input type="hidden" class="form-control" id="receiveCustomerHidden" ng-model="item.receiveCustomer">
-
-                            <!--Row 1-->
-                            <div class="row">
-                                <!--billNo-->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label labelBillNo"><span th:text="#{bill.billNo}"></span></label>
-                                        <div class="col-md-8">
-                                            <input type="text" class="form-control" id="billNo" ng-model="item.billNo"
-                                                   th:placeholder="#{bill.billNo}" name="billNo">
+                            <form class="form-horizontal formValidate">
+                                <!--Row 1-->
+                                <div class="row">
+                                    <!--billNo-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label labelBillNo"><span th:text="#{bill.billNo}"></span></label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" id="billNo" ng-model="item.billNo"
+                                                       th:placeholder="#{bill.billNo}" name="billNo">
+                                            </div>
                                         </div>
                                     </div>
+                                    <!--End billNo-->
+
+
                                 </div>
-                                <!--End billNo-->
+                                <!--End row 1-->
+                            </form>
+                            <div class="clearfix"></div>
+                            <form class="form-horizontal formValidate" name="billFrm" id="billFrm">
+                                    <input type="hidden" class="form-control" id="sendCustomerHidden" ng-model="item.sendCustomer">
+                                    <input type="hidden" class="form-control" id="receiveCustomerHidden" ng-model="item.receiveCustomer">
+
+                                <!--Row 1-->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div th:replace="bill/fragments/panel-sender::panel-sender"></div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div th:replace="bill/fragments/panel-receiver::panel-receiver"></div>
+                                    </div>
+                                </div>
+                                <!--End row 1-->
+
+                                <!--Row 2-->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div th:replace="bill/fragments/panel-bill::panel-bill"></div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <!--<div th:replace="bill/fragments/panel-tranf::panel-tranf"></div>-->
+                                    </div>
+                                </div>
+                                <!--End row 2-->
 
 
-                            </div>
-                            <!--End row 1-->
-
-                            <!--&lt;!&ndash;Row 2&ndash;&gt;-->
-                            <!--<div class="row">-->
-
-                                <!--&lt;!&ndash;sendName&ndash;&gt;-->
-                                <!--<div class="col-md-6">-->
-                                    <!--<div class="form-group">-->
-                                        <!--<label class="col-md-3 control-label"><span th:text="#{bill.sendName}"></span></label>-->
-                                        <!--<div class="col-md-8">-->
-                                            <!--<input type="text" class="form-control" id="senderChoose" ng-model="item.sendName"-->
-                                                   <!--th:placeholder="#{bill.sendName}" name="sendName"-->
-                                                   <!--ng-click="chooseCustomer(0)" ng-readonly="true" data-info="">-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--&lt;!&ndash;End Test&ndash;&gt;-->
-
-                                <!--&lt;!&ndash;receiveName&ndash;&gt;-->
-                                <!--<div class="col-md-6">-->
-                                    <!--<div class="form-group">-->
-                                        <!--<label class="col-md-3 control-label"><span th:text="#{bill.receiveName}"></span></label>-->
-                                        <!--<div class="col-md-8">-->
-                                            <!--<input type="text" class="form-control" id="receiverChoose" ng-model="item.receiveName"-->
-                                                   <!--th:placeholder="#{bill.receiveName}" name="receiverName"-->
-                                                   <!--ng-click="chooseCustomer(1)" ng-readonly="true" data-info="">-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--&lt;!&ndash;End Test&ndash;&gt;-->
-                            <!--</div>-->
-                            <!--&lt;!&ndash;End row 2&ndash;&gt;-->
 
 
-                        </div>
+                            </form>
+                    </div>
 
+                    <div class="panel-footer text-center">
+                        <button type="button" ng-disabled="billFrm.$invalid" id="btnSubmit"
+                                ng-click="onSubmitFrm()" class="btn btn-primary"
+                                th:text="#{subscriber.header.title.subscriber.ok}"></button>
+                        <a class="btn btn-default" href="/bill"
+                           th:text="#{subscriber.header.title.subscriber.cancel}"></a>
+                    </div>
 
-                        <div class="clearfix"></div>
-
-                        <!--Row 1-->
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div th:replace="bill/fragments/panel-sender::panel-sender"></div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div th:replace="bill/fragments/panel-receiver::panel-receiver"></div>
-                            </div>
-                        </div>
-                        <!--End row 1-->
-
-                        <!--Row 2-->
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div th:replace="bill/fragments/panel-bill::panel-bill"></div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <!--<div th:replace="bill/fragments/panel-tranf::panel-tranf"></div>-->
-                            </div>
-                        </div>
-                        <!--End row 2-->
-
-
-                        <div class="panel-footer text-center">
-                            <button type="button" ng-disabled="billFrm.$invalid" id="btnSubmit"
-                                    ng-click="onSubmitFrm()" class="btn btn-primary"
-                                    th:text="#{subscriber.header.title.subscriber.ok}"></button>
-                            <a class="btn btn-default" href="/bill"
-                               th:text="#{subscriber.header.title.subscriber.cancel}"></a>
-                        </div>
-
-                        <div th:replace="bill/fragments/modal-choose-user::modal-choose-user"></div>
-
-                    </form>
-
+                    <div th:replace="bill/fragments/modal-choose-user::modal-choose-user"></div>
 
                 </div>
 

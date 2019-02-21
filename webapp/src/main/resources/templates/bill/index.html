@@ -67,7 +67,7 @@
 
                                     <!--BODY-->
                                     <tbody>
-                                    <tr ng-repeat="item in lstData">
+                                    <tr ng-repeat="item in lstData" ng-dblclick="onEditItem(item)">
                                         <td class="text-center">{{item.billNo}}</td>
                                         <td class="text-center" title="{{item.sendAddress}}">
                                             {{item.sendAddress | truncate2}}

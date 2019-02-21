@@ -11,6 +11,7 @@ UserWebApp
   })
   .filter('numberFilter', [function () {
     return function (number) {
+      number = "" + number;
       if (!angular.isUndefined(number)) {
         var parts = number.split(".");
         var str = parts[0].toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1 ");

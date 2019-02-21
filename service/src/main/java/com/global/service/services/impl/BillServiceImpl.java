@@ -174,12 +174,27 @@ public class BillServiceImpl implements BillService {
     obj.setId(Long.parseLong(String.valueOf(objects[i++])));
     obj.setBillNo(String.valueOf(objects[i++]));
     obj.setBillType(Integer.parseInt(String.valueOf(objects[i++])));
-    obj.setWeight(Long.parseLong(String.valueOf(objects[i++])));
-    obj.setCost(Long.parseLong(String.valueOf(objects[i++])));
-    obj.setTotalCost(Long.parseLong(String.valueOf(objects[i++])));
-    obj.setContent(String.valueOf(objects[i++]));
-    obj.setPaid(Integer.parseInt(String.valueOf(objects[i++])));
+
     Object tmp = objects[i++];
+    if (tmp != null) {
+      obj.setWeight(Long.parseLong(String.valueOf(tmp)));
+    }
+
+    tmp = objects[i++];
+    if (tmp != null) {
+      obj.setCost(Long.parseLong(String.valueOf(tmp)));
+    }
+
+    tmp = objects[i++];
+    if (tmp != null) {
+      obj.setTotalCost(Long.parseLong(String.valueOf(tmp)));
+    }
+    obj.setContent(String.valueOf(objects[i++]));
+    tmp = objects[i++];
+    if (tmp != null) {
+      obj.setPaid(Integer.parseInt(String.valueOf(tmp)));
+    }
+    tmp = objects[i++];
     if (tmp != null) {
       obj.setCreated(Long.parseLong(String.valueOf(tmp)));
     }
@@ -192,11 +207,28 @@ public class BillServiceImpl implements BillService {
     if (tmp != null) {
       obj.setCodValue(new BigInteger(String.valueOf(tmp)).longValue());
     }
-    obj.setBillState(Integer.parseInt(String.valueOf(objects[i++])));
-    obj.setWhoPay(Integer.parseInt(String.valueOf(objects[i++])));
-    obj.setUserCreate(Long.parseLong(String.valueOf(objects[i++])));
-    obj.setBranchCreate(Long.parseLong(String.valueOf(objects[i++])));
-    obj.setCurrentBranch(Long.parseLong(String.valueOf(objects[i++])));
+
+    tmp = objects[i++];
+    if (tmp != null) {
+      obj.setBillState(Integer.parseInt(String.valueOf(tmp)));
+    }
+
+    tmp = objects[i++];
+    if (tmp != null) {
+      obj.setWhoPay(Integer.parseInt(String.valueOf(tmp)));
+    }
+    tmp = objects[i++];
+    if (tmp != null) {
+      obj.setUserCreate(Long.parseLong(String.valueOf(tmp)));
+    }
+    tmp = objects[i++];
+    if (tmp != null) {
+      obj.setBranchCreate(Long.parseLong(String.valueOf(tmp)));
+    }
+    tmp = objects[i++];
+    if (tmp != null) {
+      obj.setCurrentBranch(Long.parseLong(String.valueOf(tmp)));
+    }
     tmp = objects[i++];
     if (tmp != null) {
       obj.setPartnerId(new BigInteger(String.valueOf(tmp)).longValue());

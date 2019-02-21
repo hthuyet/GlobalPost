@@ -72,6 +72,10 @@ UserWebApp.controller('BillFormController', function ($http, $rootScope, $scope,
         common.spinner(false);
         $timeout(function () {
           $scope.item = response;
+
+          $scope.senderDateTime = convertToDateTime($scope.item.sendDate,$scope.item.sendTime);
+          $scope.receiverDateTime = convertToDateTime($scope.item.receiveDate,$scope.item.receiveTime);
+
           $scope.testFrm();
           common.spinner(false);
         }, 1000);
@@ -131,6 +135,8 @@ UserWebApp.controller('BillFormController', function ($http, $rootScope, $scope,
         console.log(response);
         common.spinner(false);
 
+        $scope.senderDateTime = new Date();
+        $scope.receiverDateTime = new Date();
         //$("#billNo").focus();
       });
     }
@@ -189,6 +195,7 @@ UserWebApp.controller('BillFormController', function ($http, $rootScope, $scope,
   }
 
   function formatCurrencyToNumber(value) {
+    value = "" + value;
     return value.replace(/[\s]/g, '');
   }
 
@@ -254,14 +261,13 @@ UserWebApp.controller('BillFormController', function ($http, $rootScope, $scope,
       params.codValue = $scope.item.codValue;
     }
 
-
     if ($scope.senderDateTime) {
-      params.sendDate = formatDate($scope.senderDateTime);
+      params.sendDate = formatStringDateToParam($scope.senderDateTime);
       params.sendTime = formatTime($scope.senderDateTime);
     }
 
-    if ($scope.senderDateTime) {
-      params.receiveDate = formatDate($scope.receiverDateTime);
+    if ($scope.receiverDateTime) {
+      params.receiveDate = formatStringDateToParam($scope.receiverDateTime);
       params.receiveTime = formatTime($scope.receiverDateTime);
     }
 
@@ -288,25 +294,32 @@ UserWebApp.controller('BillFormController', function ($http, $rootScope, $scope,
   };
 
   function formatTime(date) {
-    return date.getHours() + ":" + date.getMinutes();
+    if(date) {
+      return date.getHours() + ":" + date.getMinutes();
+    }
+    return "";
   }
 
   function formatDate(date) {
-    var rtn = "";
-    var sdate = date.getDate();
-    var month = date.getMonth() + 1;
-    if (sdate < 10) {
-      rtn += "0" + sdate;
-    } else {
-      rtn += sdate;
+    if(date) {
+      var rtn = "";
+      var sdate = date.getDate();
+      var month = date.getMonth() + 1;
+      if (sdate < 10) {
+        rtn += "0" + sdate;
+      } else {
+        rtn += sdate;
+      }
+      if (month < 10) {
+        rtn += "/0" + month;
+      } else {
+        rtn += "/" + month;
+      }
+      rtn += "/" + date.getFullYear();
+      return rtn;
+    }else{
+      return "";
     }
-    if (month < 10) {
-      rtn += "/0" + month;
-    } else {
-      rtn += "/" + month;
-    }
-    rtn += "/" + date.getFullYear();
-    return rtn;
   }
 
   $scope.testFrm = function () {
@@ -468,4 +481,10 @@ UserWebApp.controller('BillFormController', function ($http, $rootScope, $scope,
     $scope.isOpenSender = true;
   };
 
+
+  //On edit
+  $rootScope.$on('onEditItem', function (event, data) {
+    $scope.billNo = data.item.billNo;
+    $scope.onSearch();
+  });
 });

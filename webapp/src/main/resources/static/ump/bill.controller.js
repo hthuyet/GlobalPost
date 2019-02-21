@@ -126,5 +126,9 @@ UserWebApp.controller('BillController', function ($scope, $rootScope, HttpServic
     loadData();
   });
 
+  $scope.onEditItem = function(item){
+    $rootScope.$broadcast('onEditItem', {item: item});
+  }
+
 
 });
