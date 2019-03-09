@@ -94,7 +94,6 @@ UserWebApp.controller('EmployeeController', function ($scope, $rootScope, HttpSe
     var param = {
       "ids": $scope.deleteList.join(",")
     };
-    console.log($scope.param1);
     HttpService.postData('/employee/delete', param).then(function (data) {
       $('.modalDelete').modal('hide');
       $scope.checklistTable.selected = [];

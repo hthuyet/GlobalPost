@@ -56,4 +56,9 @@ public class BranchClient {
         String url = String.format("%s/save", this.endpointUrl);
         return this.restTemplate.postForObject(url, maps, String.class);
     }
+
+    public String delete(Map<String, Object> maps) {
+        String url = String.format("%s/delete", this.endpointUrl);
+        return this.restTemplate.postForObject(url, maps, String.class);
+    }
 }

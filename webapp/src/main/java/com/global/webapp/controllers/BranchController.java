@@ -84,4 +84,16 @@ public class BranchController extends BaseController {
             return parseException(ex);
         }
     }
+    @PostMapping("/branch/delete")
+    @PreAuthorize("hasAuthority('GLOBAL:PARTNER:DELETE')")
+    @ResponseBody
+    public ResponseEntity branch(@RequestBody Map<String, Object> params) {
+        try {
+            logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "execute delete branch", "", "");
+            String rtn = branchClient.delete(params);
+            return new ResponseEntity<>(rtn, HttpStatus.OK);
+        } catch (Exception ex) {
+            return parseException(ex);
+        }
+    }
 }

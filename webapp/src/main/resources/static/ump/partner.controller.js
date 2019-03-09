@@ -90,19 +90,18 @@ UserWebApp.controller('PartnerController', function ($scope, $rootScope, HttpSer
 
   $scope.onDeleteConfirm = function () {
     common.spinner(true);
-    $scope.param1 = [];
-    $scope.param1.id = JSON.stringify($scope.deleteList);
-    HttpService.getData('/deleteRole', $scope.param1).then(function (data1) {
+    console.log($scope.deleteList);
+    var params = {
+      "ids": $scope.deleteList.join(",")
+    };
+    HttpService.postData('/partner/delete', params).then(function (data1) {
       $('.modalDelete').modal('hide');
-      if (data1 == 200) {
-        $scope.checklistTable.selected = [];
-        loadData();
-        common.notifySuccess($translate.instant('deleteSuccessfully'));
-      } else {
-        common.notifyError($translate.instant('deleteError'));
-      }
+      $scope.checklistTable.selected = [];
+      loadData();
+      common.notifySuccess($translate.instant('deleteSuccessfully'));
       common.spinner(false);
     }, function error(response) {
+      $('.modalDelete').modal('hide');
       console.log(response);
       common.spinner(false);
       common.notifyError($translate.instant('deleteError'));

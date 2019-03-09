@@ -54,4 +54,9 @@ public class EmployeeClient {
         String url = String.format("%s/save", this.endpointUrl);
         return this.restTemplate.postForObject(url, maps, String.class);
     }
+
+    public String delete(Map<String, String> maps) {
+        String url = String.format("%s/delete", this.endpointUrl);
+        return this.restTemplate.postForObject(url, maps, String.class);
+    }
 }

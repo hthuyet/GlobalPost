@@ -8,6 +8,8 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpSession;
 import java.nio.charset.Charset;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -52,6 +54,11 @@ public class PartnerClient {
 
     public String save(Map<String, String> maps) {
         String url = String.format("%s/save", this.endpointUrl);
+        return this.restTemplate.postForObject(url, maps, String.class);
+    }
+
+    public String delete(Map<String, Object> maps) {
+        String url = String.format("%s/delete", this.endpointUrl);
         return this.restTemplate.postForObject(url, maps, String.class);
     }
 }

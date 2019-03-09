@@ -22,7 +22,9 @@
                  th:data-fullName="${fullName}" th:data-email="${email}"
                  th:data-role="${role}" th:data-group="${group}"
                  th:data-phoneNumber="${phoneNumber}"
-                 th:data-description="${description}"></div>
+                 th:data-description="${description}"
+                 th:data-branchid="${branchId}"
+                 th:data-branchname="${branchName}"></div>
             <!-- Page content -->
             <div class="page-content">
 
@@ -44,14 +46,14 @@
                         <form ng-submit="onUserEdit()" class="form-horizontal" name="userForm">
                             <div class="panel-body">
                                 <input style="display: none" type="text" class="form-control" ng-model="params.userId">
-                                <div class="col-md-12">
-                                    <div class="col-md-6">
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6">
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label">
+                                            <label class="col-xs-2 control-label">
                                                 <span th:text="#{user.username}"></span>
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <div class="col-md-8">
+                                            <div class="col-xs-10">
                                                 <input type="text" class="form-control" id="userName"
                                                        pattern="[A-Za-z0-9]+" th:placeholder="#{user.writeUserName}"
                                                        title="UserName does not contain special characters"
@@ -67,11 +69,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-xs-6">
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label">Phone number <span class="text-danger">*</span>
+                                            <label class="col-xs-2 control-label">Phone number <span class="text-danger">*</span>
                                             </label>
-                                            <div class="col-md-8 ">
+                                            <div class="col-xs-10 ">
                                                 <input type="text" class="form-control"
                                                        ng-model="params.phoneNumber"
                                                        th:placeholder="#{user.writePhoneNumber}"
@@ -86,14 +88,14 @@
                                 </div>
 
 
-                                <div class="col-md-12">
-                                    <div class="col-md-6">
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6">
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label">
+                                            <label class="col-xs-2 control-label">
                                                 <span th:text="#{user.fullname}"></span>
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <div class="col-md-8 ">
+                                            <div class="col-xs-10 ">
                                                 <input type="text" class="form-control"
                                                        ng-model="params.fullName" minlength="5"
                                                        th:placeholder="#{user.writeFullName}"
@@ -109,11 +111,11 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col-xs-6">
                                         <div class="form-group">
-                                            <label class="control-label col-md-3"> <span th:text="#{user.search.role}"></span>
+                                            <label class="control-label col-xs-2"> <span th:text="#{user.search.role}"></span>
                                                 <span class="text-danger">*</span></label>
-                                            <div class="multi-select-full col-md-8">
+                                            <div class="multi-select-full col-xs-10">
                                                 <select ui-select2 ng-model="params.deviceGroup.role" required="required" multiple="multiple" name="role">
                                                     <option ng-repeat="r in roles" value="{{r.id}}~{{r.name}}"> {{r.name}}</option>
                                                 </select>
@@ -123,14 +125,14 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-12">
-                                    <div class="col-md-6">
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6">
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label">
+                                            <label class="col-xs-2 control-label">
                                                 <span th:text="#{user.email}"></span>
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <div class="col-md-8">
+                                            <div class="col-xs-10">
                                                 <input type="email" class="form-control"
                                                        ng-model="params.email" minlength="5"
                                                        th:placeholder="#{user.writeEmail}"
@@ -145,22 +147,37 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+
+                                    <div class="col-xs-6">
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label">
-                                                <span th:text="#{user.description}"></span>
-                                            </label>
-                                            <div class="col-md-8 ">
-                                                <input type="text" class="form-control"
-                                                       ng-model="params.description" maxlength="1500"
-                                                       th:placeholder="#{user.writeDescription}">
+                                            <label class="control-label col-xs-2"> <span
+                                                    th:text="#{user.search.branch}"></span>
+                                                <span class="text-danger">*</span></label>
+                                            <div class="multi-select-full col-xs-10">
+                                                <select ui-select2 ng-model="params.branchId" required="required"
+                                                        name="branch">
+                                                    <option ng-repeat="r in branches track by r.id" value="{{r.id}}">
+                                                        {{r.name}}
+                                                    </option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
 
 
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <label class="col-xs-1 control-label">
+                                            <span th:text="#{user.description}"></span>
+                                        </label>
+                                        <div class="col-xs-11">
+                                            <input type="text" class="form-control"
+                                                   ng-model="params.description" maxlength="1500"
+                                                   th:placeholder="#{user.writeDescription}">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="panel-footer text-center">

@@ -61,41 +61,14 @@ UserWebApp.controller('UserInfoController', function ($scope, $rootScope, HttpSe
     }
 
     // Start form notification
-    $scope.formNotification = {isActive: false, };
     var javaResponseElement = $('.javaResponse');
     var userId = javaResponseElement.attr('data-userId');
-    HttpService.getData('/users/' + userId + '/notification-setting/get-by-user', {}).then(function (_notification) {
-        $scope.formNotification.isActive = _notification.isActive;
-        $scope.formNotification.isSendEmail = _notification.isSendEmail;
-        $scope.formNotification.isSendNotify = _notification.isSendNotify;
-        $scope.formNotification.isSendNotifyList = _notification.isSendNotifyList;
-        $scope.formNotification.isSendSms = _notification.isSendSms;
-
-
-        $scope.formNotification.isMajorTotal = _notification.majorTotal !== null;
-        $scope.formNotification.majorTotal = _notification.majorTotal;
-        $scope.formNotification.isMinorTotal = _notification.minorTotal !== null;
-        $scope.formNotification.minorTotal = _notification.minorTotal;
-        $scope.formNotification.isCriticalTotal = _notification.criticalTotal !== null;
-        $scope.formNotification.criticalTotal = _notification.criticalTotal;
-        $scope.formNotification.isAlarmTotal = _notification.alarmTotal !== null;
-        $scope.formNotification.alarmTotal = _notification.alarmTotal;
-
-    });
 
     function onValidateBeforeSubmitForm(formElement) {
         if (formElement.valid()) {
             var isValid = true;
             common.notifyRemoveAll();
             var message = [];
-
-            if ($scope.formNotification.isActive) {
-                if (!($scope.formNotification.isAlarmTotal || $scope.formNotification.isCriticalTotal
-                        || $scope.formNotification.isMajorTotal || $scope.formNotification.isMinorTotal)) {
-                    isValid = false;
-                    message.push($translate.instant('formCreateUserInvalidNotificationWhen'))
-                }
-            }
 
             if (message.length > 0) {
                 message.unshift($translate.instant('formInvalid'));
@@ -108,35 +81,4 @@ UserWebApp.controller('UserInfoController', function ($scope, $rootScope, HttpSe
             return isValid;
         }
     }
-
-    $scope.onSubmitNotification = function () {
-        // Start validate
-        var formElement = $('.formUpdateNotification');
-        if (!onValidateBeforeSubmitForm(formElement)) {
-            return false;
-        }
-
-        // Start save notification
-        var data = angular.copy($scope.formNotification);
-        delete data.isAlarmTotal;
-        delete data.isCriticalTotal;
-        delete data.isMajorTotal;
-        delete data.isMinorTotal;
-
-        // Start udpate notification setting
-        HttpService.postData('/users/' + userId + '/notification-setting/update-by-user', data).then(function (_notification) {
-            common.notifySuccess($translate.instant('saveSuccessfully'));
-            setTimeout(function () {
-                // location.replace('/users');
-            }, 500)
-
-        }, function () {
-            common.notifySuccess($translate.instant('saveError'));
-            setTimeout(function () {
-                // location.replace('/users');
-            }, 500)
-        });
-    }
-
-
 });

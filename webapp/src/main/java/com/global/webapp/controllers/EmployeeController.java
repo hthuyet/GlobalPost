@@ -29,14 +29,14 @@ public class EmployeeController extends BaseController {
     HttpSession httpSession;
 
     @GetMapping("/employee")
-//    @PreAuthorize("hasAuthority('GLOBAL:EMPLOYEE:READ')")
+    @PreAuthorize("hasAuthority('GLOBAL:EMPLOYEE:READ')")
     public String index() {
         logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "go to Employee page", "", "");
         return EMPLOYEE_PAGE;
     }
 
     @PostMapping("/employee/search")
-//    @PreAuthorize("hasAuthority('GLOBAL:EMPLOYEE:READ')")
+    @PreAuthorize("hasAuthority('GLOBAL:EMPLOYEE:READ')")
     @ResponseBody
     public ResponseEntity search(@RequestBody Map<String, String> params) {
         try {
@@ -49,7 +49,7 @@ public class EmployeeController extends BaseController {
     }
 
     @PostMapping("/employee/count")
-//    @PreAuthorize("hasAuthority('GLOBAL:EMPLOYEE:READ')")
+    @PreAuthorize("hasAuthority('GLOBAL:EMPLOYEE:READ')")
     @ResponseBody
     public int countDevices(@RequestBody Map<String, String> params) {
         logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "count on list Employee page", "", "");
@@ -57,7 +57,7 @@ public class EmployeeController extends BaseController {
     }
 
     @GetMapping("/employee/add")
-//    @PreAuthorize("hasAuthority('GLOBAL:EMPLOYEE:CREATE')")
+    @PreAuthorize("hasAuthority('GLOBAL:EMPLOYEE:CREATE')")
     public String add(Model model) {
         logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "go to add Employee page", "", "");
         model.addAttribute("data", "");
@@ -65,7 +65,7 @@ public class EmployeeController extends BaseController {
     }
 
     @GetMapping("employee/edit/{id}")
-//    @PreAuthorize("hasAuthority('GLOBAL:EMPLOYEE:UPDATE')")
+    @PreAuthorize("hasAuthority('GLOBAL:EMPLOYEE:UPDATE')")
     public String edit(Model model, @PathVariable("id") String id) {
         logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "go to edit Employee page", "", "");
         String data = employeeClient.get(Long.parseLong(id));
@@ -74,12 +74,25 @@ public class EmployeeController extends BaseController {
     }
 
     @PostMapping("/employee/save")
-//    @PreAuthorize("hasAuthority('GLOBAL:EMPLOYEE:CREATE')")
+    @PreAuthorize("hasAuthority('GLOBAL:EMPLOYEE:SAVE')")
     @ResponseBody
     public ResponseEntity save(@RequestBody Map<String, String> params) {
         try {
             logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "execute save Employee", "", "");
             String rtn = employeeClient.save(params);
+            return new ResponseEntity<>(rtn, HttpStatus.OK);
+        } catch (Exception ex) {
+            return parseException(ex);
+        }
+    }
+
+    @PostMapping("/employee/delete")
+    @PreAuthorize("hasAuthority('GLOBAL:EMPLOYEE:DELETE')")
+    @ResponseBody
+    public ResponseEntity delete(@RequestBody Map<String, String> params) {
+        try {
+            logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "execute delete Employee", "", "");
+            String rtn = employeeClient.delete(params);
             return new ResponseEntity<>(rtn, HttpStatus.OK);
         } catch (Exception ex) {
             return parseException(ex);

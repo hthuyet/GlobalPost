@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -79,6 +81,19 @@ public class PartnerController extends BaseController {
         try {
             logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "execute save partner", "", "");
             String rtn = partnerClient.save(params);
+            return new ResponseEntity<>(rtn, HttpStatus.OK);
+        } catch (Exception ex) {
+            return parseException(ex);
+        }
+    }
+
+    @PostMapping("/partner/delete")
+    @PreAuthorize("hasAuthority('GLOBAL:PARTNER:DELETE')")
+    @ResponseBody
+    public ResponseEntity delete(@RequestBody Map<String, Object> params) {
+        try {
+            logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "execute delete partner", "", "");
+            String rtn = partnerClient.delete(params);
             return new ResponseEntity<>(rtn, HttpStatus.OK);
         } catch (Exception ex) {
             return parseException(ex);
