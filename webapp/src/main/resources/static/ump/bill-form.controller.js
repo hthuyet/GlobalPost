@@ -206,7 +206,6 @@ UserWebApp.controller('BillFormController', function ($http, $rootScope, $scope,
     if (!onBeforeSubmit(formElement)) {
       return false;
     }
-    console.log($scope.item);
 
     var params = {};
     if ($scope.item.id) {
@@ -269,6 +268,19 @@ UserWebApp.controller('BillFormController', function ($http, $rootScope, $scope,
     if ($scope.receiverDateTime) {
       params.receiveDate = formatStringDateToParam($scope.receiverDateTime);
       params.receiveTime = formatTime($scope.receiverDateTime);
+    }
+
+    if(params.employeeSend <= 0){
+      if($scope.employeeSendSelected && $scope.employeeSendSelected.id > 0){
+        params.employeeSend = $scope.employeeSendSelected.id;
+      }
+    }
+
+
+    if(params.employeeReceive <= 0){
+      if($scope.employeeReceiveSelected && $scope.employeeReceiveSelected.id > 0){
+        params.employeeReceive = $scope.employeeReceiveSelected.id;
+      }
     }
 
     if ($scope.id != null && $scope.id != '') {

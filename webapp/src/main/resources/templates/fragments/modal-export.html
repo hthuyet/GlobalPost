@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+
+        <!-- Modal delete -->
+        <div th:fragment="modal-export" class="modal fade modalExport">
+            <div class="modal-dialog modal-xs">
+                <div class="modal-content text-center">
+                    <div class="modal-body">
+                        <form class="form-horizontal formValidate" name="exportFrm" id="exportFrm">
+                            <input type="hidden" ng-model="export.type">
+                            <input type="hidden" ng-model="export.id">
+
+                            <!--Row 1-->
+                            <div class="row">
+                                <!--Name-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label"><span
+                                                th:text="#{export.time}"></span></label>
+
+                                        <div class="col-md-8">
+                                            <p class="input-group">
+                                                <input type="text" class="form-control"
+                                                       uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup.opened"
+                                                       datepicker-options="options" ng-required="true" close-text="Close"
+                                                       alt-input-formats="altInputFormats" />
+                                                <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
+                                              </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--End Name-->
+                            </div>
+                            <!--End row 1-->
+                        </form>
+                    </div>
+
+                    <div class="modal-footer text-center">
+                        <button type="button" class="btn btn-primary btn-icon btnSubmit" ng-click="onExport()"><i class="icon-checkmark3 position-left"></i> <span th:text="#{btn.ok}"></span></button>
+                        <a class="btn btn-link" data-dismiss="modal" th:text="#{btn.cancel}"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /modal delete -->
+
+    </body>
+</html>

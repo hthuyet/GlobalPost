@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
     <head>
-        <title>Global - Part</title>
+        <title>Global - Chi nhánh</title>
         <!-- Theme JS files -->
         <script type="text/javascript" src="/ump/branch.controller.js"></script>
         <!-- /theme JS files -->
@@ -83,6 +83,12 @@
                                                         <span class="icon-trash"></span>
                                                     </a>
                                                 </li>
+
+                                                <li>
+                                                    <a ng-click="report(item)" th:title="#{common.btn.report}">
+                                                        <span class="icon-database-export"></span>
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </td>
                                     </tr>
@@ -136,6 +142,7 @@
 
                     <!-- Modal replace-->
                     <div th:replace="branch/fragments/modal-delete::modal-delete"></div>
+                    <div th:replace="fragments/modal-export::modal-export"></div>
                     <!-- /modal replace-->
 
                 </div>

@@ -24,6 +24,7 @@ import io.swagger.annotations.Example;
 import io.swagger.annotations.ExampleProperty;
 
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -66,20 +67,27 @@ public class BillEndPoint {
       examples
           = @Example(
           value = @ExampleProperty("{\"billno\": \"\",\"state\": 0,\"from\": 0,\"to\": 0,\"sname\": \"\",\"smobile\": \"\",\"rname\": \"\",\"rmobile\": \"\",\"limit\": 20,\"page\": 1}"))) String formData) {
-    JsonObject object = new Gson().fromJson(formData, JsonObject.class);
-    String billNo = Utils.getAsString(object, "billno", "");
-    Long from = Utils.getAsLong(object, "from", 0L);
-    Long to = Utils.getAsLong(object, "to", 0L);
-    int state = Utils.getAsInt(object, "state", 0);
-    String sName = Utils.getAsString(object, "sname", "");
-    String sMobile = Utils.getAsString(object, "smobile", "");
-    String rName = Utils.getAsString(object, "rname", "");
-    String rMobile = Utils.getAsString(object, "rmobile", "");
-    Integer limit = Utils.getAsInt(object, "limit", 20);
-    Integer page = Utils.getAsInt(object, "page", 1);
-    page = (page <= 1) ? 0 : (page - 1);
-    List<BillResponse> list = billService.findByQuery(billNo, state, from, to, sName, sMobile, rName, rMobile, page * limit, limit);
-    return Response.ok().entity(list).build();
+    try {
+      JsonObject object = new Gson().fromJson(formData, JsonObject.class);
+      String billNo = Utils.getAsString(object, "billno", "");
+      Long from = Utils.getAsLong(object, "from", 0L);
+      Long to = Utils.getAsLong(object, "to", 0L);
+      int state = Utils.getAsInt(object, "state", 0);
+      String sName = Utils.getAsString(object, "sname", "");
+      String sMobile = Utils.getAsString(object, "smobile", "");
+      String rName = Utils.getAsString(object, "rname", "");
+      String rMobile = Utils.getAsString(object, "rmobile", "");
+      Integer limit = Utils.getAsInt(object, "limit", 20);
+      Integer page = Utils.getAsInt(object, "page", 1);
+      page = (page <= 1) ? 0 : (page - 1);
+      List<BillResponse> list = billService.findByQuery(billNo, state, from, to, sName, sMobile, rName, rMobile, page * limit, limit);
+      return Response.ok().entity(list).build();
+    } catch (Exception ex) {
+      JsonObject json = new JsonObject();
+      json.addProperty("status", ActionResult.FAILURE1);
+      json.addProperty("message", ex.getMessage());
+      return Response.serverError().entity(json.toString()).build();
+    }
   }
 
   @POST
@@ -90,20 +98,27 @@ public class BillEndPoint {
       examples
           = @Example(
           value = @ExampleProperty("{\"billno\": \"\",\"state\": 0,\"from\": 0,\"to\": 0,\"sname\": \"\",\"smobile\": \"\",\"rname\": \"\",\"rmobile\": \"\",\"limit\": 20,\"page\": 1}"))) String formData) {
-    JsonObject object = new Gson().fromJson(formData, JsonObject.class);
-    String billNo = Utils.getAsString(object, "billno", "");
-    Long from = Utils.getAsLong(object, "from", 0L);
-    Long to = Utils.getAsLong(object, "to", 0L);
-    int state = Utils.getAsInt(object, "state", 0);
-    String sName = Utils.getAsString(object, "sname", "");
-    String sMobile = Utils.getAsString(object, "smobile", "");
-    String rName = Utils.getAsString(object, "rname", "");
-    String rMobile = Utils.getAsString(object, "rmobile", "");
-    Integer limit = Utils.getAsInt(object, "limit", 20);
-    Integer page = Utils.getAsInt(object, "page", 1);
-    page = (page <= 1) ? 0 : (page - 1);
-    List<BillResponse> list = billService.findImport(billNo, state, from, to, sName, sMobile, rName, rMobile, page * limit, limit);
-    return Response.ok().entity(list).build();
+    try {
+      JsonObject object = new Gson().fromJson(formData, JsonObject.class);
+      String billNo = Utils.getAsString(object, "billno", "");
+      Long from = Utils.getAsLong(object, "from", 0L);
+      Long to = Utils.getAsLong(object, "to", 0L);
+      int state = Utils.getAsInt(object, "state", 0);
+      String sName = Utils.getAsString(object, "sname", "");
+      String sMobile = Utils.getAsString(object, "smobile", "");
+      String rName = Utils.getAsString(object, "rname", "");
+      String rMobile = Utils.getAsString(object, "rmobile", "");
+      Integer limit = Utils.getAsInt(object, "limit", 20);
+      Integer page = Utils.getAsInt(object, "page", 1);
+      page = (page <= 1) ? 0 : (page - 1);
+      List<BillResponse> list = billService.findImport(billNo, state, from, to, sName, sMobile, rName, rMobile, page * limit, limit);
+      return Response.ok().entity(list).build();
+    } catch (Exception ex) {
+      JsonObject json = new JsonObject();
+      json.addProperty("status", ActionResult.FAILURE1);
+      json.addProperty("message", ex.getMessage());
+      return Response.serverError().entity(json.toString()).build();
+    }
   }
 
   @POST
@@ -114,20 +129,27 @@ public class BillEndPoint {
       examples
           = @Example(
           value = @ExampleProperty("{\"billno\": \"\",\"state\": 0,\"from\": 0,\"to\": 0,\"sname\": \"\",\"smobile\": \"\",\"rname\": \"\",\"rmobile\": \"\",\"limit\": 20,\"page\": 1}"))) String formData) {
-    JsonObject object = new Gson().fromJson(formData, JsonObject.class);
-    String billNo = Utils.getAsString(object, "billno", "");
-    Long from = Utils.getAsLong(object, "from", 0L);
-    Long to = Utils.getAsLong(object, "to", 0L);
-    int state = Utils.getAsInt(object, "state", 0);
-    String sName = Utils.getAsString(object, "sname", "");
-    String sMobile = Utils.getAsString(object, "smobile", "");
-    String rName = Utils.getAsString(object, "rname", "");
-    String rMobile = Utils.getAsString(object, "rmobile", "");
-    Integer limit = Utils.getAsInt(object, "limit", 20);
-    Integer page = Utils.getAsInt(object, "page", 1);
-    page = (page <= 1) ? 0 : (page - 1);
-    List<BillResponse> list = billService.findExport(billNo, state, from, to, sName, sMobile, rName, rMobile, page * limit, limit);
-    return Response.ok().entity(list).build();
+    try {
+      JsonObject object = new Gson().fromJson(formData, JsonObject.class);
+      String billNo = Utils.getAsString(object, "billno", "");
+      Long from = Utils.getAsLong(object, "from", 0L);
+      Long to = Utils.getAsLong(object, "to", 0L);
+      int state = Utils.getAsInt(object, "state", 0);
+      String sName = Utils.getAsString(object, "sname", "");
+      String sMobile = Utils.getAsString(object, "smobile", "");
+      String rName = Utils.getAsString(object, "rname", "");
+      String rMobile = Utils.getAsString(object, "rmobile", "");
+      Integer limit = Utils.getAsInt(object, "limit", 20);
+      Integer page = Utils.getAsInt(object, "page", 1);
+      page = (page <= 1) ? 0 : (page - 1);
+      List<BillResponse> list = billService.findExport(billNo, state, from, to, sName, sMobile, rName, rMobile, page * limit, limit);
+      return Response.ok().entity(list).build();
+    } catch (Exception ex) {
+      JsonObject json = new JsonObject();
+      json.addProperty("status", ActionResult.FAILURE1);
+      json.addProperty("message", ex.getMessage());
+      return Response.serverError().entity(json.toString()).build();
+    }
   }
 
   @POST
@@ -137,17 +159,24 @@ public class BillEndPoint {
   public Response count(@ApiParam(value = "Form data", examples
       = @Example(
       value = @ExampleProperty("{\"billno\": \"\",\"state\": 0,\"from\": 0,\"to\": 0,\"sname\": \"\",\"smobile\": \"\",\"rname\": \"\",\"rmobile\": \"\"}"))) String formData) {
-    JsonObject object = new Gson().fromJson(formData, JsonObject.class);
-    String billNo = Utils.getAsString(object, "billno", "");
-    Long from = Utils.getAsLong(object, "from", 0L);
-    Long to = Utils.getAsLong(object, "to", 0L);
-    int state = Utils.getAsInt(object, "state", 0);
-    String sName = Utils.getAsString(object, "sname", "");
-    String sMobile = Utils.getAsString(object, "smobile", "");
-    String rName = Utils.getAsString(object, "rname", "");
-    String rMobile = Utils.getAsString(object, "rmobile", "");
-    BigInteger count = billService.countByQuery(billNo, state, from, to, sName, sMobile, rName, rMobile);
-    return Response.ok().entity(count.intValue()).build();
+    try {
+      JsonObject object = new Gson().fromJson(formData, JsonObject.class);
+      String billNo = Utils.getAsString(object, "billno", "");
+      Long from = Utils.getAsLong(object, "from", 0L);
+      Long to = Utils.getAsLong(object, "to", 0L);
+      int state = Utils.getAsInt(object, "state", 0);
+      String sName = Utils.getAsString(object, "sname", "");
+      String sMobile = Utils.getAsString(object, "smobile", "");
+      String rName = Utils.getAsString(object, "rname", "");
+      String rMobile = Utils.getAsString(object, "rmobile", "");
+      BigInteger count = billService.countByQuery(billNo, state, from, to, sName, sMobile, rName, rMobile);
+      return Response.ok().entity(count.intValue()).build();
+    } catch (Exception ex) {
+      JsonObject json = new JsonObject();
+      json.addProperty("status", ActionResult.FAILURE1);
+      json.addProperty("message", ex.getMessage());
+      return Response.serverError().entity(json.toString()).build();
+    }
   }
 
   @POST
@@ -157,17 +186,24 @@ public class BillEndPoint {
   public Response countImport(@ApiParam(value = "Form data", examples
       = @Example(
       value = @ExampleProperty("{\"billno\": \"\",\"state\": 0,\"from\": 0,\"to\": 0,\"sname\": \"\",\"smobile\": \"\",\"rname\": \"\",\"rmobile\": \"\"}"))) String formData) {
-    JsonObject object = new Gson().fromJson(formData, JsonObject.class);
-    String billNo = Utils.getAsString(object, "billno", "");
-    Long from = Utils.getAsLong(object, "from", 0L);
-    Long to = Utils.getAsLong(object, "to", 0L);
-    int state = Utils.getAsInt(object, "state", 0);
-    String sName = Utils.getAsString(object, "sname", "");
-    String sMobile = Utils.getAsString(object, "smobile", "");
-    String rName = Utils.getAsString(object, "rname", "");
-    String rMobile = Utils.getAsString(object, "rmobile", "");
-    BigInteger count = billService.countImport(billNo, state, from, to, sName, sMobile, rName, rMobile);
-    return Response.ok().entity(count.intValue()).build();
+    try {
+      JsonObject object = new Gson().fromJson(formData, JsonObject.class);
+      String billNo = Utils.getAsString(object, "billno", "");
+      Long from = Utils.getAsLong(object, "from", 0L);
+      Long to = Utils.getAsLong(object, "to", 0L);
+      int state = Utils.getAsInt(object, "state", 0);
+      String sName = Utils.getAsString(object, "sname", "");
+      String sMobile = Utils.getAsString(object, "smobile", "");
+      String rName = Utils.getAsString(object, "rname", "");
+      String rMobile = Utils.getAsString(object, "rmobile", "");
+      BigInteger count = billService.countImport(billNo, state, from, to, sName, sMobile, rName, rMobile);
+      return Response.ok().entity(count.intValue()).build();
+    } catch (Exception ex) {
+      JsonObject json = new JsonObject();
+      json.addProperty("status", ActionResult.FAILURE1);
+      json.addProperty("message", ex.getMessage());
+      return Response.serverError().entity(json.toString()).build();
+    }
   }
 
   @POST
@@ -177,17 +213,24 @@ public class BillEndPoint {
   public Response countExport(@ApiParam(value = "Form data", examples
       = @Example(
       value = @ExampleProperty("{\"billno\": \"\",\"state\": 0,\"from\": 0,\"to\": 0,\"sname\": \"\",\"smobile\": \"\",\"rname\": \"\",\"rmobile\": \"\"}"))) String formData) {
-    JsonObject object = new Gson().fromJson(formData, JsonObject.class);
-    String billNo = Utils.getAsString(object, "billno", "");
-    Long from = Utils.getAsLong(object, "from", 0L);
-    Long to = Utils.getAsLong(object, "to", 0L);
-    int state = Utils.getAsInt(object, "state", 0);
-    String sName = Utils.getAsString(object, "sname", "");
-    String sMobile = Utils.getAsString(object, "smobile", "");
-    String rName = Utils.getAsString(object, "rname", "");
-    String rMobile = Utils.getAsString(object, "rmobile", "");
-    BigInteger count = billService.countExport(billNo, state, from, to, sName, sMobile, rName, rMobile);
-    return Response.ok().entity(count.intValue()).build();
+    try {
+      JsonObject object = new Gson().fromJson(formData, JsonObject.class);
+      String billNo = Utils.getAsString(object, "billno", "");
+      Long from = Utils.getAsLong(object, "from", 0L);
+      Long to = Utils.getAsLong(object, "to", 0L);
+      int state = Utils.getAsInt(object, "state", 0);
+      String sName = Utils.getAsString(object, "sname", "");
+      String sMobile = Utils.getAsString(object, "smobile", "");
+      String rName = Utils.getAsString(object, "rname", "");
+      String rMobile = Utils.getAsString(object, "rmobile", "");
+      BigInteger count = billService.countExport(billNo, state, from, to, sName, sMobile, rName, rMobile);
+      return Response.ok().entity(count.intValue()).build();
+    } catch (Exception ex) {
+      JsonObject json = new JsonObject();
+      json.addProperty("status", ActionResult.FAILURE1);
+      json.addProperty("message", ex.getMessage());
+      return Response.serverError().entity(json.toString()).build();
+    }
   }
 
   @GET
@@ -245,26 +288,33 @@ public class BillEndPoint {
   public Response Deletes(@ApiParam(value = "Form data", examples
       = @Example(value
       = @ExampleProperty("[1,2]"))) String formData) {
-    JsonObject json = new JsonObject();
-    int count = 0;
-    JsonArray array = new Gson().fromJson(formData, JsonArray.class);
-    if (array != null && array.size() > 0) {
-      long id = 0L;
-      for (JsonElement item : array) {
-        try {
-          id = item.getAsLong();
-          if (billService.delete(id)) {
-            count++;
+    try {
+      JsonObject json = new JsonObject();
+      int count = 0;
+      JsonArray array = new Gson().fromJson(formData, JsonArray.class);
+      if (array != null && array.size() > 0) {
+        long id = 0L;
+        for (JsonElement item : array) {
+          try {
+            id = item.getAsLong();
+            if (billService.delete(id)) {
+              count++;
+            }
+          } catch (Exception ex) {
+            logger.error(String.format("ERROR delete {%d}", id), ex);
           }
-        } catch (Exception ex) {
-          logger.error(String.format("ERROR delete {%d}", id), ex);
         }
       }
+      json.addProperty("status", ActionResult.SUCCESS_CODE);
+      json.addProperty("deleteok", count);
+      json.addProperty("deletefail", array.size() - count);
+      return Response.ok().entity(json.toString()).build();
+    } catch (Exception ex) {
+      JsonObject json = new JsonObject();
+      json.addProperty("status", ActionResult.FAILURE1);
+      json.addProperty("message", ex.getMessage());
+      return Response.serverError().entity(json.toString()).build();
     }
-    json.addProperty("status", ActionResult.SUCCESS_CODE);
-    json.addProperty("deleteok", count);
-    json.addProperty("deletefail", array.size() - count);
-    return Response.ok().entity(json.toString()).build();
   }
 
   @POST
@@ -290,16 +340,23 @@ public class BillEndPoint {
   public Response exeImport(@ApiParam(value = "Form data", examples
       = @Example(
       value = @ExampleProperty("{\"type\": \"1\",\"branchId\": \"2\",\"lstBill\": []}"))) String formData) {
-    JsonObject object = new Gson().fromJson(formData, JsonObject.class);
-    int type = Utils.getAsInt(object, "type", 0);
-    Long branchId = Utils.getAsLong(object, "branchId", 0L);
-    JsonArray lstBill = Utils.getAsJsonArray(object, "lstBill", new JsonArray());
+    try {
+      JsonObject object = new Gson().fromJson(formData, JsonObject.class);
+      int type = Utils.getAsInt(object, "type", 0);
+      Long branchId = Utils.getAsLong(object, "branchId", 0L);
+      JsonArray lstBill = Utils.getAsJsonArray(object, "lstBill", new JsonArray());
 
-    Integer exe = null;
-    if (lstBill != null && !lstBill.isJsonNull() && lstBill.size() > 0) {
-      exe = billService.exeImport(type, branchId, null);
+      Integer exe = null;
+      if (lstBill != null && !lstBill.isJsonNull() && lstBill.size() > 0) {
+        exe = billService.exeImport(type, branchId, null);
+      }
+      return Response.ok().entity(exe).build();
+    } catch (Exception ex) {
+      JsonObject json = new JsonObject();
+      json.addProperty("status", ActionResult.FAILURE1);
+      json.addProperty("message", ex.getMessage());
+      return Response.serverError().entity(json.toString()).build();
     }
-    return Response.ok().entity(exe).build();
   }
 
   @POST
@@ -309,14 +366,65 @@ public class BillEndPoint {
   public Response exeExport(@ApiParam(value = "Form data", examples
       = @Example(
       value = @ExampleProperty("{\"type\": \"1\",\"branchId\": \"2\",\"lstBill\": []}"))) String formData) {
-    JsonObject object = new Gson().fromJson(formData, JsonObject.class);
-    int type = Utils.getAsInt(object, "type", 0);
-    JsonArray lstBill = Utils.getAsJsonArray(object, "lstBill", new JsonArray());
+    try {
+      JsonObject object = new Gson().fromJson(formData, JsonObject.class);
+      int type = Utils.getAsInt(object, "type", 0);
+      JsonArray lstBill = Utils.getAsJsonArray(object, "lstBill", new JsonArray());
 
-    Integer exe = null;
-    if (lstBill != null && !lstBill.isJsonNull() && lstBill.size() > 0) {
-      exe = billService.exeExport(type, null);
+      Integer exe = null;
+      if (lstBill != null && !lstBill.isJsonNull() && lstBill.size() > 0) {
+        exe = billService.exeExport(type, null);
+      }
+      return Response.ok().entity(exe).build();
+    } catch (Exception ex) {
+      JsonObject json = new JsonObject();
+      json.addProperty("status", ActionResult.FAILURE1);
+      json.addProperty("message", ex.getMessage());
+      return Response.serverError().entity(json.toString()).build();
     }
-    return Response.ok().entity(exe).build();
+  }
+
+
+  @POST
+  @ApiOperation(value = "Report Bill")
+  @ApiResponse(code = 200, message = "Success")
+  @Path("/report")
+  public Response report(@ApiParam(value = "Form data",
+      examples
+          = @Example(
+          value = @ExampleProperty("{\"type\": \"0\",\"id\": 1,\"from\": 0,\"to\": 0}"))) String formData) {
+    try {
+      JsonObject object = new Gson().fromJson(formData, JsonObject.class);
+      Long id = Utils.getAsLong(object, "id", 0L);
+      Integer type = Utils.getAsInt(object, "type", 0);
+      Long start = Utils.getAsLong(object, "from", 0L);
+      Long to = Utils.getAsLong(object, "to", 0L);
+      List list = null;
+
+      Date fromDate = new Date(start);
+      Date toDate = new Date(to);
+      switch (type) {
+        case 0:
+          list = billService.reportByEmployee(id, fromDate, toDate);
+          break;
+        case 1:
+          list = billService.reportByCustomer(id, fromDate, toDate);
+          break;
+        case 2:
+          list = billService.reportByPartner(id, fromDate, toDate);
+          break;
+        case 3:
+          list = billService.reportByBranch(id, fromDate, toDate);
+          break;
+        default:
+          list = billService.reportByEmployee(id, fromDate, toDate);
+      }
+      return Response.ok().entity(list).build();
+    } catch (Exception ex) {
+      JsonObject json = new JsonObject();
+      json.addProperty("status", ActionResult.FAILURE1);
+      json.addProperty("message", ex.getMessage());
+      return Response.serverError().entity(json.toString()).build();
+    }
   }
 }

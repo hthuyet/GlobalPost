@@ -7,6 +7,7 @@ package com.global.service.services.impl;
 
 import com.global.exception.ObjExitsException;
 import com.global.service.model.*;
+import com.global.service.model.report.EmployeeReport;
 import com.global.service.repository.BillReceiveRepo;
 import com.global.service.repository.BillRepo;
 import com.global.service.repository.BillSendRepo;
@@ -16,6 +17,7 @@ import com.global.service.utils.GlobalConstants;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -53,28 +55,28 @@ public class BillServiceImpl implements BillService {
   @Autowired
   public BillReceiveRepo billReceiveRepo;
 
-  private static final String SQL_FIND_BY_QUERY = "SELECT d.`id`,d.`bill_no`,d.`bill_type`,d.`weight`,d.`cost`,d.`total_cost`,d.`content`,d.`paid`,d.`created`,d.`updated`,d.`is_cod`,d.`cod_value`,d.`bill_state`,d.`who_pay`,d.`user_create`,d.`branch_create`,d.`current_branch`,d.`partner_id`,d.`employee_send`,d.`employee_receive`,\n"
-      + "e.`customer_id` as `e_customer_id`,e.`send_name`,e.`send_address`,e.`send_mobile`,e.`send_time`,e.`send_date`,e.`send_by`,\n"
-      + "f.`customer_id` as `f_customer_id`,f.`receive_name`,f.`receive_address`,f.`receive_mobile`,f.`receive_time`,f.`receive_date`,f.`receive_by`,\n"
-      + "g.`user_name`,\n"
-      + "h.`branch_name` as `h_branch_name`,\n"
-      + "i.`branch_name` as `i_branch_name`,\n"
-      + "j.`part_name`, "
-      + "d.`pay_type` "
-      + "FROM bill d\n"
-      + "LEFT JOIN bill_send e\n"
-      + "ON d.`id` = e.`bill_id`\n"
-      + "LEFT JOIN bill_receive f\n"
-      + "ON d.`id` = f.`bill_id`\n"
-      + "LEFT JOIN `user` g\n"
-      + "ON d.`user_create` = g.`id`\n"
-      + "LEFT JOIN `branch` h\n"
-      + "ON d.`branch_create` = h.`id`\n"
-      + "LEFT JOIN `branch` i\n"
-      + "ON d.`current_branch` = i.`id`\n"
-      + "LEFT JOIN `partner` j\n"
-      + "ON d.`partner_id` = j.`id`\n"
-      + "WHERE 1 = 1 AND d.`bill_state` != 5 ";
+    private static final String SQL_FIND_BY_QUERY = "SELECT d.`id`,d.`bill_no`,d.`bill_type`,d.`weight`,d.`cost`,d.`total_cost`,d.`content`,d.`paid`,d.`created`,d.`updated`,d.`is_cod`,d.`cod_value`,d.`bill_state`,d.`who_pay`,d.`user_create`,d.`branch_create`,d.`current_branch`,d.`partner_id`,d.`employee_send`,d.`employee_receive`,\n"
+        + "e.`customer_id` as `e_customer_id`,e.`send_name`,e.`send_address`,e.`send_mobile`,e.`send_time`,e.`send_date`,e.`send_by`,\n"
+        + "f.`customer_id` as `f_customer_id`,f.`receive_name`,f.`receive_address`,f.`receive_mobile`,f.`receive_time`,f.`receive_date`,f.`receive_by`,\n"
+        + "g.`user_name`,\n"
+        + "h.`branch_name` as `h_branch_name`,\n"
+        + "i.`branch_name` as `i_branch_name`,\n"
+        + "j.`part_name`, "
+        + "d.`pay_type` "
+        + "FROM bill d\n"
+        + "LEFT JOIN bill_send e\n"
+        + "ON d.`id` = e.`bill_id`\n"
+        + "LEFT JOIN bill_receive f\n"
+        + "ON d.`id` = f.`bill_id`\n"
+        + "LEFT JOIN `user` g\n"
+        + "ON d.`user_create` = g.`id`\n"
+        + "LEFT JOIN `branch` h\n"
+        + "ON d.`branch_create` = h.`id`\n"
+        + "LEFT JOIN `branch` i\n"
+        + "ON d.`current_branch` = i.`id`\n"
+        + "LEFT JOIN `partner` j\n"
+        + "ON d.`partner_id` = j.`id`\n"
+        + "WHERE 1 = 1 AND d.`bill_state` != 5 ";
 
   private static final String SQL_COUNT_BY_QUERY = "SELECT count(d.`id`)\n"
       + "FROM bill d\n"
@@ -894,5 +896,177 @@ public class BillServiceImpl implements BillService {
     }
     BigInteger count = (BigInteger) query.getSingleResult();
     return count;
+  }
+
+
+  //For report
+  private static final String  SQL_REPORT_BY_EMPLOY = "SELECT d.`id`,d.`bill_no`,e.`send_date`,e.`send_time`,f.`receive_date`,f.`receive_time`,d.`weight`,d.`cost`,d.`total_cost`,d.`content` "
+      + "FROM bill d\n"
+      + "LEFT JOIN bill_send e\n"
+      + "ON d.`id` = e.`bill_id`\n"
+      + "LEFT JOIN bill_receive f\n"
+      + "ON d.`id` = f.`bill_id`\n"
+      + "WHERE 1 = 1 ";
+  @Override
+  public List<EmployeeReport> reportByEmployee(Long employ, Date startDate, Date endDate){
+    List rtn = null;
+    String sql = SQL_REPORT_BY_EMPLOY;
+    if (employ != null) {
+      sql += " AND (d.employee_send = ? OR d.employee_receive=?) ";
+    }
+    sql += " ORDER BY d.id ASC";
+    Query query = em.createNativeQuery(sql);
+
+    int i = 1;
+    if (employ != null) {
+      query.setParameter(i++, employ);
+      query.setParameter(i++, employ);
+    }
+    List<Object[]> li = (List<Object[]>) query.getResultList();
+    rtn = new ArrayList<>();
+    i = 1;
+    for (Object[] objects : li) {
+      //Add to list
+      rtn.add(convertToReportEmploy(i++,objects));
+    }
+    return rtn;
+  }
+
+  private EmployeeReport convertToReportEmploy(int stt,Object[] objects) {
+    EmployeeReport obj = new EmployeeReport(stt);
+    int i = 1;
+    Object tmp = objects[i++];
+    if (tmp != null) {
+      obj.setBillNo(String.valueOf(tmp));
+    }
+    String time = "";
+    tmp = objects[i++];
+    if (tmp != null) {
+      time += String.valueOf(tmp) + " ";
+    }
+    tmp = objects[i++];
+    if (tmp != null) {
+      time += String.valueOf(tmp);
+    }
+    tmp = objects[i++];
+    if (tmp != null) {
+      time += String.valueOf(tmp) + " ";
+    }
+    tmp = objects[i++];
+    if (tmp != null) {
+      time += String.valueOf(tmp);
+    }
+    //Set time
+    obj.setTime(time);
+
+    tmp = objects[i++];
+    if (tmp != null) {
+      obj.setWeight(Long.parseLong(String.valueOf(tmp)));
+    }
+
+    i++; //cost
+
+    tmp = objects[i++];
+    if (tmp != null) {
+      obj.setTotalCost(Long.parseLong(String.valueOf(tmp)));
+    }
+    obj.setNotes(String.valueOf(objects[i++]));
+    return obj;
+  }
+
+
+  private static final String  SQL_REPORT_BY_CUSTOMER = "SELECT d.`id`,d.`bill_no`,e.`send_date`,e.`send_time`,f.`receive_date`,f.`receive_time`,d.`weight`,d.`cost`,d.`total_cost`,d.`content` "
+      + "FROM bill d\n"
+      + "LEFT JOIN bill_send e\n"
+      + "ON d.`id` = e.`bill_id`\n"
+      + "LEFT JOIN bill_receive f\n"
+      + "ON d.`id` = f.`bill_id`\n"
+      + "WHERE 1 = 1 ";
+  @Override
+  public List<EmployeeReport> reportByCustomer(Long customer, Date startDate, Date endDate){
+    List rtn = null;
+    String sql = SQL_REPORT_BY_CUSTOMER;
+    if (customer != null) {
+      sql += " AND (e.customer_id = ? OR f.customer_id=?) ";
+    }
+    sql += " ORDER BY d.id ASC";
+    Query query = em.createNativeQuery(sql);
+
+    int i = 1;
+    if (customer != null) {
+      query.setParameter(i++, customer);
+      query.setParameter(i++, customer);
+    }
+    List<Object[]> li = (List<Object[]>) query.getResultList();
+    rtn = new ArrayList<>();
+    i = 1;
+    for (Object[] objects : li) {
+      //Add to list
+      rtn.add(convertToReportEmploy(i++,objects));
+    }
+    return rtn;
+  }
+
+  private static final String  SQL_REPORT_BY_PARTNER = "SELECT d.`id`,d.`bill_no`,e.`send_date`,e.`send_time`,f.`receive_date`,f.`receive_time`,d.`weight`,d.`cost`,d.`total_cost`,d.`content` "
+      + "FROM bill d\n"
+      + "LEFT JOIN bill_send e\n"
+      + "ON d.`id` = e.`bill_id`\n"
+      + "LEFT JOIN bill_receive f\n"
+      + "ON d.`id` = f.`bill_id`\n"
+      + "WHERE 1 = 1 ";
+  @Override
+  public List<EmployeeReport> reportByPartner(Long partner, Date startDate, Date endDate){
+    List rtn = null;
+    String sql = SQL_REPORT_BY_PARTNER;
+    if (partner != null) {
+      sql += " AND d.partner_id = ? ";
+    }
+    sql += " ORDER BY d.id ASC";
+    Query query = em.createNativeQuery(sql);
+
+    int i = 1;
+    if (partner != null) {
+      query.setParameter(i++, partner);
+    }
+    List<Object[]> li = (List<Object[]>) query.getResultList();
+    rtn = new ArrayList<>();
+    i = 1;
+    for (Object[] objects : li) {
+      //Add to list
+      rtn.add(convertToReportEmploy(i++,objects));
+    }
+    return rtn;
+  }
+
+  private static final String  SQL_REPORT_BY_BRANCH = "SELECT d.`id`,d.`bill_no`,e.`send_date`,e.`send_time`,f.`receive_date`,f.`receive_time`,d.`weight`,d.`cost`,d.`total_cost`,d.`content` "
+      + "FROM bill d\n"
+      + "LEFT JOIN bill_send e\n"
+      + "ON d.`id` = e.`bill_id`\n"
+      + "LEFT JOIN bill_receive f\n"
+      + "ON d.`id` = f.`bill_id`\n"
+      + "WHERE 1 = 1 ";
+  @Override
+  public List<EmployeeReport> reportByBranch(Long branch, Date startDate, Date endDate){
+    List rtn = null;
+    String sql = SQL_REPORT_BY_BRANCH;
+    if (branch != null) {
+      sql += " AND (d.branch_create = ? OR d.current_branch = ?) ";
+    }
+    sql += " ORDER BY d.id ASC";
+    Query query = em.createNativeQuery(sql);
+
+    int i = 1;
+    if (branch != null) {
+      query.setParameter(i++, branch);
+      query.setParameter(i++, branch);
+    }
+    List<Object[]> li = (List<Object[]>) query.getResultList();
+    rtn = new ArrayList<>();
+    i = 1;
+    for (Object[] objects : li) {
+      //Add to list
+      rtn.add(convertToReportEmploy(i++,objects));
+    }
+    return rtn;
   }
 }

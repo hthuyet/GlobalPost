@@ -32,6 +32,8 @@ public class BaseController {
     public static final String BILL_EX_PAGE = "bill/export";
     public static final String BILL_PAGE_FORM = "bill/form";
 
+    public static final String REPORT_PAGE = "report/index";
+
     public ResponseEntity parseException(Exception ex) {
         JsonObject response = new JsonObject();
         if (ex instanceof UnknownHttpStatusCodeException) {

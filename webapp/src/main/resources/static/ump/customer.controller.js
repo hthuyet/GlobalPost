@@ -1,4 +1,4 @@
-UserWebApp.controller('CustomerController', function ($scope, $rootScope, HttpService, $translate, $location, $filter) {
+UserWebApp.controller('CustomerController', function ($scope, $rootScope, HttpService, $translate, $http, $filter) {
 
   $scope.lstData = [];
   $scope.totalElements = 0;
@@ -147,5 +147,53 @@ UserWebApp.controller('CustomerController', function ($scope, $rootScope, HttpSe
       loadData();
     }
   }, true);
+
+
+  //For export
+  $scope.dt = new Date();
+  $scope.format = "dd/MM/yyyy";
+  $scope.options = {
+    type: "month",
+  };
+
+  $scope.report = function (item) {
+    $scope.export = {
+      "id": item.id,
+      "type": 1
+    };
+    $('.modalExport').modal('show');
+  };
+
+  $scope.popup = {opened: false};
+  $scope.open = function () {
+    $scope.popup.opened = true;
+  };
+
+  $scope.onExport = function () {
+    common.spinner(true);
+    var params = {
+      "type": $scope.export.type,
+      "id": $scope.export.id
+    };
+
+    $http({
+      url: '/report',
+      method: "POST",
+      data: params, //this is your json data string
+      headers: {
+        'Content-type': 'application/json'
+      },
+      responseType: 'arraybuffer'
+    }).then(function (data, status, headers, config) {
+      common.spinner(false);
+      var blob = new Blob([data.data], {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
+      var objectUrl = URL.createObjectURL(blob);
+      window.open(objectUrl);
+    }), function error(data, status, headers, config) {
+      //upload failed
+      common.spinner(false);
+    };
+  }
+
 
 });

@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
 <head>
-    <title>Global - Customer</title>
+    <title>Global - Khách hàng</title>
     <!-- Theme JS files -->
     <script type="text/javascript" src="/ump/customer.controller.js"></script>
     <!-- /theme JS files -->
@@ -138,6 +138,7 @@
 
                 <!-- Modal replace-->
                 <div th:replace="customer/fragments/modal-delete::modal-delete"></div>
+                <div th:replace="fragments/modal-export::modal-export"></div>
                 <!-- /modal replace-->
 
             </div>
