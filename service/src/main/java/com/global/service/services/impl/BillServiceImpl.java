@@ -900,7 +900,7 @@ public class BillServiceImpl implements BillService {
 
 
   //For report
-  private static final String SQL_REPORT_BY_EMPLOY = "SELECT d.`id`,d.`bill_no`,e.`send_date`,e.`send_time`,f.`receive_date`,f.`receive_time`,d.`weight`,d.`cost`,d.`total_cost`,d.`content` "
+  private static final String SQL_REPORT_BY_EMPLOY = "SELECT d.`id`,d.`bill_no`,e.`send_date`,e.`send_time`,f.`receive_date`,f.`receive_time`,d.`weight`,d.`cost`,d.`total_cost`,d.`content`,e.send_address,f.receive_address "
       + "FROM bill d\n"
       + "LEFT JOIN bill_send e\n"
       + "ON d.`id` = e.`bill_id`\n"
@@ -962,18 +962,18 @@ public class BillServiceImpl implements BillService {
 
     tmp = objects[i++];
     if (tmp != null && String.valueOf(tmp).trim().length() > 0) {
-      obj.setWeight(Long.parseLong(String.valueOf(tmp)));
+      obj.setWeight(String.valueOf(tmp));
     } else {
-      obj.setWeight(0L);
+      obj.setWeight("0");
     }
 
     i++; //cost
 
     tmp = objects[i++];
     if (tmp != null && String.valueOf(tmp).trim().length() > 0) {
-      obj.setTotalCost(Long.parseLong(String.valueOf(tmp)));
+      obj.setTotalCost(String.valueOf(tmp));
     } else {
-      obj.setTotalCost(0L);
+      obj.setTotalCost("");
     }
     tmp = objects[i++];
     if (tmp != null) {
@@ -981,11 +981,24 @@ public class BillServiceImpl implements BillService {
     } else {
       obj.setNotes("");
     }
+
+    tmp = objects[i++];
+    if (tmp != null) {
+      obj.setSendAddress(tmp.toString());
+    } else {
+      obj.setSendAddress("");
+    }
+    tmp = objects[i++];
+    if (tmp != null) {
+      obj.setReceiverAddress(tmp.toString());
+    } else {
+      obj.setReceiverAddress("");
+    }
     return obj;
   }
 
 
-  private static final String SQL_REPORT_BY_CUSTOMER = "SELECT d.`id`,d.`bill_no`,e.`send_date`,e.`send_time`,f.`receive_date`,f.`receive_time`,d.`weight`,d.`cost`,d.`total_cost`,d.`content` "
+  private static final String SQL_REPORT_BY_CUSTOMER = "SELECT d.`id`,d.`bill_no`,e.`send_date`,e.`send_time`,f.`receive_date`,f.`receive_time`,d.`weight`,d.`cost`,d.`total_cost`,d.`content`,e.send_address,f.receive_address "
       + "FROM bill d\n"
       + "LEFT JOIN bill_send e\n"
       + "ON d.`id` = e.`bill_id`\n"
@@ -1018,7 +1031,7 @@ public class BillServiceImpl implements BillService {
     return rtn;
   }
 
-  private static final String SQL_REPORT_BY_PARTNER = "SELECT d.`id`,d.`bill_no`,e.`send_date`,e.`send_time`,f.`receive_date`,f.`receive_time`,d.`weight`,d.`cost`,d.`total_cost`,d.`content` "
+  private static final String SQL_REPORT_BY_PARTNER = "SELECT d.`id`,d.`bill_no`,e.`send_date`,e.`send_time`,f.`receive_date`,f.`receive_time`,d.`weight`,d.`cost`,d.`total_cost`,d.`content`,e.send_address,f.receive_address "
       + "FROM bill d\n"
       + "LEFT JOIN bill_send e\n"
       + "ON d.`id` = e.`bill_id`\n"
@@ -1050,7 +1063,7 @@ public class BillServiceImpl implements BillService {
     return rtn;
   }
 
-  private static final String SQL_REPORT_BY_BRANCH = "SELECT d.`id`,d.`bill_no`,e.`send_date`,e.`send_time`,f.`receive_date`,f.`receive_time`,d.`weight`,d.`cost`,d.`total_cost`,d.`content` "
+  private static final String SQL_REPORT_BY_BRANCH = "SELECT d.`id`,d.`bill_no`,e.`send_date`,e.`send_time`,f.`receive_date`,f.`receive_time`,d.`weight`,d.`cost`,d.`total_cost`,d.`content`,e.send_address,f.receive_address "
       + "FROM bill d\n"
       + "LEFT JOIN bill_send e\n"
       + "ON d.`id` = e.`bill_id`\n"

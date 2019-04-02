@@ -102,15 +102,15 @@
         </dependency>
 
         <!--<dependency>-->
-            <!--<groupId>org.apache.poi</groupId>-->
-            <!--<artifactId>poi-ooxml</artifactId>-->
-            <!--<version>RELEASE</version>-->
+        <!--<groupId>org.apache.poi</groupId>-->
+        <!--<artifactId>poi-ooxml</artifactId>-->
+        <!--<version>RELEASE</version>-->
         <!--</dependency>-->
 
         <!--<dependency>-->
-            <!--<groupId>org.apache.poi</groupId>-->
-            <!--<artifactId>poi-ooxml</artifactId>-->
-            <!--<version>RELEASE</version>-->
+        <!--<groupId>org.apache.poi</groupId>-->
+        <!--<artifactId>poi-ooxml</artifactId>-->
+        <!--<version>RELEASE</version>-->
         <!--</dependency>-->
 
         <dependency>
@@ -175,6 +175,16 @@
     </dependencies>
 
     <build>
+        <!--<resources>-->
+            <!--<resource>-->
+                <!--<directory>src/main/resources/</directory>-->
+                <!--<filtering>false</filtering>-->
+                <!--<includes>-->
+                    <!--<include>**/*.yaml</include>-->
+                    <!--<include>**/*.xlsx</include>-->
+                <!--</includes>-->
+            <!--</resource>-->
+        <!--</resources>-->
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

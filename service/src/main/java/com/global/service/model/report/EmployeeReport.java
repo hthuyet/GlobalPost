@@ -6,8 +6,8 @@ public class EmployeeReport {
   public String time;
   public String sendAddress;
   public String receiverAddress;
-  public float weight;
-  public float totalCost;
+  public String weight;
+  public String totalCost;
   public String notes;
 
   public EmployeeReport() {
@@ -17,7 +17,7 @@ public class EmployeeReport {
     this.stt = stt;
   }
 
-  public EmployeeReport(int stt, String billNo, String time, String sendAddress, String receiverAddress, float weight, float totalCost, String notes) {
+  public EmployeeReport(int stt, String billNo, String time, String sendAddress, String receiverAddress, String weight, String totalCost, String notes) {
     this.stt = stt;
     this.billNo = billNo;
     this.time = time;
@@ -68,19 +68,19 @@ public class EmployeeReport {
     this.receiverAddress = receiverAddress;
   }
 
-  public float getWeight() {
+  public String getWeight() {
     return weight;
   }
 
-  public void setWeight(float weight) {
+  public void setWeight(String weight) {
     this.weight = weight;
   }
 
-  public float getTotalCost() {
+  public String getTotalCost() {
     return totalCost;
   }
 
-  public void setTotalCost(float totalCost) {
+  public void setTotalCost(String totalCost) {
     this.totalCost = totalCost;
   }
 
