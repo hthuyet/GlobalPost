@@ -18,6 +18,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,7 +51,6 @@ public class ReportController extends BaseController {
   protected ReportClient reportClient;
 
 
-
   @Autowired
   protected HttpSession session;
 
@@ -61,7 +61,13 @@ public class ReportController extends BaseController {
   private ServletContext servletContext;
 
   @GetMapping("/report")
-  public ResponseEntity<Resource> index() {
+  @PreAuthorize("hasAuthority('GLOBAL:REPORT:READ')")
+  public String index() {
+    return REPORT_PAGE;
+  }
+
+  @GetMapping("/reporttest")
+  public ResponseEntity<Resource> indextest() {
     try {
       logger.info("#USER_LOG {},{},{},{},{}", session.getId(), session.getAttribute("username"), "go to report page", "", "");
       List cars = generateTestCarData();
@@ -200,21 +206,35 @@ public class ReportController extends BaseController {
   }
 
 
+  @PostMapping("/report/search")
+  public ResponseEntity search(@RequestBody Map<String, Object> params) {
+    try {
+
+      String rtn = reportClient.report(params);
+      return new ResponseEntity<>(rtn, HttpStatus.OK);
+    } catch (Exception ex) {
+      logger.error("ERROR report search: ", ex);
+      return parseException(ex);
+    }
+  }
+
   @PostMapping("/report")
   public ResponseEntity<Resource> report(@RequestBody Map<String, Object> params) {
     try {
 
       String dataApi = reportClient.report(params);
 
-      if(dataApi != null && dataApi.trim().length() >0) {
+      if (dataApi != null && dataApi.trim().length() > 0) {
 //        List data = gernerateData();
-        List<EmployeeReport> data = new Gson().fromJson(dataApi,List.class);
+        List<EmployeeReport> data = new Gson().fromJson(dataApi, List.class);
 
-        URL fileResource = this.getClass().getClassLoader().getResource("template.xlsx");
+//        URL fileResource = this.getClass().getClassLoader().getResource("template.xlsx");
+//
+//        File file = new File(fileResource.toURI());
+//
+//        InputStream is = new FileInputStream(file);
 
-        File file = new File(fileResource.toURI());
-
-        InputStream is = new FileInputStream(file);
+        InputStream is = this.getClass().getClassLoader().getResourceAsStream("template.xlsx");
 
         File tempFile = File.createTempFile("myfile", ".xlsx");
         try (OutputStream os = new FileOutputStream(tempFile)) {

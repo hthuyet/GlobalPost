@@ -170,6 +170,9 @@ var translationsEN = {
   billExportModal: 'Export bill',
   exportSuccessfully: 'Export successfully.',
   exportError: 'Export  error!',
+  pleaseChooseEmployee: 'Please choose Employee!',
+  pleaseChooseCustomer: 'Please choose Customer!',
+  pleaseChooseBranch: 'Please choose branch!',
 };
 
 var translationsVI = {
@@ -344,6 +347,9 @@ var translationsVI = {
   exportSuccessfully: 'Export successfully.',
   exportError: 'Export  error!',
   searchBillNotFound: 'Không tìm thấy vận đơn {{billNo}}!',
+  pleaseChooseEmployee: 'Vui lòng chọn 1 nhân viên!',
+  pleaseChooseCustomer: 'Vui lòng chọn 1 khách hàng!',
+  pleaseChooseBranch: 'Vui lòng chọn 1 chi nhánh!',
 };
 
 UserWebApp.config(['$translateProvider', function ($translateProvider) {

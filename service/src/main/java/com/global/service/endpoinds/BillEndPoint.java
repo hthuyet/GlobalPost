@@ -399,6 +399,7 @@ public class BillEndPoint {
       Integer type = Utils.getAsInt(object, "type", 0);
       Long start = Utils.getAsLong(object, "from", 0L);
       Long to = Utils.getAsLong(object, "to", 0L);
+      String reportTime = Utils.getAsString(object, "reportTime", "");
       List list = null;
 
       Date fromDate = new Date(start);

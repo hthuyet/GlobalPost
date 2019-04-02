@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Add js,css here -->
+</head>
+<body>
+<!-- Panel search -->
+<div th:fragment="panel-search" class="panel panel-flat">
+    <div class="panel-heading">
+        <h5 class="panel-title"><span th:text="#{panel.title.filter}"></span></h5>
+        <div class="heading-elements">
+            <ul class="icons-list">
+                <li><a data-action="collapse"></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <form ng-submit="onSearch()" class="form-horizontal form-search row" name="frmReport">
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" th:text="#{report.type}"></label>
+                        <div class="col-xs-8">
+                            <select class="form-control" name="typeReport" ng-model="typeReport" convert-to-number
+                                    ng-required="true">
+                                <option value="0"><span th:text="#{report.type.0}"></span></option>
+                                <option value="1"><span th:text="#{report.type.1}"></span></option>
+                                <option value="2"><span th:text="#{report.type.2}"></span></option>
+                                <option value="3"><span th:text="#{report.type.3}"></span></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-md-6" ng-show="typeReport=='0'">
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" th:text="#{report.employee}"></label>
+                        <div class="col-xs-8">
+                            <input type="text" ng-model="selectedEmployee" placeholder=""
+                                   uib-typeahead="item as item.name for item in loadEmployee($viewValue)"
+                                   typeahead-loading="loadingEmployee" typeahead-no-results="noEmployee"
+                                   class="form-control"
+                                   typeahead-on-select="selectEmployee($item)" typeahead-select-on-exact="true"
+                                   typeahead-wait-ms="80">
+
+                            <div ng-show="noEmployee">
+                                <i class="glyphicon glyphicon-remove"></i> No Results Found
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-md-6" ng-show="typeReport=='1'">
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" th:text="#{report.customer}"></label>
+                        <div class="col-xs-8">
+                            <input type="text" ng-model="selectedCustomer" placeholder=""
+                                   uib-typeahead="item as item.name for item in loadCustomer($viewValue)"
+                                   typeahead-loading="loadingCustomer" typeahead-no-results="noCustomer"
+                                   class="form-control"
+                                   typeahead-on-select="selectCustomer($item)" typeahead-select-on-exact="true"
+                                   typeahead-wait-ms="80">
+
+                            <div ng-show="noCustomer">
+                                <i class="glyphicon glyphicon-remove"></i> No Results Found
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-md-6" ng-show="typeReport=='3'">
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" th:text="#{report.branch}"></label>
+                        <div class="col-xs-8">
+                            <input type="text" ng-model="selectedBranch" placeholder=""
+                                   uib-typeahead="item as item.name for item in loadBranch($viewValue)"
+                                   typeahead-loading="loadingBranch" typeahead-no-results="noBranch"
+                                   class="form-control"
+                                   typeahead-on-select="selectBranch($item)" typeahead-select-on-exact="true"
+                                   typeahead-wait-ms="80">
+
+                            <div ng-show="noBranch">
+                                <i class="glyphicon glyphicon-remove"></i> No Results Found
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-md-6">
+                    <div class="form-group">
+                        <label class="control-label col-xs-4"> <span th:text="#{report.month}"></span>:</label>
+                        <div class="col-xs-8">
+                            <div class="input-group">
+                                <input type="text" class="form-control" uib-datepicker-popup="MM/yyyy"
+                                       ng-model="reportTime"
+                                       is-open="isOpen" datepicker-options="dateOptions"
+                                       ng-required="true" close-text="Close" alt-input-formats="altInputFormats"
+                                       datepicker-mode="'month'"/>
+                                <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="openCalendar()">
+                                    <i class="icon-calendar"></i>
+                                </button>
+                            </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="clear"></div>
+
+            <div class="row pull-right">
+                <button type="button" ng-disabled="frmReport.$invalid" id="btnSubmit"
+                        ng-click="onSearch()" class="btn btn-primary"
+                        th:text="#{btn.search}"></button>
+
+                <button type="button" ng-disabled="frmReport.$invalid" id="btnReport"
+                        ng-click="onReport()" class="btn btn-default"
+                        th:text="#{btn.export}"></button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- /panel search -->
+
+
+</body>
+</html>

@@ -1,14 +1,14 @@
 package com.global.service.model.report;
 
 public class EmployeeReport {
-  private int stt;
-  private String billNo;
-  private String time;
-  private String sendAddress;
-  private String receiverAddress;
-  private float weight;
-  private float totalCost;
-  private String notes;
+  public int stt;
+  public String billNo;
+  public String time;
+  public String sendAddress;
+  public String receiverAddress;
+  public float weight;
+  public float totalCost;
+  public String notes;
 
   public EmployeeReport() {
   }
