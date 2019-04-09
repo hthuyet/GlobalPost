@@ -1,5 +1,5 @@
 UserWebApp.controller('ReportController', function ($scope, $rootScope, HttpService, $translate, $location, $filter, $http) {
-  $scope.typeReport = "1";
+  $scope.typeReport = "0";
 
   $scope.lstAllData = [];
   $scope.lstData = [];
@@ -88,6 +88,7 @@ UserWebApp.controller('ReportController', function ($scope, $rootScope, HttpServ
     }
   }, true);
 
+  $scope.frmInvalid = true;
   //Load data
   //Typehead customer
   $scope.selectedCustomer = "";
@@ -115,7 +116,13 @@ UserWebApp.controller('ReportController', function ($scope, $rootScope, HttpServ
   };
 
   $scope.selectCustomer = function (obj) {
+    if(angular.equals(obj, {})){
+      $scope.frmInvalid = true;
+      $scope.selectedCustomer = "";
+      return;
+    }
     $scope.selectedCustomer = obj;
+    $scope.frmInvalid = false;
     console.log($scope.selectedCustomer);
   }
 
@@ -145,7 +152,13 @@ UserWebApp.controller('ReportController', function ($scope, $rootScope, HttpServ
   };
 
   $scope.selectEmployee = function (obj) {
+    if(angular.equals(obj, {})){
+      $scope.frmInvalid = true;
+      $scope.selectedEmployee = "";
+      return;
+    }
     $scope.selectedEmployee = obj;
+    $scope.frmInvalid = false;
     console.log($scope.selectedEmployee);
   }
 
@@ -175,8 +188,13 @@ UserWebApp.controller('ReportController', function ($scope, $rootScope, HttpServ
   };
 
   $scope.selectBranch = function (obj) {
+    if(angular.equals(obj, {})){
+      $scope.selectedBranch = "";
+      $scope.frmInvalid = true;
+      return;
+    }
     $scope.selectedBranch = obj;
-    console.log($scope.selectedBranch);
+    $scope.frmInvalid = false;
   }
 
   //DATETIME PICKER
@@ -218,6 +236,13 @@ UserWebApp.controller('ReportController', function ($scope, $rootScope, HttpServ
       params.id = $scope.selectedCustomer.id;
     }
     if ($scope.typeReport == "2") {
+      if (!$scope.selectedBranch || !$scope.selectedBranch.id) {
+        common.notifyWarning($translate.instant('pleaseChooseBranch'));
+        return false;
+      }
+      params.id = $scope.selectedBranch.id;
+    }
+    if ($scope.typeReport == "3") {
       if (!$scope.selectedBranch || !$scope.selectedBranch.id) {
         common.notifyWarning($translate.instant('pleaseChooseBranch'));
         return false;

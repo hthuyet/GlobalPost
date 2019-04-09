@@ -24,6 +24,7 @@ import io.swagger.annotations.Example;
 import io.swagger.annotations.ExampleProperty;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ws.rs.GET;
@@ -343,14 +344,17 @@ public class BillEndPoint {
     try {
       JsonObject object = new Gson().fromJson(formData, JsonObject.class);
       int type = Utils.getAsInt(object, "type", 0);
-      Long branchId = Utils.getAsLong(object, "branchId", 0L);
-      JsonArray lstBill = Utils.getAsJsonArray(object, "lstBill", new JsonArray());
-
-      Integer exe = null;
-      if (lstBill != null && !lstBill.isJsonNull() && lstBill.size() > 0) {
-        exe = billService.exeImport(type, branchId, null);
+      Long id = Utils.getAsLong(object, "id", 0L);
+      String lstBill = Utils.getAsString(object, "lstBill", "");
+      if (lstBill != null && lstBill.trim().length() > 0) {
+        String[] tmp = lstBill.split(",");
+        List<Long> lstId = new ArrayList<>(tmp.length);
+        for (String s : tmp) {
+          lstId.add(Long.parseLong(s));
+        }
+        return Response.ok().entity(billService.exeImport(type, id, lstId)).build();
       }
-      return Response.ok().entity(exe).build();
+      return Response.ok().entity(0).build();
     } catch (Exception ex) {
       JsonObject json = new JsonObject();
       json.addProperty("status", ActionResult.FAILURE1);
@@ -369,13 +373,17 @@ public class BillEndPoint {
     try {
       JsonObject object = new Gson().fromJson(formData, JsonObject.class);
       int type = Utils.getAsInt(object, "type", 0);
-      JsonArray lstBill = Utils.getAsJsonArray(object, "lstBill", new JsonArray());
-
-      Integer exe = null;
-      if (lstBill != null && !lstBill.isJsonNull() && lstBill.size() > 0) {
-        exe = billService.exeExport(type, null);
+      Long id = Utils.getAsLong(object, "id", 0L);
+      String lstBill = Utils.getAsString(object, "lstBill", "");
+      if (lstBill != null && lstBill.trim().length() > 0) {
+        String[] tmp = lstBill.split(",");
+        List<Long> lstId = new ArrayList<>(tmp.length);
+        for (String s : tmp) {
+          lstId.add(Long.parseLong(s));
+        }
+        return Response.ok().entity(billService.exeExport(type, id, lstId)).build();
       }
-      return Response.ok().entity(exe).build();
+      return Response.ok().entity(0).build();
     } catch (Exception ex) {
       JsonObject json = new JsonObject();
       json.addProperty("status", ActionResult.FAILURE1);

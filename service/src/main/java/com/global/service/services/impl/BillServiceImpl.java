@@ -597,7 +597,8 @@ public class BillServiceImpl implements BillService {
   }
 
   private static final String SQL_QUERY_IMPORT = "UPDATE bill set bill_state=?,current_branch=? WHERE id IN (%list%)";
-  private static final String SQL_QUERY_EXPORT = "UPDATE bill set bill_state=? WHERE id IN (%list%)";
+  private static final String SQL_QUERY_IMPORT_CUSTOMER = "UPDATE bill_receive set customer_id=? WHERE id IN (%list%)";
+  private static final String SQL_QUERY_EXPORT = "UPDATE bill set bill_state=?,employee_receive=? WHERE id IN (%list%)";
 
   @Override
   public Integer exeImport(int state, Long currentBranch, List<Long> lstId) {
@@ -605,6 +606,17 @@ public class BillServiceImpl implements BillService {
       return 0;
     String sql = SQL_QUERY_IMPORT;
     sql = sql.replaceAll("%list%", StringUtils.join(lstId, ","));
+
+    switch (state){
+      case 0:
+        //Doi tac
+        sql = sql.replaceAll("current_branch", "partner_id");
+        break;
+      case 3:
+        //Nhan vien
+        sql = sql.replaceAll("current_branch", "employee_receive");
+        break;
+    }
     Query query = em.createNativeQuery(sql);
     int i = 1;
     query.setParameter(i++, state);
@@ -613,7 +625,7 @@ public class BillServiceImpl implements BillService {
   }
 
   @Override
-  public Integer exeExport(int state, List<Long> lstId) {
+  public Integer exeExport(int state, Long employee,List<Long> lstId) {
     if (lstId == null || lstId.isEmpty())
       return 0;
     String sql = SQL_QUERY_EXPORT;
@@ -621,6 +633,7 @@ public class BillServiceImpl implements BillService {
     Query query = em.createNativeQuery(sql);
     int i = 1;
     query.setParameter(i++, state);
+    query.setParameter(i++, employee);
     return query.executeUpdate();
   }
 

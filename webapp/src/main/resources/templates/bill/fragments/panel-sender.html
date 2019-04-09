@@ -13,7 +13,7 @@
     <div class="panel-body">
         <div class="col-md-12">
             <div class="form-group">
-                <label class="control-label col-md-4" th:text="#{bill.sendName}"></label>
+                <label class="control-label col-md-4 " th:text="#{bill.sendName}"></label>
                 <div class="col-md-8">
                     <input type="text" ng-model="asyncSelected" placeholder=""
                            uib-typeahead="item as item.name for item in getSender($viewValue)"
@@ -34,10 +34,10 @@
 
         <div class="col-md-12">
             <div class="form-group">
-                <label class="control-label col-md-4" th:text="#{bill.sendMobile}"></label>
+                <label class="control-label col-md-4 " th:text="#{bill.sendMobile}"></label>
                 <div class="col-md-8">
                     <input type="text" class="form-control" ng-model="item.sendMobile"
-                           ng-disabled="item.sendCustomer >= 0"
+                           ng-disabled="item.sendCustomer != '' && item.sendCustomer >= 0"
                            th:placeholder="#{bill.sendMobile}">
                 </div>
             </div>
@@ -45,10 +45,10 @@
 
         <div class="col-md-12">
             <div class="form-group">
-                <label class="control-label col-md-4" th:text="#{bill.sendAddress}"></label>
+                <label class="control-label col-md-4 " th:text="#{bill.sendAddress}"></label>
                 <div class="col-md-8">
                     <input type="text" class="form-control" ng-model="item.sendAddress"
-                           ng-disabled="item.sendCustomer >= 0"
+                           ng-disabled="item.sendCustomer != '' && item.sendCustomer >= 0"
                            th:placeholder="#{bill.sendAddress}">
                 </div>
             </div>
@@ -89,10 +89,10 @@
 
         <div class="col-md-12">
             <div class="form-group">
-                <label class="control-label col-md-4" th:text="#{bill.saveInfo}"></label>
+                <label class="control-label col-md-4 " th:text="#{bill.saveInfo}"></label>
                 <div class="col-md-8">
                     <input type="checkbox" ng-model="item.saveSender" name="saveSender" value="true"
-                           ng-disabled="item.sendCustomer >= 0">
+                           ng-disabled="item.sendCustomer != '' && item.sendCustomer >= 0">
                 </div>
             </div>
         </div>

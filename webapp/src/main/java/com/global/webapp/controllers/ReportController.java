@@ -1,11 +1,13 @@
 package com.global.webapp.controllers;
 
-import com.global.webapp.clients.BillClient;
-import com.global.webapp.clients.ReportClient;
+import com.global.webapp.clients.*;
 import com.global.webapp.models.Car;
 import com.global.webapp.models.EmployeeReport;
 import com.global.webapp.models.Test;
+import com.global.webapp.utils.Utils;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.internal.LinkedTreeMap;
 import org.apache.commons.io.IOUtils;
 import org.jxls.common.Context;
 import org.jxls.util.JxlsHelper;
@@ -37,10 +39,8 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 public class ReportController extends BaseController {
@@ -51,6 +51,14 @@ public class ReportController extends BaseController {
 
   @Autowired
   protected ReportClient reportClient;
+
+  @Autowired
+  protected CustomerClient customerClient;
+  @Autowired
+  protected BranchClient branchClient;
+
+  @Autowired
+  protected EmployeeClient employeeClient;
 
 
   @Autowired
@@ -224,22 +232,99 @@ public class ReportController extends BaseController {
   public ResponseEntity<Resource> report(@RequestBody Map<String, Object> params) {
     try {
 
+      Gson gson = new Gson();
       String dataApi = reportClient.report(params);
 
       if (dataApi != null && dataApi.trim().length() > 0) {
-//        List data = gernerateData();
-        List<EmployeeReport> data = new Gson().fromJson(dataApi, List.class);
+        List data = gson.fromJson(dataApi, List.class);
+        String fileName = "";
 
-//        InputStream is = this.getClass().getClassLoader().getResourceAsStream("template.xlsx");
+        Long id = Long.parseLong(String.valueOf(params.get("id")));
+        Integer type = Integer.parseInt(String.valueOf(params.get("type")));
+        String reportTime = String.valueOf(params.get("reportTime"));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date dateReport = sdf.parse(reportTime);
+        SimpleDateFormat sdf2 = new SimpleDateFormat("MM/yyyy");
 
-//        File file = ResourceUtils.getFile("classpath:template.xlsx");
-        Resource resourceFile = new ClassPathResource("classpath:template.xlsx");
+        String name = String.valueOf(params.get("name"));
+
+        String title = "", address = "", mobile = "", dataObj = "";
+
+        switch (type) {
+          case 0:
+            //reportByEmployee
+            dataObj = employeeClient.get(id);
+            if (dataObj != null && dataObj.trim().length() > 0) {
+              JsonObject jsonObject = gson.fromJson(dataObj, JsonObject.class);
+              name = jsonObject.get("fullName").getAsString();
+            }
+            title = "BẢNG KÊ SỐ TIỀN THU TRƯỚC THÁNG " + sdf2.format(dateReport);
+            fileName = "report" + File.separator + "ThuTienNhanVien.xlsx";
+            break;
+          case 1:
+            //reportByCustomer
+            dataObj = customerClient.get(id);
+            if (dataObj != null && dataObj.trim().length() > 0) {
+              JsonObject jsonObject = gson.fromJson(dataObj, JsonObject.class);
+              name = jsonObject.get("name").getAsString();
+              address = jsonObject.get("address").getAsString();
+              mobile = jsonObject.get("mobile").getAsString();
+            }
+            title = "BẢNG KÊ CƯỚC CHUYỂN PHÁT NHANH THÁNG: " + sdf2.format(dateReport);
+            fileName = "report" + File.separator + "ChiTietKhachHang.xlsx";
+            break;
+          case 2:
+            //reportByPartner
+            title = "Bảng kê bưu phẩm trả giúp Toàn Cầu HN tháng: " + sdf2.format(dateReport);
+            fileName = "report" + File.separator + "ThuGuiChiNhanh.xlsx";
+            break;
+          case 3:
+            //reportByBranch
+            dataObj = branchClient.get(id);
+            if (dataObj != null && dataObj.trim().length() > 0) {
+              JsonObject jsonObject = gson.fromJson(dataObj, JsonObject.class);
+              name = jsonObject.get("name").getAsString();
+              address = jsonObject.get("address").getAsString();
+              mobile = jsonObject.get("hotline").getAsString();
+            }
+            title = "Bảng kê bưu phẩm trả giúp Toàn Cầu HN tháng: " + sdf2.format(dateReport);
+            fileName = "report" + File.separator + "ThuGuiChiNhanh.xlsx";
+            break;
+          default:
+            //reportByEmployee
+            title = "Bảng kê bưu phẩm trả giúp Toàn Cầu HN tháng: " + sdf2.format(dateReport);
+            fileName = "report" + File.separator + "ThuGuiChiNhanh.xlsx";
+        }
+
+        Resource resourceFile = new ClassPathResource(fileName);
         InputStream is = resourceFile.getInputStream();
 
+        if (is == null) {
+          logger.warn(String.format("ERROR ClassPathResource getInputStream for file: %s"), fileName);
+          is = Utils.inputStream(fileName);
+        }
+
         File tempFile = File.createTempFile("myfile", ".xlsx");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String date = "Hà nội " + simpleDateFormat.format(new Date());
+
+        //Tinh total
+        Long total = 0L;
+        for (Object item : data) {
+          total += Long.parseLong(String.valueOf(((LinkedTreeMap) item).get("totalCost")));
+        }
+
+
         try (OutputStream os = new FileOutputStream(tempFile)) {
           Context context = new Context();
           context.putVar("items", data);
+          context.putVar("total", Utils.currencyFormat(total.toString()));
+          context.putVar("totalCurrent", Utils.ChuyenSangChu(total.toString()));
+          context.putVar("date", date);
+          context.putVar("title", title);
+          context.putVar("name", name);
+          context.putVar("address", address);
+          context.putVar("mobile", mobile);
           JxlsHelper.getInstance().processTemplate(is, os, context);
         }
 

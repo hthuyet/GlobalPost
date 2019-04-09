@@ -33,6 +33,7 @@ UserWebApp.controller('BillFormController', function ($http, $rootScope, $scope,
       "content": "",
       "paid": "",
       "isCod": "",
+      "payType": "0",
       "codValue": "",
       "billState": "",
       "whoPay": "",
@@ -66,6 +67,7 @@ UserWebApp.controller('BillFormController', function ($http, $rootScope, $scope,
   }
 
   $scope.onSearch = function () {
+    console.log("$scope.billNo: " + $scope.billNo);
     if ($scope.billNo != "") {
       common.spinner(true);
       HttpService.postDataNoError('/bill/detail/' + $scope.billNo, {}).then(function (response) {
@@ -89,6 +91,7 @@ UserWebApp.controller('BillFormController', function ($http, $rootScope, $scope,
         $scope.item.content = "";
         $scope.item.paid = "";
         $scope.item.isCod = "";
+        $scope.item.payType = "0";
         $scope.item.codValue = "";
         $scope.item.billState = "";
         $scope.item.whoPay = "";
@@ -139,6 +142,61 @@ UserWebApp.controller('BillFormController', function ($http, $rootScope, $scope,
         $scope.receiverDateTime = new Date();
         //$("#billNo").focus();
       });
+    }else{
+      console.log("reset form: ");
+      $scope.item.billNo = $scope.billNo;
+      $scope.item.billType = "-1";
+      $scope.item.weight = "";
+      $scope.item.cost = "";
+      $scope.item.totalCost = "";
+      $scope.item.content = "";
+      $scope.item.paid = "";
+      $scope.item.isCod = "";
+      $scope.item.payType = "0";
+      $scope.item.codValue = "";
+      $scope.item.billState = "";
+      $scope.item.whoPay = "";
+      $scope.item.userCreate = "";
+      $scope.item.branchCreate = "";
+      $scope.item.currentBranch = "";
+      $scope.item.partnerId = "";
+      $scope.item.employeeSend = "";
+      $scope.item.employeeReceive = "";
+      $scope.item.sendCustomer = "";
+      $scope.item.sendName = "";
+      $scope.item.sendAddress = "";
+      $scope.item.sendMobile = "";
+      $scope.item.sendTime = "";
+      $scope.item.sendDate = "";
+      $scope.item.sendBy = "";
+      $scope.item.receiveCustomer = "";
+      $scope.item.receiveName = "";
+      $scope.item.receiveAddress = "";
+      $scope.item.receiveMobile = "";
+      $scope.item.receiveTime = "";
+      $scope.item.receiveDate = "";
+      $scope.item.receiveBy = "";
+      $scope.item.isCod = "0";
+      $scope.item.saveSender = "0";
+      $scope.item.saveReceiver = "0";
+      $scope.item.employeeSend = "0";
+      $scope.item.employeeReceive = "0";
+
+      $scope.asyncSelected = {
+        "id": "",
+        "name": "",
+        "mobile": "",
+        "address": ""
+      };
+
+      $scope.receiverSelected = {
+        "id": "",
+        "name": "",
+        "mobile": "",
+        "address": ""
+      };
+      $scope.senderDateTime = new Date();
+      $scope.receiverDateTime = new Date();
     }
   }
 

@@ -39,7 +39,7 @@ public interface BillService {
 
   public abstract Integer exeImport(int type, Long branchId, List<Long> lstId);
 
-  public abstract Integer exeExport(int type, List<Long> lstId);
+  public abstract Integer exeExport(int type, Long employee,List<Long> lstId);
 
   //for report
   public abstract List<EmployeeReport> reportByEmployee(Long employ, Date startDate, Date endDate);

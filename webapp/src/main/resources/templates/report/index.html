@@ -14,7 +14,7 @@
             padding-right: 100px;
         }
 
-        .table > tbody > tr > td{
+        .table > tbody > tr > td {
             padding: 10px 5px;
             font-size: 12px;
         }
@@ -50,31 +50,31 @@
                                        style="margin-top: 20px">
                                     <!--HEADER-->
                                     <thead>
-                                    <tr>
-                                        <th class="text-center" th:text="#{report.billNo}"></th>
-                                        <th class="text-center" th:text="#{report.time}"></th>
-                                        <th class="text-center" th:text="#{report.sendAddress}"></th>
-                                        <th class="text-center" th:text="#{report.receiverAddress}"></th>
-                                        <th class="text-center" th:text="#{report.weight}"></th>
-                                        <th class="text-center" th:text="#{report.totalCost}"></th>
-                                        <th class="text-center" th:text="#{report.notes}"></th>
+                                    <tr class="d-flex">
+                                        <th class="text-center col-xs-1" th:text="#{report.billNo}"></th>
+                                        <th class="text-center col-xs-2" th:text="#{report.time}"></th>
+                                        <th class="text-center col-xs-2" th:text="#{report.sendAddress}"></th>
+                                        <th class="text-center col-xs-2" th:text="#{report.receiverAddress}"></th>
+                                        <th class="text-center col-xs-1" th:text="#{report.weight}"></th>
+                                        <th class="text-center col-xs-1" th:text="#{report.totalCost}"></th>
+                                        <th class="text-center col-xs-2" th:text="#{report.notes}"></th>
                                     </tr>
                                     </thead>
 
                                     <!--BODY-->
                                     <tbody>
                                     <tr ng-repeat="item in lstData" ng-dblclick="onEditItem(item)">
-                                        <td class="text-center">{{item.billNo}}</td>
-                                        <td class="text-center">{{item.time}}</td>
-                                        <td class="text-center" title="{{item.sendAddress}}">
-                                            {{item.sendAddress | truncate2}}
+                                        <td class="text-left">{{item.billNo}}</td>
+                                        <td class="text-left">{{item.time}}</td>
+                                        <td class="text-left" title="{{item.sendAddress}}">
+                                            {{item.sendAddress | truncatelong}}
                                         </td>
-                                        <td class="text-center text-small" title="{{item.receiverAddress}}">
-                                            {{item.receiverAddress | truncate2 }}
+                                        <td class="text-left" title="{{item.receiverAddress}}">
+                                            {{item.receiverAddress | truncatelong }}
                                         </td>
-                                        <td class="text-center">{{ "" + item.weight | numberFilter}}</td>
-                                        <td class="text-center">{{ "" + item.totalCost | numberFilter}}</td>
-                                        <td class="text-center">{{item.notes }}</td>
+                                        <td class="text-center">{{ "" + item.weight | currency}}</td>
+                                        <td class="text-center">{{ "" + item.totalCost | currency}}</td>
+                                        <td class="text-left">{{item.notes }}</td>
                                     </tr>
                                     </tbody>
                                 </table>

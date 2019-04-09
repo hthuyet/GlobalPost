@@ -26,7 +26,7 @@
                                     ng-required="true">
                                 <option value="0"><span th:text="#{report.type.0}"></span></option>
                                 <option value="1"><span th:text="#{report.type.1}"></span></option>
-                                <option value="2"><span th:text="#{report.type.2}"></span></option>
+                                <!--<option value="2"><span th:text="#{report.type.2}"></span></option>-->
                                 <option value="3"><span th:text="#{report.type.3}"></span></option>
                             </select>
                         </div>
@@ -38,7 +38,7 @@
                         <label class="control-label col-xs-4" th:text="#{report.employee}"></label>
                         <div class="col-xs-8">
                             <input type="text" ng-model="selectedEmployee" placeholder=""
-                                   uib-typeahead="item as item.name for item in loadEmployee($viewValue)"
+                                   uib-typeahead="item as item.fullName for item in loadEmployee($viewValue)"
                                    typeahead-loading="loadingEmployee" typeahead-no-results="noEmployee"
                                    class="form-control"
                                    typeahead-on-select="selectEmployee($item)" typeahead-select-on-exact="true"
@@ -112,11 +112,11 @@
             <div class="clear"></div>
 
             <div class="row pull-right">
-                <button type="button" ng-disabled="frmReport.$invalid" id="btnSubmit"
+                <button type="button" ng-disabled="frmReport.$invalid || frmInvalid" id="btnSubmit"
                         ng-click="onSearch()" class="btn btn-primary"
                         th:text="#{btn.search}"></button>
 
-                <button type="button" ng-disabled="frmReport.$invalid" id="btnReport"
+                <button type="button" ng-disabled="frmReport.$invalid || frmInvalid" id="btnReport"
                         ng-click="onReport()" class="btn btn-default"
                         th:text="#{btn.export}"></button>
             </div>

@@ -116,8 +116,8 @@ UserWebApp.controller('BillImportModalController', function ($scope, $rootScope,
     common.spinner(true);
     var params = {
       "type": $scope.fromType,
-      "item": item,
-      "lstBill": $scope.listItem,
+      "id": item.id,
+      "lstBill": $scope.listItem.join(","),
     };
 
     HttpService.postData('/bill/exeImport', params, $("#btnExeImport")).then(function (response) {
@@ -136,6 +136,7 @@ UserWebApp.controller('BillImportModalController', function ($scope, $rootScope,
   $rootScope.$on('modalImport', function (event, data) {
     console.log(data.list);
     $scope.fromType = "1";
+    $scope.listItem = data.list;
     $scope.changeFromType();
   });
   

@@ -18,7 +18,7 @@
     <div class="panel-body">
         <div class="col-md-6" style="border-right: 1px solid #dddddd">
             <div class="form-group">
-                <label class="control-label col-md-4" th:text="#{bill.transf.sender.date}"></label>
+                <label class="control-label col-md-4 " th:text="#{bill.transf.sender.date}"></label>
                 <div class="col-md-8">
                     <div class="input-group">
                         <input type="text" class="form-control" datetime-picker="dd/MM/yyyy HH:mm" ng-model="senderDateTime" is-open="isOpenSender"/>
@@ -32,7 +32,7 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-4" th:text="#{bill.transf.sender.name}"></label>
+                <label class="control-label col-md-4 " th:text="#{bill.transf.sender.name}"></label>
                 <div class="col-md-8">
                     <input type="text" class="form-control" ng-model="item.sendBy"
                            th:placeholder="#{bill.transf.sender.name}">
@@ -40,7 +40,7 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-4" th:text="#{bill.transf.sender.user}"></label>
+                <label class="control-label col-md-4 " th:text="#{bill.transf.sender.user}"></label>
                 <div class="col-md-8">
                     <input type="text" ng-model="employeeSendSelected" placeholder=""
                            uib-typeahead="item as item.fullName for item in searchSendEmployee($viewValue)"
@@ -59,7 +59,7 @@
 
         <div class="col-md-6" style="border-right: 1px solid #dddddd">
             <div class="form-group">
-                <label class="control-label col-md-4" th:text="#{bill.transf.receive.date}"></label>
+                <label class="control-label col-md-4 " th:text="#{bill.transf.receive.date}"></label>
                 <div class="col-md-8">
                     <div class="input-group">
                         <input type="text" class="form-control" datetime-picker="dd/MM/yyyy HH:mm" ng-model="receiverDateTime" is-open="isOpen"/>
@@ -72,7 +72,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-md-4" th:text="#{bill.transf.receive.name}"></label>
+                <label class="control-label col-md-4 " th:text="#{bill.transf.receive.name}"></label>
                 <div class="col-md-8">
                     <input type="text" class="form-control" ng-model="item.receiveBy"
                            th:placeholder="#{bill.transf.receive.name}">
@@ -80,7 +80,7 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-4" th:text="#{bill.transf.receive.user}"></label>
+                <label class="control-label col-md-4 " th:text="#{bill.transf.receive.user}"></label>
                 <div class="col-md-8">
                     <input type="text" ng-model="employeeReceiveSelected" placeholder=""
                            uib-typeahead="item as item.fullName for item in searchEmployee($viewValue)"

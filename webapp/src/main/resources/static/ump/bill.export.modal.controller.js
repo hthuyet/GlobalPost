@@ -135,9 +135,8 @@ UserWebApp.controller('BillExportModalController', function ($scope, $rootScope,
     common.spinner(true);
     var params = {
       "type": $scope.fromType,
-      "item": item,
-      "branchId": item,
-      "lstBill": $scope.listItem,
+      "id": item.id,
+      "lstBill": $scope.listItem.join(","),
     };
 
     HttpService.postData('/bill/exeExport', params, $("#btnExeExport")).then(function (response) {
@@ -156,6 +155,7 @@ UserWebApp.controller('BillExportModalController', function ($scope, $rootScope,
   $rootScope.$on('modalExport', function (event, data) {
     console.log(data.list);
     $scope.fromType = "1";
+    $scope.listItem = data.list;
     $scope.changeFromType();
   });
   

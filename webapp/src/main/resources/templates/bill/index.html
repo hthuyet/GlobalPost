@@ -59,6 +59,8 @@
                                         <th class="text-center" th:text="#{bill.totalCost}"></th>
                                         <th class="text-center" th:text="#{bill.sendDate}"></th>
                                         <th class="text-center" th:text="#{bill.receiveDate}"></th>
+                                        <th class="text-center" th:text="#{bill.createBranch}"></th>
+                                        <th class="text-center" th:text="#{bill.currBranch}"></th>
                                         <!--<th class="text-center" th:text="#{bill.billState}"></th>-->
                                         <!--<th style="width: 100px;" class="text-center"-->
                                         <!--th:text="#{user.search.action}"></th>-->
@@ -78,6 +80,9 @@
                                         <td class="text-center">{{ "" + item.totalCost | numberFilter}}</td>
                                         <td class="text-center">{{item.sendDate | dateFormat }}</td>
                                         <td class="text-center">{{item.receiveDate | dateFormat }}</td>
+                                        <td>{{item.branchNameCreate}}</td>
+                                        <td ng-if="item.currentBranchName == 'null'"></td>
+                                        <td ng-if="item.currentBranchName != 'null'">{{item.currentBranchName}}</td>
                                         <!--<td class="text-center">{{item.receiveDate | dateTimeFormat }}</td>-->
                                         <!--<td class="text-center"-->
                                             <!--ng-class="{init: item.billState == '0',process: item.billState == '1',finish: item.billState == '2',hasError: item.billState == '3',deleted: item.billState == '4'}">-->

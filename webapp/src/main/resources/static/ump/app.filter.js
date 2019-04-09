@@ -9,6 +9,21 @@ UserWebApp
       return Math.ceil(n);
     };
   })
+
+  .filter('currency', [function () {
+    return function (number) {
+      number = "" + number;
+      if (!angular.isUndefined(number)) {
+        var parts = number.split(".");
+        var str = parts[0].toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+        if(parts[1] !== undefined){
+          str+="."+parts[1];
+        }
+        return str;
+      }
+    };
+  }])
+
   .filter('numberFilter', [function () {
     return function (number) {
       number = "" + number;
@@ -29,6 +44,26 @@ UserWebApp
       var tail = "...";
       if (!value) return '';
       max = parseInt(max, 10);
+      if (!max) return value;
+      if (value.length <= max) return value;
+
+      value = value.substr(0, max);
+      if (wordwise) {
+        var lastspace = value.lastIndexOf(' ');
+        if (lastspace != -1) {
+          value = value.substr(0, lastspace);
+        }
+      }
+      return value + (tail || ' …');
+    };
+  })
+  .filter('truncatelong', function () {
+    return function (value) {
+      var max = 45;
+      var wordwise = false;
+      var tail = "...";
+      if (!value) return '';
+      max = parseInt(max, 45);
       if (!max) return value;
       if (value.length <= max) return value;
 
