@@ -16,15 +16,14 @@ import com.global.service.services.BillService;
 import com.global.service.utils.GlobalConstants;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
+import com.global.service.utils.Utils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -493,6 +492,119 @@ public class BillServiceImpl implements BillService {
 //    return null;
 //  }
 
+
+  private Bill createSingleBill(BillForm bill) {
+    Bill obj = new Bill();
+    obj.setCreated(System.currentTimeMillis());
+
+    obj.setBillNo(bill.billNo);
+    obj.setBillType(bill.billType);
+    obj.setBillState(bill.billState);
+    obj.setBranchCreate(bill.branchCreate);
+    obj.setCodValue(bill.codValue);
+    obj.setContent(bill.content);
+    obj.setCost(bill.cost);
+
+    obj.setIsCod(bill.isCod);
+    obj.setPaid(bill.paid);
+    obj.setTotalCost(bill.totalCost);
+    obj.setUserCreate(bill.userCreate);
+    obj.setWeight(bill.weight);
+    obj.setWhoPay(bill.whoPay);
+    obj.setBranchCreate(bill.branchCreate);
+
+    if(bill.currentBranch != null && bill.currentBranch > 0){
+      obj.setCurrentBranch(bill.currentBranch);
+    }else{
+      obj.setCurrentBranch(bill.branchCreate);
+    }
+
+
+    obj.setPartnerId(bill.partnerId);
+    obj.setEmployeeSend(bill.employeeSend);
+    obj.setEmployeeReceive(bill.employeeReceive);
+    obj.setPayType(bill.payType);
+    obj.setWhoPay(bill.whoPay);
+    obj = billRepo.save(obj);
+
+    BillSend objSend = null;
+    BillReceive objReceive = null;
+    if (obj != null && obj.getId() > 0) {
+      objSend = getBillSendByBillId(obj.getId());
+      if (objSend == null) {
+        objSend = new BillSend();
+      }
+      objSend.billId = obj.getId();
+      objSend.customerId = bill.sendCustomer;
+      objSend.sendName = bill.sendName;
+      objSend.sendAddress = bill.sendAddress;
+      objSend.sendMobile = bill.sendMobile;
+      objSend.sendTime = bill.sendTime;
+      objSend.sendDate = bill.sendDate;
+      objSend.sendBy = bill.sendBy;
+      billSendRepo.save(objSend);
+      objReceive = getBillReceiveByBillId(obj.getId());
+      if (objReceive == null) {
+        objReceive = new BillReceive();
+      }
+      objReceive.billId = obj.getId();
+      objReceive.customerId = bill.receiveCustomer;
+      objReceive.receiveName = bill.receiveName;
+      objReceive.receiveAddress = bill.receiveAddress;
+      objReceive.receiveMobile = bill.receiveMobile;
+      objReceive.receiveTime = bill.receiveTime;
+      objReceive.receiveDate = bill.receiveDate;
+      objReceive.receiveBy = bill.receiveBy;
+      billReceiveRepo.save(objReceive);
+      return obj;
+    } else {
+      return null;
+    }
+  }
+
+  //Tao moi nhieu bill theo billNo, ngan cach boi dau - ;
+  @Override
+  public Bill createMultiBill(BillForm bill) {
+    try {
+      //Save saveSender
+      if (bill.saveSender > 0) {
+        Customer customer = new Customer();
+        customer.name = bill.sendName;
+        customer.mobile = bill.sendMobile;
+        customer.address = bill.sendAddress;
+        customer = customerRepo.save(customer);
+
+        bill.sendCustomer = customer.id;
+      }
+
+      //Save saveReceiver
+      if (bill.saveReceiver > 0) {
+        Customer rCustomer = new Customer();
+        rCustomer.name = bill.receiveName;
+        rCustomer.mobile = bill.receiveMobile;
+        rCustomer.address = bill.receiveAddress;
+        rCustomer = customerRepo.save(rCustomer);
+        bill.receiveCustomer = rCustomer.id;
+      }
+
+
+      //
+      Bill obj = null;
+      String code = bill.billNo;
+      HashMap<String, String> listCode = Utils.createListCode(code);
+      for (Map.Entry<String, String> entry : listCode.entrySet()) {
+        String key = entry.getKey();
+        bill.billNo = key;
+
+        obj = createSingleBill(bill);
+      }
+      return obj;
+    } catch (Exception ex) {
+      logger.error("ERROR save: ", ex);
+      return null;
+    }
+  }
+
   @Override
   public Bill save(BillForm bill) {
     try {
@@ -545,7 +657,6 @@ public class BillServiceImpl implements BillService {
       obj.setCodValue(bill.codValue);
       obj.setContent(bill.content);
       obj.setCost(bill.cost);
-      obj.setCurrentBranch(bill.currentBranch);
       obj.setIsCod(bill.isCod);
       obj.setPaid(bill.paid);
       obj.setTotalCost(bill.totalCost);
@@ -553,6 +664,14 @@ public class BillServiceImpl implements BillService {
       obj.setWeight(bill.weight);
       obj.setWhoPay(bill.whoPay);
       obj.setBranchCreate(bill.branchCreate);
+
+      if(bill.currentBranch != null && bill.currentBranch > 0){
+        obj.setCurrentBranch(bill.currentBranch);
+      }else{
+        obj.setCurrentBranch(bill.branchCreate);
+      }
+
+
       obj.setPartnerId(bill.partnerId);
       obj.setEmployeeSend(bill.employeeSend);
       obj.setEmployeeReceive(bill.employeeReceive);
@@ -607,7 +726,7 @@ public class BillServiceImpl implements BillService {
     String sql = SQL_QUERY_IMPORT;
     sql = sql.replaceAll("%list%", StringUtils.join(lstId, ","));
 
-    switch (state){
+    switch (state) {
       case 0:
         //Doi tac
         sql = sql.replaceAll("current_branch", "partner_id");
@@ -625,7 +744,7 @@ public class BillServiceImpl implements BillService {
   }
 
   @Override
-  public Integer exeExport(int state, Long employee,List<Long> lstId) {
+  public Integer exeExport(int state, Long employee, List<Long> lstId) {
     if (lstId == null || lstId.isEmpty())
       return 0;
     String sql = SQL_QUERY_EXPORT;
@@ -655,6 +774,38 @@ public class BillServiceImpl implements BillService {
       return convertToObject(li.get(0));
     }
     return null;
+  }
+
+
+  @Override
+  public List<BillResponse> getByListCode(HashMap<String, String> lstCode) {
+    String sql = SQL_FIND_BY_QUERY;
+    if (lstCode != null && !lstCode.isEmpty()) {
+      sql += " AND d.bill_no IN ( ";
+
+      for (Map.Entry<String, String> entry : lstCode.entrySet()) {
+        String key = entry.getKey();
+        sql += "'" + key + "',";
+      }
+
+      sql = sql.substring(0, sql.lastIndexOf(","));
+      sql += ")";
+
+      Query query = em.createNativeQuery(sql);
+
+
+      List<BillResponse> rtn = new ArrayList<>();
+
+      List<Object[]> li = (List<Object[]>) query.getResultList();
+      if (li.size() > 0) {
+        for (int i = 0; i < li.size(); i++) {
+          rtn.add(convertToObject(li.get(i)));
+        }
+      }
+      return rtn;
+    } else {
+      return new ArrayList<>();
+    }
   }
 
   @Override

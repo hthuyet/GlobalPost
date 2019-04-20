@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -32,9 +33,11 @@ public interface BillService {
   public abstract BillResponse getById(Long billId);
 
   public abstract BillResponse getByCode(String code);
+  public abstract List<BillResponse> getByListCode(HashMap<String,String> code);
 
   public abstract Boolean delete(Long id);
 
+  public abstract Bill createMultiBill(BillForm billParameter);
   public abstract Bill save(BillForm billParameter);
 
   public abstract Integer exeImport(int type, Long branchId, List<Long> lstId);

@@ -1,11 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <!-- Add js,css here -->
 </head>
 <body>
 <!-- Panel search -->
+
+
 <div th:fragment="form" class="panel panel-flat" ng-controller="BillFormController">
+    <div class="panel-heading">
+        <div class="heading-elements">
+            <ul class="icons-list">
+                <li ng-show="showGrid"><a href="" class="btn btn-xs" ng-click="enlarge()"><span class="icon-enlarge"></span></a></li>
+                <li ng-show="!showGrid"><a href="" class="btn btn-xs" ng-click="shrink()"><span class="icon-shrink"></span></a></li>
+            </ul>
+        </div>
+    </div>
+
     <div class="panel-body">
         <form class="form-horizontal">
             <!--Row 1-->
@@ -25,7 +35,7 @@
             <!--End row 1-->
         </form>
 
-        <form class="form-horizontal formValidate" name="billFrm" id="billFrm" ng-submit="onSubmitFrm()">
+        <form class="form-horizontal formValidate panel-nopadding" name="billFrm" id="billFrm" ng-submit="onSubmitFrm()">
 
             <input type="hidden" class="form-control" id="sendCustomerHidden" ng-model="item.sendCustomer">
             <input type="hidden" class="form-control" id="receiveCustomerHidden" ng-model="item.receiveCustomer">

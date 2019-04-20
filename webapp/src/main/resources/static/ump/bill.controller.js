@@ -131,4 +131,9 @@ UserWebApp.controller('BillController', function ($scope, $rootScope, HttpServic
   }
 
 
+  $scope.showGrid = false;
+  $rootScope.$on('showGrid', function (event, data) {
+    $scope.showGrid = data;
+  });
+
 });

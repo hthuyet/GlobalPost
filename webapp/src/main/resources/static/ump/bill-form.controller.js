@@ -160,6 +160,7 @@ UserWebApp.controller('BillFormController', function ($http, $rootScope, $scope,
       $scope.item.branchCreate = "";
       $scope.item.currentBranch = "";
       $scope.item.partnerId = "";
+
       $scope.item.employeeSend = "";
       $scope.item.employeeReceive = "";
       $scope.item.sendCustomer = "";
@@ -557,4 +558,18 @@ UserWebApp.controller('BillFormController', function ($http, $rootScope, $scope,
     $scope.billNo = data.item.billNo;
     $scope.onSearch();
   });
+
+
+  //Show/hide panel
+
+  $scope.enlarge = function () {
+    $rootScope.$broadcast('showGrid', false);
+  }
+
+  $scope.shrink = function () {
+    $rootScope.$broadcast('showGrid', true);
+  }
+
+
+
 });

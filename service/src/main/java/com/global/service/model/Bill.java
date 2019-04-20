@@ -231,4 +231,24 @@ public class Bill extends SsdcEntity<Long> {
     public void setPayType(int payType) {
         this.payType = payType;
     }
+
+    @Override
+    public Long getCreated() {
+        return created;
+    }
+
+    @Override
+    public void setCreated(Long created) {
+        this.created = created;
+    }
+
+    @Override
+    public Long getUpdated() {
+        return updated;
+    }
+
+    @Override
+    public void setUpdated(Long updated) {
+        this.updated = updated;
+    }
 }

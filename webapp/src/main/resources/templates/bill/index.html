@@ -16,9 +16,22 @@
             padding-right: 100px;
         }
 
-        .table > tbody > tr > td{
+        .table > tbody > tr > td {
             padding: 10px 5px;
             font-size: 12px;
+        }
+
+        .panel-nopadding * .panel-body {
+            padding: 0px 20px 0 20px !important;
+        }
+
+        .panel-nopadding * .form-group {
+            margin-bottom: 0px !important;
+        }
+
+        .panel-nopadding * .panel-heading {
+            padding-top: 0;
+            padding-bottom: 0;
         }
 
     </style>
@@ -40,7 +53,7 @@
             <div class="content-wrapper">
 
                 <div class="row">
-                    <div class="col-md-6">
+                    <div ng-show="showGrid" ng-class="{'col-md-6' : showGrid}">
                         <!-- Panel search -->
                         <div th:replace="bill/fragments/panel-search::panel-search"></div>
                         <!-- /panel search -->
@@ -85,28 +98,28 @@
                                         <td ng-if="item.currentBranchName != 'null'">{{item.currentBranchName}}</td>
                                         <!--<td class="text-center">{{item.receiveDate | dateTimeFormat }}</td>-->
                                         <!--<td class="text-center"-->
-                                            <!--ng-class="{init: item.billState == '0',process: item.billState == '1',finish: item.billState == '2',hasError: item.billState == '3',deleted: item.billState == '4'}">-->
-                                    <!--<span ng-switch="item.billState">-->
+                                        <!--ng-class="{init: item.billState == '0',process: item.billState == '1',finish: item.billState == '2',hasError: item.billState == '3',deleted: item.billState == '4'}">-->
+                                        <!--<span ng-switch="item.billState">-->
                                         <!--<span ng-switch-when="0" th:text="#{bill.billState.0}"></span>-->
                                         <!--<span ng-switch-when="1" th:text="#{bill.billState.1}"></span>-->
                                         <!--<span ng-switch-when="2" th:text="#{bill.billState.2}"></span>-->
                                         <!--<span ng-switch-when="3" th:text="#{bill.billState.3}"></span>-->
                                         <!--<span ng-switch-when="4" th:text="#{bill.billState.4}"></span>-->
-                                    <!--</span>-->
+                                        <!--</span>-->
                                         <!--</td>-->
                                         <!--<td class="text-center">-->
-                                            <!--<ul class="icons-list">-->
-                                                <!--<li>-->
-                                                    <!--<a href="/bill/edit/{{item.id}}" th:title="#{subscriber.btn.edit}">-->
-                                                        <!--<span class="icon-pencil7"></span>-->
-                                                    <!--</a>-->
-                                                <!--</li>-->
-                                                <!--<li>-->
-                                                    <!--<a ng-click="onDelete(item.id)" th:title="#{common.btn.delete}">-->
-                                                        <!--<span class="icon-trash"></span>-->
-                                                    <!--</a>-->
-                                                <!--</li>-->
-                                            <!--</ul>-->
+                                        <!--<ul class="icons-list">-->
+                                        <!--<li>-->
+                                        <!--<a href="/bill/edit/{{item.id}}" th:title="#{subscriber.btn.edit}">-->
+                                        <!--<span class="icon-pencil7"></span>-->
+                                        <!--</a>-->
+                                        <!--</li>-->
+                                        <!--<li>-->
+                                        <!--<a ng-click="onDelete(item.id)" th:title="#{common.btn.delete}">-->
+                                        <!--<span class="icon-trash"></span>-->
+                                        <!--</a>-->
+                                        <!--</li>-->
+                                        <!--</ul>-->
                                         <!--</td>-->
                                     </tr>
                                     </tbody>
@@ -162,7 +175,7 @@
                     </div>
 
 
-                    <div class="col-md-6">
+                    <div ng-class="{'col-md-6' : showGrid,'col-md-12' : !showGrid}">
                         <div th:replace="bill/fragments/form::form"></div>
                     </div>
                 </div>

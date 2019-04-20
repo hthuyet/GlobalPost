@@ -26,6 +26,7 @@ import io.swagger.annotations.ExampleProperty;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -265,15 +266,30 @@ public class BillEndPoint {
   public Response getByCode(@PathParam("code") String code) {
     try {
       logger.info(String.format("getByCode : %s", code));
-      BillResponse entity = billService.getByCode(code);
-      if (entity != null && entity.getId() > 0) {
-        return Response.ok().entity(entity).build();
+
+      if (code.contains(";") || code.contains("-")) {
+        HashMap<String, String> listCode = Utils.createListCode(code);
+        List<BillResponse> lst = billService.getByListCode(listCode);
+        if (lst != null && lst.size() == listCode.size()) {
+          return Response.ok().entity(lst).build();
+        } else {
+          JsonObject json = new JsonObject();
+          json.addProperty("status", ActionResult.FAILURE1_CODE);
+          json.addProperty("message", "Bill not found.");
+          return Response.serverError().entity(json.toString()).build();
+        }
       } else {
-        JsonObject json = new JsonObject();
-        json.addProperty("status", ActionResult.FAILURE1_CODE);
-        json.addProperty("message", "Bill not found.");
-        return Response.serverError().entity(json.toString()).build();
+        BillResponse entity = billService.getByCode(code);
+        if (entity != null && entity.getId() > 0) {
+          return Response.ok().entity(entity).build();
+        } else {
+          JsonObject json = new JsonObject();
+          json.addProperty("status", ActionResult.FAILURE1_CODE);
+          json.addProperty("message", "Bill not found.");
+          return Response.serverError().entity(json.toString()).build();
+        }
       }
+
     } catch (Exception ex) {
       JsonObject json = new JsonObject();
       json.addProperty("status", ActionResult.FAILURE1_CODE);
@@ -324,7 +340,15 @@ public class BillEndPoint {
   @ApiResponse(code = 200, message = "success")
   public Response save(@RequestBody BillForm billParameter) {
     try {
-      return Response.ok().entity(billService.save(billParameter)).build();
+
+      Bill entity = null;
+      String code = billParameter.billNo;
+      if((billParameter.id == null || billParameter.id <= 0) && (code.contains(";") || code.contains("-"))){
+        entity = billService.createMultiBill(billParameter);
+      }else{
+        entity = billService.save(billParameter);
+      }
+      return Response.ok().entity(entity).build();
     } catch (Exception ex) {
       JsonObject json = new JsonObject();
       json.addProperty("status", ActionResult.FAILURE1);
