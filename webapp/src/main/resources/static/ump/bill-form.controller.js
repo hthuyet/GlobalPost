@@ -78,6 +78,16 @@ UserWebApp.controller('BillFormController', function ($http, $rootScope, $scope,
           $scope.senderDateTime = convertToDateTime($scope.item.sendDate,$scope.item.sendTime);
           $scope.receiverDateTime = convertToDateTime($scope.item.receiveDate,$scope.item.receiveTime);
 
+          //Set employee
+          $scope.employeeSendSelected = {
+            "id": $scope.item.employeeSend,
+            "fullName": $scope.item.employeeSendName
+          };
+          $scope.employeeReceiveSelected = {
+            "id": $scope.item.employeeReceive,
+            "fullName": $scope.item.employeeReceiveName
+          };
+
           $scope.testFrm();
           common.spinner(false);
         }, 1000);
@@ -118,8 +128,9 @@ UserWebApp.controller('BillFormController', function ($http, $rootScope, $scope,
         $scope.item.isCod = "0";
         $scope.item.saveSender = "0";
         $scope.item.saveReceiver = "0";
-        $scope.item.employeeSend = "0";
-        $scope.item.employeeReceive = "0";
+
+        // $scope.item.employeeSend = "0";
+        // $scope.item.employeeReceive = "0";
 
         $scope.asyncSelected = {
           "id": "",
@@ -180,8 +191,9 @@ UserWebApp.controller('BillFormController', function ($http, $rootScope, $scope,
       $scope.item.isCod = "0";
       $scope.item.saveSender = "0";
       $scope.item.saveReceiver = "0";
-      $scope.item.employeeSend = "0";
-      $scope.item.employeeReceive = "0";
+
+      // $scope.item.employeeSend = "0";
+      // $scope.item.employeeReceive = "0";
 
       $scope.asyncSelected = {
         "id": "",
@@ -196,6 +208,7 @@ UserWebApp.controller('BillFormController', function ($http, $rootScope, $scope,
         "mobile": "",
         "address": ""
       };
+
       $scope.senderDateTime = new Date();
       $scope.receiverDateTime = new Date();
     }

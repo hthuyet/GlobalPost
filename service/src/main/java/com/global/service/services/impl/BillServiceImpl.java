@@ -61,7 +61,9 @@ public class BillServiceImpl implements BillService {
       + "h.`branch_name` as `h_branch_name`,\n"
       + "i.`branch_name` as `i_branch_name`,\n"
       + "j.`part_name`, "
-      + "d.`pay_type` "
+      + "d.`pay_type`, "
+      + "k.`full_name` as sendEmploy, "
+      + "l.`full_name` as recvEmploy "
       + "FROM bill d\n"
       + "LEFT JOIN bill_send e\n"
       + "ON d.`id` = e.`bill_id`\n"
@@ -75,6 +77,10 @@ public class BillServiceImpl implements BillService {
       + "ON d.`current_branch` = i.`id`\n"
       + "LEFT JOIN `partner` j\n"
       + "ON d.`partner_id` = j.`id`\n"
+      + "LEFT JOIN `employee` k\n"
+      + "ON d.`employee_send` = k.`id`\n"
+      + "LEFT JOIN `employee` l\n"
+      + "ON d.`employee_receive` = l.`id`\n"
       + "WHERE 1 = 1 AND d.`bill_state` != 5 ";
 
   private static final String SQL_COUNT_BY_QUERY = "SELECT count(d.`id`)\n"
@@ -269,6 +275,16 @@ public class BillServiceImpl implements BillService {
     tmp = objects[i++];
     if (tmp != null) {
       obj.setPayType(Integer.parseInt(String.valueOf(tmp)));
+    }
+
+    tmp = objects[i++];
+    if (tmp != null && !"null".equalsIgnoreCase(String.valueOf(tmp))) {
+      obj.setEmployeeSendName(String.valueOf(tmp));
+    }
+
+    tmp = objects[i++];
+    if (tmp != null && !"null".equalsIgnoreCase(String.valueOf(tmp))) {
+      obj.setEmployeeReceiveName(String.valueOf(tmp));
     }
     return obj;
   }
@@ -513,9 +529,9 @@ public class BillServiceImpl implements BillService {
     obj.setWhoPay(bill.whoPay);
     obj.setBranchCreate(bill.branchCreate);
 
-    if(bill.currentBranch != null && bill.currentBranch > 0){
+    if (bill.currentBranch != null && bill.currentBranch > 0) {
       obj.setCurrentBranch(bill.currentBranch);
-    }else{
+    } else {
       obj.setCurrentBranch(bill.branchCreate);
     }
 
@@ -665,9 +681,9 @@ public class BillServiceImpl implements BillService {
       obj.setWhoPay(bill.whoPay);
       obj.setBranchCreate(bill.branchCreate);
 
-      if(bill.currentBranch != null && bill.currentBranch > 0){
+      if (bill.currentBranch != null && bill.currentBranch > 0) {
         obj.setCurrentBranch(bill.currentBranch);
-      }else{
+      } else {
         obj.setCurrentBranch(bill.branchCreate);
       }
 

@@ -51,6 +51,25 @@ public class BillResponse {
     private String partnerName;
     private int payType;
 
+    private String employeeSendName;
+    private String employeeReceiveName;
+
+    public String getEmployeeSendName() {
+        return employeeSendName;
+    }
+
+    public void setEmployeeSendName(String employeeSendName) {
+        this.employeeSendName = employeeSendName;
+    }
+
+    public String getEmployeeReceiveName() {
+        return employeeReceiveName;
+    }
+
+    public void setEmployeeReceiveName(String employeeReceiveName) {
+        this.employeeReceiveName = employeeReceiveName;
+    }
+
     public Long getId() {
         return id;
     }
